@@ -29,7 +29,7 @@ public class HelloWorldTest {
                 get("/")
         )
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().is5xxServerError());
 
         expect.andExpect(content().string("Hello World"));
     }
