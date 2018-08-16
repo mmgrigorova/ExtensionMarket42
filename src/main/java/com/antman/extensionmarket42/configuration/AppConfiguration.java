@@ -1,6 +1,10 @@
 package com.antman.extensionmarket42.configuration;
 
+import com.antman.extensionmarket42.models.Extension;
+import com.antman.extensionmarket42.models.User;
+import com.antman.extensionmarket42.models.UserRole;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +21,16 @@ import java.beans.PropertyVetoException;
 public class AppConfiguration {
     @Autowired
     private Environment environment;
+
+    @Bean
+    public SessionFactory createSessionFactory() {
+        return new org.hibernate.cfg.Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(User.class)
+                .addAnnotatedClass(Extension.class)
+                .addAnnotatedClass(UserRole.class)
+                .buildSessionFactory();
+    }
 
     @Bean
     public DataSource securityDataSource(){

@@ -9,4 +9,9 @@ public class helloworld {
     public String helloWorld(){
         return "Hello World";
     }
+
+    @GetMapping("/developer")
+    public String showDeveloperSpace(){
+        return "Hello World";
+    }
 }
