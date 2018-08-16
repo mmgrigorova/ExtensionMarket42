@@ -1,5 +1,9 @@
 package com.antman.extensionmarket42.controllers;
 
+import com.antman.extensionmarket42.Extensionmarket42Application;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +19,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = Extensionmarket42Application.class)
 @AutoConfigureMockMvc
 public class HelloWorldTest {
     private String hello;
 
     @Autowired
+    private SessionFactory factory;
+
+    @Autowired
     MockMvc mockMvc;
+
+    @Before
+    public void setup() throws InterruptedException {
+        Session session = factory.openSession();
+        session.close();
+    }
 
     @Test
     public void helloWorld_whenHello_shouldStatus200() throws Exception {
