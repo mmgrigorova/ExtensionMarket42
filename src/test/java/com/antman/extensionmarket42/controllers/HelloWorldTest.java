@@ -21,29 +21,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Extensionmarket42Application.class)
+//@SpringBootTest(classes = Extensionmarket42Application.class)
 @AutoConfigureMockMvc
+@SpringBootTest(classes = {Extensionmarket42Application.class}
+        , webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+        , properties="spring.configuration.exclude=com.antman.extensionmarket42.configuration.AppConfiguration"
+)
 public class HelloWorldTest {
     private String hello;
 
-    // Build is failing with other tests so temporarily disabling
-    @Test
-    public void doNothing(){
 
+    @Autowired
+    MockMvc mockMvc;
+
+
+    @Test
+    public void helloWorld_whenHello_shouldStatus200() throws Exception {
+        ResultActions expect = mockMvc.perform(
+                get("/helloworld")
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        expect.andExpect(content().string("Hello World"));
     }
-//
-//    @Autowired
-//    MockMvc mockMvc;
-//
-//
-//    @Test
-//    public void helloWorld_whenHello_shouldStatus200() throws Exception {
-//        ResultActions expect = mockMvc.perform(
-//                get("/helloworld")
-//        )
-//                .andDo(print())
-//                .andExpect(status().isOk());
-//
-//        expect.andExpect(content().string("Hello World"));
-//    }
 }
