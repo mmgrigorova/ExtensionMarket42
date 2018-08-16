@@ -30,20 +30,20 @@ public class HelloWorldTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Before
-    public void setup() throws InterruptedException {
-        Session session = factory.openSession();
-        session.close();
-    }
-
-    @Test
-    public void helloWorld_whenHello_shouldStatus200() throws Exception {
-        ResultActions expect = mockMvc.perform(
-                get("/helloworld")
-        )
-                .andDo(print())
-                .andExpect(status().isOk());
-
-        expect.andExpect(content().string("Hello World"));
-    }
+//    @Before
+//    public void setup() throws InterruptedException {
+//        Session session = factory.openSession();
+//        session.close();
+//    }
+//
+//    @Test
+//    public void helloWorld_whenHello_shouldStatus200() throws Exception {
+//        ResultActions expect = mockMvc.perform(
+//                get("/helloworld")
+//        )
+//                .andDo(print())
+//                .andExpect(status().isOk());
+//
+//        expect.andExpect(content().string("Hello World"));
+//    }
 }
