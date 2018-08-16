@@ -22,15 +22,15 @@ public class AppConfiguration {
     @Autowired
     private Environment environment;
 
-    @Bean
-    public SessionFactory createSessionFactory() {
-        return new org.hibernate.cfg.Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(User.class)
-                .addAnnotatedClass(Extension.class)
-                .addAnnotatedClass(UserRole.class)
-                .buildSessionFactory();
-    }
+//    @Bean
+//    public SessionFactory createSessionFactory() {
+//        return new org.hibernate.cfg.Configuration()
+//                .configure("hibernate.cfg.xml")
+//                .addAnnotatedClass(User.class)
+//                .addAnnotatedClass(Extension.class)
+//                .addAnnotatedClass(UserRole.class)
+//                .buildSessionFactory();
+//    }
 
     @Bean
     public DataSource securityDataSource(){
