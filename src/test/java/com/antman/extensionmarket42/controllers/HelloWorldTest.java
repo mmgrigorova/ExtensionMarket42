@@ -26,10 +26,10 @@ public class HelloWorldTest {
     @Test
     public void helloWorld_whenHello_shouldStatus200() throws Exception {
         ResultActions expect = mockMvc.perform(
-                get("/")
+                get("/helloworld")
         )
                 .andDo(print())
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().isOk());
 
         expect.andExpect(content().string("Hello World"));
     }
