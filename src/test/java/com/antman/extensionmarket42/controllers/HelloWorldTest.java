@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,22 +23,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Extensionmarket42Application.class)
 @AutoConfigureMockMvc
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 public class HelloWorldTest {
     private String hello;
 
 
-//    @Autowired
-//    MockMvc mockMvc;
+    @Autowired
+    MockMvc mockMvc;
 
-//
-//    @Test
-//    public void helloWorld_whenHello_shouldStatus200() throws Exception {
-//        ResultActions expect = mockMvc.perform(
-//                get("/helloworld")
-//        )
-//                .andDo(print())
-//                .andExpect(status().isOk());
-//
-//        expect.andExpect(content().string("Hello World"));
-//    }
+
+    @Test
+    public void helloWorld_whenHello_shouldStatus200() throws Exception {
+        ResultActions expect = mockMvc.perform(
+                get("/helloworld")
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        expect.andExpect(content().string("Hello World"));
+    }
 }
