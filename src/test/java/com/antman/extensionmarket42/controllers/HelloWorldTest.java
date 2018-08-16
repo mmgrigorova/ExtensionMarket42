@@ -24,17 +24,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class HelloWorldTest {
     private String hello;
 
-    @Autowired
-    private SessionFactory factory;
 
-    @Autowired
-    MockMvc mockMvc;
+//    @Autowired
+//    MockMvc mockMvc;
 
-//    @Before
-//    public void setup() throws InterruptedException {
-//        Session session = factory.openSession();
-//        session.close();
-//    }
 //
 //    @Test
 //    public void helloWorld_whenHello_shouldStatus200() throws Exception {
