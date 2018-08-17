@@ -1,8 +1,6 @@
 package com.antman.extensionmarket42.configuration;
 
-import com.antman.extensionmarket42.models.Extension;
-import com.antman.extensionmarket42.models.User;
-import com.antman.extensionmarket42.models.UserRole;
+import com.antman.extensionmarket42.models.*;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +27,9 @@ public class AppConfiguration {
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Extension.class)
                 .addAnnotatedClass(UserRole.class)
+                .addAnnotatedClass(UserProfile.class)
+                .addAnnotatedClass(Tag.class)
+                .addAnnotatedClass(ExtensionTag.class)
                 .buildSessionFactory();
     }
 
@@ -44,7 +45,7 @@ public class AppConfiguration {
 
         securityDataSource.setJdbcUrl(environment.getProperty("database.url"));
         securityDataSource.setUser(environment.getProperty("database.username"));
-        securityDataSource.setPassword(environment.getProperty("databate.password"));
+        securityDataSource.setPassword(environment.getProperty("database.password"));
 
         securityDataSource.setInitialPoolSize(Integer.parseInt(environment.getProperty("connection.initialPoolSize")));
         securityDataSource.setMinPoolSize(Integer.parseInt(environment.getProperty("connection.maxPoolSize")));

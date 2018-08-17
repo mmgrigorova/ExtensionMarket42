@@ -1,4 +1,4 @@
-package com.antman.extensionmarket42.repositories;
+package com.antman.extensionmarket42.repositories.base;
 
 import java.util.List;
 
@@ -7,5 +7,6 @@ public interface GenericRepository<T> {
     void add(T entity);
     void remove(T entity);
     void update(T entity);
-    <T> T getById(int id);
+    T getById(int id);
+
 }

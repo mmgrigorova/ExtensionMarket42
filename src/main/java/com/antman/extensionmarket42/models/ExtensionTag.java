@@ -1,12 +1,15 @@
 package com.antman.extensionmarket42.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "extension_tags")
 public class ExtensionTag {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @Column
     private int extensionId;
     @Column
