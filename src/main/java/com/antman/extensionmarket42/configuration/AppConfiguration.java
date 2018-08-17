@@ -1,8 +1,8 @@
 package com.antman.extensionmarket42.configuration;
 
-import com.antman.extensionmarket42.models.Extension;
-import com.antman.extensionmarket42.models.User;
-import com.antman.extensionmarket42.models.UserRole;
+import com.antman.extensionmarket42.extensions.models.Extension;
+import com.antman.extensionmarket42.users.models.User;
+import com.antman.extensionmarket42.users.models.UserRole;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
