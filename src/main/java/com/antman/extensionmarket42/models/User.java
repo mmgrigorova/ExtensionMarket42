@@ -14,9 +14,12 @@ public class User {
   @Column
   private int enabled;
 
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "username")
-  private UserProfile userProfile;
+  //@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  //@JoinColumn(name = "username")
+  //private UserRole userRole;
+
+  //@OneToOne(mappedBy = "user")
+  //private UserProfile userProfile;
 
   public User(){
   }
@@ -46,4 +49,19 @@ public class User {
     this.enabled = enabled;
   }
 
+//  public UserRole getUserRole() {
+//    return userRole;
+//  }
+//
+//  public void setUserRole(UserRole userRole) {
+//    this.userRole = userRole;
+//  }
+
+//  public UserProfile getUserProfile() {
+//    return userProfile;
+//  }
+//
+//  public void setUserProfile(UserProfile userProfile) {
+//    this.userProfile = userProfile;
+//  }
 }

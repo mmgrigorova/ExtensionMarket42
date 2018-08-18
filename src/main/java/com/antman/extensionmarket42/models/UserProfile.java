@@ -19,8 +19,9 @@ public class UserProfile {
     @Column
     private String email;
 
-    @OneToOne(mappedBy = "userProfile")
-    private User user;
+    //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "email")
+    //private User user;
 
     @OneToMany(mappedBy = "userProfile")
     private List<Extension> extensions;
@@ -61,13 +62,13 @@ public class UserProfile {
         this.email = email;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public List<Extension> getExtensions() {
         return extensions;

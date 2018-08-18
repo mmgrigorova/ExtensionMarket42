@@ -20,8 +20,8 @@ public class addController {
     public String addExtension(){
         Date date = new Date(1987,4,12);
 
-        Extension ex = new Extension("name","descr","ver",1,"link","repolink",0,1,date,1,true,"casd");
-        extensionService.save(ex);
+       Extension ex = new Extension("name","descr","ver 1",0,"link","repo",0,0,date);
+       extensionService.save(ex);
         return "add extension";
     }
 }

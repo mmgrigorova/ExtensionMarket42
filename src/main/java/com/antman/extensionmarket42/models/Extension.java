@@ -58,6 +58,17 @@ public class Extension {
   public Extension() {
   }
 
+  public Extension(String name, String description, String version, int downloadsCount, String downloadLink, String repoLink, int openIssues, int pullReq, Date lastCommit) {
+    this.name = name;
+    this.description = description;
+    this.version = version;
+    this.downloadsCount = downloadsCount;
+    this.downloadLink = downloadLink;
+    this.repoLink = repoLink;
+    this.openIssues = openIssues;
+    this.pullReq = pullReq;
+    this.lastCommit = lastCommit;
+  }
 
   public int getId() {
     return id;

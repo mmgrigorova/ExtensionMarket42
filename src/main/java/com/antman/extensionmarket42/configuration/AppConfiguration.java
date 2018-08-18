@@ -33,6 +33,7 @@ public class AppConfiguration {
                 .addAnnotatedClass(UserProfile.class)
                 .addAnnotatedClass(Tag.class)
                 .addAnnotatedClass(ExtensionTag.class)
+                .addAnnotatedClass(Screenshot.class)
                 .buildSessionFactory();
     }
 
