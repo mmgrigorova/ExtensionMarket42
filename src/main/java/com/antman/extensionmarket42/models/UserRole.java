@@ -12,14 +12,14 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userRoleId;
 
-    @Column
+    @Column()
     private String username;
 
     @Column
     private Role role;
 
-    //@OneToMany(mappedBy = "userRole")
-    //private List<User> users;
+    @OneToMany(mappedBy = "userRole")
+    private List<User> users;
 
     public UserRole(){
     }
@@ -49,11 +49,11 @@ public class UserRole {
         this.role = role;
     }
 
-//    public List<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(List<User> users) {
-//        this.users = users;
-//    }
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }

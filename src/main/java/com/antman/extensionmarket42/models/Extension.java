@@ -40,7 +40,7 @@ public class Extension {
   private Date lastCommit;
 
   @OneToMany(mappedBy = "extension")
-  List<ExtensionTag> extensionTags;
+  private List<ExtensionTag> extensionTags;
 
   @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   @JoinColumn(name = "ownerId")

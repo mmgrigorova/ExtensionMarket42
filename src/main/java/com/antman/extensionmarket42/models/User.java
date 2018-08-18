@@ -6,20 +6,19 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
-  @Id
-  @Column
+  @Id()
   private String username;
   @Column
   private String password;
   @Column
   private int enabled;
 
-  //@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-  //@JoinColumn(name = "username")
-  //private UserRole userRole;
+  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @JoinColumn(name = "username" ,insertable = false, updatable = false)
+  private UserRole userRole;
 
-  //@OneToOne(mappedBy = "user")
-  //private UserProfile userProfile;
+  @OneToOne(mappedBy = "user")
+  private UserProfile userProfile;
 
   public User(){
   }
@@ -49,19 +48,19 @@ public class User {
     this.enabled = enabled;
   }
 
-//  public UserRole getUserRole() {
-//    return userRole;
-//  }
-//
-//  public void setUserRole(UserRole userRole) {
-//    this.userRole = userRole;
-//  }
+  public UserRole getUserRole() {
+    return userRole;
+  }
 
-//  public UserProfile getUserProfile() {
-//    return userProfile;
-//  }
-//
-//  public void setUserProfile(UserProfile userProfile) {
-//    this.userProfile = userProfile;
-//  }
+  public void setUserRole(UserRole userRole) {
+    this.userRole = userRole;
+  }
+
+  public UserProfile getUserProfile() {
+    return userProfile;
+  }
+
+  public void setUserProfile(UserProfile userProfile) {
+    this.userProfile = userProfile;
+  }
 }
