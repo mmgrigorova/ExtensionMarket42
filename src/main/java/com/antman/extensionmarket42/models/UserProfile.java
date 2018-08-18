@@ -1,6 +1,7 @@
 package com.antman.extensionmarket42.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user_profiles")
@@ -18,14 +19,15 @@ public class UserProfile {
     @Column
     private String email;
 
+    @OneToOne(mappedBy = "userProfile")
+    private User user;
+
+    @OneToMany(mappedBy = "userProfile")
+    private List<Extension> extensions;
+
     public UserProfile(){
     }
 
-    public UserProfile(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
 
     public int getUserId() {
         return userId;
@@ -57,5 +59,21 @@ public class UserProfile {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Extension> getExtensions() {
+        return extensions;
+    }
+
+    public void setExtensions(List<Extension> extensions) {
+        this.extensions = extensions;
     }
 }

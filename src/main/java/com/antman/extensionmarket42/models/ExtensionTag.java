@@ -10,27 +10,38 @@ public class ExtensionTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
-    private int extensionId;
-    @Column
-    private int tagId;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "extensionId")
+    private Extension extension;
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "tagId")
+    private Tag tag;
 
     public ExtensionTag(){
     }
 
-    public int getExtensionId() {
-        return extensionId;
+    public int getId() {
+        return id;
     }
 
-    public void setExtensionId(int extensionId) {
-        this.extensionId = extensionId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getTagId() {
-        return tagId;
+    public Extension getExtension() {
+        return extension;
     }
 
-    public void setTagId(int tagId) {
-        this.tagId = tagId;
+    public void setExtension(Extension extension) {
+        this.extension = extension;
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 }

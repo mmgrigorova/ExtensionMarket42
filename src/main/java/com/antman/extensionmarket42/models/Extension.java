@@ -2,6 +2,7 @@ package com.antman.extensionmarket42.models;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "extensions")
@@ -38,8 +39,15 @@ public class Extension {
   @Column
   private Date lastCommit;
 
-  @Column
-  private int ownerId;
+  @OneToMany(mappedBy = "extension")
+  List<ExtensionTag> extensionTags;
+
+  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @JoinColumn(name = "ownerId")
+  private UserProfile userProfile;
+
+  @OneToMany(mappedBy = "extension")
+  private List<Screenshot> screenshots;
 
   @Column
   private boolean pending;
@@ -49,6 +57,7 @@ public class Extension {
 
   public Extension() {
   }
+
 
   public int getId() {
     return id;
@@ -130,13 +139,6 @@ public class Extension {
     this.lastCommit = lastCommit;
   }
 
-  public int getOwnerId() {
-    return ownerId;
-  }
-
-  public void setOwnerId(int ownerId) {
-    this.ownerId = ownerId;
-  }
 
   public boolean isPending() {
     return pending;
@@ -152,5 +154,29 @@ public class Extension {
 
   public void setIcon(String icon) {
     this.icon = icon;
+  }
+
+  public List<ExtensionTag> getExtensionTags() {
+    return extensionTags;
+  }
+
+  public void setExtensionTags(List<ExtensionTag> extensionTags) {
+    this.extensionTags = extensionTags;
+  }
+
+  public UserProfile getUserProfile() {
+    return userProfile;
+  }
+
+  public void setUserProfile(UserProfile userProfile) {
+    this.userProfile = userProfile;
+  }
+
+  public List<Screenshot> getScreenshots() {
+    return screenshots;
+  }
+
+  public void setScreenshots(List<Screenshot> screenshots) {
+    this.screenshots = screenshots;
   }
 }

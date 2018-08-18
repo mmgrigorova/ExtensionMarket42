@@ -14,15 +14,13 @@ public class User {
   @Column
   private int enabled;
 
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "username")
+  private UserProfile userProfile;
+
   public User(){
-
   }
 
-  public User(String username, String password, int enabled) {
-    this.username = username;
-    this.password = password;
-    this.enabled = enabled;
-  }
 
   public String getUsername() {
     return username;

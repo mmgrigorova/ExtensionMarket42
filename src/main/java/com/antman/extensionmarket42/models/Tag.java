@@ -1,6 +1,7 @@
 package com.antman.extensionmarket42.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tags")
@@ -13,12 +14,12 @@ public class Tag {
     @Column
     private String tagTitle;
 
+    @OneToMany(mappedBy = "tag")
+    List<ExtensionTag> extensionTags;
+
     public Tag(){
     }
 
-    public Tag(String tagTitle) {
-        this.tagTitle = tagTitle;
-    }
 
     public int getTagId() {
         return tagId;
@@ -34,5 +35,13 @@ public class Tag {
 
     public void setTagTitle(String tagTitle) {
         this.tagTitle = tagTitle;
+    }
+
+    public List<ExtensionTag> getExtensionTags() {
+        return extensionTags;
+    }
+
+    public void setExtensionTags(List<ExtensionTag> extensionTags) {
+        this.extensionTags = extensionTags;
     }
 }

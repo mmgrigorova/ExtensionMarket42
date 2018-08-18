@@ -9,14 +9,14 @@ public class Screenshot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int imageId;
 
-    @Column
-    private int extensionId;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "extensionId")
+    private Extension extension;
 
     @Column
     private String imagePath;
 
     public Screenshot(){
-
     }
 
     public int getImageId() {
@@ -27,19 +27,19 @@ public class Screenshot {
         this.imageId = imageId;
     }
 
-    public int getExtensionId() {
-        return extensionId;
-    }
-
-    public void setExtensionId(int extensionId) {
-        this.extensionId = extensionId;
-    }
-
     public String getImagePath() {
         return imagePath;
     }
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public Extension getExtension() {
+        return extension;
+    }
+
+    public void setExtension(Extension extension) {
+        this.extension = extension;
     }
 }

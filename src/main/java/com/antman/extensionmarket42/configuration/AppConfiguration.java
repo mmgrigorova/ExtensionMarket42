@@ -3,11 +3,14 @@ package com.antman.extensionmarket42.configuration;
 import com.antman.extensionmarket42.models.*;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 
@@ -61,4 +64,16 @@ public class AppConfiguration {
         jdbcUserDetailsManager.setDataSource(securityDataSource());
         return jdbcUserDetailsManager;
     }
+
+    @Primary
+    @Bean(name="entityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean() {
+        LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
+        lcemfb.setDataSource(securityDataSource());
+        lcemfb.setPackagesToScan("com.antman.extensionmarket42.models");
+        lcemfb.setPersistenceProvider(new HibernatePersistenceProvider());
+        return lcemfb;
+    }
+
+
 }
