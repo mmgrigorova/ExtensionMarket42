@@ -1,6 +1,6 @@
 package com.antman.extensionmarket42.services.ExtensionServices.base;
 
-import com.antman.extensionmarket42.models.Extension;
+import com.antman.extensionmarket42.extensions.models.Extension;
 
 public interface ExtensionService {
     Extension getById(long id);

@@ -1,4 +1,6 @@
-package com.antman.extensionmarket42.models;
+package com.antman.extensionmarket42.extensions.models;
+
+import com.antman.extensionmarket42.extensions.models.Extension;
 
 import javax.persistence.*;
 

@@ -1,5 +1,7 @@
 package com.antman.extensionmarket42.models;
 
+import com.antman.extensionmarket42.extensions.models.Extension;
+
 import javax.persistence.*;
 import java.util.List;
 

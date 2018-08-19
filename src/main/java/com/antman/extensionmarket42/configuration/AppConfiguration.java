@@ -1,5 +1,9 @@
 package com.antman.extensionmarket42.configuration;
 
+import com.antman.extensionmarket42.extensions.models.Extension;
+import com.antman.extensionmarket42.extensions.models.ExtensionTag;
+import com.antman.extensionmarket42.extensions.models.Screenshot;
+import com.antman.extensionmarket42.extensions.models.Tag;
 import com.antman.extensionmarket42.models.*;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
@@ -27,13 +31,13 @@ public class AppConfiguration {
     public SessionFactory createSessionFactory() {
         return new org.hibernate.cfg.Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Extension.class)
-                .addAnnotatedClass(UserRole.class)
-                .addAnnotatedClass(UserProfile.class)
-                .addAnnotatedClass(Tag.class)
                 .addAnnotatedClass(ExtensionTag.class)
                 .addAnnotatedClass(Screenshot.class)
+                .addAnnotatedClass(Tag.class)
+                .addAnnotatedClass(User.class)
+                .addAnnotatedClass(UserProfile.class)
+                .addAnnotatedClass(UserRole.class)
                 .buildSessionFactory();
     }
 
@@ -71,7 +75,8 @@ public class AppConfiguration {
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
         lcemfb.setDataSource(securityDataSource());
-        lcemfb.setPackagesToScan("com.antman.extensionmarket42.models");
+        lcemfb.setPackagesToScan("com.antman.extensionmarket42.models",
+                "com.antman.extensionmarket42.extensions.models");
         lcemfb.setPersistenceProvider(new HibernatePersistenceProvider());
         return lcemfb;
     }
