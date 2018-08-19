@@ -3,9 +3,6 @@ package com.antman.extensionmarket42.web;
 import com.antman.extensionmarket42.models.User;
 import com.antman.extensionmarket42.services.UserServices.base.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +15,6 @@ import javax.validation.Valid;
 @Controller
 public class RegistrationController {
     private UserRegistrationService userRegistrationService;
-
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     public RegistrationController(UserRegistrationService userRegistrationService) {
@@ -49,6 +44,8 @@ public class RegistrationController {
             model.addAttribute("user", "This username is already taken.");
             return "register";
         }
+
+       userRegistrationService.createUser(user);
 
         return "register-confirmation";
     }

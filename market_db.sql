@@ -23,6 +23,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `enabled` int(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `market_db`.`users` 
+CHANGE COLUMN `password` `password` VARCHAR(60) NOT NULL ;
+
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.user_profiles
