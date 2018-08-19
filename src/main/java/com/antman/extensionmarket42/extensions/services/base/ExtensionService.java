@@ -1,4 +1,4 @@
-package com.antman.extensionmarket42.services.ExtensionServices.base;
+package com.antman.extensionmarket42.extensions.services.base;
 
 import com.antman.extensionmarket42.extensions.models.Extension;
 

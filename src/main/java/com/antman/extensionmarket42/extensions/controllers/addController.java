@@ -1,7 +1,7 @@
-package com.antman.extensionmarket42.controllers;
+package com.antman.extensionmarket42.extensions.controllers;
 
 import com.antman.extensionmarket42.extensions.models.Extension;
-import com.antman.extensionmarket42.services.ExtensionServices.base.ExtensionService;
+import com.antman.extensionmarket42.extensions.services.base.ExtensionService;
 import com.antman.extensionmarket42.services.UserServices.base.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
