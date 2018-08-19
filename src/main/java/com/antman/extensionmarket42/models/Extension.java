@@ -34,7 +34,7 @@ public class Extension {
   private int openIssues;
 
   @Column
-  private int pullReq;
+  private int pullRequests;
 
   @Column
   private Date lastCommit;
@@ -58,7 +58,7 @@ public class Extension {
   public Extension() {
   }
 
-  public Extension(String name, String description, String version, int downloadsCount, String downloadLink, String repoLink, int openIssues, int pullReq, Date lastCommit) {
+  public Extension(String name, String description, String version, int downloadsCount, String downloadLink, String repoLink, int openIssues, int pullRequests, Date lastCommit) {
     this.name = name;
     this.description = description;
     this.version = version;
@@ -66,7 +66,7 @@ public class Extension {
     this.downloadLink = downloadLink;
     this.repoLink = repoLink;
     this.openIssues = openIssues;
-    this.pullReq = pullReq;
+    this.pullRequests = pullRequests;
     this.lastCommit = lastCommit;
   }
 
@@ -134,12 +134,12 @@ public class Extension {
     this.openIssues = openIssues;
   }
 
-  public int getPullReq() {
-    return pullReq;
+  public int getPullRequests() {
+    return pullRequests;
   }
 
-  public void setPullReq(int pullReq) {
-    this.pullReq = pullReq;
+  public void setPullRequests(int pullReq) {
+    this.pullRequests = pullReq;
   }
 
   public Date getLastCommit() {
