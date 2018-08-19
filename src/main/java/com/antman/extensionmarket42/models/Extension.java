@@ -34,7 +34,7 @@ public class Extension {
   private int openIssues;
 
   @Column
-  private int pullReq;
+  private int pullRequests;
 
   @Column
   private Date lastCommit;
@@ -66,7 +66,7 @@ public class Extension {
     this.downloadLink = downloadLink;
     this.repoLink = repoLink;
     this.openIssues = openIssues;
-    this.pullReq = pullReq;
+    this.pullRequests = pullReq;
     this.lastCommit = lastCommit;
   }
 
@@ -135,11 +135,11 @@ public class Extension {
   }
 
   public int getPullReq() {
-    return pullReq;
+    return pullRequests;
   }
 
   public void setPullReq(int pullReq) {
-    this.pullReq = pullReq;
+    this.pullRequests = pullReq;
   }
 
   public Date getLastCommit() {
