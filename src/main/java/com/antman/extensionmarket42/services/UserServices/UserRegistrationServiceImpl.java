@@ -1,6 +1,7 @@
 package com.antman.extensionmarket42.services.UserServices;
 
 import com.antman.extensionmarket42.models.User;
+import com.antman.extensionmarket42.models.UserDto;
 import com.antman.extensionmarket42.repositories.base.UserRepository;
 import com.antman.extensionmarket42.services.UserServices.base.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,10 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     }
 
     @Override
-    public User createUser(User user) {
+    public User createUser(UserDto userDto) {
 
-        String username = user.getUsername();
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        String username = userDto.getEmail();
+        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
 
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
         org.springframework.security.core.userdetails.User newUser;
@@ -45,7 +46,8 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
         userDetailsManager.createUser(newUser);
 
-        return user;
+        //TODO
+        return null;
     }
 
     @Override

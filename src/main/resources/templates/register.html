@@ -13,43 +13,43 @@
 
 <h1>Registration form</h1>
 
-<i th:if="${registrationError != null}" th:text="${registrationError}" class="error"/>
+<i th:if="${registrationError != null}" th:text="${registrationError}" class="error">Error</i>
 
-<form action="/" th:object="${user}" method="POST" enctype="utf8">
+<form th:action="@{/register}" th:object="${userDto}" method="post" enctype="utf8">
     <div>
         <label>First Name
             <input th:field="*{firstname}"/>
         </label>
-        <p th:each="error: ${#fields.errors('firstname')}"
-           th:text="${error}">Validation error</p>
+        <!--<p th:each="error: ${#fields.errors('firstname')}"-->
+           <!--th:text="${error}">Validation error</p>-->
     </div>
     <div>
         <label>Last Name
             <input th:field="*{lastname}"/>
         </label>
-        <p th:each="error : ${#fields.errors('lastname')}"
-           th:text="${error}">Validation error</p>
+        <!--<p th:each="error : ${#fields.errors('lastname')}"-->
+           <!--th:text="${error}">Validation error</p>-->
     </div>
     <div>
         <label>Email
             <input type="email" th:field="*{email}"/>
         </label>
-        <p th:each="error : ${#fields.errors('email')}"
-           th:text="${error}">Validation error</p>
+        <!--<p th:each="error : ${#fields.errors('email')}"-->
+           <!--th:text="${error}">Validation error</p>-->
     </div>
     <div>
         <label>Password
             <input type="password" th:field="*{password}"/>
         </label>
-        <p th:each="error : ${#fields.errors('password')}"
-           th:text="${error}">Validation error</p>
+        <!--<p th:each="error : ${#fields.errors('password')}"-->
+           <!--th:text="${error}">Validation error</p>-->
     </div>
     <div>
         <label>Confirm Password
             <input type="password" th:field="*{matchingPassword}"/>
         </label>
     </div>
-    <button type="submit">Submit</button>
+    <input type="submit" value="Register"/>
 </form>
 
 <p>

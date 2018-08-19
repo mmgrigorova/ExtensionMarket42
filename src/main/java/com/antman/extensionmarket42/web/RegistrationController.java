@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 
@@ -25,28 +26,29 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String showRegistrationPage(Model model){
-        model.addAttribute("user", new UserDto());
+        model.addAttribute("userDto", new UserDto());
 
         return "register";
     }
 
-    @PostMapping("registerUser")
-    public String registerUser(@Valid @ModelAttribute("user") User user,
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("userDto") UserDto userDto,
+                               WebRequest request,
                                BindingResult bindingResult,
                                Model model){
         if(bindingResult.hasErrors()){
-            model.addAttribute("user", new UserDto());
+            model.addAttribute("userDto", new UserDto());
             model.addAttribute("registrationError", "Username/password cannot be empty.");
             return "register";
         }
 
-        if(userRegistrationService.checkUserExist(user.getUsername())){
-            model.addAttribute("user", new UserDto());
-            model.addAttribute("user", "This username is already taken.");
+        if(userRegistrationService.checkUserExist(userDto.getEmail())){
+            model.addAttribute("userDto", new UserDto());
+            model.addAttribute("error", "This username is already taken.");
             return "register";
         }
 
-       userRegistrationService.createUser(user);
+//       userRegistrationService.createUser(userDto);
 
         return "register-confirmation";
     }

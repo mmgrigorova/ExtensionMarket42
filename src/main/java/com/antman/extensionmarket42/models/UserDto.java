@@ -1,5 +1,6 @@
 package com.antman.extensionmarket42.models;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +20,7 @@ public class UserDto {
 
     @NotNull
     @NotEmpty
+    @Email
     private String email;
 
     public UserDto() {
