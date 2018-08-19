@@ -3,6 +3,7 @@ package com.antman.extensionmarket42.web;
 import com.antman.extensionmarket42.models.User;
 import com.antman.extensionmarket42.models.UserDto;
 import com.antman.extensionmarket42.services.UserServices.base.UserRegistrationService;
+import com.antman.extensionmarket42.utils.exceptions.EmailExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -32,24 +34,31 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("userDto") UserDto userDto,
+    public ModelAndView registerUser(@ModelAttribute("user") @Valid UserDto userDto,
                                WebRequest request,
                                BindingResult bindingResult,
                                Model model){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("userDto", new UserDto());
-            model.addAttribute("registrationError", "Username/password cannot be empty.");
-            return "register";
+        User registered = new User();
+
+        if(!bindingResult.hasErrors()){
+            registered = createUserAccount(userDto, bindingResult);
         }
 
-        if(userRegistrationService.checkUserExist(userDto.getEmail())){
-            model.addAttribute("userDto", new UserDto());
-            model.addAttribute("error", "This username is already taken.");
-            return "register";
+        if (registered == null){
+            return new ModelAndView("register", "userDto", userDto);
+        } else {
+            return new ModelAndView("register-confirmation", "userDto", userDto);
+        }
+    }
+
+    private User createUserAccount(UserDto userDto, BindingResult bindingResult){
+        User registered = null;
+        try{
+            registered = userRegistrationService.registerNewUserAccount(userDto);
+        } catch (EmailExistsException e){
+            return null;
         }
 
-//       userRegistrationService.createUser(userDto);
-
-        return "register-confirmation";
+        return registered;
     }
 }

@@ -37,5 +37,7 @@
             true
         </property>
 
+
+
     </session-factory>
 </hibernate-configuration>
