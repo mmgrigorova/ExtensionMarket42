@@ -14,36 +14,26 @@
 <p>Hello to the home page!</p>
 
 
-<p>
-    User:<span sec:authentication="name"></span>
-    <br />
-    Role(s):<span sec:authorize="hasRole('ROLE_DEV')" sec:authentication="principal.authorities"></span>
-    Role unsecured(s):<span sec:authorize="hasRole('DEV')" sec:authentication="principal.authorities"></span>
-</p>
-
 <div sec:authorize="isAuthenticated()">
-    Hi! <span th:text="${username}"></span>> This content is only shown to authenticated users.
+    Hi, user <span th:text="${username}"></span>! This content is only shown to authenticated users.
 </div>
 
 <a th:href="@{/login}"> Login </a>
 <br/>
 <a th:href="@{/register}"> New User </a>
 <br/>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
-</form>
+<div sec:authorize="isAuthenticated()">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
 
-<p sec:authorize="hasRole('ROLE_DEV')">
+<p sec:authorize="hasAuthority('DEV')">
     <a th:href="@{/developer}">Developer Portal</a>
 </p>
-<p sec:authorize="hasRole('DEV')">
-    <a th:href="@{/developer}">Developer Portal</a>
-</p>
-<p sec:authorize="hasRole('ROLE_ADMIN')">
+<p sec:authorize="hasAuthority('ADMIN')">
     <a th:href="@{/admin}">Admin Portal</a>
 </p>
-<p sec:authorize="hasAuthority('SITE_ADMIN')">
-    <a th:href="@{/admin}">Admin Portal</a>
-</p>
+
 </body>
 </html>
