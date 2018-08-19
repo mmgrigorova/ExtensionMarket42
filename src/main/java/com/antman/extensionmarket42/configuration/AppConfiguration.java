@@ -19,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -26,8 +28,13 @@ import java.beans.PropertyVetoException;
 @Configuration
 @PropertySource("classpath:application.properties")
 public class AppConfiguration {
+    private final Environment environment;
+
     @Autowired
-    private Environment environment;
+    public AppConfiguration(Environment environment) {
+        this.environment = environment;
+    }
+
 
     @Bean
     public SessionFactory createSessionFactory() {
