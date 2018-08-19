@@ -10,7 +10,7 @@ import java.util.List;
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userRoleId;
+    private Long userRoleId;
 
     @Column()
     private String username;
@@ -25,11 +25,11 @@ public class UserRole {
     }
 
 
-    public int getUserRoleId() {
+    public Long getUserRoleId() {
         return userRoleId;
     }
 
-    public void setUserRoleId(int userRoleId) {
+    public void setUserRoleId(Long userRoleId) {
         this.userRoleId = userRoleId;
     }
 

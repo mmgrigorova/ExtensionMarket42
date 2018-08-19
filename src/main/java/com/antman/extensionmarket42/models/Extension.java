@@ -10,7 +10,8 @@ public class Extension {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  @Column(name = "extensionId")
+  private Long id;
 
   @Column
   private String name;
@@ -70,11 +71,11 @@ public class Extension {
     this.lastCommit = lastCommit;
   }
 
-  public int getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Screenshot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int imageId;
+    private Long imageId;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "extensionId")
@@ -19,11 +19,11 @@ public class Screenshot {
     public Screenshot(){
     }
 
-    public int getImageId() {
+    public Long getImageId() {
         return imageId;
     }
 
-    public void setImageId(int imageId) {
+    public void setImageId(Long imageId) {
         this.imageId = imageId;
     }
 

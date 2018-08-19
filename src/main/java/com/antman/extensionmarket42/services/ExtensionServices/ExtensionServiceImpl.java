@@ -13,7 +13,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     private ExtensionRepository extensionRepository;
 
     @Override
-    public Extension getById(int id) {
+    public Extension getById(long id) {
         long s = 1;
         return extensionRepository.findById(s).get();
     }
