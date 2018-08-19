@@ -4,4 +4,5 @@ import com.antman.extensionmarket42.models.User;
 
 public interface UserRegistrationService {
     User addUser(User user);
+    boolean checkUserExist(String userName);
 }

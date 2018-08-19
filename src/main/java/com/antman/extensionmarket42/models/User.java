@@ -1,14 +1,20 @@
 package com.antman.extensionmarket42.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
 public class User {
 
   @Id()
+  @NotNull(message="is required")
+  @Size(min=1, message="is required")
   private String username;
   @Column
+  @NotNull(message="is required")
+  @Size(min=1, message="is required")
   private String password;
   @Column
   private int enabled;

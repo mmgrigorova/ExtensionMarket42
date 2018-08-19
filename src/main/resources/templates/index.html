@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+
+<h1>Home Page</h1>
+
+<i th:if="${param.logout}">You have been logged out.</i>
+
+<p>Hello to the home page!</p>
+
+<a th:href="@{/login}"> Login </a>
+<br/>
+<a th:href="@{/register}"> New User </a>
+
+<p sec:authorize="hasRole('ROLE_ADMIN')">
+    <a th:href="@{/admin}">Admin Portal</a>
+</p>
+</body>
+</html>

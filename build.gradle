@@ -48,4 +48,7 @@ dependencies {
     // Hibernate Validator allows to express and validate application constraints.
     compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.0.12.Final'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.0.1.RELEASE'
+
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
+
 }
