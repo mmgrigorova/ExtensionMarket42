@@ -65,7 +65,6 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         user.setUserRoles(roles);
 
         User result = userRepository.save(user);
-        userProfileRepository.save(userProfile);
 
         return result;
     }
