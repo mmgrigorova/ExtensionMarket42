@@ -21,6 +21,10 @@
     Role unsecured(s):<span sec:authorize="hasRole('DEV')" sec:authentication="principal.authorities"></span>
 </p>
 
+<div sec:authorize="isAuthenticated()">
+    Hi! <span th:text="${username}"></span>> This content is only shown to authenticated users.
+</div>
+
 <a th:href="@{/login}"> Login </a>
 <br/>
 <a th:href="@{/register}"> New User </a>
@@ -32,7 +36,13 @@
 <p sec:authorize="hasRole('ROLE_DEV')">
     <a th:href="@{/developer}">Developer Portal</a>
 </p>
+<p sec:authorize="hasRole('DEV')">
+    <a th:href="@{/developer}">Developer Portal</a>
+</p>
 <p sec:authorize="hasRole('ROLE_ADMIN')">
+    <a th:href="@{/admin}">Admin Portal</a>
+</p>
+<p sec:authorize="hasAuthority('SITE_ADMIN')">
     <a th:href="@{/admin}">Admin Portal</a>
 </p>
 </body>
