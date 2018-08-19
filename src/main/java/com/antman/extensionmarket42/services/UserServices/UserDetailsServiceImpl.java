@@ -11,9 +11,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+
+import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -26,11 +30,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email){
-        User user = userRepository.findByUsername(email);
-        if (user == null){
+        Optional<User> userOptional = userRepository.findById(email);
+
+        if (!userOptional.isPresent()){
             throw new UsernameNotFoundException(
                     "There is no user with email: " + email);
         }
+
+        User user = userOptional.get();
 
         boolean enabled = true;
         boolean accountNonExpired = true;

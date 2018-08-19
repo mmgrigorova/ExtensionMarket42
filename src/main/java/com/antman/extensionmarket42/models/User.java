@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
-    @Id()
+    @Id
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
     private String username;
@@ -22,7 +22,7 @@ public class User {
     @Column
     private int enabled;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "username")
     private List<UserRole> userRoles;
 

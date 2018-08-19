@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserRegistrationServiceImpl implements UserRegistrationService {
@@ -62,12 +63,12 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     }
 
     private boolean emailExist(String email) {
-        User user = userRepository.findByUsername(email);
-        if (user != null) {
-            return true;
+        Optional<User> userOptional = userRepository.findById(email);
+        if (userOptional.isPresent()) {
+           return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
 

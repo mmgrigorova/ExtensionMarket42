@@ -13,10 +13,23 @@
 
 <p>Hello to the home page!</p>
 
+
+<p>
+    User:<span sec:authentication="name"></span>
+    <br />
+    Role(s):<span sec:authorize="hasRole('ROLE_DEV')" sec:authentication="principal.authorities"></span>
+</p>
+
 <a th:href="@{/login}"> Login </a>
 <br/>
 <a th:href="@{/register}"> New User </a>
+<br/>
+<a th:href="@{/logout}"> Logout </a>
 
+
+<p sec:authorize="hasRole('ROLE_DEV')">
+    <a th:href="@{/developer}">Developer Portal</a>
+</p>
 <p sec:authorize="hasRole('ROLE_ADMIN')">
     <a th:href="@{/admin}">Admin Portal</a>
 </p>
