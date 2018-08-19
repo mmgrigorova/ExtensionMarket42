@@ -1,6 +1,7 @@
 package com.antman.extensionmarket42.web;
 
 import com.antman.extensionmarket42.models.User;
+import com.antman.extensionmarket42.models.UserDto;
 import com.antman.extensionmarket42.services.UserServices.base.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String showRegistrationPage(Model model){
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserDto());
 
         return "register";
     }
@@ -34,13 +35,13 @@ public class RegistrationController {
                                BindingResult bindingResult,
                                Model model){
         if(bindingResult.hasErrors()){
-            model.addAttribute("user", new User());
+            model.addAttribute("user", new UserDto());
             model.addAttribute("registrationError", "Username/password cannot be empty.");
             return "register";
         }
 
         if(userRegistrationService.checkUserExist(user.getUsername())){
-            model.addAttribute("user", new User());
+            model.addAttribute("user", new UserDto());
             model.addAttribute("user", "This username is already taken.");
             return "register";
         }
