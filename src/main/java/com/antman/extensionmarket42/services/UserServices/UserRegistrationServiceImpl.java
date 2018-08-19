@@ -22,17 +22,11 @@ import java.util.List;
 @Service
 public class UserRegistrationServiceImpl implements UserRegistrationService {
     private UserRepository userRepository;
-    private UserProfileRepository userProfileRepository;
-    private UserRoleRepository userRoleRepository;
-    private UserDetailsManager userDetailsManager;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserRegistrationServiceImpl(UserRepository userRepository, UserProfileRepository userProfileRepository, UserRoleRepository userRoleRepository, UserDetailsManager userDetailsManager, PasswordEncoder passwordEncoder) {
+    public UserRegistrationServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.userProfileRepository = userProfileRepository;
-        this.userRoleRepository = userRoleRepository;
-        this.userDetailsManager = userDetailsManager;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -58,15 +52,13 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         user.setUserProfile(userProfile);
 
         UserRole userRole = new UserRole();
-        userRole.setRole(Role.DEV);
+        userRole.setRole(String.valueOf(Role.DEV));
 
         List<UserRole> roles = new ArrayList<>();
         roles.add(userRole);
         user.setUserRoles(roles);
 
-        User result = userRepository.save(user);
-
-        return result;
+        return userRepository.save(user);
     }
 
     private boolean emailExist(String email) {

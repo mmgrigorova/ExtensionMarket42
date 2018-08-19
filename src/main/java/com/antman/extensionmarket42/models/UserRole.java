@@ -17,7 +17,7 @@ public class UserRole {
     private User username;
 
     @Column
-    private Role role;
+    private String role;
 
     @ManyToMany(mappedBy = "userRoles")
     private List<User> users;
@@ -43,11 +43,11 @@ public class UserRole {
         this.username = username;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
