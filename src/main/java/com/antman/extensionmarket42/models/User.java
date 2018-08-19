@@ -22,10 +22,8 @@ public class User {
     @Column
     private int enabled;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "username"),
-            inverseJoinColumns = @JoinColumn(name = "role"))
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "username")
     private List<UserRole> userRoles;
 
     @OneToOne(cascade = CascadeType.ALL)
