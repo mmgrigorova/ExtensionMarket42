@@ -12,7 +12,7 @@
 <body>
 <h1>Login Page</h1>
 
-<i th:if="${param.error}" class="error">Wrong username or password</i>
+<i th:if="${error}" class="error">Wrong username or password</i>
 
 
 <form th:action="@{/authenticateUser}" method="post">

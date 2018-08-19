@@ -44,20 +44,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
 
-        return new org.springframework.security.core.userdetails.User(
+        List<GrantedAuthority> authorities = getAuthorities(user.getUserRoles());
+
+        org.springframework.security.core.userdetails.User registered = new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
                 enabled,
                 accountNonExpired,
                 credentialsNonExpired,
                 accountNonLocked,
-                getAuthorities(user.getUserRoles()));
+                authorities);
+
+        return registered;
     }
 
     private List<GrantedAuthority> getAuthorities(List<UserRole> userRoles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (UserRole userRole : userRoles) {
-            authorities.add(new SimpleGrantedAuthority(userRole.getRole()));
+            String role = userRole.getRole();
+            authorities.add(new SimpleGrantedAuthority(role));
         }
         return authorities;
     }

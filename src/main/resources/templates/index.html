@@ -18,14 +18,16 @@
     User:<span sec:authentication="name"></span>
     <br />
     Role(s):<span sec:authorize="hasRole('ROLE_DEV')" sec:authentication="principal.authorities"></span>
+    Role unsecured(s):<span sec:authorize="hasRole('DEV')" sec:authentication="principal.authorities"></span>
 </p>
 
 <a th:href="@{/login}"> Login </a>
 <br/>
 <a th:href="@{/register}"> New User </a>
 <br/>
-<a th:href="@{/logout}"> Logout </a>
-
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
 
 <p sec:authorize="hasRole('ROLE_DEV')">
     <a th:href="@{/developer}">Developer Portal</a>
