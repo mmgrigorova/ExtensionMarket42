@@ -19,7 +19,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,20 +54,7 @@ public class UserDetailsServiceTests {
     @Test
     public void loadUserByUsername_whenUserIsPresent_returnUserDetails() {
         // ARRANGE
-        UserProfile profile = new UserProfile();
-        profile.setFirstName("Test Firstname 111");
-        profile.setLastName("Test Lastname 111");
-        profile.setEmail(USERNAME_EMAIL);
-
-        UserRole role = new UserRole();
-        role.setRole(String.valueOf(Role.DEV));
-
-        List<UserRole> roles = new ArrayList<>();
-        roles.add(role);
-
-        user = new User(USERNAME_EMAIL, "123", profile);
-        user.setUserRoles(roles);
-
+        User user = UserDataSetup.setupUser("User1fname", "User1lname", USERNAME_EMAIL, "123");
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("DEV"));
 
