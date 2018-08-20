@@ -18,6 +18,10 @@
     Hi, user <span th:text="${username}"></span>! This content is only shown to authenticated users.
 </div>
 
+<!--Authorities: <span th:if="${isAuthenticated()}" sec:authentication="principal.authorities" />-->
+
+</div>
+
 <a th:href="@{/login}"> Login </a>
 <br/>
 <a th:href="@{/register}"> New User </a>
@@ -32,7 +36,7 @@
     <a th:href="@{/developer}">Developer Portal</a>
 </p>
 <p sec:authorize="hasAuthority('ADMIN')">
-    <a th:href="@{/admin}">Admin Portal</a>
+    <a th:href="@{/adminPanel}">Admin Portal</a>
 </p>
 
 </body>

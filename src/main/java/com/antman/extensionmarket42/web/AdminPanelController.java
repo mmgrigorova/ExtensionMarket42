@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
-@Controller("/admin")
+@Controller
 public class AdminPanelController {
     private ExtensionService extensionService;
 
