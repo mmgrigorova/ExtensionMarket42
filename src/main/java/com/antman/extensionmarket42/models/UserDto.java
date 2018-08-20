@@ -5,22 +5,26 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class UserDto {
+    private static final String REQUIRED_MESSAGE = "This field is required";
+
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = REQUIRED_MESSAGE)
     private String firstname;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = REQUIRED_MESSAGE)
     private String lastname;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = REQUIRED_MESSAGE)
     private String password;
 
+    @NotNull
+    @NotEmpty(message = REQUIRED_MESSAGE)
     private String matchingPassword;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = REQUIRED_MESSAGE)
     @Email
     private String email;
 
