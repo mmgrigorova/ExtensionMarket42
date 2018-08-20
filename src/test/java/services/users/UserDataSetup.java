@@ -18,7 +18,7 @@ public class UserDataSetup {
         profile.setEmail(email);
 
         UserRole role = new UserRole();
-        role.setRole(String.valueOf(Role.DEV));
+        role.setRole(String.valueOf(Role.ROLE_DEV));
 
         List<UserRole> roles = new ArrayList<>();
         roles.add(role);

@@ -32,10 +32,10 @@
     </form>
 </div>
 
-<p sec:authorize="hasAuthority('DEV')">
+<p sec:authorize="hasAuthority('ROLE_DEV')">
     <a th:href="@{/developer}">Developer Portal</a>
 </p>
-<p sec:authorize="hasAuthority('ADMIN')">
+<p sec:authorize="hasAuthority('ROLE_ADMIN')">
     <a th:href="@{/adminPanel}">Admin Portal</a>
 </p>
 
