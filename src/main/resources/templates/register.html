@@ -11,44 +11,48 @@
 <i th:if="${param.error != null}" th:text="${param.error}" class="error">Error</i>
 
 <form th:action="@{/register}" th:object="${userDto}" method="post" enctype="utf8">
-    <div>
+    <div class="form-group">
         <label>First Name
-            <input th:field="*{firstname}"/>
+            <input class="form-control" th:field="*{firstname}"/>
+        </label>
+        <label>Last Name
+            <input class="form-control" th:field="*{lastname}"/>
         </label>
         <small class="error" th:each="error : ${#fields.errors('firstname')}"
-           th:text="${error}">Validation error</small>
-    </div>
-    <div>
-        <label>Last Name
-            <input th:field="*{lastname}"/>
-        </label>
+               th:text="${error}">Validation error
+        </small>
         <small class="error" th:each="error : ${#fields.errors('lastname')}"
-               th:text="${error}">Validation error</small>
+               th:text="${error}">Validation error
+        </small>
     </div>
-    <div>
+
+    <div class="form-group">
         <label>Email
-            <input type="email" th:field="*{email}"/>
+            <input class="form-control" size="60" type="email" th:field="*{email}"/>
         </label>
         <small class="error" th:each="error : ${#fields.errors('email')}"
-               th:text="${error}">Validation error</small>
+               th:text="${error}">Validation error
+        </small>
     </div>
-    <div>
+    <div class="form-group">
         <label>Password
-            <input type="password" th:field="*{password}"/>
+            <input class="form-control" type="password" th:field="*{password}"/>
         </label>
         <small class="error" th:each="error : ${#fields.errors('password')}"
-               th:text="${error}">Validation error</small>
+               th:text="${error}">Validation error
+        </small>
     </div>
-    <div>
+    <div class="form-group">
         <label>Confirm Password
-            <input type="password" th:field="*{matchingPassword}"/>
+            <input class="form-control" type="password" th:field="*{matchingPassword}"/>
         </label>
         <small class="error"
-           th:if="${#fields.hasGlobalErrors()}"
-           th:each="error : ${#fields.errors('global')}"
-           th:text="${error}">Validation error</small>
+               th:if="${#fields.hasGlobalErrors()}"
+               th:each="error : ${#fields.errors('global')}"
+               th:text="${error}">Validation error
+        </small>
     </div>
-    <input type="submit" value="Register"/>
+    <input class="btn btn-primary" type="submit" value="Register"/>
 </form>
 
 <p>
