@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+         .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        .row.content {
+            height: 450px;
+        }
+
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {height:auto;}
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Admin Panel</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid text-center">
+    <div class="row content">
+        <div class="col-sm-7 text-left" id="results">
+            <h1>View</h1>
+            <button type="button" class="btn btn-primary" id="users">Users</button>
+            <button type="button" class="btn btn-primary">Extensions</button>
+            <button type="button" class="btn btn-primary">Featured</button>
+            <button type="button" class="btn btn-primary">Pending</button>
+            <hr>
+        </div>
+        <div class="col-sm-5 sidenav">
+            <h3>Info</h3>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<footer class="container-fluid text-center">
+    <p>Footer Text</p>
+</footer>
+
+</body>
+
+<script>
+    function getUsers(){
+        var url = '';
+        $("#results").load(url);
+    }
+</script>
+
+</html>
