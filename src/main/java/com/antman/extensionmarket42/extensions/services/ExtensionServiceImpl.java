@@ -6,6 +6,8 @@ import com.antman.extensionmarket42.extensions.services.base.ExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ExtensionServiceImpl implements ExtensionService {
 
@@ -23,4 +25,11 @@ public class ExtensionServiceImpl implements ExtensionService {
 
         return extensionRepository.save(extension);
     }
+
+    @Override
+    public Iterable<Extension> getAll() {
+        return extensionRepository.findAll();
+    }
+
+
 }

@@ -56,10 +56,9 @@
 
 <div class="container-fluid text-center">
     <div class="row content">
-
-        <div class="col-sm-7 text-left">
+        <div class="col-sm-7 text-left" id="results">
             <h1>View</h1>
-            <button type="button" class="btn btn-primary">Users</button>
+            <button type="button" class="btn btn-primary" id="users">Users</button>
             <button type="button" class="btn btn-primary">Extensions</button>
             <button type="button" class="btn btn-primary">Featured</button>
             <button type="button" class="btn btn-primary">Pending</button>
@@ -77,4 +76,12 @@
 </footer>
 
 </body>
+
+<script>
+    function getUsers(){
+        var url = '';
+        $("#results").load(url);
+    }
+</script>
+
 </html>
