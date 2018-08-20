@@ -1,14 +1,14 @@
 package com.antman.extensionmarket42.web;
 
-import com.antman.extensionmarket42.extensions.models.Extension;
-import com.antman.extensionmarket42.extensions.services.base.ExtensionService;
+import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
-@Controller
+@Controller("/admin")
 public class AdminPanelController {
     private ExtensionService extensionService;
 
@@ -16,12 +16,12 @@ public class AdminPanelController {
         this.extensionService=extensionService;
     }
 
-    @GetMapping("/AdminPanel")
+    @GetMapping("/adminPanel")
     public String showAdminPanel(Model model){
         return "adminPanel";
     }
 
-    @PostMapping("/AdminPanel")
+    @PostMapping("/adminPanel")
     public String searchSubmit(Model model){
         Iterable<Extension> extensions = extensionService.getAll();
 
@@ -29,7 +29,7 @@ public class AdminPanelController {
             System.out.print(e.getId());
         }
         model.addAttribute("extensions",extensions);
-        return "search";
+        return "adminPanel";
     }
 
 }

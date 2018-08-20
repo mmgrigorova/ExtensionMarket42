@@ -56,6 +56,9 @@ public class Extension {
   private boolean pending;
 
   @Column
+  private boolean featured;
+
+  @Column
   private String icon;
 
   public Extension() {
@@ -153,6 +156,13 @@ public class Extension {
     this.lastCommit = lastCommit;
   }
 
+  public boolean isFeatured() {
+    return featured;
+  }
+
+  public void setFeatured(boolean featured) {
+    this.featured = featured;
+  }
 
   public boolean isPending() {
     return pending;
