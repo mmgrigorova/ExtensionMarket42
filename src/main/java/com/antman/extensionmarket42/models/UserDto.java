@@ -25,9 +25,6 @@ public class UserDto {
     @NotNull
     @NotEmpty(message = REQUIRED_MESSAGE)
     private String password;
-
-    @NotNull
-    @NotEmpty(message = REQUIRED_MESSAGE)
     private String matchingPassword;
 
     @NotNull

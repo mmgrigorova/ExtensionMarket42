@@ -43,8 +43,10 @@
         <label>Confirm Password
             <input type="password" th:field="*{matchingPassword}"/>
         </label>
-        <small class="error" th:each="error : ${#fields.errors('matchingPassword')}"
-               th:text="${error}">Validation error</small>
+        <small class="error"
+           th:if="${#fields.hasGlobalErrors()}"
+           th:each="error : ${#fields.errors('global')}"
+           th:text="${error}">Validation error</small>
     </div>
     <input type="submit" value="Register"/>
 </form>

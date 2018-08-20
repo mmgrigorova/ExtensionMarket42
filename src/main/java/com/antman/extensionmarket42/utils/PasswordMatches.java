@@ -13,7 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = PasswordMatchesValidator.class)
 @Documented
 public @interface PasswordMatches {
-    String PASSWORDS_DONT_MATCH_MESSAGE =  "Passwords don't match";
+    String PASSWORDS_DONT_MATCH_MESSAGE =  "Passwords should match";
 
     String message() default PASSWORDS_DONT_MATCH_MESSAGE;
     Class<?>[] groups() default {};

@@ -2,6 +2,7 @@ body{
     padding: 10px;
 }
 
-.error{
+small.error{
     color: red;
+    display: block;
 }
