@@ -1,4 +1,4 @@
-package com.antman.extensionmarket42.web;
+package com.antman.extensionmarket42.webcontrollers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

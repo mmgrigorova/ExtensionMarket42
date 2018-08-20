@@ -1,22 +1,18 @@
-package com.antman.extensionmarket42.services.UserServices;
+package com.antman.extensionmarket42.services.users;
 
 import com.antman.extensionmarket42.Role;
 import com.antman.extensionmarket42.models.User;
 import com.antman.extensionmarket42.models.UserDto;
 import com.antman.extensionmarket42.models.UserProfile;
 import com.antman.extensionmarket42.models.UserRole;
-import com.antman.extensionmarket42.repositories.base.UserProfileRepository;
 import com.antman.extensionmarket42.repositories.base.UserRepository;
-import com.antman.extensionmarket42.repositories.base.UserRoleRepository;
-import com.antman.extensionmarket42.services.UserServices.base.UserRegistrationService;
+import com.antman.extensionmarket42.services.users.base.UserRegistrationService;
 import com.antman.extensionmarket42.utils.exceptions.EmailExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

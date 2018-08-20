@@ -1,8 +1,7 @@
-package com.antman.extensionmarket42.extensions.services;
+package com.antman.extensionmarket42.services.extensions;
 
-import com.antman.extensionmarket42.extensions.models.Extension;
-import com.antman.extensionmarket42.extensions.repositories.base.ExtensionRepository;
-import com.antman.extensionmarket42.extensions.services.base.ExtensionService;
+import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

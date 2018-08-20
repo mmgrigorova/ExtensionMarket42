@@ -1,4 +1,4 @@
-package com.antman.extensionmarket42.services.UserServices;
+package com.antman.extensionmarket42.services.users;
 
 import com.antman.extensionmarket42.models.User;
 import com.antman.extensionmarket42.models.UserRole;
@@ -11,9 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

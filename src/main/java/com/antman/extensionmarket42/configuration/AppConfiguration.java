@@ -1,9 +1,9 @@
 package com.antman.extensionmarket42.configuration;
 
-import com.antman.extensionmarket42.extensions.models.Extension;
-import com.antman.extensionmarket42.extensions.models.ExtensionTag;
-import com.antman.extensionmarket42.extensions.models.Screenshot;
-import com.antman.extensionmarket42.extensions.models.Tag;
+import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.models.extensions.ExtensionTag;
+import com.antman.extensionmarket42.models.extensions.Screenshot;
+import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.models.*;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.SessionFactory;
@@ -15,12 +15,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -84,8 +80,7 @@ public class AppConfiguration {
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
         lcemfb.setDataSource(securityDataSource());
-        lcemfb.setPackagesToScan("com.antman.extensionmarket42.models",
-                "com.antman.extensionmarket42.extensions.models");
+        lcemfb.setPackagesToScan("com.antman.extensionmarket42.models");
         lcemfb.setPersistenceProvider(new HibernatePersistenceProvider());
         return lcemfb;
     }
