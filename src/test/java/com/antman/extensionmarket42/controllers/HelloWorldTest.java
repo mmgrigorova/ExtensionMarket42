@@ -4,6 +4,7 @@ import com.antman.extensionmarket42.Extensionmarket42Application;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest(classes = {Extensionmarket42Application.class}
         , webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
-        , properties="spring.configuration.exclude=com.antman.extensionmarket42.configuration.AppConfiguration"
+        , properties = "spring.configuration.exclude=com.antman.extensionmarket42.configuration.AppConfiguration"
 )
 public class HelloWorldTest {
     private String hello;
@@ -34,7 +35,7 @@ public class HelloWorldTest {
     @Autowired
     MockMvc mockMvc;
 
-
+    @Ignore
     @Test
     public void helloWorld_whenHello_shouldStatus200() throws Exception {
         ResultActions expect = mockMvc.perform(
