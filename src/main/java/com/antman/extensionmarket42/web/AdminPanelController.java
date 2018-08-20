@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AdminPanelController {
     private ExtensionService extensionService;
 
-    public AdminPanelController(ExtensionService extensionService){
-        this.extensionService=extensionService;
-    }
-
-    @GetMapping("/adminPanel")
-    public String showAdminPanel(Model model){
-        return "adminPanel";
-    }
-
-    @PostMapping("/adminPanel")
-    public String searchSubmit(Model model){
-        Iterable<Extension> extensions = extensionService.getAll();
-
-        for(Extension e:extensions){
-            System.out.print(e.getId());
-        }
-        model.addAttribute("extensions",extensions);
-        return "adminPanel";
-    }
+//    public AdminPanelController(ExtensionService extensionService){
+//        this.extensionService=extensionService;
+//    }
+//
+//    @GetMapping("/adminPanel")
+//    public String showAdminPanel(Model model){
+//        return "adminPanel";
+//    }
+//
+//    @PostMapping("/adminPanel")
+//    public String searchSubmit(Model model){
+//        Iterable<Extension> extensions = extensionService.getAll();
+//
+//        for(Extension e:extensions){
+//            System.out.print(e.getId());
+//        }
+//        model.addAttribute("extensions",extensions);
+//        return "adminPanel";
+//    }
 
 }

@@ -3,44 +3,21 @@
 <head th:replace="fragments :: head">
     <meta charset="UTF-8">
     <title>Register</title>
-
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Admin Panel</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="container-fluid text-center">
-    <div class="row content">
-        <div class="col-sm-7 text-left">
-            <div class="row content">
-                <h1>View</h1>
-                <button type="button" class="btn btn-primary" id="users">Users</button>
-                <button type="button" class="btn btn-primary">Extensions</button>
-                <button type="button" class="btn btn-primary">Featured</button>
-                <button type="button" class="btn btn-primary">Pending</button>
-                <hr>
-            </div>
-
-        </div>
-        <div class="col-sm-5 sidenav">
-            <h3>Info</h3>
-            <hr>
-        </div>
-    </div>
+<div th:if="${not #lists.isEmpty(extensions)}">
+    <h2>Counts List</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+        <tr th:each="e : ${extensions}">
+            <td th:text="${e.description}"></td>
+            <td th:text="${e.name}"></td>
+        </tr>
+    </table>
 </div>
 
 <footer class="container-fluid text-center">
@@ -48,12 +25,5 @@
 </footer>
 
 </body>
-
-<script>
-    function getUsers(){
-        var url = '';
-        $("#results").load(url);
-    }
-</script>
 
 </html>
