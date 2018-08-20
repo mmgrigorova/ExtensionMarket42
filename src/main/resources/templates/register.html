@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="fragments :: head">
     <meta charset="UTF-8">
     <title>Register</title>
-    <style>
-        .error {
-            color: red;
-        }
-    </style>
 </head>
 <body>
 
@@ -20,35 +15,35 @@
         <label>First Name
             <input th:field="*{firstname}"/>
         </label>
-        <small th:each="error : ${#fields.errors('firstname')}"
+        <small class="error" th:each="error : ${#fields.errors('firstname')}"
            th:text="${error}">Validation error</small>
     </div>
     <div>
         <label>Last Name
             <input th:field="*{lastname}"/>
         </label>
-        <small th:each="error : ${#fields.errors('lastname')}"
+        <small class="error" th:each="error : ${#fields.errors('lastname')}"
                th:text="${error}">Validation error</small>
     </div>
     <div>
         <label>Email
             <input type="email" th:field="*{email}"/>
         </label>
-        <small th:each="error : ${#fields.errors('email')}"
+        <small class="error" th:each="error : ${#fields.errors('email')}"
                th:text="${error}">Validation error</small>
     </div>
     <div>
         <label>Password
             <input type="password" th:field="*{password}"/>
         </label>
-        <small th:each="error : ${#fields.errors('password')}"
+        <small class="error" th:each="error : ${#fields.errors('password')}"
                th:text="${error}">Validation error</small>
     </div>
     <div>
         <label>Confirm Password
             <input type="password" th:field="*{matchingPassword}"/>
         </label>
-        <small th:each="error : ${#fields.errors('matchingPassword')}"
+        <small class="error" th:each="error : ${#fields.errors('matchingPassword')}"
                th:text="${error}">Validation error</small>
     </div>
     <input type="submit" value="Register"/>
