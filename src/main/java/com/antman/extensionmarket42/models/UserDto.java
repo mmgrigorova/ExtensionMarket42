@@ -1,10 +1,13 @@
 package com.antman.extensionmarket42.models;
 
+import com.antman.extensionmarket42.utils.PasswordMatches;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@PasswordMatches
 public class UserDto {
     private static final String REQUIRED_MESSAGE = "This field is required";
     private static final String NAME_SIZE_MESSAGE = "Name should be at least two characters long";
