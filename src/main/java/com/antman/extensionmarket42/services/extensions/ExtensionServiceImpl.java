@@ -30,5 +30,14 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.findAll();
     }
 
+    @Override
+    public List<Extension> getFeatured(boolean b) {
+        return extensionRepository.getAllByFeaturedIs(b);
+    }
+
+    @Override
+    public List<Extension> getPending(boolean b) {
+        return extensionRepository.getAllByPendingIs(b);
+    }
 
 }
