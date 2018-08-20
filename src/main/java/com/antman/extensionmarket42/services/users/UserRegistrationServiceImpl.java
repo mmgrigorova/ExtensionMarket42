@@ -33,7 +33,6 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
             throw new EmailExistsException("There is an account with this email address");
         }
 
-
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
 
         UserProfile userProfile = new UserProfile();
