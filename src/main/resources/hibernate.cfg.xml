@@ -36,8 +36,5 @@
         <property name="use_sql_comments">
             true
         </property>
-
-
-
     </session-factory>
 </hibernate-configuration>
