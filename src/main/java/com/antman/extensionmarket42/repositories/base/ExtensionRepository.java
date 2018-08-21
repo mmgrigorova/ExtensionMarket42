@@ -11,4 +11,5 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
 
     List<Extension> getAllByPendingIs(boolean b);
     List<Extension> getAllByFeaturedIs(boolean b);
+
 }

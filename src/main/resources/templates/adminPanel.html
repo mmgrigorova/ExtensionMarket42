@@ -27,7 +27,7 @@
                     <tr th:each="e : ${extensions}">
                         <td th:text="${e.id}"></td>
                         <td><a href="#" th:text="${e.name}"></a></td>
-                        <td th:text="${e.version }"></td>
+                        <td th:text="${e.userProfile.firstName }"></td>
                         <td th:text="${e.pending}"></td>
                         <td th:text="${e.featured}"></td>
                     </tr>

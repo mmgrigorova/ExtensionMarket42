@@ -40,4 +40,11 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.getAllByPendingIs(b);
     }
 
+    @Override
+    public void removeByIde(long id)
+    {
+        extensionRepository.deleteById(id);
+    }
+
+
 }
