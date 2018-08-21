@@ -30,7 +30,6 @@ public class User {
     private List<UserRole> userRoles;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "username")
     private UserProfile userProfile;
 
     public User() {

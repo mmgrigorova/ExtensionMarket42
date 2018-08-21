@@ -38,8 +38,6 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         UserProfile userProfile = new UserProfile();
         userProfile.setFirstName(userDto.getFirstname());
         userProfile.setLastName(userDto.getLastname());
-        userProfile.setEmail(userDto.getEmail());
-
 
         User user = new User();
         user.setUsername(userDto.getEmail());
