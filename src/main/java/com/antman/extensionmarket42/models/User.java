@@ -13,7 +13,7 @@ public class User {
 
     @Id
     @NotNull(message = "is required")
-    @Column(name = "username")
+    @Column
     @Size(min = 1, message = "is required")
     private String username;
 
@@ -25,13 +25,12 @@ public class User {
     @Column
     private int enabled;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId")
-    private List<UserRole> userRoles;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private UserProfile userProfile;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<UserRole> userRoles;
 
     public User() {
     }

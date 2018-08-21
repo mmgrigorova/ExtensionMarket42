@@ -2,6 +2,7 @@ package com.antman.extensionmarket42.models;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "user_roles")
 public class UserRole {
@@ -9,8 +10,8 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userRoleId;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "username")
     private User user;
 
     @Column

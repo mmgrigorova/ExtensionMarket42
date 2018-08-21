@@ -47,10 +47,12 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         user.setUserProfile(userProfile);
 
         UserRole userRole = new UserRole();
+        userRole.setUser(user);
         userRole.setRole(String.valueOf(Role.ROLE_DEV));
 
         List<UserRole> roles = new ArrayList<>();
         roles.add(userRole);
+
         user.setUserRoles(roles);
 
         return userRepository.save(user);
