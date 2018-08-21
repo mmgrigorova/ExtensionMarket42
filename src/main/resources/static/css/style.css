@@ -6,3 +6,7 @@ small.error{
     color: red;
     display: block;
 }
+
+.table-custom{
+    width: auto;
+}

@@ -1,5 +1,7 @@
 package com.antman.extensionmarket42.models;
 
+import org.hibernate.annotations.GeneratorType;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,6 +13,7 @@ public class User {
 
     @Id
     @NotNull(message = "is required")
+    @Column(name = "username")
     @Size(min = 1, message = "is required")
     private String username;
 
