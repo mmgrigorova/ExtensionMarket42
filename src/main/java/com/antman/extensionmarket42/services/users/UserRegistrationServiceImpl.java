@@ -38,6 +38,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         UserProfile userProfile = new UserProfile();
         userProfile.setFirstName(userDto.getFirstname());
         userProfile.setLastName(userDto.getLastname());
+        userProfile.setEmail(userDto.getEmail());
 
         User user = new User();
         user.setUsername(userDto.getEmail());
@@ -56,7 +57,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     }
 
     private boolean emailExist(String email) {
-        Optional<User> userOptional = userRepository.findById(email);
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByUsername(email));
         if (userOptional.isPresent()) {
            return true;
         } else {

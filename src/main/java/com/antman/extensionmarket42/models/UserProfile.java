@@ -18,8 +18,10 @@ public class UserProfile {
     @Column
     private String lastName;
 
+    @Column
+    private String email;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "email")
     private User user;
 
     @OneToMany(mappedBy = "userProfile")
@@ -52,6 +54,13 @@ public class UserProfile {
         this.lastName = lastName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public User getUser() {
         return user;
