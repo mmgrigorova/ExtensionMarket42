@@ -17,39 +17,37 @@ USE `market_db`;
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.users
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `username` varchar(45) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(60) NOT NULL,
   `enabled` int(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`username`)
+  `userId` bigint(20) NOT NULL,
+  PRIMARY KEY (`username`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user_profiles` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `market_db`.`users` 
-CHANGE COLUMN `password` `password` VARCHAR(60) NOT NULL ;
-
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.user_profiles
-CREATE TABLE IF NOT EXISTS `user_profiles` (
+CREATE TABLE `user_profiles` (
   `userId` bigint(20) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   PRIMARY KEY (`userId`),
-  UNIQUE KEY `email` (`email`),
-  CONSTRAINT `UserProfile_fk0` FOREIGN KEY (`email`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.user_roles
-CREATE TABLE IF NOT EXISTS `user_roles` (
+CREATE TABLE `user_roles` (
   `userRoleId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) DEFAULT NULL,
-  `role` varchar(45) DEFAULT NULL,
+  `username` varchar(45) NOT NULL DEFAULT '',
+  `role` varchar(45) NOT NULL DEFAULT '',
   PRIMARY KEY (`userRoleId`),
   KEY `UserRoles_fk0` (`username`),
   CONSTRAINT `UserRoles_fk0` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Dumping structure for table market_db.extensions
 CREATE TABLE IF NOT EXISTS `extensions` (
