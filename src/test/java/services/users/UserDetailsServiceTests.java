@@ -56,7 +56,7 @@ public class UserDetailsServiceTests {
         // ARRANGE
         User user = UserDataSetup.setupUser("User1fname", "User1lname", USERNAME_EMAIL, "123");
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("DEV"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_DEV"));
 
         org.springframework.security.core.userdetails.User expected = new org.springframework.security.core.userdetails.User(
                 user.getUsername(),

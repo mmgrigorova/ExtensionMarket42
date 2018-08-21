@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8">
+    <title>Developer Space</title>
+</head>
+<body>
+<h1 th:text="${title}"> Developer Space </h1>
+<a th:href="@{/addextension}" class="btn btn-primary">Add New Extension</a>
+</body>
+</html>

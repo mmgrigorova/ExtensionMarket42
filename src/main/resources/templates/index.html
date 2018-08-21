@@ -33,7 +33,7 @@
 </div>
 
 <p sec:authorize="hasAuthority('ROLE_DEV')">
-    <a th:href="@{/developer}">Developer Portal</a>
+    <a th:href="@{/developer}">Developer Space</a>
 </p>
 <p sec:authorize="hasAuthority('ROLE_ADMIN')">
     <a th:href="@{/adminPanel}">Admin Portal</a>
