@@ -57,9 +57,9 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     }
 
     private boolean emailExist(String email) {
-        Optional<User> userOptional = Optional.ofNullable(userRepository.findByUsername(email));
+        Optional<User> userOptional = userRepository.findById(email);
         if (userOptional.isPresent()) {
-           return true;
+            return true;
         } else {
             return false;
         }
