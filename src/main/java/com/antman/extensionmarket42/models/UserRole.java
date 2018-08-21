@@ -1,9 +1,6 @@
 package com.antman.extensionmarket42.models;
 
-import com.antman.extensionmarket42.Role;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "user_roles")
@@ -13,8 +10,8 @@ public class UserRole {
     private Long userRoleId;
 
     @ManyToOne
-    @JoinColumn(name = "username")
-    private User username;
+    @JoinColumn(name = "userId")
+    private User user;
 
     @Column
     private String role;
@@ -32,12 +29,12 @@ public class UserRole {
     }
 
 
-    public User getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(User username) {
-        this.username = username;
+    public void setUser(User username) {
+        this.user = username;
     }
 
     public String getRole() {

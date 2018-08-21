@@ -26,7 +26,7 @@ public class User {
     private int enabled;
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "userId")
     private List<UserRole> userRoles;
 
     @OneToOne(cascade = CascadeType.ALL)
