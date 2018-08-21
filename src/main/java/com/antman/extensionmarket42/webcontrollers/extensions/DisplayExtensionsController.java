@@ -23,13 +23,13 @@ public class DisplayExtensionsController {
 //
 //        return "adminPanel";
 //    }
-    @RequestMapping("adminPanel")
-    public String getPendingExtensions(Model model){
-        Iterable<Extension> extensions = extensionService.getPending(true);
-        model.addAttribute("extensions",extensions);
-
-        return "adminPanel";
-    }
+//    @RequestMapping("adminPanel")
+//    public String getPendingExtensions(Model model){
+//        Iterable<Extension> extensions = extensionService.getPending(true);
+//        model.addAttribute("extensions",extensions);
+//
+//        return "adminPanel";
+//    }
 //    @RequestMapping("adminPanel")
 //    public String getFeaturedExtensions(Model model){
 //        Iterable<Extension> extensions = extensionService.getFeatured(true);
