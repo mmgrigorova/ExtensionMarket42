@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class DisplayUsersController {
@@ -17,11 +18,12 @@ public class DisplayUsersController {
     }
 
     @RequestMapping("users")
-    public String getAllUsers(Model model){
+    public ModelAndView getAllUsers(Model model){
         Iterable<User> users = userDisplayService.getAll();
-        model.addAttribute("users",users);
+        ModelAndView mav = new ModelAndView("users");
+        mav.addObject("users",users);
 
-        return "users";
+        return mav;
     }
 
 

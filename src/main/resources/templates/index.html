@@ -14,9 +14,9 @@
 <p>Hello to the home page!</p>
 
 
-<div sec:authorize="isAuthenticated()">
-    Hi, user <span th:text="${username}"></span>! This content is only shown to authenticated users.
-</div>
+<!--<div sec:authorize="isAuthenticated()">-->
+    <!--Hi, user <span th:text="${username}"></span>! This content is only shown to authenticated users.-->
+<!--</div>-->
 
 <!--Authorities: <span th:if="${isAuthenticated()}" sec:authentication="principal.authorities" />-->
 
@@ -33,7 +33,7 @@
 </div>
 
 <p sec:authorize="hasAuthority('ROLE_DEV')">
-    <a th:href="@{/developer}">Developer Portal</a>
+    <a th:href="@{/developer}">Developer Space</a>
 </p>
 <p sec:authorize="hasAuthority('ROLE_ADMIN')">
     <a th:href="@{/adminPanel}">Admin Portal</a>

@@ -10,6 +10,7 @@ import java.util.List;
 public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userId")
     private Long userId;
 
     @Column
@@ -21,13 +22,13 @@ public class UserProfile {
     @Column
     private String email;
 
-    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;
 
     @OneToMany(mappedBy = "userProfile")
     private List<Extension> extensions;
 
-    public UserProfile(){
+    public UserProfile() {
     }
 
     public Long getUserId() {

@@ -40,7 +40,6 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         userProfile.setLastName(userDto.getLastname());
         userProfile.setEmail(userDto.getEmail());
 
-
         User user = new User();
         user.setUsername(userDto.getEmail());
         user.setPassword(encodedPassword);
@@ -48,10 +47,12 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         user.setUserProfile(userProfile);
 
         UserRole userRole = new UserRole();
+        userRole.setUser(user);
         userRole.setRole(String.valueOf(Role.ROLE_DEV));
 
         List<UserRole> roles = new ArrayList<>();
         roles.add(userRole);
+
         user.setUserRoles(roles);
 
         return userRepository.save(user);
@@ -60,7 +61,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     private boolean emailExist(String email) {
         Optional<User> userOptional = userRepository.findById(email);
         if (userOptional.isPresent()) {
-           return true;
+            return true;
         } else {
             return false;
         }
