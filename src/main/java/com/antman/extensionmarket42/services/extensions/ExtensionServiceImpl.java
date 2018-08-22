@@ -9,9 +9,12 @@ import java.util.List;
 
 @Service
 public class ExtensionServiceImpl implements ExtensionService {
+    private ExtensionRepository extensionRepository;
 
     @Autowired
-    private ExtensionRepository extensionRepository;
+    public ExtensionServiceImpl(ExtensionRepository extensionRepository){
+        this.extensionRepository = extensionRepository;
+    }
 
     @Override
     public Extension getById(long id) {
@@ -38,6 +41,16 @@ public class ExtensionServiceImpl implements ExtensionService {
     @Override
     public List<Extension> getPending(boolean b) {
         return extensionRepository.getAllByPendingIs(b);
+    }
+
+    @Override
+    public List<Extension> getMostPopular() {
+        return extensionRepository.findTop5ByOrderByDownloadsCountDesc();
+    }
+
+    @Override
+    public List<Extension> getRecentlyAdded() {
+        return extensionRepository.findTop5ByOrderByAddedOnAsc();
     }
 
     @Override

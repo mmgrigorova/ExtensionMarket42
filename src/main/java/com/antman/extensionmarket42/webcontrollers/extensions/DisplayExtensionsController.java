@@ -16,13 +16,13 @@ public class DisplayExtensionsController {
         this.extensionService = extensionService;
     }
 
-//    @RequestMapping("adminPanel")
-//    public String getAllExtensions(Model model){
-//        Iterable<Extension> extensions = extensionService.getAll();
-//        model.addAttribute("extensions",extensions);
-//
-//        return "adminPanel";
-//    }
+    @RequestMapping("adminPanel")
+        public String getAllExtensions(Model model){
+            Iterable<Extension> extensions = extensionService.getRecentlyAdded();
+            model.addAttribute("extensions",extensions);
+            model.addAttribute("choice");
+           return "adminPanel";
+        }
 //    @RequestMapping("adminPanel")
 //    public String getPendingExtensions(Model model){
 //        Iterable<Extension> extensions = extensionService.getPending(true);
