@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `extensions` (
   `pullRequests` int(11) NOT NULL,
   `lastCommit` date NOT NULL,
   `ownerId` bigint(20) NOT NULL,
-  `pending` tinyint(4) NOT NULL,
+  `pending` tinyint(4) NOT NULL DEFAULT 1,
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`extensionId`),
   KEY `Extensions_fk0` (`ownerId`),
