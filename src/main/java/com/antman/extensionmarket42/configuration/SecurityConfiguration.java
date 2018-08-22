@@ -28,8 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity//.csrf().disable()
+        httpSecurity.csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/api/uploadFile").permitAll()
                 .antMatchers("/developer/**").hasRole("DEV")
                 .antMatchers("/adminPanel").hasRole("ADMIN")
                 .and()

@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS `extensions` (
   `ownerId` bigint(20) NOT NULL,
   `pending` tinyint(4) NOT NULL DEFAULT 1,
   `icon` varchar(255) DEFAULT NULL,
+  `featured` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`extensionId`),
   KEY `Extensions_fk0` (`ownerId`),
   CONSTRAINT `Extensions_fk0` FOREIGN KEY (`ownerId`) REFERENCES `user_profiles` (`userId`)

@@ -30,6 +30,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     runtime('mysql:mysql-connector-java')
     runtime('org.springframework.boot:spring-boot-devtools')
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor"
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.security:spring-security-test')

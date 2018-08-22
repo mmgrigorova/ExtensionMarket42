@@ -1,5 +1,6 @@
 package com.antman.extensionmarket42.services.extensions;
 
+import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,10 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension save(Extension extension) {
+    public Extension save(ExtensionDto extensionDto) {
+        Extension extension = new Extension();
+
+
         return extensionRepository.save(extension);
     }
 

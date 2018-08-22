@@ -25,7 +25,7 @@ public class AddExtensionRestController {
         Date date = new Date(1987,4,12);
         Extension ex = new Extension("Othername","descr2","ver 2",0,"link","repo",0,0,date);
 
-        extensionService.save(ex);
+//        extensionService.save(ex);
 
 
         return "add extension";
