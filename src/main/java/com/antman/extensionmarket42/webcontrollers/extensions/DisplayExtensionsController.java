@@ -18,7 +18,7 @@ public class DisplayExtensionsController {
 
     @RequestMapping("adminPanel")
         public String getAllExtensions(Model model){
-            Iterable<Extension> extensions = extensionService.getMostPopular();
+            Iterable<Extension> extensions = extensionService.getRecentlyAdded();
             model.addAttribute("extensions",extensions);
             model.addAttribute("choice");
            return "adminPanel";

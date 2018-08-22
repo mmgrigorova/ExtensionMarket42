@@ -45,7 +45,12 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getMostPopular() {
-        return extensionRepository.findTopTenByOrderByDownloadsCountDesc();
+        return extensionRepository.findTop5ByOrderByDownloadsCountDesc();
+    }
+
+    @Override
+    public List<Extension> getRecentlyAdded() {
+        return extensionRepository.findTop5ByOrderByAddedOnAsc();
     }
 
     @Override
