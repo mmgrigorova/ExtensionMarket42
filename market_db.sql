@@ -50,13 +50,13 @@ CREATE TABLE `user_roles` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Dumping structure for table market_db.extensions
-CREATE TABLE IF NOT EXISTS `extensions` (
+CREATE TABLE `extensions` (
   `extensionId` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `version` varchar(255) NOT NULL,
   `downloadsCount` int(11) NOT NULL,
-  `downloadLink` varchar(255) NOT NULL,
+  `downloadLink` varchar(255) NOT NULL DEFAULT '',
   `repoLink` varchar(255) NOT NULL,
   `openIssues` int(11) NOT NULL,
   `pullRequests` int(11) NOT NULL,
@@ -65,10 +65,11 @@ CREATE TABLE IF NOT EXISTS `extensions` (
   `pending` tinyint(4) NOT NULL DEFAULT 1,
   `icon` varchar(255) DEFAULT NULL,
   `featured` tinyint(4) NOT NULL DEFAULT 0,
+  `addedOn` date DEFAULT NULL,
   PRIMARY KEY (`extensionId`),
   KEY `Extensions_fk0` (`ownerId`),
   CONSTRAINT `Extensions_fk0` FOREIGN KEY (`ownerId`) REFERENCES `user_profiles` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.tags

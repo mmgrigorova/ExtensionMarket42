@@ -14,11 +14,17 @@
     <div class="upload-header">
         <h2>Spring Boot File Upload / Download Rest API Example</h2>
     </div>
+
+    <div th:if="${message}">
+        <h3 th:text="${message}"></h3>
+    </div>
+
+    <div th:if="${fileDownloadUri}" th:text="${fileDownloadUri}"></div>
     <div class="upload-content">
         <div class="single-upload">
             <h3>Upload Single File</h3>
-            <form id="singleUploadForm" name="singleUploadForm">
-                <input id="singleFileUploadInput" type="file" name="file" class="file-input" required />
+            <form th:action="@{/uploadFile}" method="post" enctype="multipart/form-data" id="singleUploadForm" name="singleUploadForm">
+                <input  id="singleFileUploadInput" type="file" name="file" class="file-input" required />
                 <button type="submit" class="primary submit-btn">Submit</button>
             </form>
             <div class="upload-response">
@@ -28,6 +34,6 @@
         </div>
     </div>
 </div>
-<th:block th:include="fragments :: assets"></th:block>
+<!--<th:block th:include="fragments :: assets"></th:block>-->
 </body>
 </html>

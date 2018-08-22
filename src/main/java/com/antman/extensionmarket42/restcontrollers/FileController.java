@@ -32,7 +32,7 @@ public class FileController {
         this.fileStorageService = fileStorageService;
     }
 
-    @RequestMapping(value = "uploadFile", method = RequestMethod.POST)
+    @PostMapping("uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
 
@@ -44,9 +44,6 @@ public class FileController {
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
-
-
-
 
     @PostMapping("/uploadMultipleFiles")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
