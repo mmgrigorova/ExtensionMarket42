@@ -61,6 +61,9 @@ public class Extension {
   @Column
   private String icon;
 
+  @Column
+  private Date addedOn;
+
   public Extension() {
   }
 
@@ -202,5 +205,13 @@ public class Extension {
 
   public void setScreenshots(List<Screenshot> screenshots) {
     this.screenshots = screenshots;
+  }
+
+  public Date getAddedOn() {
+    return addedOn;
+  }
+
+  public void setAddedOn(Date addedOn) {
+    this.addedOn = addedOn;
   }
 }
