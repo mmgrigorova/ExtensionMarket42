@@ -11,6 +11,7 @@ public interface ExtensionService {
 
     List<Extension> getFeatured(boolean b);
     List<Extension> getPending(boolean b);
+    List<Extension> getMostPopular();
     void removeByIde(long id);
 
 }

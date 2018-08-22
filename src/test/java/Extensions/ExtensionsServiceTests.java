@@ -13,6 +13,9 @@ import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,7 +32,7 @@ public class ExtensionsServiceTests {
     }
 
     @Test
-    public void getById(){
+    public void getById_whenExtensionIsPresent_returnExtension(){
         Extension extension = ExtensionTestSetup.createExtension("testName","description","1.0","repoLink",
                 "link",0,0,0);
 
@@ -40,7 +43,10 @@ public class ExtensionsServiceTests {
         verify(extensionMockRepository,times(1)).findById(anyLong());
 
         assertEquals(extension, result);
+        
     }
+
+
 
 
 }

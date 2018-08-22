@@ -8,10 +8,12 @@
 
 <div class="container">
     <div class="row" style="margin-bottom: 20px">
-        <button type="button" class="btn btn-primary">Users</button>
-        <button type="button" class="btn btn-primary">Extensions</button>
-        <button type="button" class="btn btn-primary">Featured</button>
-        <button type="button" class="btn btn-primary">Pending</button>
+        <form form th:action="@{/adminPanel}" method="post">
+            <input type="submit" name="action" class="btn btn-primary" value="users" th:field="*{choice}">
+            <input type="submit" name="action" class="btn btn-primary" value="extensions" th:field="*{choice}">
+            <input type="submit" name="action" class="btn btn-primary" value="featured" th:field="*{choice}">
+            <input type="submit" name="action" class="btn btn-primary" value="pending" th:field="*{choice}">
+        </form>
     </div>
     <div class="row">
         <div class="col-sm-5" style="border-right: 1px solid black">
@@ -27,9 +29,9 @@
                     <tr th:each="e : ${extensions}">
                         <td th:text="${e.id}"></td>
                         <td><a href="#" th:text="${e.name}"></a></td>
-                        <td th:text="${e.userProfile.firstName }"></td>
-                        <td th:text="${e.pending}"></td>
-                        <td th:text="${e.featured}"></td>
+                        <td th:text="${e.userProfile.firstName +  e.userProfile.lastName }"></td>
+                        <td th:text="${e.downloadsCount}"></td>
+                        <td th:text="${e.lastCommit}"></td>
                     </tr>
                 </table>
             </div><div class="col-sm-7">

@@ -44,6 +44,11 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public List<Extension> getMostPopular() {
+        return extensionRepository.findTopTenByOrderByDownloadsCountDesc();
+    }
+
+    @Override
     public void removeByIde(long id)
     {
         extensionRepository.deleteById(id);
