@@ -55,6 +55,7 @@ public class FileWebController {
                 .toUriString();
 
         mav.addObject("fileDownloadUri", fileDownloadUri);
+        mav.addObject("message", "File " + fileName + " has been uploaded successfully");
         return mav;
     }
 }
