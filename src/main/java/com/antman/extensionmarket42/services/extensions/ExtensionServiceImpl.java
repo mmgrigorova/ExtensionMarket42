@@ -9,9 +9,12 @@ import java.util.List;
 
 @Service
 public class ExtensionServiceImpl implements ExtensionService {
+    private ExtensionRepository extensionRepository;
 
     @Autowired
-    private ExtensionRepository extensionRepository;
+    public ExtensionServiceImpl(ExtensionRepository extensionRepository){
+        this.extensionRepository = extensionRepository;
+    }
 
     @Override
     public Extension getById(long id) {
