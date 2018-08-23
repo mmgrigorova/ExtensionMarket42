@@ -2,12 +2,16 @@ package com.antman.extensionmarket42.services.extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.payload.RepositoryDetails;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
+import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,10 +19,12 @@ import java.util.Optional;
 public class ExtensionServiceImpl implements ExtensionService {
 
     private final ExtensionRepository extensionRepository;
+    private final MyUserDetailsService userDetailsService;
 
     @Autowired
-    public ExtensionServiceImpl(ExtensionRepository extensionRepository) {
+    public ExtensionServiceImpl(ExtensionRepository extensionRepository, MyUserDetailsService userDetailsService) {
         this.extensionRepository = extensionRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -34,8 +40,29 @@ public class ExtensionServiceImpl implements ExtensionService {
     public Extension save(ExtensionDto extensionDto) {
         Extension extension = new Extension();
 
+        extension.setName(extensionDto.getName());
+        extension.setDescription(extensionDto.getDescription());
+        extension.setVersion(extensionDto.getVersion());
+        String repoLink = extensionDto.getRepoLink();
+        extension.setRepoLink(repoLink);
+
+        RepositoryDetails repoDetails = getRepositoryDetails(repoLink);
+        extension.setOpenIssues(repoDetails.getOpenIssues());
+        extension.setPullRequests(repoDetails.getPullRequests());
+        extension.setLastCommit(repoDetails.getLastCommit());
+
+        extension.setUserProfile(userDetailsService.getCurrentUser());
+        extension.setAddedOn((java.sql.Date) new Date());
 
         return extensionRepository.save(extension);
+    }
+
+
+    private RepositoryDetails getRepositoryDetails(String repoLink) {
+        //TODO replace with actual repository information
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return new RepositoryDetails(repoLink, 0,0, (java.sql.Date) date);
     }
 
     @Override

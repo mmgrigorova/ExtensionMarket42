@@ -44,7 +44,7 @@ public class AddExtensionRestController {
         redirectAttributes.addAttribute("id", newExtension.getId())
                 .addFlashAttribute("message", "Extension created!");
 
-        mav = new ModelAndView("redirect:/accounts/{id}");
+        mav = new ModelAndView("redirect:/uploadFile/{id}");
 
         return mav;
     }

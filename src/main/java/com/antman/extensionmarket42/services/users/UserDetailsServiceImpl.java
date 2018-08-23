@@ -1,8 +1,10 @@
 package com.antman.extensionmarket42.services.users;
 
 import com.antman.extensionmarket42.models.User;
+import com.antman.extensionmarket42.models.UserProfile;
 import com.antman.extensionmarket42.models.UserRole;
 import com.antman.extensionmarket42.repositories.base.UserRepository;
+import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,7 +20,7 @@ import java.util.Optional;
 import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements MyUserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
@@ -56,6 +58,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return registered;
     }
 
+    public UserProfile getCurrentUser() {
+        return null;
+    }
+
     private List<GrantedAuthority> getAuthorities(List<UserRole> userRoles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (UserRole userRole : userRoles) {
@@ -64,4 +70,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return authorities;
     }
+
+
 }
