@@ -13,6 +13,7 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
     List<Extension> getAllByFeaturedIs(boolean b);
     List<Extension> findTop5ByOrderByDownloadsCountDesc();
     List<Extension> findTop5ByOrderByAddedOnAsc();
+    List<Extension> getAllByNameIs(String name);
 
     // findTop10ByOrderByLevelDesc
 }

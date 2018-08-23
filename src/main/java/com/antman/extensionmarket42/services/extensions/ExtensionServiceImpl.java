@@ -23,6 +23,11 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public List<Extension> getByName(String name) {
+        return extensionRepository.getAllByNameIs(name);
+    }
+
+    @Override
     public Extension save(Extension extension) {
 
         return extensionRepository.save(extension);

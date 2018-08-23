@@ -46,6 +46,20 @@ public class ExtensionsServiceTests {
         
     }
 
+    @Test
+    public void getByName_whenExtensionsArePresent_returnExtensions(){
+        List<Extension> extensions = new ArrayList<>();
+
+        when(extensionMockRepository.getAllByNameIs("testName")).thenReturn(extensions);
+
+        List<Extension> result = extensionService.getByName("testName");
+
+        verify(extensionMockRepository,times(1)).getAllByNameIs("testName");
+
+        assertEquals(extensions,result);
+    }
+
+
 
 
 
