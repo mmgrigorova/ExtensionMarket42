@@ -15,6 +15,8 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
     List<Extension> findTop5ByOrderByDownloadsCountDesc();
     List<Extension> findTop5ByOrderByAddedOnAsc();
     List<Extension> getAllByNameIs(String name);
+    List<Extension> getAllByTags(String tag);
+
 
 
     // findTop10ByOrderByLevelDesc

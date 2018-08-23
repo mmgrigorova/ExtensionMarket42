@@ -8,15 +8,32 @@
 
 <div class="container">
     <div class="row" style="margin-bottom: 20px">
-        <form form th:action="@{/adminPanel}" method="post">
-            <input type="submit" name="action" class="btn btn-primary" value="users" th:field="*{choice}">
-            <input type="submit" name="action" class="btn btn-primary" value="extensions" th:field="*{choice}">
-            <input type="submit" name="action" class="btn btn-primary" value="featured" th:field="*{choice}">
-            <input type="submit" name="action" class="btn btn-primary" value="pending" th:field="*{choice}">
+        <form action="#" data-th-action="@{adminPanel}" data-th-object="${formChoice}" method="post">
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check form-check-inline" name="search" value="extensions" th:field="*{param}"/>
+                <label class="form-check-label">Extensions</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check form-check-inline" name="search" value="featured" th:field="*{param}"/>
+                <label class="form-check-label">Featured</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check form-check-inline" name="search" value="pending" th:field="*{param}"/>
+                <label class="form-check-label">Pending</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check form-check-inline" name="search" value="users" th:field="*{param}"/>
+                <label class="form-check-label">Users</label>
+            </div>
+            <div class="form-check">
+                <div class="form-check form-check-inline">
+                    <input type="submit" name="action" class="btn btn-primary" value="Show">
+                </div>
+            </div>
         </form>
     </div>
     <div class="row">
-        <div class="col-sm-5" style="border-right: 1px solid black">
+        <div class="col-sm-5">
             <div th:if="${not #lists.isEmpty(extensions)}">
                 <table class="table table-striped table-custom">
                     <tr>
@@ -25,13 +42,19 @@
                         <th>Owner</th>
                         <th>Pending</th>
                         <th>Featured</th>
+                        <th>Last Commit</th>
+                        <th>Uploaded On</th>
+                        <th>Tags</th>
                     </tr>
                     <tr th:each="e : ${extensions}">
                         <td th:text="${e.id}"></td>
                         <td><a href="#" th:text="${e.name}"></a></td>
                         <td th:text="${e.userProfile.firstName +  e.userProfile.lastName }"></td>
-                        <td th:text="${e.downloadsCount}"></td>
+                        <td th:text="${e.pending}"></td>
+                        <td th:text="${e.featured}"></td>
                         <td th:text="${e.lastCommit}"></td>
+                        <td th:text="${e.addedOn}"></td>
+                        <td th:text="${e.tags}"></td>
                     </tr>
                 </table>
             </div><div class="col-sm-7">

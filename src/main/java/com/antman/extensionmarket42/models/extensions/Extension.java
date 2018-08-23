@@ -45,7 +45,8 @@ public class Extension {
   @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(
           name = "extension_tags",
-          joinColumns = @JoinColumn(name = "extensionId")
+          joinColumns = @JoinColumn(name = "extensionId"),
+          inverseJoinColumns = @JoinColumn(name = "tagId")
   )
   private List<Tag> tags;
 

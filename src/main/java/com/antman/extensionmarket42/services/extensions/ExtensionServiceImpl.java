@@ -54,6 +54,11 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public List<Extension> getByTag(String tag) {
+        return extensionRepository.getAllByTags(tag);
+    }
+
+    @Override
     public List<Extension> getRecentlyAdded() {
         return extensionRepository.findTop5ByOrderByAddedOnAsc();
     }
