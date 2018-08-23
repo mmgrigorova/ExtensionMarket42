@@ -34,7 +34,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Iterable<Extension> getAll() {
+    public List<Extension> getAll() {
         return extensionRepository.findAll();
     }
 

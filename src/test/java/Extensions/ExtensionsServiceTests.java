@@ -58,6 +58,19 @@ public class ExtensionsServiceTests {
 
         assertEquals(extensions,result);
     }
+    @Test
+    public void getAll_whenExtensionsArePresent_returnAllExtension(){
+        List<Extension> extensions = new ArrayList<>(3);
+        extensions.add(new Extension());
+        extensions.add(new Extension());
+        extensions.add(new Extension());
+
+        when(extensionMockRepository.findAll()).thenReturn(extensions);
+
+        List<Extension> result = extensionService.getAll();
+
+        assertEquals(3,result.size());
+    }
 
 
 

@@ -7,8 +7,8 @@ import java.util.List;
 public interface ExtensionService {
     Extension getById(long id);
     Extension save(Extension extension);
-    Iterable<Extension> getAll();
 
+    List<Extension> getAll();
     List<Extension> getByName(String name);
     List<Extension> getFeatured(boolean b);
     List<Extension> getPending(boolean b);
