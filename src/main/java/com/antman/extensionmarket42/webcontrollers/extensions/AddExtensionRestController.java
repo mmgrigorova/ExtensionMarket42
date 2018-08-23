@@ -5,6 +5,7 @@ import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.users.base.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,8 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.sql.Date;
 
 
-//FOR THE SAKE OF TESTING
-@RestController
+@Controller
 public class AddExtensionRestController {
     private ExtensionService extensionService;
 
@@ -24,8 +24,10 @@ public class AddExtensionRestController {
     }
 
     @GetMapping("extension-add")
-    public String showAddExtension(){
-        return "extension-add";
+    public ModelAndView showAddExtension(){
+        ModelAndView mav = new ModelAndView("extension-add");
+        mav.addObject("extensionDto", new ExtensionDto());
+        return mav;
     }
 
     @PostMapping("extension-add")

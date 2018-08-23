@@ -6,8 +6,10 @@ import com.antman.extensionmarket42.models.UserRole;
 import com.antman.extensionmarket42.repositories.base.UserRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -59,7 +61,19 @@ public class UserDetailsServiceImpl implements MyUserDetailsService {
     }
 
     public UserProfile getCurrentUser() {
-        return null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = String.valueOf(authentication.getPrincipal());
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        UserProfile userProfile = null;
+
+        if(userOptional.isPresent()) {
+            User user  = userOptional.get();
+            userProfile = user.getUserProfile();
+        } else {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return userProfile;
     }
 
     private List<GrantedAuthority> getAuthorities(List<UserRole> userRoles) {

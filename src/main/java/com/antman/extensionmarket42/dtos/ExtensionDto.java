@@ -33,6 +33,9 @@ public class ExtensionDto {
 
     private List<Tag> tags;
 
+    public ExtensionDto() {
+    }
+
     public ExtensionDto(@NotNull @NotEmpty(message = REQUIRED_MESSAGE) @Size(min = 2, message = NAME_SIZE_MESSAGE) String name, String description, String version, @NotNull @NotEmpty(message = REQUIRED_MESSAGE) String repoLink, @NotNull @NotEmpty(message = FILE_REQUIRED_MESSAGE) MultipartFile file, List<Tag> tags) {
         this.name = name;
         this.description = description;

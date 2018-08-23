@@ -8,27 +8,35 @@
 <form th:action="@{/extenstion-add}" th:object="${extensionDto}" method="post" enctype="utf8">
     <div class="form-group">
         <label>Extension Name
-            <input class="form-control" size="60" type="email" th:field="*{name}"/>
+            <input class="form-control" size="60" type="text" th:field="*{name}"/>
         </label>
-        <small class="error" th:each="error : ${#fields.errors('email')}"
+        <small class="error" th:each="error : ${#fields.errors('name')}"
                th:text="${error}">Validation error
         </small>
     </div>
     <div class="form-group">
-        <label>Password
-            <input class="form-control" type="password" th:field="*{password}"/>
+        <label>Desc
+            <input class="form-control" type="password" th:field="*{description}"/>
         </label>
-        <small class="error" th:each="error : ${#fields.errors('password')}"
+        <small class="error" th:each="error : ${#fields.errors('description')}"
                th:text="${error}">Validation error
         </small>
     </div>
     <div class="form-group">
-        <label>Confirm Password
-            <input class="form-control" type="password" th:field="*{matchingPassword}"/>
+        <label>Version
+            <input class="form-control" type="password" th:field="*{version}"/>
         </label>
         <small class="error"
                th:if="${#fields.hasGlobalErrors()}"
                th:each="error : ${#fields.errors('global')}"
+               th:text="${error}">Validation error
+        </small>
+    </div>
+    <div class="form-group">
+        <label>Repo
+            <input class="form-control" type="text" th:field="*{repoLink}"/>
+        </label>
+        <small class="error" th:each="error : ${#fields.errors('repoLink')}"
                th:text="${error}">Validation error
         </small>
     </div>
