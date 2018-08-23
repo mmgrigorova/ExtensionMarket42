@@ -5,38 +5,35 @@ import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class DisplayExtensionsController {
     private ExtensionService extensionService;
 
     @Autowired
-    public DisplayExtensionsController(ExtensionService extensionService){
+    public DisplayExtensionsController(ExtensionService extensionService) {
         this.extensionService = extensionService;
     }
 
-//    @RequestMapping("adminPanel")
-//    public String getAllExtensions(Model model){
-//        Iterable<Extension> extensions = extensionService.getAll();
-//        model.addAttribute("extensions",extensions);
-//
-//        return "adminPanel";
-//    }
-//    @RequestMapping("adminPanel")
-//    public String getPendingExtensions(Model model){
-//        Iterable<Extension> extensions = extensionService.getPending(true);
-//        model.addAttribute("extensions",extensions);
-//
-//        return "adminPanel";
-//    }
-//    @RequestMapping("adminPanel")
-//    public String getFeaturedExtensions(Model model){
-//        Iterable<Extension> extensions = extensionService.getFeatured(true);
-//        model.addAttribute("extensions",extensions);
-//
-//        return "adminPanel";
-//    }
+    @GetMapping("extension-details/{id}")
+    public ModelAndView showExtensionDetailsPage(@PathVariable("id") Long id){
+        ModelAndView mav = new ModelAndView("extension-details");
+        Extension extension = null;
+        try {
+            extension = extensionService.getById(id);
+        }catch (Exception e) {
+            e.printStackTrace();
+            mav = new ModelAndView("extension-details");
+            mav.addObject("errormessage","There is no such extension" );
+        }
+
+        mav.addObject(extension);
+        return mav;
+    }
 }
 
 

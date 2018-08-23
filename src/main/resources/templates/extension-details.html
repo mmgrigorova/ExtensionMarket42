@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments :: head">
+    <title>Extension Details</title>
+</head>
+<body>
+    <h2 th:text="${extension.name}"></h2>
+    <h4 th:if="${errormessage}" th:text="${errormessage}"></h4>
+
+    <p th:text="${extension.name}">Extension Name</p>
+    <p th:text="${extension.description}">Extension Description</p>
+    <p th:text="${extension.version}">Extension Version</p>
+
+    <p th:if="${extension.downloadLink}" th:text="${extension.downloadLink}">Download Link</p>
+    <p th:unless="${extension.downloadLink}">This extension has no available download files.</p>
+</body>
+</html>

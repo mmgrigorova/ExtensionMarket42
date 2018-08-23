@@ -3,10 +3,13 @@ package com.antman.extensionmarket42.services.extensions;
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExtensionServiceImpl implements ExtensionService {
@@ -19,9 +22,12 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension getById(long id) {
-        long s = 1;
-        return extensionRepository.findById(s).get();
+    public Extension getById(Long id) throws NotFoundException {
+        Optional<Extension> extensionOptional = extensionRepository.findById(id);
+        if (!extensionOptional.isPresent()){
+            throw new NotFoundException("Extension has not been found");
+        }
+        return extensionOptional.get();
     }
 
     @Override
