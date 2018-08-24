@@ -68,7 +68,6 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     private RepositoryDetails getRepositoryDetails(String repoLink) {
         //TODO replace with actual repository information
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         return new RepositoryDetails(repoLink, 0,0, new java.sql.Date(date.getTime()));
     }

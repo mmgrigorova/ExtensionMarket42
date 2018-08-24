@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -62,7 +63,7 @@ public class UserDetailsServiceImpl implements MyUserDetailsService {
 
     public UserProfile getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = String.valueOf(authentication.getPrincipal());
+        String username = authentication.getName();
         Optional<User> userOptional = userRepository.findByUsername(username);
         UserProfile userProfile = null;
 
