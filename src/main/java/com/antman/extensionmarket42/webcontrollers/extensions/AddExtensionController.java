@@ -31,7 +31,7 @@ public class AddExtensionController {
 
 
     @GetMapping("extension-add")
-    public ModelAndView showAddExtension(){
+    public ModelAndView showAddExtension() {
         ModelAndView mav = new ModelAndView("extension-add");
         mav.addObject("extensionDto", new ExtensionDto());
         return mav;
@@ -41,41 +41,40 @@ public class AddExtensionController {
     public ModelAndView addExtension(@ModelAttribute("extensionDto") ExtensionDto extensionDto,
                                      @RequestParam("file") MultipartFile file,
                                      RedirectAttributes redirectAttributes,
-                                     Errors errors){
-        ModelAndView mav = new ModelAndView("redirect:/extension-details/{id}");
+                                     Errors errors) throws Exception {
 
-        if(errors.hasErrors()){
-            mav = new ModelAndView("extension-add");
+
+        if (errors.hasErrors()) {
+            ModelAndView mav = new ModelAndView("extension-add");
             mav.addObject("errors", errors);
             return mav;
         }
 
-        Extension newExtension = extensionService.save(extensionDto);
+        try {
+            ModelAndView mav = new ModelAndView("redirect:/extension-details/{id}");
+            Extension newExtension = extensionService.save(extensionDto);
 
-        redirectAttributes.addAttribute("id", newExtension.getId())
-                .addFlashAttribute("message", "Extension created!");
+            redirectAttributes.addAttribute("id", newExtension.getId());
 
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return new ModelAndView("extension-upload");
+            if (file.isEmpty()) {
+                redirectAttributes.addAttribute("message", "Please select a file to upload");
+                return new ModelAndView("extension-upload");
+            }
+
+            String fileName = fileStorageService.storeFile(file);
+
+            if (fileName == null) {
+                ModelAndView mavError = new ModelAndView("extension-upload");
+                mavError.addObject("message", PROBLEM_MESSAGE);
+                return mavError;
+            }
+
+            redirectAttributes.addFlashAttribute("messageCreated", "Extension created!");
+            redirectAttributes.addFlashAttribute("messageUploaded", "File " + fileName + " has been uploaded successfully");
+            return mav;
+
+        } catch (Exception e) {
+            throw new Exception("There was a problem with creating this exception: " + e.getCause());
         }
-
-        String fileName = fileStorageService.storeFile(file);
-
-        if (fileName == null) {
-            ModelAndView mavError = new ModelAndView("extension-upload");
-            mavError.addObject("message", PROBLEM_MESSAGE);
-            return mavError;
-        }
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        mav.addObject("fileDownloadUri", fileDownloadUri);
-        mav.addObject("message", "File " + fileName + " has been uploaded successfully");
-
-        return mav;
     }
 }
