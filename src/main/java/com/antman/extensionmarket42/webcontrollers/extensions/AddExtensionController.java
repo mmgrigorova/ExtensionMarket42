@@ -69,8 +69,8 @@ public class AddExtensionController {
                 return mavError;
             }
 
-            redirectAttributes.addFlashAttribute("message", "Extension created!");
-            redirectAttributes.addFlashAttribute("message", "File " + fileName + " has been uploaded successfully");
+            redirectAttributes.addFlashAttribute("messageCreated", "Extension created!");
+            redirectAttributes.addFlashAttribute("messageUploaded", "File " + fileName + " has been uploaded successfully");
             return mav;
 
         } catch (Exception e) {
