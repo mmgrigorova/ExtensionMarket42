@@ -15,11 +15,11 @@ import java.sql.Date;
 
 
 @Controller
-public class AddExtensionRestController {
+public class AddExtensionController {
     private ExtensionService extensionService;
 
     @Autowired
-    public AddExtensionRestController(ExtensionService extensionService, UserRegistrationService userRegistrationService){
+    public AddExtensionController(ExtensionService extensionService, UserRegistrationService userRegistrationService){
         this.extensionService = extensionService;
     }
 
@@ -31,7 +31,7 @@ public class AddExtensionRestController {
     }
 
     @PostMapping("extension-add")
-    public ModelAndView addExtension(@RequestParam("extensionDto") ExtensionDto extensionDto,
+    public ModelAndView addExtension(@ModelAttribute("extensionDto") ExtensionDto extensionDto,
                                      RedirectAttributes redirectAttributes,
                                      Errors errors){
         ModelAndView mav = null;

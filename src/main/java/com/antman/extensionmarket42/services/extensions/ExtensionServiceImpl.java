@@ -56,7 +56,11 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setLastCommit(repoDetails.getLastCommit());
 
         extension.setUserProfile(userDetailsService.getCurrentUser());
-        extension.setAddedOn((java.sql.Date) new Date());
+
+        java.util.Date date = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+        extension.setAddedOn(sqlDate);
 
         return extensionRepository.save(extension);
     }
@@ -66,7 +70,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         //TODO replace with actual repository information
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
-        return new RepositoryDetails(repoLink, 0,0, (java.sql.Date) date);
+        return new RepositoryDetails(repoLink, 0,0, new java.sql.Date(date.getTime()));
     }
 
     @Override

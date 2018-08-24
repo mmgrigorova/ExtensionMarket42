@@ -5,7 +5,7 @@
 <head th:replace="fragments :: head">
 </head>
 <body>
-<form th:action="@{/extenstion-add}" th:object="${extensionDto}" method="post" enctype="utf8">
+<form  th:object="${extensionDto}" method="post" enctype="utf8">
     <div class="form-group">
         <label>Extension Name
             <input class="form-control" size="60" type="text" th:field="*{name}"/>
@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
         <label>Desc
-            <input class="form-control" type="password" th:field="*{description}"/>
+            <input class="form-control" type="text" th:field="*{description}"/>
         </label>
         <small class="error" th:each="error : ${#fields.errors('description')}"
                th:text="${error}">Validation error
@@ -24,7 +24,7 @@
     </div>
     <div class="form-group">
         <label>Version
-            <input class="form-control" type="password" th:field="*{version}"/>
+            <input class="form-control" type="text" th:field="*{version}"/>
         </label>
         <small class="error"
                th:if="${#fields.hasGlobalErrors()}"
@@ -40,7 +40,7 @@
                th:text="${error}">Validation error
         </small>
     </div>
-    <input class="btn btn-primary" type="submit" value="Register"/>
+    <input class="btn btn-primary" type="submit" value="Create Extension"/>
 </form>
 </body>
 </html>
