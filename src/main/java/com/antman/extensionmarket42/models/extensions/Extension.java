@@ -42,8 +42,13 @@ public class Extension {
   @Column
   private Date lastCommit;
 
-  @OneToMany(mappedBy = "extension")
-  private List<ExtensionTag> extensionTags;
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(
+          name = "extension_tags",
+          joinColumns = @JoinColumn(name = "extensionId"),
+          inverseJoinColumns = @JoinColumn(name = "tagId")
+  )
+  private List<Tag> tags;
 
   @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   @JoinColumn(name = "ownerId")
@@ -60,6 +65,9 @@ public class Extension {
 
   @Column
   private String icon;
+
+  @Column
+  private Date addedOn;
 
   public Extension() {
   }
@@ -180,12 +188,12 @@ public class Extension {
     this.icon = icon;
   }
 
-  public List<ExtensionTag> getExtensionTags() {
-    return extensionTags;
+  public List<Tag> getTags() {
+    return tags;
   }
 
-  public void setExtensionTags(List<ExtensionTag> extensionTags) {
-    this.extensionTags = extensionTags;
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
   }
 
   public UserProfile getUserProfile() {
@@ -202,5 +210,13 @@ public class Extension {
 
   public void setScreenshots(List<Screenshot> screenshots) {
     this.screenshots = screenshots;
+  }
+
+  public Date getAddedOn() {
+    return addedOn;
+  }
+
+  public void setAddedOn(Date addedOn) {
+    this.addedOn = addedOn;
   }
 }

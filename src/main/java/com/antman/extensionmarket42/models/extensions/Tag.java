@@ -16,8 +16,8 @@ public class Tag {
     @Column
     private String tagTitle;
 
-    @OneToMany(mappedBy = "tag")
-    List<ExtensionTag> extensionTags;
+    @ManyToMany(mappedBy = "tags")
+    List<Extension> extensions;
 
     public Tag(){
     }
@@ -38,11 +38,11 @@ public class Tag {
         this.tagTitle = tagTitle;
     }
 
-    public List<ExtensionTag> getExtensionTags() {
-        return extensionTags;
+    public List<Extension> extensions() {
+        return extensions;
     }
 
-    public void setExtensionTags(List<ExtensionTag> extensionTags) {
-        this.extensionTags = extensionTags;
+    public void setExtensionTags(List<Extension> extensions) {
+        this.extensions = extensions;
     }
 }
