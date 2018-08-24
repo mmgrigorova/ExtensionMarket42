@@ -114,17 +114,17 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> orderByDownloadsCount() {
-        return extensionRepository.getAllOrderByDownloadsCountDesc();
+        return extensionRepository.findAllByOrderByDownloadsCountDesc();
     }
 
     @Override
     public List<Extension> orderByLastCommit() {
-        return  extensionRepository.getAllOrderByLastCommitAsc();
+        return extensionRepository.findAllByOrderByLastCommitDesc();
     }
 
     @Override
     public List<Extension> orderByUploadDate() {
-        return extensionRepository.getAllOrderByAddedOnAsc();
+        return extensionRepository.findAllByOrderByAddedOnDesc();
     }
 
 

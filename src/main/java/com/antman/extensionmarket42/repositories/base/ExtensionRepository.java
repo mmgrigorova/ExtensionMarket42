@@ -17,9 +17,9 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
     List<Extension> getAllByNameIs(String name);
     List<Extension> getAllByTags(String tag);
     //Sorting
-    List<Extension> getAllOrderByDownloadsCountDesc();
-    List<Extension> getAllOrderByAddedOnAsc();
-    List<Extension> getAllOrderByLastCommitAsc();
+    List<Extension> findAllByOrderByDownloadsCountDesc();
+    List<Extension> findAllByOrderByAddedOnDesc();
+    List<Extension> findAllByOrderByLastCommitDesc();
 
 
 }
