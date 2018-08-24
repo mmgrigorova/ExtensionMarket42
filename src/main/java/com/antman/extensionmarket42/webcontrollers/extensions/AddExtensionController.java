@@ -3,13 +3,16 @@ package com.antman.extensionmarket42.webcontrollers.extensions;
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
+import com.antman.extensionmarket42.services.files.FileStorageService;
 import com.antman.extensionmarket42.services.users.base.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.sql.Date;
 
@@ -17,11 +20,15 @@ import java.sql.Date;
 @Controller
 public class AddExtensionController {
     private ExtensionService extensionService;
+    private FileStorageService fileStorageService;
+    private final String PROBLEM_MESSAGE = "There was a problem with the file upload. Please try again later.";
 
     @Autowired
-    public AddExtensionController(ExtensionService extensionService, UserRegistrationService userRegistrationService){
+    public AddExtensionController(ExtensionService extensionService, FileStorageService fileStorageService) {
         this.extensionService = extensionService;
+        this.fileStorageService = fileStorageService;
     }
+
 
     @GetMapping("extension-add")
     public ModelAndView showAddExtension(){
@@ -32,9 +39,10 @@ public class AddExtensionController {
 
     @PostMapping("extension-add")
     public ModelAndView addExtension(@ModelAttribute("extensionDto") ExtensionDto extensionDto,
+                                     @RequestParam("file") MultipartFile file,
                                      RedirectAttributes redirectAttributes,
                                      Errors errors){
-        ModelAndView mav = null;
+        ModelAndView mav = new ModelAndView("redirect:/extension-details/{id}");
 
         if(errors.hasErrors()){
             mav = new ModelAndView("extension-add");
@@ -43,10 +51,30 @@ public class AddExtensionController {
         }
 
         Extension newExtension = extensionService.save(extensionDto);
+
         redirectAttributes.addAttribute("id", newExtension.getId())
                 .addFlashAttribute("message", "Extension created!");
 
-        mav = new ModelAndView("redirect:/uploadFile/{id}");
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+            return new ModelAndView("extension-upload");
+        }
+
+        String fileName = fileStorageService.storeFile(file);
+
+        if (fileName == null) {
+            ModelAndView mavError = new ModelAndView("extension-upload");
+            mavError.addObject("message", PROBLEM_MESSAGE);
+            return mavError;
+        }
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
+        mav.addObject("fileDownloadUri", fileDownloadUri);
+        mav.addObject("message", "File " + fileName + " has been uploaded successfully");
 
         return mav;
     }
