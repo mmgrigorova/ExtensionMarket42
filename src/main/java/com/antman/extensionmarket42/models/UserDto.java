@@ -1,4 +1,4 @@
-package com.antman.extensionmarket42.dtos;
+package com.antman.extensionmarket42.models;
 
 import com.antman.extensionmarket42.utils.PasswordMatches;
 

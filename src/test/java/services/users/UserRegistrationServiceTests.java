@@ -1,7 +1,7 @@
 package services.users;
 
 import com.antman.extensionmarket42.models.User;
-import com.antman.extensionmarket42.dtos.UserDto;
+import com.antman.extensionmarket42.models.UserDto;
 import com.antman.extensionmarket42.repositories.base.UserRepository;
 import com.antman.extensionmarket42.services.users.UserRegistrationServiceImpl;
 import com.antman.extensionmarket42.services.users.base.UserRegistrationService;

@@ -10,12 +10,8 @@ import java.util.List;
 @Service
 public class ExtensionServiceImpl implements ExtensionService {
 
-    private final ExtensionRepository extensionRepository;
-
     @Autowired
-    public ExtensionServiceImpl(ExtensionRepository extensionRepository) {
-        this.extensionRepository = extensionRepository;
-    }
+    private ExtensionRepository extensionRepository;
 
     @Override
     public Extension getById(long id) {
@@ -25,6 +21,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public Extension save(Extension extension) {
+
         return extensionRepository.save(extension);
     }
 

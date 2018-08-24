@@ -1,6 +1,6 @@
 package com.antman.extensionmarket42.utils;
 
-import com.antman.extensionmarket42.dtos.UserDto;
+import com.antman.extensionmarket42.models.UserDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

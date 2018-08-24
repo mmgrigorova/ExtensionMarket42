@@ -1,7 +1,7 @@
 package com.antman.extensionmarket42.webcontrollers.users;
 
 import com.antman.extensionmarket42.models.User;
-import com.antman.extensionmarket42.dtos.UserDto;
+import com.antman.extensionmarket42.models.UserDto;
 import com.antman.extensionmarket42.services.users.base.UserRegistrationService;
 import com.antman.extensionmarket42.utils.exceptions.EmailExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
