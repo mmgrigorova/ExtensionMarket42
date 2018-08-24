@@ -71,6 +71,26 @@ public class ExtensionsServiceTests {
 
         assertEquals(3,result.size());
     }
+    @Test
+    public void getFeatured_whenExtensionIsFeatured_returnExtensions(){
+        List<Extension> extensions = new ArrayList<>(3);
+        Extension extensionOne = new Extension();
+        Extension extensionTwo = new Extension();
+        Extension extensionThree = new Extension();
+        //extensionOne.setFeatured(true);
+        //extensionTwo.setFeatured(true);
+        extensions.add(extensionOne);
+        extensions.add(extensionThree);
+        extensions.add(extensionTwo);
+
+
+        when(extensionMockRepository.getAllByFeaturedIs(true)).thenReturn(extensions);
+
+        List<Extension> result = extensionService.getFeatured(true);
+
+        assertEquals(2,result.size());
+
+    }
 
 
 
