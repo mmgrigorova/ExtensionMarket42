@@ -40,7 +40,7 @@ public class Extension {
   private int pullRequests;
 
   @Column
-  private Date lastCommit;
+  private java.sql.Date lastCommit;
 
   @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(
@@ -72,7 +72,7 @@ public class Extension {
   public Extension() {
   }
 
-  public Extension(String name, String description, String version, int downloadsCount, String downloadLink, String repoLink, int openIssues, int pullRequests, Date lastCommit) {
+  public Extension(String name, String description, String version, int downloadsCount, String downloadLink, String repoLink, int openIssues, int pullRequests, Date lastCommit, List<ExtensionTag> extensionTags, UserProfile userProfile, List<Screenshot> screenshots, boolean pending, boolean featured, String icon, Date addedOn) {
     this.name = name;
     this.description = description;
     this.version = version;
@@ -82,6 +82,12 @@ public class Extension {
     this.openIssues = openIssues;
     this.pullRequests = pullRequests;
     this.lastCommit = lastCommit;
+    this.userProfile = userProfile;
+    this.screenshots = screenshots;
+    this.pending = pending;
+    this.featured = featured;
+    this.icon = icon;
+    this.addedOn = addedOn;
   }
 
   public Long getId() {
@@ -152,8 +158,8 @@ public class Extension {
     return pullRequests;
   }
 
-  public void setPullRequests(int pullReq) {
-    this.pullRequests = pullReq;
+  public void setPullRequests(int pullRequests) {
+    this.pullRequests = pullRequests;
   }
 
   public Date getLastCommit() {
@@ -162,30 +168,6 @@ public class Extension {
 
   public void setLastCommit(Date lastCommit) {
     this.lastCommit = lastCommit;
-  }
-
-  public boolean isFeatured() {
-    return featured;
-  }
-
-  public void setFeatured(boolean featured) {
-    this.featured = featured;
-  }
-
-  public boolean isPending() {
-    return pending;
-  }
-
-  public void setPending(boolean pending) {
-    this.pending = pending;
-  }
-
-  public String getIcon() {
-    return icon;
-  }
-
-  public void setIcon(String icon) {
-    this.icon = icon;
   }
 
   public List<Tag> getTags() {
@@ -210,6 +192,30 @@ public class Extension {
 
   public void setScreenshots(List<Screenshot> screenshots) {
     this.screenshots = screenshots;
+  }
+
+  public boolean isPending() {
+    return pending;
+  }
+
+  public void setPending(boolean pending) {
+    this.pending = pending;
+  }
+
+  public boolean isFeatured() {
+    return featured;
+  }
+
+  public void setFeatured(boolean featured) {
+    this.featured = featured;
+  }
+
+  public String getIcon() {
+    return icon;
+  }
+
+  public void setIcon(String icon) {
+    this.icon = icon;
   }
 
   public Date getAddedOn() {

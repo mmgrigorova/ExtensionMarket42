@@ -1,12 +1,15 @@
 package com.antman.extensionmarket42.services.extensions;
 
+import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
+import javassist.NotFoundException;
 
 import java.util.List;
 
 public interface ExtensionService {
-    Extension getById(long id);
-    Extension save(Extension extension);
+    Extension getById(Long id) throws NotFoundException;
+
+    Extension save(ExtensionDto extensionDto);
 
     List<Extension> getAll();
     List<Extension> getByName(String name);

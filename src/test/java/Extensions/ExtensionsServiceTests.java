@@ -4,6 +4,8 @@ import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
+import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
+import javassist.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,14 +27,15 @@ public class ExtensionsServiceTests {
     private ExtensionRepository extensionMockRepository;
 
     private ExtensionService extensionService;
+    private MyUserDetailsService userDetailsService;
 
     @Before
     public void setUp(){
-        extensionService = new ExtensionServiceImpl(extensionMockRepository);
+        extensionService = new ExtensionServiceImpl(extensionMockRepository, userDetailsService);
     }
 
     @Test
-    public void getById_whenExtensionIsPresent_returnExtension(){
+    public void getById_whenExtensionIsPresent_returnExtension() throws NotFoundException {
         Extension extension = ExtensionTestSetup.createExtension("testName","description","1.0","repoLink",
                 "link",0,0,0);
 
