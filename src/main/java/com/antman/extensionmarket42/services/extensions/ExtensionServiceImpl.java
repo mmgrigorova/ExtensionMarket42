@@ -55,6 +55,9 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setPullRequests(repoDetails.getPullRequests());
         extension.setLastCommit(repoDetails.getLastCommit());
 
+        //TODO fix download link
+        extension.setDownloadLink("downloadLinkTest");
+
         extension.setUserProfile(userDetailsService.getCurrentUser());
 
         java.util.Date date = new java.util.Date();
