@@ -1,26 +1,38 @@
 package com.antman.extensionmarket42.services.extensions;
 
+import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.payload.RepositoryDetails;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
+import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExtensionServiceImpl implements ExtensionService {
 
     private final ExtensionRepository extensionRepository;
+    private final MyUserDetailsService userDetailsService;
 
     @Autowired
-    public ExtensionServiceImpl(ExtensionRepository extensionRepository) {
+    public ExtensionServiceImpl(ExtensionRepository extensionRepository, MyUserDetailsService userDetailsService) {
         this.extensionRepository = extensionRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
-    public Extension getById(long id) {
-        long s = 1;
-        return extensionRepository.findById(s).get();
+    public Extension getById(Long id) throws NotFoundException {
+        Optional<Extension> extensionOptional = extensionRepository.findById(id);
+        if (!extensionOptional.isPresent()){
+            throw new NotFoundException("Extension has not been found");
+        }
+        return extensionOptional.get();
     }
 
     @Override
@@ -29,8 +41,38 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension save(Extension extension) {
+    public Extension save(ExtensionDto extensionDto) {
+        Extension extension = new Extension();
+
+        extension.setName(extensionDto.getName());
+        extension.setDescription(extensionDto.getDescription());
+        extension.setVersion(extensionDto.getVersion());
+        String repoLink = extensionDto.getRepoLink();
+        extension.setRepoLink(repoLink);
+
+        RepositoryDetails repoDetails = getRepositoryDetails(repoLink);
+        extension.setOpenIssues(repoDetails.getOpenIssues());
+        extension.setPullRequests(repoDetails.getPullRequests());
+        extension.setLastCommit(repoDetails.getLastCommit());
+
+        //TODO fix download link
+        extension.setDownloadLink("downloadLinkTest");
+
+        extension.setUserProfile(userDetailsService.getCurrentUser());
+
+        java.util.Date date = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+        extension.setAddedOn(sqlDate);
+
         return extensionRepository.save(extension);
+    }
+
+
+    private RepositoryDetails getRepositoryDetails(String repoLink) {
+        //TODO replace with actual repository information
+        Date date = new Date();
+        return new RepositoryDetails(repoLink, 0,0, new java.sql.Date(date.getTime()));
     }
 
     @Override

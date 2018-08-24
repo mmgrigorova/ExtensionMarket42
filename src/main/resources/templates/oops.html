@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <title>Oops!</title>
+</head>
+<body>
+<h1><i class="far fa-sad-tear"></i> Oops, there was a problem with this request</h1>
+<small th:text="${errorMessage}"></small>
+</body>
+</html>
