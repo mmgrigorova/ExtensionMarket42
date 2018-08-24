@@ -59,7 +59,7 @@ public class DisplayExtensionsController {
                     break;
                 case "pending": extensions = extensionService.getPending(true);
                     break;
-                case "users": extensions = extensionService.getMostPopular();
+                case "users": extensions = extensionService.getByTag("Java");
                 default:
                     break;
             }

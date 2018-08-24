@@ -109,6 +109,22 @@ public class ExtensionServiceImpl implements ExtensionService {
     public void removeByIde(long id)
     {
         extensionRepository.deleteById(id);
+
+    }
+
+    @Override
+    public List<Extension> orderByDownloadsCount() {
+        return extensionRepository.findAllByOrderByDownloadsCountDesc();
+    }
+
+    @Override
+    public List<Extension> orderByLastCommit() {
+        return extensionRepository.findAllByOrderByLastCommitDesc();
+    }
+
+    @Override
+    public List<Extension> orderByUploadDate() {
+        return extensionRepository.findAllByOrderByAddedOnDesc();
     }
 
 

@@ -20,4 +20,10 @@ public interface ExtensionService {
     List<Extension> getRecentlyAdded();
     void removeByIde(long id);
 
+    //Sorting
+    List<Extension> orderByDownloadsCount();
+    List<Extension> orderByLastCommit();
+    List<Extension> orderByUploadDate();
+
+
 }

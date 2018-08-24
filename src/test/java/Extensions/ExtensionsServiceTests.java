@@ -75,8 +75,4 @@ public class ExtensionsServiceTests {
         assertEquals(3,result.size());
     }
 
-
-
-
-
 }
