@@ -26,7 +26,7 @@ public class FileWebController {
         this.fileStorageService = fileStorageService;
     }
 
-    @GetMapping("/uploadFile")
+    @GetMapping("/uploadFile/{id}")
     public String showUploadFileForm(Model model) {
         return "extension-upload";
     }
