@@ -11,10 +11,13 @@ public interface ExtensionService {
 
     Extension save(ExtensionDto extensionDto);
 
-    Iterable<Extension> getAll();
-
+    List<Extension> getAll();
+    List<Extension> getByName(String name);
     List<Extension> getFeatured(boolean b);
     List<Extension> getPending(boolean b);
+    List<Extension> getMostPopular();
+    List<Extension> getByTag(String tag);
+    List<Extension> getRecentlyAdded();
     void removeByIde(long id);
 
 }

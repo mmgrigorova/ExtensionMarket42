@@ -7,7 +7,6 @@ import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -34,6 +33,11 @@ public class ExtensionServiceImpl implements ExtensionService {
             throw new NotFoundException("Extension has not been found");
         }
         return extensionOptional.get();
+    }
+
+    @Override
+    public List<Extension> getByName(String name) {
+        return extensionRepository.getAllByNameIs(name);
     }
 
     @Override
@@ -66,7 +70,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Iterable<Extension> getAll() {
+    public List<Extension> getAll() {
         return extensionRepository.findAll();
     }
 
@@ -78,6 +82,21 @@ public class ExtensionServiceImpl implements ExtensionService {
     @Override
     public List<Extension> getPending(boolean b) {
         return extensionRepository.getAllByPendingIs(b);
+    }
+
+    @Override
+    public List<Extension> getMostPopular() {
+        return extensionRepository.findTop5ByOrderByDownloadsCountDesc();
+    }
+
+    @Override
+    public List<Extension> getByTag(String tag) {
+        return extensionRepository.getAllByTags(tag);
+    }
+
+    @Override
+    public List<Extension> getRecentlyAdded() {
+        return extensionRepository.findTop5ByOrderByAddedOnAsc();
     }
 
     @Override

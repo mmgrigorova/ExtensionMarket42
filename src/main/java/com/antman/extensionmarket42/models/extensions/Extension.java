@@ -1,7 +1,6 @@
 package com.antman.extensionmarket42.models.extensions;
 
 import com.antman.extensionmarket42.models.UserProfile;
-import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -43,8 +42,13 @@ public class Extension {
   @Column
   private java.sql.Date lastCommit;
 
-  @OneToMany(mappedBy = "extension")
-  private List<ExtensionTag> extensionTags;
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(
+          name = "extension_tags",
+          joinColumns = @JoinColumn(name = "extensionId"),
+          inverseJoinColumns = @JoinColumn(name = "tagId")
+  )
+  private List<Tag> tags;
 
   @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   @JoinColumn(name = "ownerId")
@@ -63,7 +67,7 @@ public class Extension {
   private String icon;
 
   @Column
-  private java.sql.Date addedOn;
+  private Date addedOn;
 
   public Extension() {
   }
@@ -78,7 +82,6 @@ public class Extension {
     this.openIssues = openIssues;
     this.pullRequests = pullRequests;
     this.lastCommit = lastCommit;
-    this.extensionTags = extensionTags;
     this.userProfile = userProfile;
     this.screenshots = screenshots;
     this.pending = pending;
@@ -167,12 +170,12 @@ public class Extension {
     this.lastCommit = lastCommit;
   }
 
-  public List<ExtensionTag> getExtensionTags() {
-    return extensionTags;
+  public List<Tag> getTags() {
+    return tags;
   }
 
-  public void setExtensionTags(List<ExtensionTag> extensionTags) {
-    this.extensionTags = extensionTags;
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
   }
 
   public UserProfile getUserProfile() {
