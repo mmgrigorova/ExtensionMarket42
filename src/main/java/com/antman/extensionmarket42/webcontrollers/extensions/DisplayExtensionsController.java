@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -32,6 +33,12 @@ public class DisplayExtensionsController {
             mav.addObject("errormessage","There is no such extension" );
         }
 
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(extension.getDownloadLink())
+                .toUriString();
+
+        mav.addObject("fileDownloadUri", fileDownloadUri);
         mav.addObject(extension);
         return mav;
     }

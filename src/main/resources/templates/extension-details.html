@@ -12,6 +12,7 @@
     <p th:text="${extension.name}">Extension Name</p>
     <p th:text="${extension.description}">Extension Description</p>
     <p th:text="${extension.version}">Extension Version</p>
+    <p th:text="${fileDownloadUri}">File download</p>
 
     <p th:if="${extension.downloadLink}" th:text="${extension.downloadLink}">Download Link</p>
     <p th:unless="${extension.downloadLink}" th:text="This extension has no available download files.">This extension has no available download files.</p>
