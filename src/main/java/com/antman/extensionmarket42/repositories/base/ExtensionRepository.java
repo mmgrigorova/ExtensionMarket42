@@ -20,6 +20,7 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
     List<Extension> findAllByOrderByDownloadsCountDesc();
     List<Extension> findAllByOrderByAddedOnDesc();
     List<Extension> findAllByOrderByLastCommitDesc();
+    List<Extension> findAllByOrderByName();
 
 
 }

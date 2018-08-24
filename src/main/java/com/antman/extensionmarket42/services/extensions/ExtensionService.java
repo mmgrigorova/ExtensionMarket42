@@ -24,6 +24,7 @@ public interface ExtensionService {
     List<Extension> orderByDownloadsCount();
     List<Extension> orderByLastCommit();
     List<Extension> orderByUploadDate();
+    List<Extension> orderByName();
 
 
 }

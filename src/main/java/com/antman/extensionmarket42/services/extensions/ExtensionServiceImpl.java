@@ -127,5 +127,10 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.findAllByOrderByAddedOnDesc();
     }
 
+    @Override
+    public List<Extension> orderByName(){
+        return extensionRepository.findAllByOrderByName();
+    }
+
 
 }
