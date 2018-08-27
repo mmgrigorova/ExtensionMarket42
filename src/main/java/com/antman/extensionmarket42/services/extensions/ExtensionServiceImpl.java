@@ -60,7 +60,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setPullRequests(repositoryDto.getPullRequests());
         extension.setLastCommit(new java.sql.Date(repositoryDto.getLastCommit().getTime()));
 
-        extension.setDownloadLink("downloadLinkTest");
+        extension.setDownloadLink(extensionDto.getFileName());
 
         extension.setUserProfile(userDetailsService.getCurrentUser());
 

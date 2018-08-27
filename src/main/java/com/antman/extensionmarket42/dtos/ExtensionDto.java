@@ -35,6 +35,8 @@ public class ExtensionDto {
     @NotEmpty(message = FILE_REQUIRED_MESSAGE)
     private MultipartFile file;
 
+    private String fileName;
+
     private List<Tag> tags;
 
     public ExtensionDto() {
@@ -104,5 +106,13 @@ public class ExtensionDto {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
