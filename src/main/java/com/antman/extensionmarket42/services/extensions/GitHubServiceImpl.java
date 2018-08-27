@@ -4,10 +4,10 @@ import com.antman.extensionmarket42.dtos.RepositoryDto;
 import com.antman.extensionmarket42.dtos.repositorydtos.*;
 import com.antman.extensionmarket42.utils.SqlDateParser;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.text.ParseException;
 import java.util.List;
@@ -19,7 +19,7 @@ public class GitHubServiceImpl implements GitHubService {
 
 
     @Override
-    public RepositoryDto getRepositoryInfo(String repoUrl) throws ParseException {
+    public RepositoryDto getRepositoryInfoFromRest(String repoUrl) throws ParseException {
         RestTemplate restTemplate = new RestTemplate();
 
         Repo repo = restTemplate.getForObject(repoUrl, Repo.class);
@@ -34,16 +34,7 @@ public class GitHubServiceImpl implements GitHubService {
 
         String pullsUrl = repoUrl + PULL_REQUESTS_COUNT_URI;
 
-        ResponseEntity<List<PullRequest>> pullRequestsResponse = restTemplate.exchange(pullsUrl,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<PullRequest>>() {
-                });
-
-        List<PullRequest> pullRequestsList = pullRequestsResponse.getBody();
-
-        assert pullRequestsList != null;
-        int pullRequests = pullRequestsList.size();
+        int pullRequests = getClosedPullRequestsCount(pullsUrl);
 
         String commitsUrl = repoUrl + LAST_COMMIT_DATE_URI;
 
@@ -55,5 +46,21 @@ public class GitHubServiceImpl implements GitHubService {
         java.sql.Date lastCommitDate = SqlDateParser.parseISO8601Date(lastCommitDateString);
 
         return new RepositoryDto(openIssues, pullRequests, lastCommitDate);
+    }
+
+    private int getClosedPullRequestsCount(String repoPullsUrl){
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<List<PullRequest>> pullRequestsResponse = restTemplate.exchange(repoPullsUrl,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<PullRequest>>() {
+                });
+
+        List<PullRequest> pullRequestsList = pullRequestsResponse.getBody();
+
+        assert pullRequestsList != null;
+        int pullRequests = pullRequestsList.size();
+        return 0;
     }
 }

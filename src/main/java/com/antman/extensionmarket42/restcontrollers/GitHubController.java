@@ -18,9 +18,9 @@ public class GitHubController {
 
     @GetMapping("git")
     public RepositoryDto showGitHubInfo() throws IOException {
-        String repoURl = "https://api.github.com/repos/circleci/circleci-images";
+        String repoURl = "https://api.github.com/repos/k0shk0sh/FastHub";
         try {
-            return gitHubService.getRepositoryInfo(repoURl);
+            return gitHubService.getRepositoryInfoFromRest(repoURl);
         } catch (ParseException e) {
             e.printStackTrace();
         }
