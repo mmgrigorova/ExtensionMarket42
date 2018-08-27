@@ -25,15 +25,30 @@
         </button>
     </div>
 
-    <p th:text="${extension.name}">Extension Name</p>
+    <p th:text="${extension.name}">Extension Name<br/>
+        <small>Version: <span th:text="${extension.version}">Extension Version</span></small>
+    </p>
+
+
     <p th:text="${extension.description}">Extension Description</p>
-    <p th:text="${extension.version}">Extension Version</p>
+    <p>
+        <i class="fab fa-github"></i> <span th:text="${extension.repoLink}">GitHub Repository</span>
+    </p>
+    <p>
+        <i class="fas fa-bug"></i> Open Issues: <span th:text="${extension.openIssues}">Open Issues</span>
+        <i class="fas fa-code-branch"></i> Pull Requests: <span th:text="${extension.pullRequests}">Pull Requests</span>
+    </p>
+    <p>
+         Last Commit Date: <span th:text="${extension.lastCommit}">Last Commit Date</span>
+    </p>
     <p th:text="${fileDownloadUri}">File download</p>
 
     <p th:if="${extension.downloadLink}" th:text="${extension.downloadLink}">Download Link</p>
     <p th:unless="${extension.downloadLink}" th:text="This extension has no available download files.">This extension
         has no
         available download files.</p>
+
+    <p><i class="far fa-calendar-alt"></i> Added on: <span th:text="${extension.addedOn}"></span> </span>
 </main>
 
 </body>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
@@ -63,10 +64,8 @@ public class ExtensionServiceImpl implements ExtensionService {
 
         extension.setUserProfile(userDetailsService.getCurrentUser());
 
-        java.util.Date date = new java.util.Date();
-        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-
-        extension.setAddedOn(sqlDate);
+        java.sql.Date currentDate = new Date(System.currentTimeMillis());
+        extension.setAddedOn(currentDate);
 
         return extensionRepository.save(extension);
     }
