@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 @RestController
 public class GitHubController {
@@ -18,6 +19,11 @@ public class GitHubController {
     @GetMapping("git")
     public RepositoryDto showGitHubInfo() throws IOException {
         String repoURl = "https://api.github.com/repos/circleci/circleci-images";
-        return gitHubService.getRepositoryInfo(repoURl);
+        try {
+            return gitHubService.getRepositoryInfo(repoURl);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

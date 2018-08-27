@@ -2,9 +2,8 @@ package com.antman.extensionmarket42.services.extensions;
 
 import com.antman.extensionmarket42.dtos.RepositoryDto;
 import com.antman.extensionmarket42.dtos.RepositoryPullRequestsDto;
-import com.antman.extensionmarket42.dtos.repositorydtos.Commit;
-import com.antman.extensionmarket42.dtos.repositorydtos.PullRequest;
-import com.antman.extensionmarket42.dtos.repositorydtos.Repo;
+import com.antman.extensionmarket42.dtos.repositorydtos.*;
+import com.antman.extensionmarket42.utils.SqlDateParser;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 @Service
 public class GitHubServiceImpl implements GitHubService {
@@ -22,10 +24,11 @@ public class GitHubServiceImpl implements GitHubService {
 
 
     @Override
-    public RepositoryDto getRepositoryInfo(String repoUrl) throws IOException {
+    public RepositoryDto getRepositoryInfo(String repoUrl) throws ParseException {
         RestTemplate restTemplate = new RestTemplate();
 
         Repo repo = restTemplate.getForObject(repoUrl, Repo.class);
+        assert repo != null;
         int openIssues = repo.getOpenIssues();
 
         String pullsUrl = repoUrl + PULL_REQUESTS_COUNT_URI;
@@ -42,21 +45,14 @@ public class GitHubServiceImpl implements GitHubService {
         int pullRequests = pullRequestsList.size();
 
         String commitsUrl = repoUrl + LAST_COMMIT_DATE_URI;
-//
-//        ResponseEntity<List<Commit>> commitsResponse = restTemplate.exchange(commitsUrl,
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<List<Commit>>() {
-//                });
-//        List<Commit> commitsList = commitsResponse.getBody();
 
-        Commit lastCommit = restTemplate.getForObject(commitsUrl, Commit.class);
+        CommitResponse lastCommit = restTemplate.getForObject(commitsUrl, CommitResponse.class, Author.class);
 
-        Date date = new Date();
-        java.sql.Date lastCommitDate = new java.sql.Date(date.getTime());
+        assert lastCommit != null;
+        String lastCommitDateString = lastCommit.getCommit().getAuthor().getDate();
 
-        RepositoryDto repositoryDto = new RepositoryDto(openIssues, pullRequests, lastCommitDate);
+        java.sql.Date lastCommitDate = SqlDateParser.parseSqlDateISO8601(lastCommitDateString);
 
-        return repositoryDto;
+        return new RepositoryDto(openIssues, pullRequests, lastCommitDate);
     }
 }
