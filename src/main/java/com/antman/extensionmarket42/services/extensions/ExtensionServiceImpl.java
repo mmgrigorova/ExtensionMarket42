@@ -64,6 +64,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
         extension.setUserProfile(userDetailsService.getCurrentUser());
 
+        extension.setPending(true);
         java.sql.Date currentDate = new Date(System.currentTimeMillis());
         extension.setAddedOn(currentDate);
 

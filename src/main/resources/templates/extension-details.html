@@ -8,12 +8,6 @@
 <body>
 <main class="container">
 
-    <h2 th:text="${extension.name}"></h2>
-
-    <a th:href="@{'/api/downloadFile/' + ${extension.downloadLink}}">
-        <button class="btn btn-primary">Download</button>
-    </a>
-
     <p th:if="${errormessage}" th:text="${errormessage}" class="alert alert-danger"></p>
 
     <div th:if="${messageCreated}" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -29,9 +23,14 @@
         </button>
     </div>
 
-    <p th:text="${extension.name}">Extension Name<br/>
-        <small>Version: <span th:text="${extension.version}">Extension Version</span></small>
-    </p>
+    <h2 th:text="${extension.name}"></h2>
+
+    <a th:href="@{'/api/downloadFile/' + ${extension.downloadLink}}">
+        <button class="btn btn-primary">Download</button>
+    </a>
+
+    <div th:text="${extension.name}">Extension Name</div>
+    <small>Version: <span th:text="${extension.version}">Extension Version</span></small>
 
 
     <p th:text="${extension.description}">Extension Description</p>
@@ -43,7 +42,7 @@
         <i class="fas fa-code-branch"></i> Pull Requests: <span th:text="${extension.pullRequests}">Pull Requests</span>
     </p>
     <p>
-         Last Commit Date: <span th:text="${extension.lastCommit}">Last Commit Date</span>
+        Last Commit Date: <span th:text="${lastCommitFormatted}">Last Commit Date</span>
     </p>
     <p th:text="${fileDownloadUri}">File download</p>
 
@@ -52,7 +51,7 @@
         has no
         available download files.</p>
 
-    <p><i class="far fa-calendar-alt"></i> Added on: <span th:text="${extension.addedOn}"></span> </span>
+    <p><i class="far fa-calendar-alt"></i> Added on: <span th:text="${addedOnFormatted}"></span> </span>
 </main>
 
 </body>
