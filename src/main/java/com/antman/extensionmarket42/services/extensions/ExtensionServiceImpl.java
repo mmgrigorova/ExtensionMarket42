@@ -55,7 +55,13 @@ public class ExtensionServiceImpl implements ExtensionService {
         String repoLink = gitHubUrl + "/" + extensionDto.getRepoUser() + "/" + extensionDto.getRepoName();
         extension.setRepoLink(repoLink);
 
-        RepositoryDto repositoryDto = gitHubService.getRepositoryInfo(extensionDto.getRepoUser(), extensionDto.getRepoName());
+        RepositoryDto repositoryDto = null;
+        try {
+           repositoryDto = gitHubService.getRepositoryInfo(extensionDto.getRepoUser(), extensionDto.getRepoName());
+        } catch (IOException e){
+            long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse("01/01/1971 01:00:00").getTime() / 1000;
+            repositoryDto = new RepositoryDto(0, 0, new Date(epoch));
+        }
         extension.setOpenIssues(repositoryDto.getOpenIssues());
         extension.setPullRequests(repositoryDto.getPullRequests());
         extension.setLastCommit(new java.sql.Date(repositoryDto.getLastCommit().getTime()));

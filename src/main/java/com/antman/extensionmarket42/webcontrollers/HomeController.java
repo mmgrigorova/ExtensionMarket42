@@ -26,14 +26,14 @@ public class HomeController {
         ModelAndView mav = new ModelAndView("index");
         UserDetails userDetails;
 
+        List<Extension> extensionList = extensionService.getFeatured(true);
+        mav.addObject("featuredExtensions", extensionList);
+
         if (authentication != null){
             userDetails = (UserDetails) authentication.getPrincipal();
             System.out.println("User has authorities: " + userDetails.getAuthorities());
-            return mav.addObject("username", userDetails.getUsername());
         }
 
-        List<Extension> extensionList = extensionService.getFeatured(true);
-        mav.addObject("featuredExtensions", extensionList);
         return mav;
     }
 }

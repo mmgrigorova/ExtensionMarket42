@@ -15,7 +15,7 @@
 
 
 <!--<div sec:authorize="isAuthenticated()">-->
-    <!--Hi, user <span th:text="${username}"></span>! This content is only shown to authenticated users.-->
+<!--Hi, user <span th:text="${username}"></span>! This content is only shown to authenticated users.-->
 <!--</div>-->
 
 <!--Authorities: <span th:if="${isAuthenticated()}" sec:authentication="principal.authorities" />-->
@@ -39,17 +39,15 @@
     <a th:href="@{/adminPanel}">Admin Portal</a>
 </p>
 
-<div >
-    <div th:each="featured : ${featuredExtensions}" >
-        <article style="display: inline-block" class="col-sm-3">
-            <div class="circular" th:if="${featured.icon}">
-                <img th:src="${featured.icon}"/>
-            </div>
-            <p th:text="${featured.name}">Name</p>
-            <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
-                 <span th:text="${featured.userProfile.lastName}">Lastname</span></p>
-        </article>
-    </div>
+<div>
+    <article th:each="featured : ${featuredExtensions}" class="col-sm-2">
+        <div class="circular" th:if="${featured.icon}">
+            <img th:src="${featured.icon}"/>
+        </div>
+        <p th:text="${featured.name}">Name</p>
+        <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
+            <span th:text="${featured.userProfile.lastName}">Lastname</span></p>
+    </article>
 </div>
 
 </body>
