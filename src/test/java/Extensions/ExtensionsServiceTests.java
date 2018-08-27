@@ -4,6 +4,7 @@ import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
+import com.antman.extensionmarket42.services.extensions.GitHubService;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
 import org.junit.Before;
@@ -28,6 +29,7 @@ public class ExtensionsServiceTests {
 
     private ExtensionService extensionService;
     private MyUserDetailsService userDetailsService;
+    private GitHubService gitHubService;
 
     @Before
     public void setUp(){
