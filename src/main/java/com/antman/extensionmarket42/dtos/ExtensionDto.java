@@ -25,7 +25,11 @@ public class ExtensionDto {
 
     @NotNull
     @NotEmpty(message = REQUIRED_MESSAGE)
-    private String repoLink;
+    private String repoUser;
+
+    @NotNull
+    @NotEmpty(message = REQUIRED_MESSAGE)
+    private String repoName;
 
     @NotNull
     @NotEmpty(message = FILE_REQUIRED_MESSAGE)
@@ -36,11 +40,12 @@ public class ExtensionDto {
     public ExtensionDto() {
     }
 
-    public ExtensionDto(@NotNull @NotEmpty(message = REQUIRED_MESSAGE) @Size(min = 2, message = NAME_SIZE_MESSAGE) String name, String description, String version, @NotNull @NotEmpty(message = REQUIRED_MESSAGE) String repoLink, @NotNull @NotEmpty(message = FILE_REQUIRED_MESSAGE) MultipartFile file, List<Tag> tags) {
+    public ExtensionDto(@NotNull @NotEmpty(message = REQUIRED_MESSAGE) @Size(min = 2, message = NAME_SIZE_MESSAGE) String name, String description, String version, @NotNull @NotEmpty(message = REQUIRED_MESSAGE) String repoUser, @NotNull @NotEmpty(message = REQUIRED_MESSAGE) String repoName, @NotNull @NotEmpty(message = FILE_REQUIRED_MESSAGE) MultipartFile file, List<Tag> tags) {
         this.name = name;
         this.description = description;
         this.version = version;
-        this.repoLink = repoLink;
+        this.repoUser = repoUser;
+        this.repoName = repoName;
         this.file = file;
         this.tags = tags;
     }
@@ -69,12 +74,20 @@ public class ExtensionDto {
         this.version = version;
     }
 
-    public String getRepoLink() {
-        return repoLink;
+    public String getRepoUser() {
+        return repoUser;
     }
 
-    public void setRepoLink(String repoLink) {
-        this.repoLink = repoLink;
+    public void setRepoUser(String repoUser) {
+        this.repoUser = repoUser;
+    }
+
+    public String getRepoName() {
+        return repoName;
+    }
+
+    public void setRepoName(String repoName) {
+        this.repoName = repoName;
     }
 
     public MultipartFile getFile() {

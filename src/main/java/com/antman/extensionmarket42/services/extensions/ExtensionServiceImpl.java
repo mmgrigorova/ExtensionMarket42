@@ -47,7 +47,9 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setName(extensionDto.getName());
         extension.setDescription(extensionDto.getDescription());
         extension.setVersion(extensionDto.getVersion());
-        String repoLink = extensionDto.getRepoLink();
+
+        String gitHubUrl = "www.github.com";
+        String repoLink = gitHubUrl + "/" + extensionDto.getRepoUser() + "/" + extensionDto.getRepoName();
         extension.setRepoLink(repoLink);
 
         RepositoryDetails repoDetails = getRepositoryDetails(repoLink);

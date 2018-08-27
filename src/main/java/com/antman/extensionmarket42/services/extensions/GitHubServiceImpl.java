@@ -1,86 +1,40 @@
 package com.antman.extensionmarket42.services.extensions;
 
 import com.antman.extensionmarket42.dtos.RepositoryDto;
-import com.antman.extensionmarket42.dtos.repositorydtos.*;
-import com.antman.extensionmarket42.utils.SqlDateParser;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.kohsuke.github.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class GitHubServiceImpl implements GitHubService {
-    private final String PULL_REQUESTS_COUNT_URI = "/pulls";
-    private final String PULL_REQUESTS_STATE = "all";
-    private final String PULL_REQUESTS_BRANCH = "master";
-    private final String LAST_COMMIT_DATE_URI = "/commits/master";
-
+    private final String ACCESS_TOKEN = "d07e8c83def2460ae996948d7d0d7ac16777c358";
 
     @Override
-    public RepositoryDto getRepositoryInfoFromRest(String repoUrl) throws ParseException {
-        RestTemplate restTemplate = new RestTemplate();
+    public RepositoryDto getRepositoryInfo(String gitUser, String repoName) throws ParseException, IOException {
 
-        Repo repo = restTemplate.getForObject(repoUrl, Repo.class);
-        int openIssues = 0;
-
-        if (repo == null) {
+        GitHub gitHub = null;
+        try {
+            gitHub = GitHub.connectUsingOAuth(ACCESS_TOKEN);
+//            gitHub = GitHub.connectUsingOAuth("4d98173f7c075527cb64878561d1fe70");
+        } catch (IOException e) {
+            e.printStackTrace();
             long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse("01/01/1970 01:00:00").getTime() / 1000;
-            return new RepositoryDto(0, 0, new java.sql.Date(epoch));
+            return new RepositoryDto(0, 0, new Date(epoch));
         }
 
-        openIssues = repo.getOpenIssues();
+        String repoUrl = gitUser + "/" + repoName;
+        GHRepository repo = gitHub.getRepository(repoUrl);
 
-        String pullsUrl = repoUrl + PULL_REQUESTS_COUNT_URI;
+        int openIssuesCount = repo.getOpenIssueCount();
+        int pullRequestsCount = repo.getPullRequests(GHIssueState.ALL).size();
+        List<GHCommit> commits =  repo.listCommits().asList();
+        Date lastCommitDate = commits.get(0).getCommitDate();
 
-        int pullRequests = getClosedPullRequestsCount(pullsUrl);
-
-        String commitsUrl = repoUrl + LAST_COMMIT_DATE_URI;
-
-        CommitResponse lastCommit = restTemplate.getForObject(commitsUrl, CommitResponse.class, Author.class);
-
-        assert lastCommit != null;
-        String lastCommitDateString = lastCommit.getCommit().getAuthor().getDate();
-
-        java.sql.Date lastCommitDate = SqlDateParser.parseISO8601Date(lastCommitDateString);
-
-        return new RepositoryDto(openIssues, pullRequests, lastCommitDate);
+        return new RepositoryDto(openIssuesCount,pullRequestsCount,lastCommitDate);
     }
 
-    private int getClosedPullRequestsCount(String repoPullsUrl){
-        RestTemplate restTemplate = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(repoPullsUrl)
-                .queryParam("state", PULL_REQUESTS_STATE)
-                .queryParam("base", PULL_REQUESTS_BRANCH);
-
-        HttpEntity<?> entity = new HttpEntity<>(headers);
-
-        HttpEntity<String> response = restTemplate.exchange(
-                uriBuilder.toUriString(),
-                HttpMethod.GET,
-                entity,
-                String.class);
-
-
-        ResponseEntity<List<PullRequest>> pullRequestsResponse = restTemplate.exchange(
-                uriBuilder.toUriString(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<PullRequest>>() {
-                });
-
-        List<PullRequest> pullRequestsList = pullRequestsResponse.getBody();
-        List header = pullRequestsResponse.getHeaders().getValuesAsList("Link");
-
-        assert pullRequestsList != null;
-        int pullRequests = pullRequestsList.size();
-        return 0;
-    }
 }

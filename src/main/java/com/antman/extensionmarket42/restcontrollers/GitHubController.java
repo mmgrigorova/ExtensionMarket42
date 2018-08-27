@@ -20,7 +20,7 @@ public class GitHubController {
     public RepositoryDto showGitHubInfo() throws IOException {
         String repoURl = "https://api.github.com/repos/k0shk0sh/FastHub";
         try {
-            return gitHubService.getRepositoryInfoFromRest(repoURl);
+            return gitHubService.getRepositoryInfo("circleci", "circleci-images");
         } catch (ParseException e) {
             e.printStackTrace();
         }

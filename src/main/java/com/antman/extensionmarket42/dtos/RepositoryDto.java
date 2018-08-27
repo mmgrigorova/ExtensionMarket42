@@ -1,11 +1,11 @@
 package com.antman.extensionmarket42.dtos;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class RepositoryDto {
     private int openIssues;
     private int pullRequests;
-    private java.sql.Date lastCommit;
+    private Date lastCommit;
 
     public RepositoryDto(int openIssues, int pullRequests, Date lastCommit) {
         this.openIssues = openIssues;

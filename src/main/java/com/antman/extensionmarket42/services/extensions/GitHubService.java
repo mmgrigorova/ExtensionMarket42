@@ -6,5 +6,5 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public interface GitHubService {
-    RepositoryDto getRepositoryInfoFromRest(String repoUrl) throws IOException, ParseException;
+    RepositoryDto getRepositoryInfo(String gitUser, String repoName) throws ParseException, IOException;
 }
