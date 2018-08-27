@@ -14,12 +14,11 @@ public class GitHubServiceImpl implements GitHubService {
     private final String ACCESS_TOKEN = "d07e8c83def2460ae996948d7d0d7ac16777c358";
 
     @Override
-    public RepositoryDto getRepositoryInfo(String gitUser, String repoName) throws ParseException, IOException {
+    public RepositoryDto getRepositoryInfo(String gitUser, String repoName) throws IOException, ParseException {
 
         GitHub gitHub = null;
         try {
             gitHub = GitHub.connectUsingOAuth(ACCESS_TOKEN);
-//            gitHub = GitHub.connectUsingOAuth("4d98173f7c075527cb64878561d1fe70");
         } catch (IOException e) {
             e.printStackTrace();
             long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse("01/01/1970 01:00:00").getTime() / 1000;
