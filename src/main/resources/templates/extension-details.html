@@ -10,7 +10,7 @@
 
     <h2 th:text="${extension.name}"></h2>
 
-    <a th:href="@{'/downloadFile/' + ${extension.downloadLink}}">
+    <a th:href="@{'/api/downloadFile/' + ${extension.downloadLink}}">
         <button class="btn btn-primary">Download</button>
     </a>
 
