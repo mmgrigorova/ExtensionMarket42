@@ -1,16 +1,16 @@
 package com.antman.extensionmarket42.services.extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
+import com.antman.extensionmarket42.dtos.RepositoryDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
-import com.antman.extensionmarket42.payload.RepositoryDetails;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,11 +19,13 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     private final ExtensionRepository extensionRepository;
     private final MyUserDetailsService userDetailsService;
+    private final GitHubService gitHubService;
 
     @Autowired
-    public ExtensionServiceImpl(ExtensionRepository extensionRepository, MyUserDetailsService userDetailsService) {
+    public ExtensionServiceImpl(ExtensionRepository extensionRepository, MyUserDetailsService userDetailsService, GitHubService gitHubService) {
         this.extensionRepository = extensionRepository;
         this.userDetailsService = userDetailsService;
+        this.gitHubService = gitHubService;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension save(ExtensionDto extensionDto) {
+    public Extension save(ExtensionDto extensionDto) throws ParseException, IOException {
         Extension extension = new Extension();
 
         extension.setName(extensionDto.getName());
@@ -52,12 +54,11 @@ public class ExtensionServiceImpl implements ExtensionService {
         String repoLink = gitHubUrl + "/" + extensionDto.getRepoUser() + "/" + extensionDto.getRepoName();
         extension.setRepoLink(repoLink);
 
-        RepositoryDetails repoDetails = getRepositoryDetails(repoLink);
-        extension.setOpenIssues(repoDetails.getOpenIssues());
-        extension.setPullRequests(repoDetails.getPullRequests());
-        extension.setLastCommit(repoDetails.getLastCommit());
+        RepositoryDto repositoryDto = gitHubService.getRepositoryInfo(extensionDto.getRepoUser(), extensionDto.getRepoName());
+        extension.setOpenIssues(repositoryDto.getOpenIssues());
+        extension.setPullRequests(repositoryDto.getPullRequests());
+        extension.setLastCommit(new java.sql.Date(repositoryDto.getLastCommit().getTime()));
 
-        //TODO fix download link
         extension.setDownloadLink("downloadLinkTest");
 
         extension.setUserProfile(userDetailsService.getCurrentUser());
@@ -68,13 +69,6 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setAddedOn(sqlDate);
 
         return extensionRepository.save(extension);
-    }
-
-
-    private RepositoryDetails getRepositoryDetails(String repoLink) {
-        //TODO replace with actual repository information
-        Date date = new Date();
-        return new RepositoryDetails(repoLink, 0,0, new java.sql.Date(date.getTime()));
     }
 
     @Override

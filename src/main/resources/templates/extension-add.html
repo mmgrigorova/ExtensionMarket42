@@ -33,12 +33,19 @@
         </small>
     </div>
     <div class="form-group">
-        <label>Repo
-            <input class="form-control" type="text" th:field="*{repoLink}"/>
+        <label>GitHub User
+            <input class="form-control" type="text" th:field="*{repoUser}"/>
+            <small class="error" th:each="error : ${#fields.errors('repoUser')}"
+                   th:text="${error}">Validation error
+            </small>
         </label>
-        <small class="error" th:each="error : ${#fields.errors('repoLink')}"
-               th:text="${error}">Validation error
-        </small>
+
+        <label>GitHub Repository Name
+            <input class="form-control" type="text" th:field="*{repoName}"/>
+            <small class="error" th:each="error : ${#fields.errors('repoName')}"
+                   th:text="${error}">Validation error
+            </small>
+        </label>
     </div>
 
     <div class="form-group">
