@@ -15,6 +15,8 @@ import java.util.List;
 @Service
 public class GitHubServiceImpl implements GitHubService {
     private final String PULL_REQUESTS_COUNT_URI = "/pulls";
+    private final String PULL_REQUESTS_STATE = "all";
+    private final String PULL_REQUESTS_BRANCH = "master";
     private final String LAST_COMMIT_DATE_URI = "/commits/master";
 
 
@@ -51,13 +53,31 @@ public class GitHubServiceImpl implements GitHubService {
     private int getClosedPullRequestsCount(String repoPullsUrl){
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<List<PullRequest>> pullRequestsResponse = restTemplate.exchange(repoPullsUrl,
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(repoPullsUrl)
+                .queryParam("state", PULL_REQUESTS_STATE)
+                .queryParam("base", PULL_REQUESTS_BRANCH);
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        HttpEntity<String> response = restTemplate.exchange(
+                uriBuilder.toUriString(),
+                HttpMethod.GET,
+                entity,
+                String.class);
+
+
+        ResponseEntity<List<PullRequest>> pullRequestsResponse = restTemplate.exchange(
+                uriBuilder.toUriString(),
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<PullRequest>>() {
                 });
 
         List<PullRequest> pullRequestsList = pullRequestsResponse.getBody();
+        List header = pullRequestsResponse.getHeaders().getValuesAsList("Link");
 
         assert pullRequestsList != null;
         int pullRequests = pullRequestsList.size();
