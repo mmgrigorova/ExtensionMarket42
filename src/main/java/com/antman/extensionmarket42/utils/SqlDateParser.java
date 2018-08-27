@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class SqlDateParser {
-    public static java.sql.Date parseSqlDateISO8601(String dateString) throws ParseException {
+    public static java.sql.Date parseISO8601Date(String dateString) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         Date date = sdf.parse(dateString);
