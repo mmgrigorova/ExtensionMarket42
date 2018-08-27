@@ -39,5 +39,18 @@
     <a th:href="@{/adminPanel}">Admin Portal</a>
 </p>
 
+<div >
+    <div th:each="featured : ${featuredExtensions}" >
+        <article style="display: inline-block" class="col-sm-3">
+            <div class="circular" th:if="${featured.icon}">
+                <img th:src="${featured.icon}"/>
+            </div>
+            <p th:text="${featured.name}">Name</p>
+            <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
+                 <span th:text="${featured.userProfile.lastName}">Lastname</span></p>
+        </article>
+    </div>
+</div>
+
 </body>
 </html>
