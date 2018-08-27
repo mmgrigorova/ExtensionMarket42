@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
     <a class="navbar-brand" th:href="@{/}"><i class="fas fa-puzzle-piece"></i> Extension 42</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,10 +30,10 @@
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" sec:authorize="hasAuthority('ROLE_DEV')">
-                <a class="nav-link" th:href="@{/developer}">Developer Space<span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/developer}" id="developer">Developer Space</a>
             </li>
             <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
-                <a class="nav-link" th:href="@{/adminPanel}">Admin Portal<span class="sr-only">(current)</span></a>
+                <a class="nav-link" th:href="@{/adminPanel}" id="admin">Admin Portal</a>
             </li>
         </ul>
         <div sec:authorize="!isAuthenticated()" class="form-inline my-2 my-lg-0">
@@ -59,8 +59,9 @@
     <script src="../script/script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"
             charset="utf-8"></script>
-    <script src="js/tag-it.js" type="text/javascript" charset="utf-8"></script>
 </th:block>
-
+<th:block th:fragment="tag-it">
+        <script src="js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+</th:block>
 </body>
 </html>
