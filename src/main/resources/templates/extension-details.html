@@ -6,6 +6,7 @@
     <title>Extension Details</title>
 </head>
 <body>
+<nav th:replace="fragments::nav"></nav>
 <main class="container">
 
     <p th:if="${errormessage}" th:text="${errormessage}" class="alert alert-danger"></p>

@@ -5,6 +5,7 @@
     <title>Login</title>
 </head>
 <body>
+<nav th:replace="fragments::nav"></nav>
 <h1>Login Page</h1>
 
 <i th:if="${errors}" class="error">Wrong username or password</i>

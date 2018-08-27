@@ -7,6 +7,7 @@
     <title>Developer Space</title>
 </head>
 <body>
+<nav th:replace="fragments::nav"></nav>
 <h1 th:text="${title}"> Developer Space </h1>
 <a th:href="@{/extension-add}" class="btn btn-primary">Add New Extension</a>
 </body>

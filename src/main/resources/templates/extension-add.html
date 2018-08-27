@@ -5,6 +5,7 @@
 <head th:replace="fragments :: head">
 </head>
 <body>
+<nav th:replace="fragments::nav"></nav>
 <form th:object="${extensionDto}" enctype="multipart/form-data" method="post">
     <div class="form-group">
         <label>Extension Name

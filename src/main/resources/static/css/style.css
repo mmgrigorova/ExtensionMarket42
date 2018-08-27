@@ -7,6 +7,10 @@ small.error{
     display: block;
 }
 
+navbar{
+    color: #fff;
+}
+
 article{
     display: inline-block;
     border: 1px solid beige;
