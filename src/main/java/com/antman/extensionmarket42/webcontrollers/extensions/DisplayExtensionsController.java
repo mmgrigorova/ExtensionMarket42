@@ -21,27 +21,6 @@ public class DisplayExtensionsController {
         this.extensionService = extensionService;
     }
 
-    @GetMapping("extension-details/{id}")
-    public ModelAndView showExtensionDetailsPage(@PathVariable("id") Long id){
-        ModelAndView mav = new ModelAndView("extension-details");
-        Extension extension = null;
-        try {
-            extension = extensionService.getById(id);
-        }catch (Exception e) {
-            e.printStackTrace();
-            mav = new ModelAndView("extension-details");
-            mav.addObject("errormessage","There is no such extension" );
-        }
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(extension.getDownloadLink())
-                .toUriString();
-
-        mav.addObject("fileDownloadUri", fileDownloadUri);
-        mav.addObject(extension);
-        return mav;
-    }
     @GetMapping("adminPanel")
     public String getAdminPage(Model model){
         List<Extension> extensions = extensionService.getRecentlyAdded();
