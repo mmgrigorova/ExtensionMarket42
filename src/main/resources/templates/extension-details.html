@@ -6,14 +6,54 @@
     <title>Extension Details</title>
 </head>
 <body>
-    <h2 th:text="${extension.name}"></h2>
-    <h4 th:if="${errormessage}" th:text="${errormessage}"></h4>
+<nav th:replace="fragments::nav"></nav>
+<main class="container">
 
-    <p th:text="${extension.name}">Extension Name</p>
+    <p th:if="${errormessage}" th:text="${errormessage}" class="alert alert-danger"></p>
+
+    <div th:if="${messageCreated}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${messageCreated}">Extension has been created!</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${messageUploaded}" class="alert alert-primary alert-dismissible fade show" role="alert">
+        <span th:text="${messageUploaded}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <h2 th:text="${extension.name}"></h2>
+
+    <a th:href="@{'/api/downloadFile/' + ${extension.downloadLink}}">
+        <button class="btn btn-primary">Download</button>
+    </a>
+
+    <div th:text="${extension.name}">Extension Name</div>
+    <small>Version: <span th:text="${extension.version}">Extension Version</span></small>
+
+
     <p th:text="${extension.description}">Extension Description</p>
-    <p th:text="${extension.version}">Extension Version</p>
+    <p>
+        <i class="fab fa-github"></i> <span th:text="${extension.repoLink}">GitHub Repository</span>
+    </p>
+    <p>
+        <i class="fas fa-bug"></i> Open Issues: <span th:text="${extension.openIssues}">Open Issues</span>
+        <i class="fas fa-code-branch"></i> Pull Requests: <span th:text="${extension.pullRequests}">Pull Requests</span>
+    </p>
+    <p>
+        Last Commit Date: <span th:text="${lastCommitFormatted}">Last Commit Date</span>
+    </p>
+    <p th:text="${fileDownloadUri}">File download</p>
 
     <p th:if="${extension.downloadLink}" th:text="${extension.downloadLink}">Download Link</p>
-    <p th:unless="${extension.downloadLink}" th:text="This extension has no available download files.">This extension has no available download files.</p>
+    <p th:unless="${extension.downloadLink}" th:text="This extension has no available download files.">This extension
+        has no
+        available download files.</p>
+
+    <p><i class="far fa-calendar-alt"></i> Added on: <span th:text="${addedOnFormatted}"></span> </span>
+</main>
+
 </body>
 </html>

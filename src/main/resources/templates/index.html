@@ -6,38 +6,24 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
 </head>
-
+<body>
+<nav th:replace="fragments::nav"></nav>
 <h1>Home Page</h1>
 
-<i th:if="${param.logout}">You have been logged out.</i>
+<span th:if="${param.logout}">See you soon!</span>
 
 <p>Hello to the home page!</p>
 
-
-<!--<div sec:authorize="isAuthenticated()">-->
-    <!--Hi, user <span th:text="${username}"></span>! This content is only shown to authenticated users.-->
-<!--</div>-->
-
-<!--Authorities: <span th:if="${isAuthenticated()}" sec:authentication="principal.authorities" />-->
-
+<div>
+    <article th:each="featured : ${featuredExtensions}" class="col-sm-2">
+        <div class="circular" th:if="${featured.icon}">
+            <img th:src="${featured.icon}"/>
+        </div>
+        <p th:text="${featured.name}">Name</p>
+        <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
+            <span th:text="${featured.userProfile.lastName}">Lastname</span></p>
+    </article>
 </div>
-
-<a th:href="@{/login}"> Login </a>
-<br/>
-<a th:href="@{/register}"> New User </a>
-<br/>
-<div sec:authorize="isAuthenticated()">
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout"/>
-    </form>
-</div>
-
-<p sec:authorize="hasAuthority('ROLE_DEV')">
-    <a th:href="@{/developer}">Developer Space</a>
-</p>
-<p sec:authorize="hasAuthority('ROLE_ADMIN')">
-    <a th:href="@{/adminPanel}">Admin Portal</a>
-</p>
-
+<th:block th:include="fragments :: assets"></th:block>
 </body>
 </html>

@@ -25,7 +25,4 @@ public class DisplayUsersController {
 
         return mav;
     }
-
-
-
 }

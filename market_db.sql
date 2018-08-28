@@ -53,7 +53,7 @@ CREATE TABLE `user_roles` (
 CREATE TABLE `extensions` (
   `extensionId` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
+  `description` varchar(3000) NOT NULL,
   `version` varchar(255) NOT NULL,
   `downloadsCount` int(11) NOT NULL,
   `downloadLink` varchar(255) NOT NULL DEFAULT '',
@@ -70,6 +70,8 @@ CREATE TABLE `extensions` (
   KEY `Extensions_fk0` (`ownerId`),
   CONSTRAINT `Extensions_fk0` FOREIGN KEY (`ownerId`) REFERENCES `user_profiles` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `market_db`.`extensions` 
+CHANGE COLUMN `description` `description` VARCHAR(3000) NOT NULL DEFAULT '' ;
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.tags

@@ -4,12 +4,14 @@ import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import javassist.NotFoundException;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 public interface ExtensionService {
     Extension getById(Long id) throws NotFoundException;
 
-    Extension save(ExtensionDto extensionDto);
+    Extension save(ExtensionDto extensionDto) throws ParseException, IOException;
 
     List<Extension> getAll();
     List<Extension> getByName(String name);
