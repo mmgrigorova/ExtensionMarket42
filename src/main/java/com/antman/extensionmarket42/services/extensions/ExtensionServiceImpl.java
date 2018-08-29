@@ -90,7 +90,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         Set<Tag> tags = new HashSet<>();
 
         for (int i = 0; i < tagNames.length; i++) {
-//            String tag = tagNames[i].replace("\"", "");
+            // Replace any non-numeric characters
             String tag = tagNames[i].replaceAll("\\W", "");
 
             Optional<Tag> optionalTag = tagRepository.findTagByTagTitle(tag);
@@ -101,7 +101,6 @@ public class ExtensionServiceImpl implements ExtensionService {
 
             }
         }
-
         return tags;
     }
 

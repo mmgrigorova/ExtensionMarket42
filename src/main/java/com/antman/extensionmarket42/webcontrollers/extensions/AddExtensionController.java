@@ -85,7 +85,7 @@ public class AddExtensionController {
             return mav;
 
         } catch (Exception e) {
-            throw new Exception("There was a problem with creating this exception: " + e.getCause());
+            throw new Exception("There was a problem with creating this extension: " + e.getCause());
         }
     }
 }

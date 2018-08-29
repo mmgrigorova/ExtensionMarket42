@@ -21,3 +21,16 @@ article{
     width: auto;
 }
 
+.text-center{
+    text-align: center;
+
+}
+
+.oops{
+    margin-top: 100px;
+    width: 800px;
+}
+
+.catmessage{
+    margin: 25px 0px;
+}

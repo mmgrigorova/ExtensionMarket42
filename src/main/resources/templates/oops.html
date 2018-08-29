@@ -5,7 +5,22 @@
     <title>Oops!</title>
 </head>
 <body>
-<h1><i class="far fa-sad-tear"></i> Oops, there was a problem with this request</h1>
-<small th:text="${errorMessage}"></small>
+<div class="mx-auto text-center oops">
+    <h1><i class="far fa-sad-tear"></i>
+        <span th:if="${error404}">
+            <span th:text="${error404}">Error 404 text</span>
+        </span>
+        <span th:if="${error500}">
+            <span th:text="${error500}">Error 500 text</span>
+        </span>
+    </h1>
+    <small th:if="${errorMessage}" th:text="${errorMessage}"></small>
+    <img src="../images/tesla-cat.jpg" style="width: 350px" class="catmessage">
+    <div>
+        <a th:href="@{/}">
+            <button class="btn btn-dark" type="button"><i class="fas fa-home"></i> Return Home</button>
+        </a>
+    </div>
+</div>
 </body>
 </html>

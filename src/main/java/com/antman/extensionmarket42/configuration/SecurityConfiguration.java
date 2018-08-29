@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/developer/**").hasRole("DEV")
+                .antMatchers("/extension-add/**").hasRole("DEV")
                 //.antMatchers("/adminPanel").hasRole("ADMIN")
                 .and()
                 .formLogin()
