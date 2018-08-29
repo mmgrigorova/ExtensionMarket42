@@ -39,9 +39,11 @@ public class AddExtensionController {
     public ModelAndView showAddExtension() {
         ModelAndView mav = new ModelAndView("extension-add");
         mav.addObject("extensionDto", new ExtensionDto());
+
         List<String> tags = new ArrayList<>();
         tagRepository.findAll().forEach(tag -> tags.add(tag.getTagTitle()));
         mav.addObject("availableTags", tags);
+
         return mav;
     }
 

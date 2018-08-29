@@ -42,7 +42,7 @@ public class Extension {
   @Column
   private java.sql.Date lastCommit;
 
-  @ManyToMany(cascade = CascadeType.ALL)
+  @ManyToMany(cascade = CascadeType.MERGE)
   @JoinTable(
           name = "extension_tags",
           joinColumns = @JoinColumn(name = "extensionId"),

@@ -17,9 +17,13 @@ public class Tag {
     private String tagTitle;
 
     @ManyToMany(mappedBy = "tags")
-    List<Extension> extensions;
+    private List<Extension> extensions;
 
     public Tag(){
+    }
+
+    public Tag(String tagTitle) {
+        this.tagTitle = tagTitle;
     }
 
     public Long getTagId() {

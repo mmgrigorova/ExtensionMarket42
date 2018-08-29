@@ -3,6 +3,7 @@ package com.antman.extensionmarket42.services.extensions;
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.dtos.RepositoryDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +76,20 @@ public class ExtensionServiceImpl implements ExtensionService {
         java.sql.Date currentDate = new Date(System.currentTimeMillis());
         extension.setAddedOn(currentDate);
 
+        List<Tag> tags = generateTags(extensionDto.getTags());
+        extension.setTags(tags);
+
         return extensionRepository.save(extension);
+    }
+
+    private List<Tag> generateTags(String[] tagsString) {
+        List<Tag> tags = new ArrayList<>();
+
+        for (int i = 0; i < tagsString.length; i++) {
+            tags.add(new Tag(tagsString[i]));
+        }
+
+        return tags;
     }
 
     @Override
