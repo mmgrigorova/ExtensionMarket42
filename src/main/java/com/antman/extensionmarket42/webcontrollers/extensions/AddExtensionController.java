@@ -2,31 +2,36 @@ package com.antman.extensionmarket42.webcontrollers.extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.files.FileStorageService;
-import com.antman.extensionmarket42.services.users.base.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
 public class AddExtensionController {
     private ExtensionService extensionService;
     private FileStorageService fileStorageService;
+    private TagRepository tagRepository;
     private final String PROBLEM_MESSAGE = "There was a problem with the file upload. Please try again later.";
 
     @Autowired
-    public AddExtensionController(ExtensionService extensionService, FileStorageService fileStorageService) {
+    public AddExtensionController(ExtensionService extensionService, FileStorageService fileStorageService, TagRepository tagRepository) {
         this.extensionService = extensionService;
         this.fileStorageService = fileStorageService;
+        this.tagRepository = tagRepository;
     }
 
 
@@ -34,6 +39,9 @@ public class AddExtensionController {
     public ModelAndView showAddExtension() {
         ModelAndView mav = new ModelAndView("extension-add");
         mav.addObject("extensionDto", new ExtensionDto());
+        List<String> tags = new ArrayList<>();
+        tagRepository.findAll().forEach(tag -> tags.add(tag.getTagTitle()));
+        mav.addObject("availableTags", tags);
         return mav;
     }
 
