@@ -48,6 +48,7 @@ public class ExtensionDetailsController {
 
         mav.addObject("fileDownloadUri", fileDownloadUri);
         mav.addObject(extension);
+        mav.addObject("tags", extension.getTags());
         return mav;
     }
 }

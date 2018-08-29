@@ -55,17 +55,16 @@
         </label>
     </div>
 
-    <select name="tags" multiple th:field="*{tags}">
-        <option th:each="tag : ${availableTags}"
-                th:text="${tag}"
-                th:value="${tag}"></option>
-    </select>
+    <!--<select name="tags" multiple th:field="*{tags}">-->
+        <!--<option th:each="tag : ${availableTags}"-->
+                <!--th:text="${tag}"-->
+                <!--th:value="${tag}"></option>-->
+    <!--</select>-->
 
     <div>
-        <textarea id="textarea" rows="1"></textarea>
-
-
+        <textarea id="textarea" class="expample" rows="1" th:field="*{tags}"></textarea>
     </div>
+    <br/>
     <input class="btn btn-primary" type="submit" value="Create Extension"/>
 </form>
 <th:block th:include="fragments :: tags-assets"></th:block>

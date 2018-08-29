@@ -90,7 +90,9 @@ public class ExtensionServiceImpl implements ExtensionService {
         Set<Tag> tags = new HashSet<>();
 
         for (int i = 0; i < tagNames.length; i++) {
-            Optional<Tag> optionalTag = tagRepository.findTagByTagTitle(tagNames[i]);
+            String tag = tagNames[i].replace("\"", "");
+
+            Optional<Tag> optionalTag = tagRepository.findTagByTagTitle(tag);
             if(optionalTag.isPresent()){
                 tags.add(optionalTag.get());
             } else {

@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     $('#textarea')
         .textext({
-            plugins: 'autocomplete filter tags ajax',
+            plugins: 'autocomplete tags ajax',
             prompt: 'Start adding tags...',
             ajax: {
                 url: 'http://localhost:8080/api/tags',
