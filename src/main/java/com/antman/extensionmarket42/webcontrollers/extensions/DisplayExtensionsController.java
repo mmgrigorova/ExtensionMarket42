@@ -45,5 +45,15 @@ public class DisplayExtensionsController {
         model.addAttribute("extensions", extensions);
         return "adminPanel";
     }
+    @RequestMapping("adminPanel/{extensionId}")
+    public ModelAndView editExtension(@PathVariable("extensionId")long extensionId ) throws Exception{
+        ModelAndView modelAndView = new ModelAndView("editExtension");
+
+        Extension extension = extensionService.getById(extensionId);
+        modelAndView.addObject("extension",extension);
+        return modelAndView;
+    }
+
+
 }
 

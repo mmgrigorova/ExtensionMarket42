@@ -11,20 +11,24 @@
     <div class="row" style="margin-bottom: 20px">
         <form action="#" data-th-action="@{adminPanel}" data-th-object="${formChoice}" method="post">
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check form-check-inline" name="search" value="extensions" th:field="*{param}"/>
-                <label class="form-check-label">Extensions</label>
+                <label class="form-check-label">Extensions
+                    <input type="radio" class="form-check form-check-inline" name="search" value="extensions" th:field="*{param}"/>
+                </label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check form-check-inline" name="search" value="featured" th:field="*{param}"/>
-                <label class="form-check-label">Featured</label>
+                <label class="form-check-label">Featured
+                    <input type="radio" class="form-check form-check-inline" name="search" value="featured" th:field="*{param}"/>
+                </label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check form-check-inline" name="search" value="pending" th:field="*{param}"/>
-                <label class="form-check-label">Pending</label>
+                <label class="form-check-label">Pending
+                    <input type="radio" class="form-check form-check-inline" name="search" value="pending" th:field="*{param}"/>
+                </label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check form-check-inline" name="search" value="users" th:field="*{param}"/>
-                <label class="form-check-label">Users</label>
+                <label class="form-check-label">Users
+                    <input type="radio" class="form-check form-check-inline" name="search" value="users" th:field="*{param}"/>
+                </label>
             </div>
             <div class="form-check">
                 <div class="form-check form-check-inline">
@@ -49,7 +53,7 @@
                     </tr>
                     <tr th:each="e : ${extensions}">
                         <td th:text="${e.id}"></td>
-                        <td><a href="#" th:text="${e.name}"></a></td>
+                        <td><a href="#" th:href="@{adminPanel/{extensionId} (extensionId=${e.id})}" th:text="${e.name}"></a></td>
                         <td th:text="${e.userProfile.firstName +' '+e.userProfile.lastName }"></td>
                         <td th:text="${e.pending}"></td>
                         <td th:text="${e.featured}"></td>
