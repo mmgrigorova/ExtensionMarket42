@@ -108,10 +108,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public void removeByIde(long id)
+    public void removeById(long id)
     {
         extensionRepository.deleteById(id);
-
     }
 
     @Override

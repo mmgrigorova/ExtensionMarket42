@@ -20,7 +20,7 @@ public interface ExtensionService {
     List<Extension> getMostPopular();
     List<Extension> getByTag(String tag);
     List<Extension> getRecentlyAdded();
-    void removeByIde(long id);
+    void removeById(long id);
 
     //Sorting
     List<Extension> orderByDownloadsCount();
