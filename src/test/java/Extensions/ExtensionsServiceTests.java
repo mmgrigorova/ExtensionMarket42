@@ -33,7 +33,7 @@ public class ExtensionsServiceTests {
 
     @Before
     public void setUp(){
-        extensionService = new ExtensionServiceImpl(extensionMockRepository, userDetailsService, gitHubService);
+        extensionService = new ExtensionServiceImpl(extensionMockRepository, tagRepository, userDetailsService, gitHubService);
     }
 
     @Test

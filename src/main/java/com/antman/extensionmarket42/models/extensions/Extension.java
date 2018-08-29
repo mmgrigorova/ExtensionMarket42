@@ -5,6 +5,7 @@ import com.antman.extensionmarket42.models.UserProfile;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "extensions")
@@ -42,13 +43,13 @@ public class Extension {
   @Column
   private java.sql.Date lastCommit;
 
-  @ManyToMany(cascade = CascadeType.MERGE)
+  @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(
           name = "extension_tags",
           joinColumns = @JoinColumn(name = "extensionId"),
           inverseJoinColumns = @JoinColumn(name = "tagId")
   )
-  private List<Tag> tags;
+  private Set<Tag> tags;
 
   @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   @JoinColumn(name = "ownerId")
@@ -72,7 +73,7 @@ public class Extension {
   public Extension() {
   }
 
-  public Extension(String name, String description, String version, int downloadsCount, String downloadLink, String repoLink, int openIssues, int pullRequests, Date lastCommit, List<ExtensionTag> extensionTags, UserProfile userProfile, List<Screenshot> screenshots, boolean pending, boolean featured, String icon, Date addedOn) {
+  public Extension(String name, String description, String version, int downloadsCount, String downloadLink, String repoLink, int openIssues, int pullRequests, Date lastCommit, UserProfile userProfile, List<Screenshot> screenshots, boolean pending, boolean featured, String icon, Date addedOn) {
     this.name = name;
     this.description = description;
     this.version = version;
@@ -170,11 +171,11 @@ public class Extension {
     this.lastCommit = lastCommit;
   }
 
-  public List<Tag> getTags() {
+  public Set<Tag> getTags() {
     return tags;
   }
 
-  public void setTags(List<Tag> tags) {
+  public void setTags(Set<Tag> tags) {
     this.tags = tags;
   }
 

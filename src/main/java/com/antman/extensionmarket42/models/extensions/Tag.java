@@ -1,6 +1,5 @@
 package com.antman.extensionmarket42.models.extensions;
 
-import com.antman.extensionmarket42.models.extensions.ExtensionTag;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +15,7 @@ public class Tag {
     @Column
     private String tagTitle;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags" )
     private List<Extension> extensions;
 
     public Tag(){

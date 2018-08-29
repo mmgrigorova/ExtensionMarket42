@@ -1,7 +1,6 @@
 package com.antman.extensionmarket42.configuration;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
-import com.antman.extensionmarket42.models.extensions.ExtensionTag;
 import com.antman.extensionmarket42.models.extensions.Screenshot;
 import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.models.*;
@@ -42,7 +41,6 @@ public class AppConfiguration {
         return new org.hibernate.cfg.Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Extension.class)
-                .addAnnotatedClass(ExtensionTag.class)
                 .addAnnotatedClass(Screenshot.class)
                 .addAnnotatedClass(Tag.class)
                 .addAnnotatedClass(User.class)
