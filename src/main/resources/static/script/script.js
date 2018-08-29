@@ -1,19 +1,18 @@
 $(document).ready(function () {
-        console.log("script file loaded");
-        $('.nav li').removeClass('active');
-        var menuId = $('h1').attr('id');
-        $('#' + menuId).addClass("active");
-        console.log("doing something");
+    console.log("script file loaded");
+    $('.nav li').removeClass('active');
+    var menuId = $('h1').attr('id');
+    $('#' + menuId).addClass("active");
+    console.log("doing something");
 
-        $('#textarea').textext({
-            plugins: 'tags prompt focus autocomplete ajax arrow',
-            tagsItems: ['Basic', 'JavaScript', 'PHP', 'Scala'],
-            prompt: 'Add one...',
+    $('#textarea')
+        .textext({
+            plugins: 'autocomplete filter tags ajax',
+            prompt: 'Start adding tags...',
             ajax: {
-                url: '/manual/examples/data.json',
+                url: 'http://localhost:8080/api/tags',
                 dataType: 'json',
                 cacheResults: true
             }
         });
-    }
-);
+});
