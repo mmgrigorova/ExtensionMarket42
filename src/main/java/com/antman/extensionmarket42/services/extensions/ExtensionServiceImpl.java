@@ -91,7 +91,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
         for (int i = 0; i < tagNames.length; i++) {
             // Replace any non-numeric characters
-            String tag = tagNames[i].replaceAll("\\W", "");
+            String tag = tagNames[i].replaceAll("\\W", "").toLowerCase();
 
             Optional<Tag> optionalTag = tagRepository.findTagByTagTitle(tag);
             if(optionalTag.isPresent()){
