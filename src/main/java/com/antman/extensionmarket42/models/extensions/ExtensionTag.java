@@ -2,20 +2,20 @@ package com.antman.extensionmarket42.models.extensions;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "extension_tags")
+//@Entity
+//@/Table(name = "extension_tags")
 public class ExtensionTag {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "extensionId")
+    //@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    //@JoinColumn(name = "extensionId")
     private Extension extension;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinColumn(name = "tagId")
+    //@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "tagId")
     private Tag tag;
 
     public ExtensionTag(){
