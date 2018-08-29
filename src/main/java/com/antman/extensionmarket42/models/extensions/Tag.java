@@ -17,7 +17,7 @@ public class Tag {
     private String tagTitle;
 
     @ManyToMany(mappedBy = "tags")
-    List<Extension> extensions;
+    private List<Extension> extensions;
 
     public Tag(){
     }
