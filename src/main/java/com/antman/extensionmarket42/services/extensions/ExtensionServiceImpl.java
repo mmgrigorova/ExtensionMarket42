@@ -3,7 +3,9 @@ package com.antman.extensionmarket42.services.extensions;
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.dtos.RepositoryDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
+import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +14,23 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ExtensionServiceImpl implements ExtensionService {
 
     private final ExtensionRepository extensionRepository;
+    private final TagRepository tagRepository;
     private final MyUserDetailsService userDetailsService;
     private final GitHubService gitHubService;
 
     @Autowired
-    public ExtensionServiceImpl(ExtensionRepository extensionRepository, MyUserDetailsService userDetailsService, GitHubService gitHubService) {
+    public ExtensionServiceImpl(ExtensionRepository extensionRepository,
+                                TagRepository tagRepository,
+                                MyUserDetailsService userDetailsService,
+                                GitHubService gitHubService) {
         this.extensionRepository = extensionRepository;
+        this.tagRepository = tagRepository;
         this.userDetailsService = userDetailsService;
         this.gitHubService = gitHubService;
     }
@@ -74,7 +80,26 @@ public class ExtensionServiceImpl implements ExtensionService {
         java.sql.Date currentDate = new Date(System.currentTimeMillis());
         extension.setAddedOn(currentDate);
 
+        Set<Tag> tags = generateTagListFromDto(extensionDto.getTags());
+        extension.setTags(tags);
+
         return extensionRepository.save(extension);
+    }
+
+    private Set<Tag> generateTagListFromDto(String[] tagNames) {
+        Set<Tag> tags = new HashSet<>();
+
+        for (int i = 0; i < tagNames.length; i++) {
+            Optional<Tag> optionalTag = tagRepository.findTagByTagTitle(tagNames[i]);
+            if(optionalTag.isPresent()){
+                tags.add(optionalTag.get());
+            } else {
+                tags.add(new Tag(tagNames[i]));
+
+            }
+        }
+
+        return tags;
     }
 
     @Override

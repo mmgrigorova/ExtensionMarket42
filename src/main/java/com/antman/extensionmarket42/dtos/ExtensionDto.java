@@ -1,12 +1,10 @@
 package com.antman.extensionmarket42.dtos;
 
-import com.antman.extensionmarket42.models.extensions.Tag;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 public class ExtensionDto {
     private static final String REQUIRED_MESSAGE = "This field is required";
@@ -37,12 +35,12 @@ public class ExtensionDto {
 
     private String fileName;
 
-    private List<Tag> tags;
+    private String[] tags;
 
     public ExtensionDto() {
     }
 
-    public ExtensionDto(@NotNull @NotEmpty(message = REQUIRED_MESSAGE) @Size(min = 2, message = NAME_SIZE_MESSAGE) String name, String description, String version, @NotNull @NotEmpty(message = REQUIRED_MESSAGE) String repoUser, @NotNull @NotEmpty(message = REQUIRED_MESSAGE) String repoName, @NotNull @NotEmpty(message = FILE_REQUIRED_MESSAGE) MultipartFile file, List<Tag> tags) {
+    public ExtensionDto(@NotNull @NotEmpty(message = REQUIRED_MESSAGE) @Size(min = 2, message = NAME_SIZE_MESSAGE) String name, String description, String version, @NotNull @NotEmpty(message = REQUIRED_MESSAGE) String repoUser, @NotNull @NotEmpty(message = REQUIRED_MESSAGE) String repoName, @NotNull @NotEmpty(message = FILE_REQUIRED_MESSAGE) MultipartFile file, String[] tags) {
         this.name = name;
         this.description = description;
         this.version = version;
@@ -100,19 +98,19 @@ public class ExtensionDto {
         this.file = file;
     }
 
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
     public String getFileName() {
         return fileName;
     }
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
     }
 }
