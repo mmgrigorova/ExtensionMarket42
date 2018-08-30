@@ -141,15 +141,15 @@ public class ExtensionServiceImpl implements ExtensionService {
     private Set<Tag> generateTagListFromDto(String[] tagNames) {
         Set<Tag> tags = new HashSet<>();
 
-        for (int i = 0; i < tagNames.length; i++) {
+        for (String tagName : tagNames) {
             // Replace any non-numeric characters
-            String tag = tagNames[i].replaceAll("\\W", "").toLowerCase();
+            String tag = tagName.replaceAll("\\W", "").toLowerCase();
 
             Optional<Tag> optionalTag = tagRepository.findTagByTagTitle(tag);
-            if(optionalTag.isPresent()){
+            if (optionalTag.isPresent()) {
                 tags.add(optionalTag.get());
             } else {
-                tags.add(new Tag(tagNames[i]));
+                tags.add(new Tag(tagName));
 
             }
         }
