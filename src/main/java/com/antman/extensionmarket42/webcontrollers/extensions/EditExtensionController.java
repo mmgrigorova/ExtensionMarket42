@@ -18,7 +18,7 @@ public class EditExtensionController {
     @RequestMapping(value ="adminPanel/delete/{extensionId}",method = RequestMethod.POST)
     public String removeExtension(@PathVariable("extensionId")long extensionId){
         extensionService.removeById(extensionId);
-        return "adminPanel";
+        return "redirect:/adminPanel";
     }
 //    @RequestMapping("editExtension" )
 //    public String removeExtension(@ModelAttribute Extension extension){
