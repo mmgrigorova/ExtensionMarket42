@@ -1,7 +1,5 @@
 package com.antman.extensionmarket42.models;
 
-import org.hibernate.annotations.GeneratorType;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

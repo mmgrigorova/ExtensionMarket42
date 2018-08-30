@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head th:replace="fragments :: head">
     <title>Extension Details</title>
 </head>
@@ -26,7 +26,7 @@
 
     <h2 th:text="${extension.name}"></h2>
 
-    <a th:href="@{'/api/downloadFile/' + ${extension.downloadLink}}">
+    <a th:href="@{'/api/downloadFile/'+ ${extension.id} + '/' + ${extension.downloadLink}}">
         <button class="btn btn-primary">Download</button>
     </a>
 
@@ -52,7 +52,13 @@
         has no
         available download files.</p>
 
-    <p><i class="far fa-calendar-alt"></i> Added on: <span th:text="${addedOnFormatted}"></span> </span>
+    <p><i class="far fa-calendar-alt"></i> Added on: <span th:text="${addedOnFormatted}"></span></p>
+
+    <div>
+        <a th:href="@{#}" class="badge badge-light" th:each="tag : ${tags}" th:text="${tag.tagTitle}">
+            JavaTag
+        </a>
+    </div>
 </main>
 
 </body>

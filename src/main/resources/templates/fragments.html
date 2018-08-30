@@ -15,6 +15,13 @@
             crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/tags-css/textext.core.css">
+    <link rel="stylesheet" href="/css/tags-css/textext.plugin.arrow.css">
+    <link rel="stylesheet" href="/css/tags-css/textext.plugin.focus.css">
+    <link rel="stylesheet" href="/css/tags-css/textext.plugin.prompt.css">
+    <link rel="stylesheet" href="/css/tags-css/textext.plugin.clear.css">
+    <link rel="stylesheet" href="/css/tags-css/textext.plugin.autocomplete.css">
+    <link rel="stylesheet" href="/css/tags-css/textext.plugin.tags.css">
     <meta charset="UTF-8">
     <title>Extensions M 42</title>
 </head>
@@ -57,8 +64,20 @@
 
 <th:block th:fragment="assets">
     <script src="../script/script.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"
-            charset="utf-8"></script>
+</th:block>
+<th:block th:fragment="tags-assets">
+    <script src="../script/tag-starter.js"></script>
+    <script src="../script/tags-js/textext.core.js"></script>
+    <script src="../script/tags-js/textext.plugin.ajax.js"></script>
+    <script src="../script/tags-js/textext.plugin.arrow.js"></script>
+    <script src="../script/tags-js/textext.plugin.focus.js"></script>
+    <script src="../script/tags-js/textext.plugin.clear.js"></script>
+    <script src="../script/tags-js/textext.plugin.filter.js"></script>
+    <script src="../script/tags-js/textext.plugin.focus.js"></script>
+    <script src="../script/tags-js/textext.plugin.prompt.js"></script>
+    <script src="../script/tags-js/textext.plugin.suggestions.js"></script>
+    <script src="../script/tags-js/textext.plugin.tags.js"></script>
+    <script src="../script/tags-js/textext.plugin.autocomplete.js"></script>
 </th:block>
 </body>
 </html>
