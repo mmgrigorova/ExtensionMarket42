@@ -1,6 +1,7 @@
 package com.antman.extensionmarket42.restcontrollers;
 
 import com.antman.extensionmarket42.payload.UploadFileResponse;
+import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.files.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +27,12 @@ public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     private FileStorageService fileStorageService;
+    private ExtensionService extensionService;
 
     @Autowired
-    public FileController(FileStorageService fileStorageService) {
+    public FileController(FileStorageService fileStorageService, ExtensionService extensionService) {
         this.fileStorageService = fileStorageService;
+        this.extensionService = extensionService;
     }
 
     @PostMapping("uploadFile")
@@ -53,10 +56,11 @@ public class FileController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/downloadFile/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+    @GetMapping("/downloadFile/{id}/{fileName:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long id, @PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
         Resource resource = fileStorageService.loadFileAsResource(fileName);
+        extensionService.increaseDownloadCount(id);
 
         String contentType = null;
 

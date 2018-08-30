@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head th:replace="fragments :: head">
     <meta charset="UTF-8">
     <title>Home Page</title>
@@ -13,15 +13,20 @@
 <span th:if="${param.logout}">See you soon!</span>
 
 <p>Hello to the home page!</p>
-
 <div>
     <article th:each="featured : ${featuredExtensions}" class="col-sm-2">
-        <div class="circular" th:if="${featured.icon}">
-            <img th:src="${featured.icon}"/>
-        </div>
-        <p th:text="${featured.name}">Name</p>
-        <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
-            <span th:text="${featured.userProfile.lastName}">Lastname</span></p>
+        <a th:href="@{'/extension-details/{id}' (id=${featured.id})}">
+            <div class="circular" th:if="${featured.icon}">
+                <img th:src="${featured.icon}"/>
+            </div>
+            <p th:text="${featured.name}">Name</p>
+            <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
+                <span th:text="${featured.userProfile.lastName}">Lastname</span>
+            </p>
+            <div>
+                <span><i class="fas fa-download"></i> <span th:text="${featured.downloadsCount}"></span></span>
+            </div>
+        </a>
     </article>
 </div>
 <th:block th:include="fragments :: assets"></th:block>

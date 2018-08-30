@@ -2,6 +2,7 @@ package Extensions;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
+import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
 import com.antman.extensionmarket42.services.extensions.GitHubService;
@@ -30,10 +31,11 @@ public class ExtensionsServiceTests {
     private ExtensionService extensionService;
     private MyUserDetailsService userDetailsService;
     private GitHubService gitHubService;
+    private TagRepository tagRepository;
 
     @Before
     public void setUp(){
-        extensionService = new ExtensionServiceImpl(extensionMockRepository, userDetailsService, gitHubService);
+        extensionService = new ExtensionServiceImpl(extensionMockRepository, tagRepository, userDetailsService, gitHubService);
     }
 
     @Test

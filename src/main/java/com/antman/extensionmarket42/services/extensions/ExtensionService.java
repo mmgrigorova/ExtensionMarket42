@@ -13,6 +13,8 @@ public interface ExtensionService {
 
     Extension save(ExtensionDto extensionDto) throws ParseException, IOException;
 
+    int increaseDownloadCount(Long extensionId);
+
     List<Extension> getAll();
     List<Extension> getByName(String name);
     List<Extension> getFeatured(boolean b);

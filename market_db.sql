@@ -80,6 +80,8 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tagTitle` varchar(15) NOT NULL,
   PRIMARY KEY (`tagId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `market_db`.`tags` 
+ADD UNIQUE INDEX `tagTitle_UNIQUE` (`tagTitle` ASC);
 
 
 -- Data exporting was unselected.
