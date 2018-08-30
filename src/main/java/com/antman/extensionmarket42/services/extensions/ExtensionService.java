@@ -11,7 +11,7 @@ import java.util.List;
 public interface ExtensionService {
     Extension getById(Long id) throws NotFoundException;
 
-    Extension save(ExtensionDto extensionDto) throws ParseException, IOException;
+    Extension createNewExtension(ExtensionDto extensionDto) throws ParseException, IOException;
 
     int increaseDownloadCount(Long extensionId);
 

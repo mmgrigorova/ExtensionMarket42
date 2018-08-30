@@ -63,7 +63,7 @@ public class AddExtensionController {
         try {
             ModelAndView mav = new ModelAndView("redirect:/extension-details/{id}");
             extensionDto.setFileName(file.getOriginalFilename());
-            Extension newExtension = extensionService.save(extensionDto);
+            Extension newExtension = extensionService.createNewExtension(extensionDto);
 
             redirectAttributes.addAttribute("id", newExtension.getId());
 
