@@ -87,6 +87,24 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public int increaseDownloadCount(Long extensionId){
+        Optional<Extension> optionalExtension = extensionRepository.findById(extensionId);
+        Extension extension = null;
+
+        if(optionalExtension.isPresent()){
+           extension = optionalExtension.get();
+           int downloadCount = extension.getDownloadsCount();
+           downloadCount += 1;
+           extension.setDownloadsCount(downloadCount);
+           extensionRepository.save(extension);
+           return downloadCount;
+        } else {
+            return 0;
+        }
+    }
+
+
+    @Override
     public List<Extension> getAll() {
         return extensionRepository.findAll();
     }
