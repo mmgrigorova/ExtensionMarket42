@@ -32,7 +32,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(MockitoJUnitRunner.class)
 
-public class ExtensionServiceTestsSaveExtension {
+public class ExtensionServiceTestsCreateNewExtension {
     @Mock
     private GitHubService gitHubService;
     @Mock
@@ -59,7 +59,7 @@ public class ExtensionServiceTestsSaveExtension {
     }
 
     @Test
-    public void save_WhenExtensionFromDTOIsCorrect_returnExtension() throws IOException, ParseException {
+    public void createNewExtension_WhenExtensionFromDTOIsCorrect_returnExtension() throws IOException, ParseException {
         // Arrange
         //        Epoch timestamp: 1501585200
         //        Human time (GMT): Tuesday, August 1, 2017 11:00:00 AM
@@ -92,7 +92,7 @@ public class ExtensionServiceTestsSaveExtension {
         ExtensionDto extensionDto = new ExtensionDto("Expected Name", "Expected Description", "1.0", "testuser", "testrepo", mockFile, tags);
 
         // Act
-        Extension newExtension = extensionService.save(extensionDto);
+        Extension newExtension = extensionService.createNewExtension(extensionDto);
 
         // Assert
         Assert.assertThat(expectedExtension, samePropertyValuesAs(newExtension));
