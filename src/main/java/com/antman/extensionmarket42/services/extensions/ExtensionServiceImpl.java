@@ -86,24 +86,6 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.save(extension);
     }
 
-    private Set<Tag> generateTagListFromDto(String[] tagNames) {
-        Set<Tag> tags = new HashSet<>();
-
-        for (int i = 0; i < tagNames.length; i++) {
-            // Replace any non-numeric characters
-            String tag = tagNames[i].replaceAll("\\W", "").toLowerCase();
-
-            Optional<Tag> optionalTag = tagRepository.findTagByTagTitle(tag);
-            if(optionalTag.isPresent()){
-                tags.add(optionalTag.get());
-            } else {
-                tags.add(new Tag(tagNames[i]));
-
-            }
-        }
-        return tags;
-    }
-
     @Override
     public List<Extension> getAll() {
         return extensionRepository.findAll();
@@ -156,5 +138,21 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.findAllByOrderByAddedOnDesc();
     }
 
+    private Set<Tag> generateTagListFromDto(String[] tagNames) {
+        Set<Tag> tags = new HashSet<>();
 
+        for (int i = 0; i < tagNames.length; i++) {
+            // Replace any non-numeric characters
+            String tag = tagNames[i].replaceAll("\\W", "").toLowerCase();
+
+            Optional<Tag> optionalTag = tagRepository.findTagByTagTitle(tag);
+            if(optionalTag.isPresent()){
+                tags.add(optionalTag.get());
+            } else {
+                tags.add(new Tag(tagNames[i]));
+
+            }
+        }
+        return tags;
+    }
 }
