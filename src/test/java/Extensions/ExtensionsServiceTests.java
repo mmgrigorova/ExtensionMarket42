@@ -8,6 +8,7 @@ import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
 import com.antman.extensionmarket42.services.extensions.GitHubService;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -79,5 +80,37 @@ public class ExtensionsServiceTests {
         assertEquals(3,result.size());
     }
 
+    @Test
+    public void increaseDownloadCount_whenExtensionIsPresent_ReturnIncreasedDownloadCountByOne(){
+        // Arrange
+        int currentDownloadCount = 5;
+        Extension extension = ExtensionTestSetup.createExtension("testName","description","1.0","repoLink",
+                "link",currentDownloadCount,0,0);
+        extension.setId(5L);
 
+        when(extensionMockRepository.findById(5L))
+                .thenReturn(Optional.ofNullable(extension));
+        when(extensionMockRepository.save(any(Extension.class)))
+                .thenReturn(extension);
+
+        // Act
+        int newDownloadCount = extensionService.increaseDownloadCount(extension.getId());
+        int expectedDownloadCount = 6;
+
+        // Assert
+        Assert.assertEquals(expectedDownloadCount, newDownloadCount);
+    }
+
+    @Test
+    public void increaseDownloadCount_whenExtensionIsNotPresent_ReturnZero() {
+        when(extensionMockRepository.findById(any(Long.class)))
+                .thenReturn(Optional.empty());
+
+        // Act
+        int newDownloadCount = extensionService.increaseDownloadCount(5L);
+        int expectedDownloadCount = 0;
+
+        // Assert
+        Assert.assertEquals(expectedDownloadCount, newDownloadCount);
+    }
 }
