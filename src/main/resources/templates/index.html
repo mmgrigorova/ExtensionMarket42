@@ -21,7 +21,11 @@
             </div>
             <p th:text="${featured.name}">Name</p>
             <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
-                <span th:text="${featured.userProfile.lastName}">Lastname</span></p>
+                <span th:text="${featured.userProfile.lastName}">Lastname</span>
+            </p>
+            <div>
+                <span><i class="fas fa-download"></i> <span th:text="${featured.downloadsCount}"></span></span>
+            </div>
         </a>
     </article>
 </div>
