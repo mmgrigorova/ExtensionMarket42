@@ -50,7 +50,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension save(ExtensionDto extensionDto) throws ParseException, IOException {
+    public Extension save(ExtensionDto extensionDto) throws ParseException{
         Extension extension = new Extension();
 
         extension.setName(extensionDto.getName());
