@@ -17,6 +17,9 @@
     <h4>Featured Extensions</h4>
     <article th:each="extension : ${featuredExtensions}" class="col-sm-2">
         <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
+            <div class="icon-holder" th:if="${extension.icon}">
+                <span class="icon" th:utext="${extension.icon}"></span>
+            </div>
             <p th:text="${extension.name}">Name</p>
             <p><span th:text="${extension.userProfile.firstName}">Firstname</span>
                 <span th:text="${extension.userProfile.lastName}">Lastname</span>
@@ -31,6 +34,9 @@
     <h4>Most Downloaded Extensions</h4>
     <article th:each="extension : ${mostPopular}" class="col-sm-2">
         <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
+            <div class="icon-holder" th:if="${extension.icon}">
+                <span class="icon" th:utext="${extension.icon}"></span>
+            </div>
             <p th:text="${extension.name}">Name</p>
             <p><span th:text="${extension.userProfile.firstName}">Firstname</span>
                 <span th:text="${extension.userProfile.lastName}">Lastname</span>
@@ -45,6 +51,9 @@
     <h4>Recently Added Extensions</h4>
     <article th:each="extension : ${recentlyAdded}" class="col-sm-2">
         <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
+            <div class="icon-holder" th:if="${extension.icon}">
+                <span class="icon" th:utext="${extension.icon}"></span>
+            </div>
             <p th:text="${extension.name}">Name</p>
             <p><span th:text="${extension.userProfile.firstName}">Firstname</span>
                 <span th:text="${extension.userProfile.lastName}">Lastname</span>

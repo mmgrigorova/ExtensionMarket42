@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class GitHubServiceImpl implements GitHubService {
-    private final String ACCESS_TOKEN = "d4e425799bef7a37fb44d0f9616752fa61824883";
+    private final String ACCESS_TOKEN = "0056ae89e02fae7debdcef3e64b4c6706ab4baa3";
 
     @Override
     public RepositoryDto getRepositoryInfo(String gitUser, String repoName) throws IOException {
@@ -19,6 +19,7 @@ public class GitHubServiceImpl implements GitHubService {
         GitHub gitHub = null;
         try {
             gitHub = GitHub.connectUsingOAuth(ACCESS_TOKEN);
+//            gitHub = GitHub.connect();
         } catch (IOException e) {
             e.printStackTrace();
             throw new IOException("A connection to the repository cannot be established at this time. Reason: " + e.getMessage());
