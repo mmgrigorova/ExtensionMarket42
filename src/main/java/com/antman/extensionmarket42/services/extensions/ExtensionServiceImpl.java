@@ -83,6 +83,9 @@ public class ExtensionServiceImpl implements ExtensionService {
         Set<Tag> tags = generateTagListFromDto(extensionDto.getTags());
         extension.setTags(tags);
 
+        if(extensionDto.getFontAwesomeIcon() != null){
+            extension.setIcon(extensionDto.getFontAwesomeIcon());
+        }
         return extensionRepository.save(extension);
     }
 
