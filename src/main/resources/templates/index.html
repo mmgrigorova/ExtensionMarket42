@@ -13,12 +13,10 @@
 <span th:if="${param.logout}">See you soon!</span>
 
 <p>Hello to the home page!</p>
-<div>
+<section>
+    <h4>Featured Extensions</h4>
     <article th:each="featured : ${featuredExtensions}" class="col-sm-2">
         <a th:href="@{'/extension-details/{id}' (id=${featured.id})}">
-            <div class="circular" th:if="${featured.icon}">
-                <img th:src="${featured.icon}"/>
-            </div>
             <p th:text="${featured.name}">Name</p>
             <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
                 <span th:text="${featured.userProfile.lastName}">Lastname</span>
@@ -28,7 +26,7 @@
             </div>
         </a>
     </article>
-</div>
+</section>
 <th:block th:include="fragments :: assets"></th:block>
 </body>
 </html>
