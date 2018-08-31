@@ -18,6 +18,28 @@ article{
     text-align: center;
 }
 
+article a{
+    color: black;
+}
+
+article a:hover{
+    color: black;
+    text-decoration: none;
+    background-color: silver;
+}
+
+.icon-holder{
+    color: #17a2b8;
+}
+
+h6{
+  padding: 10px 0px;
+}
+
+.article-footer{
+    color: #6c757d;
+}
+
 section{
     padding: 15px;
 }
@@ -51,4 +73,20 @@ section{
 .icon{
     height: 100%;
     font-size: 2em;
+}
+
+.float-left{
+    float: left;
+}
+
+.float-right{
+    float: right;
+}
+
+.clearfix:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
 }

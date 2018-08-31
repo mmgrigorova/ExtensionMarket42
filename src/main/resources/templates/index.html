@@ -20,12 +20,15 @@
             <div class="icon-holder" th:if="${extension.icon}">
                 <span class="icon" th:utext="${extension.icon}"></span>
             </div>
-            <p th:text="${extension.name}">Name</p>
-            <p><span th:text="${extension.userProfile.firstName}">Firstname</span>
+            <div class="icon-holder" th:unless="${extension.icon}">
+                <span class="icon"><i class="fas fa-rocket"></i></span>
+            </div>
+            <h6 th:text="${extension.name}">Name</h6>
+            <div class="article-footer clearfix">
+                <span class="float-left"><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></span>
+                <span class="article-author float-right"><i class="fas fa-user"></i> <span th:text="${extension.userProfile.firstName}">Firstname</span>
                 <span th:text="${extension.userProfile.lastName}">Lastname</span>
-            </p>
-            <div>
-                <span><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></span>
+            </span>
             </div>
         </a>
     </article>
@@ -37,12 +40,15 @@
             <div class="icon-holder" th:if="${extension.icon}">
                 <span class="icon" th:utext="${extension.icon}"></span>
             </div>
-            <p th:text="${extension.name}">Name</p>
-            <p><span th:text="${extension.userProfile.firstName}">Firstname</span>
+            <div class="icon-holder" th:unless="${extension.icon}">
+                <span class="icon"><i class="fas fa-rocket"></i></span>
+            </div>
+            <h6 th:text="${extension.name}">Name</h6>
+            <div class="article-footer clearfix">
+                <span class="float-left"><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></span>
+                <span class="article-author float-right"><i class="fas fa-user"></i> <span th:text="${extension.userProfile.firstName}">Firstname</span>
                 <span th:text="${extension.userProfile.lastName}">Lastname</span>
-            </p>
-            <div>
-                <span><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></span>
+            </span>
             </div>
         </a>
     </article>
@@ -54,12 +60,15 @@
             <div class="icon-holder" th:if="${extension.icon}">
                 <span class="icon" th:utext="${extension.icon}"></span>
             </div>
-            <p th:text="${extension.name}">Name</p>
-            <p><span th:text="${extension.userProfile.firstName}">Firstname</span>
+            <div class="icon-holder" th:unless="${extension.icon}">
+                <span class="icon"><i class="fas fa-rocket"></i></span>
+            </div>
+            <h6 th:text="${extension.name}">Name</h6>
+            <div class="article-footer clearfix">
+                <span class="float-left"><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></span>
+                <span class="article-author float-right"><i class="fas fa-user"></i> <span th:text="${extension.userProfile.firstName}">Firstname</span>
                 <span th:text="${extension.userProfile.lastName}">Lastname</span>
-            </p>
-            <div>
-                <span><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></span>
+            </span>
             </div>
         </a>
     </article>
