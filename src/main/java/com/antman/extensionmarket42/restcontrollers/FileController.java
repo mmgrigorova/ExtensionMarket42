@@ -59,8 +59,7 @@ public class FileController {
     @GetMapping("/downloadFile/{id}/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long id, @PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
-        Resource resource = fileStorageService.loadFileAsResource(fileName);
-        extensionService.increaseDownloadCount(id);
+        Resource resource = fileStorageService.loadFileAsResource(fileName, id);
 
         String contentType = null;
 

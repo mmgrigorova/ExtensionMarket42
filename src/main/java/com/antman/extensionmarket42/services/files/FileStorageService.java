@@ -1,5 +1,7 @@
 package com.antman.extensionmarket42.services.files;
 
+import com.antman.extensionmarket42.services.extensions.ExtensionService;
+import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
 import com.antman.extensionmarket42.utils.FileStorageProperties;
 import com.antman.extensionmarket42.utils.exceptions.FileStorageException;
 import com.antman.extensionmarket42.utils.exceptions.MyFileNotFoundException;
@@ -20,9 +22,11 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class FileStorageService {
     private final Path fileStorageLocation;
+    private ExtensionService extensionService;
 
     @Autowired
-    public FileStorageService(FileStorageProperties fileStorageProperties) {
+    public FileStorageService(FileStorageProperties fileStorageProperties, ExtensionService extensionService) {
+        this.extensionService = extensionService;
         fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
         try {
@@ -52,12 +56,13 @@ public class FileStorageService {
         }
     }
 
-    public Resource loadFileAsResource(String fileName) {
+    public Resource loadFileAsResource(String fileName, Long id) {
         try {
             Path filePath = fileStorageLocation.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
             if (resource.exists()) {
+                extensionService.increaseDownloadCount(id);
                 return resource;
             } else {
                 throw new MyFileNotFoundException("File now found " + fileName);
