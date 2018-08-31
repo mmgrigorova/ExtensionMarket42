@@ -17,11 +17,14 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
     List<Extension> findTop5ByPendingOrderByAddedOnDesc(boolean pending);
     List<Extension> getAllByNameIs(String name);
     List<Extension> findByTags_tagTitle(String tag);
-    //Sorting
+    //Sorting - approved and pending
     List<Extension> findAllByOrderByDownloadsCountDesc();
     List<Extension> findAllByOrderByAddedOnDesc();
     List<Extension> findAllByOrderByLastCommitDesc();
     List<Extension> findAllByOrderByName();
-
-
+    //Sorting - approved only
+    List<Extension> findAllByPendingFalseOrderByDownloadsCountDesc();
+    List<Extension> findAllByPendingFalseOrderByAddedOnDesc();
+    List<Extension> findAllByPendingFalseOrderByLastCommitDesc();
+    List<Extension> findAllByPendingFalseOrderByName();
 }
