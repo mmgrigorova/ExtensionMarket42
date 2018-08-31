@@ -128,10 +128,9 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.findByTags_tagTitle(tag);
     }
 
-    //TODO
     @Override
     public List<Extension> getRecentlyAdded() {
-        return extensionRepository.findTop5ByOrderByAddedOnDesc();
+        return extensionRepository.findTop5ByPendingOrderByAddedOnDesc(false);
     }
 
     @Override
