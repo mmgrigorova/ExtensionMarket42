@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class GitHubServiceImpl implements GitHubService {
-    private final String ACCESS_TOKEN = "d4e425799bef7a37fb44d0f9616752fa61824883";
+    private final String ACCESS_TOKEN = "9192eb637704bccfcca966001c9f2f502eb81255";
 
     @Override
     public RepositoryDto getRepositoryInfo(String gitUser, String repoName) throws IOException {
