@@ -8,11 +8,11 @@
 </head>
 <body>
 <nav th:replace="fragments::nav"></nav>
-<h1>Home Page</h1>
 
 <span th:if="${param.logout}">See you soon!</span>
-
-<p>Hello to the home page!</p>
+<section class="text-center">
+    <h3>All the extensions you need for Image Studio 42!</h3>
+</section>
 <section>
     <h4>Featured Extensions</h4>
     <article th:each="extension : ${featuredExtensions}" class="col-sm-2">
