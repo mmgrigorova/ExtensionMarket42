@@ -35,6 +35,8 @@ public class ExtensionDto {
 
     private String fileName;
 
+    private String fontAwesomeIcon;
+
     private String[] tags;
 
     public ExtensionDto() {
@@ -112,5 +114,13 @@ public class ExtensionDto {
 
     public void setTags(String[] tags) {
         this.tags = tags;
+    }
+
+    public String getFontAwesomeIcon() {
+        return fontAwesomeIcon;
+    }
+
+    public void setFontAwesomeIcon(String fontAwesomeIcon) {
+        this.fontAwesomeIcon = fontAwesomeIcon;
     }
 }

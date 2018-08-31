@@ -15,6 +15,7 @@ article{
     display: inline-block;
     border: 1px solid beige;
     margin: 5px;
+    text-align: center;
 }
 
 .table-custom{
@@ -33,4 +34,17 @@ article{
 
 .catmessage{
     margin: 25px 0px;
+}
+
+.icon-holder{
+    display: block;
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+}
+
+.icon{
+    height: 100%;
+    font-size: 2em;
 }

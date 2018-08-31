@@ -16,18 +16,37 @@
 <div>
     <article th:each="featured : ${featuredExtensions}" class="col-sm-2">
         <a th:href="@{'/extension-details/{id}' (id=${featured.id})}">
-            <div class="circular" th:if="${featured.icon}">
-                <img th:src="${featured.icon}"/>
+            <div class="icon-holder" th:if="${featured.icon}">
+                <span class="icon" th:utext="${featured.icon}"></span>
             </div>
-            <p th:text="${featured.name}">Name</p>
-            <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
-                <span th:text="${featured.userProfile.lastName}">Lastname</span>
-            </p>
             <div>
-                <span><i class="fas fa-download"></i> <span th:text="${featured.downloadsCount}"></span></span>
+                <p th:text="${featured.name}">Name</p>
+                <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
+                    <span th:text="${featured.userProfile.lastName}">Lastname</span>
+                </p>
+                <div>
+                    <span><i class="fas fa-download"></i> <span th:text="${featured.downloadsCount}"></span></span>
+                </div>
             </div>
         </a>
     </article>
+
+    <!--<div class="card" th:each="featured : ${featuredExtensions}"  style="width: 18rem;">-->
+        <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+        <!--<div class="card-img-top" th:if="${featured.icon}">-->
+            <!--<span class="icon" th:utext="${featured.icon}"></span>-->
+        <!--</div>-->
+        <!--<div class="card-body">-->
+            <!--<h5 class="card-title" th:text="${featured.name}">Card title</h5>-->
+            <!--<p class="card-text">-->
+                <!--<span th:text="${featured.userProfile.firstName}">Firstname</span>-->
+                <!--<span th:text="${featured.userProfile.lastName}">Lastname</span>-->
+                <!--Some quick example text to build on the card title and make up the bulk of the card's content.-->
+            <!--</p>-->
+            <!--<span><i class="fas fa-download"></i> <span th:text="${featured.downloadsCount}"></span></span>-->
+            <!--<a th:href="@{'/extension-details/{id}' (id=${featured.id})}" class="btn btn-primary">Go to Extension</a>-->
+        <!--</div>-->
+    <!--</div>-->
 </div>
 <th:block th:include="fragments :: assets"></th:block>
 </body>
