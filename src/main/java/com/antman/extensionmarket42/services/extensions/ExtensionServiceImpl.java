@@ -108,7 +108,6 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.findAll();
     }
 
-    //TODO
     @Override
     public List<Extension> getApprovedFeatured(boolean b) {
         return extensionRepository.getAllByFeaturedAndPending(true, false);
@@ -119,10 +118,9 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.getAllByPendingIs(b);
     }
 
-    //TODO
     @Override
-    public List<Extension> getMostPopular() {
-        return extensionRepository.findTop5ByOrderByDownloadsCountDesc();
+    public List<Extension> getMostPopularApproved() {
+        return extensionRepository.findTop5ByPendingOrderByDownloadsCountDesc(false);
     }
 
     @Override
