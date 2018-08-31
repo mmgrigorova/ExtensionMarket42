@@ -17,6 +17,10 @@ article{
     margin: 5px;
 }
 
+section{
+    padding: 15px;
+}
+
 .table-custom{
     width: auto;
 }

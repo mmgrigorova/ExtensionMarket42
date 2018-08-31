@@ -15,14 +15,42 @@
 <p>Hello to the home page!</p>
 <section>
     <h4>Featured Extensions</h4>
-    <article th:each="featured : ${featuredExtensions}" class="col-sm-2">
-        <a th:href="@{'/extension-details/{id}' (id=${featured.id})}">
-            <p th:text="${featured.name}">Name</p>
-            <p><span th:text="${featured.userProfile.firstName}">Firstname</span>
-                <span th:text="${featured.userProfile.lastName}">Lastname</span>
+    <article th:each="extension : ${featuredExtensions}" class="col-sm-2">
+        <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
+            <p th:text="${extension.name}">Name</p>
+            <p><span th:text="${extension.userProfile.firstName}">Firstname</span>
+                <span th:text="${extension.userProfile.lastName}">Lastname</span>
             </p>
             <div>
-                <span><i class="fas fa-download"></i> <span th:text="${featured.downloadsCount}"></span></span>
+                <span><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></span>
+            </div>
+        </a>
+    </article>
+</section>
+<section>
+    <h4>Most Downloaded Extensions</h4>
+    <article th:each="extension : ${mostPopular}" class="col-sm-2">
+        <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
+            <p th:text="${extension.name}">Name</p>
+            <p><span th:text="${extension.userProfile.firstName}">Firstname</span>
+                <span th:text="${extension.userProfile.lastName}">Lastname</span>
+            </p>
+            <div>
+                <span><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></span>
+            </div>
+        </a>
+    </article>
+</section>
+<section>
+    <h4>Recently Added Extensions</h4>
+    <article th:each="extension : ${recentlyAdded}" class="col-sm-2">
+        <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
+            <p th:text="${extension.name}">Name</p>
+            <p><span th:text="${extension.userProfile.firstName}">Firstname</span>
+                <span th:text="${extension.userProfile.lastName}">Lastname</span>
+            </p>
+            <div>
+                <span><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></span>
             </div>
         </a>
     </article>
