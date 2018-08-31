@@ -130,7 +130,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getRecentlyAdded() {
-        return extensionRepository.findTop5ByOrderByAddedOnAsc();
+        return extensionRepository.findTop5ByOrderByAddedOnDesc();
     }
 
     @Override
