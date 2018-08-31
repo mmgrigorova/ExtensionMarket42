@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class DisplayExtensionsController {
             switch (formChoice.getParam()){
                 case "extensions": extensions = extensionService.getAll();
                     break;
-                case "featured": extensions = extensionService.getFeatured(true);
+                case "featured": extensions = extensionService.getApprovedFeatured(true);
                     break;
                 case "pending": extensions = extensionService.getPending(true);
                     break;

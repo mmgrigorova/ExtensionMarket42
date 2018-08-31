@@ -108,9 +108,10 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.findAll();
     }
 
+    //TODO
     @Override
-    public List<Extension> getFeatured(boolean b) {
-        return extensionRepository.getAllByFeaturedIs(b);
+    public List<Extension> getApprovedFeatured(boolean b) {
+        return extensionRepository.getAllByFeaturedAndPending(true, false);
     }
 
     @Override
@@ -118,6 +119,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.getAllByPendingIs(b);
     }
 
+    //TODO
     @Override
     public List<Extension> getMostPopular() {
         return extensionRepository.findTop5ByOrderByDownloadsCountDesc();
@@ -128,6 +130,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.findByTags_tagTitle(tag);
     }
 
+    //TODO
     @Override
     public List<Extension> getRecentlyAdded() {
         return extensionRepository.findTop5ByOrderByAddedOnDesc();

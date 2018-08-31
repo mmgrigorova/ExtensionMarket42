@@ -17,7 +17,7 @@ public interface ExtensionService {
 
     List<Extension> getAll();
     List<Extension> getByName(String name);
-    List<Extension> getFeatured(boolean b);
+    List<Extension> getApprovedFeatured(boolean b);
     List<Extension> getPending(boolean b);
     List<Extension> getMostPopular();
     List<Extension> getByTag(String tag);
