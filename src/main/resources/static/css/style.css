@@ -18,6 +18,10 @@ article{
     text-align: center;
 }
 
+section{
+    padding: 15px;
+}
+
 .table-custom{
     width: auto;
 }

@@ -27,8 +27,14 @@ public class HomeController {
         ModelAndView mav = new ModelAndView("index");
         UserDetails userDetails;
 
-        List<Extension> extensionList = extensionService.getFeatured(true);
-        mav.addObject("featuredExtensions", extensionList);
+        List<Extension> extensionFeaturedList = extensionService.getFeatured(true);
+        mav.addObject("featuredExtensions", extensionFeaturedList);
+
+        List<Extension> extensionsMostPopular = extensionService.getMostPopular();
+        mav.addObject("mostPopular", extensionsMostPopular);
+
+        List<Extension> recentlyAdded = extensionService.getRecentlyAdded();
+        mav.addObject("recentlyAdded", recentlyAdded);
 
         if (authentication != null){
             userDetails = (UserDetails) authentication.getPrincipal();
