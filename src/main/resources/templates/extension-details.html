@@ -31,7 +31,7 @@
         <span th:text="${extension.name}"></span>
     </h2>
 
-    <a th:href="@{'/api/downloadFile/'+ ${extension.id} + '/' + ${extension.fileName}}">
+    <a th:href="@{'/api/downloadFile/'+ ${extension.id} + '/' + ${extension.downloadLink}}">
         <button class="btn btn-primary">Download</button>
     </a>
 
@@ -52,8 +52,7 @@
     </p>
     <p th:text="${fileDownloadUri}">File download</p>
 
-    <p th:if="${extension.fileName}" th:text="${extension.fileName}">Download Link</p>
-    <p th:unless="${extension.fileName}" th:text="This extension has no available download files.">This extension
+    <p th:unless="${extension.downloadLink}" th:text="This extension has no available download files.">This extension
         has no
         available download files.</p>
 
