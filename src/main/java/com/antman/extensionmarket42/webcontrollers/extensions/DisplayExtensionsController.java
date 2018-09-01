@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.Normalizer;
 import java.util.List;
@@ -57,12 +58,11 @@ public class DisplayExtensionsController {
 
     @GetMapping(value = "adminPanel/approve/{extensionId}")
     public ModelAndView approvePendingExtension(@PathVariable Long extensionId,
-                                                @ModelAttribute FormChoice formChoice) throws NotFoundException {
+                                                RedirectAttributes redirectAttributes) throws NotFoundException {
         ModelAndView mav = new ModelAndView("redirect:/adminPanel");
         Extension extension = extensionService.approvePendingExtension(extensionId);
-        mav.addObject(extension);
-        mav.addObject(formChoice);
-        mav.addObject("approvedMessage", "Extension approved");
+        redirectAttributes.addFlashAttribute(extension);
+        redirectAttributes.addFlashAttribute("approvedMessage", "Extension " + extension.getName() + " has been approved");
         return mav;
     }
 }

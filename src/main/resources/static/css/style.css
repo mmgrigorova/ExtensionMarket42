@@ -15,6 +15,7 @@ navbar{
     width: 90%;
 }
 
+
 article{
     display: inline-block;
     border: 3px solid #f1f1f1;
@@ -100,4 +101,8 @@ section{
     display: block;
     height: 0;
     clear: both;
+}
+
+.approved{
+    color: black;
 }

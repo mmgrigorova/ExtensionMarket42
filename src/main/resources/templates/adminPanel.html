@@ -6,13 +6,14 @@
 </head>
 <body>
 <nav th:replace="fragments::nav"></nav>
-<h1 id="admin">Admin Panel</h1>
+
 <div class="container">
+    <h1 id="admin">Admin Panel</h1>
     <div class="row" style="margin-bottom: 20px">
         <form action="#" data-th-action="@{adminPanel}" data-th-object="${formChoice}" method="post">
             <div class="form-check form-check-inline">
                 <label class="form-check-label">Extensions
-                    <input type="radio" class="form-check form-check-inline" name="search" value="extensions"
+                    <input type="radio" checked="checked" class="form-check form-check-inline" name="search" value="extensions"
                            th:field="*{param}"/>
                 </label>
             </div>
@@ -42,8 +43,14 @@
         </form>
     </div>
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-12">
             <div th:if="${not #lists.isEmpty(extensions)}">
+                <div th:if="${approvedMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span th:text="${approvedMessage}">Extension has been created!</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <table class="table table-striped table-custom">
                     <tr>
                         <th>Id</th>
@@ -59,14 +66,16 @@
                         <td th:text="${e.id}"></td>
                         <td><a href="#" th:href="@{adminPanel/{extensionId} (extensionId=${e.id})}"
                                th:text="${e.name}"></a></td>
-                        <td th:text="${e.userProfile.firstName +' '+e.userProfile.lastName }">Approved</td>
+                        <td th:text="${e.userProfile.firstName +' '+e.userProfile.lastName }"></td>
                         <td th:if="${e.pending}">
                             <a th:href="@{'adminPanel/approve/' + ${e.id}}">
                                 <button class="btn btn-success">Approve
                                 </button>
                             </a>
                         </td>
-                        <td th:unless="${e.pending}">Approved</td>
+                        <td th:unless="${e.pending}" class="approved">
+                            <i class="fas fa-check"></i> Approved
+                        </td>
                         <td th:text="${e.featured}"></td>
                         <td th:text="${e.lastCommit}"></td>
                         <td th:text="${e.addedOn}"></td>
