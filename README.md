@@ -11,7 +11,7 @@ It is the final project for Telerik Academy Alpha in Java - 2018.
 
 ## Features
 
-**Public Part**
+### Public Part
   - [ ] Application home page which contain 3 lists of extensions (only extensions approved by administrator): 
 	- **Featured** (selected by the admis), 
 	- **Most Popular** (the most downloaded extensions)
@@ -27,7 +27,7 @@ It is the final project for Telerik Academy Alpha in Java - 2018.
 	- [ ] upload date
 	- [ ] last commit date
   
-**Private Part (Users only)**
+### Private Part (Logged users only)
 
 Registered users have private area in the web application.
 - [ ] They could see all extensions that are owned by the currently logged user. Additionally the registered user must be able to:
@@ -35,13 +35,12 @@ Registered users have private area in the web application.
 
 Once extension is created it is “pending” state until an administrator approves it. 
 
-**Administration Part**
+### Administration Part
 
-**System administrators**  have administrative access to the system and permissions to administer all major information objects in the system.
+System administrators have administrative access to the system and permissions to administer all major information objects in the system.
 - [ ] Approve extension
 - [ ] Delete/edit all extensions
 - [ ] Disable user accounts
-
 
 ## Rest API
 
