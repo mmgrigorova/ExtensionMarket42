@@ -14,11 +14,13 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ExtensionServiceImpl implements ExtensionService {
-
     private final ExtensionRepository extensionRepository;
     private final TagRepository tagRepository;
     private final MyUserDetailsService userDetailsService;
@@ -38,7 +40,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     @Override
     public Extension getById(Long id) throws NotFoundException {
         Optional<Extension> extensionOptional = extensionRepository.findById(id);
-        if (!extensionOptional.isPresent()){
+        if (!extensionOptional.isPresent()) {
             throw new NotFoundException("Extension has not been found");
         }
         return extensionOptional.get();
@@ -50,7 +52,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension createNewExtension(ExtensionDto extensionDto) throws ParseException{
+    public Extension createNewExtension(ExtensionDto extensionDto) throws ParseException {
         Extension extension = new Extension();
 
         extension.setName(extensionDto.getName());
@@ -63,8 +65,8 @@ public class ExtensionServiceImpl implements ExtensionService {
 
         RepositoryDto repositoryDto = null;
         try {
-           repositoryDto = gitHubService.getRepositoryInfo(extensionDto.getRepoUser(), extensionDto.getRepoName());
-        } catch (IOException e){
+            repositoryDto = gitHubService.getRepositoryInfo(extensionDto.getRepoUser(), extensionDto.getRepoName());
+        } catch (IOException e) {
             long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse("01/01/1971 01:00:00").getTime() / 1000;
             repositoryDto = new RepositoryDto(0, 0, new Date(epoch));
         }
@@ -83,24 +85,24 @@ public class ExtensionServiceImpl implements ExtensionService {
         Set<Tag> tags = generateTagListFromDto(extensionDto.getTags());
         extension.setTags(tags);
 
-        if(extensionDto.getFontAwesomeIcon() != null){
+        if (extensionDto.getFontAwesomeIcon() != null) {
             extension.setIcon(extensionDto.getFontAwesomeIcon());
         }
         return extensionRepository.save(extension);
     }
 
     @Override
-    public int increaseDownloadCount(Long extensionId){
+    public int increaseDownloadCount(Long extensionId) {
         Optional<Extension> optionalExtension = extensionRepository.findById(extensionId);
         Extension extension = null;
 
-        if(optionalExtension.isPresent()){
-           extension = optionalExtension.get();
-           int downloadCount = extension.getDownloadsCount();
-           downloadCount += 1;
-           extension.setDownloadsCount(downloadCount);
-           extensionRepository.save(extension);
-           return downloadCount;
+        if (optionalExtension.isPresent()) {
+            extension = optionalExtension.get();
+            int downloadCount = extension.getDownloadsCount();
+            downloadCount += 1;
+            extension.setDownloadsCount(downloadCount);
+            extensionRepository.save(extension);
+            return downloadCount;
         } else {
             return 0;
         }
@@ -137,8 +139,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public void removeById(long id)
-    {
+    public void removeById(long id) {
         extensionRepository.deleteById(id);
     }
 
@@ -156,9 +157,22 @@ public class ExtensionServiceImpl implements ExtensionService {
     public List<Extension> orderByUploadDate() {
         return extensionRepository.findAllByOrderByAddedOnDesc();
     }
+
     @Override
-    public List<Extension> orderByName(){
+    public List<Extension> orderByName() {
         return extensionRepository.findAllByOrderByName();
+    }
+
+    @Override
+    public Extension approvePendingExtension(Long extensionId) throws NotFoundException {
+        Extension extension = getById(extensionId);
+
+        if (extension.isPending()) {
+            extension.setPending(false);
+            extension = extensionRepository.save(extension);
+        }
+
+        return extension;
     }
 
     private Set<Tag> generateTagListFromDto(String[] tagNames) {

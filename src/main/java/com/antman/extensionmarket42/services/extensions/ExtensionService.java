@@ -31,4 +31,5 @@ public interface ExtensionService {
     List<Extension> orderByName();
 
 
+    Extension approvePendingExtension(Long extensionId) throws NotFoundException;
 }

@@ -3,6 +3,7 @@ package com.antman.extensionmarket42.webcontrollers.extensions;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.utils.FormChoice;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,6 +54,13 @@ public class DisplayExtensionsController {
         return modelAndView;
     }
 
-
+    @PostMapping(value = "adminPanel/approve/{extensionId}")
+    public ModelAndView approvePendingExtension(@PathVariable Long extensionId, Model model) throws NotFoundException {
+        ModelAndView mav = new ModelAndView("adminPanel");
+        Extension extension = extensionService.approvePendingExtension(extensionId);
+        mav.addObject(extension);
+        mav.addObject("approvedMessage", "Extension approved");
+        return mav;
+    }
 }
 

@@ -55,7 +55,9 @@
                         <td th:text="${e.id}"></td>
                         <td><a href="#" th:href="@{adminPanel/{extensionId} (extensionId=${e.id})}" th:text="${e.name}"></a></td>
                         <td th:text="${e.userProfile.firstName +' '+e.userProfile.lastName }"></td>
-                        <td th:text="${e.pending}"></td>
+                        <td th:text="${e.pending}">
+
+                        </td>
                         <td th:text="${e.featured}"></td>
                         <td th:text="${e.lastCommit}"></td>
                         <td th:text="${e.addedOn}"></td>
