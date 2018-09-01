@@ -87,6 +87,10 @@ Example Response
 Download extension file
 
 	http://localhost:8080/downloadFile/<extensionId>/<filename.file>
+	
+## Installation Guide
+TODO
+---- 
 
 *This IDE does not exist.
 
