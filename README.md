@@ -13,14 +13,13 @@ It is the final project for Telerik Academy Alpha in Java - 2018.
 ## Features
 
 ### Public Part
-  - [ ] Application home page which contain 3 lists of extensions (only extensions approved by administrator): 
+  - [x] Application home page which contain 3 lists of extensions (only extensions approved by administrator): 
 	- **Featured** (selected by the admis), 
 	- **Most Popular** (the most downloaded extensions)
 	- **New** (the newest extensions)
-- [ ] Extension detail when an extension has been clicked.
-- [ ] Extension detail page
-- [ ] User Registration
-- [ ] Logon Capability
+- [x] Extension detail page
+- [x] User Registration
+- [x] Logon Capability
 - [ ] Filter extensions by name
 - [ ] Sort by:
 	- [ ] name
