@@ -1,6 +1,7 @@
 package com.antman.extensionmarket42.models;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
