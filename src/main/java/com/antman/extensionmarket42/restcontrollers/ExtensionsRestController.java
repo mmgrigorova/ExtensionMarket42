@@ -3,6 +3,7 @@ package com.antman.extensionmarket42.restcontrollers;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.payload.ExtensionRestDto;
+import com.antman.extensionmarket42.payload.ExtensionRestDtoMapper;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,42 +28,21 @@ public class ExtensionsRestController {
     @GetMapping("/featured")
     public List<ExtensionRestDto> getFeaturedExtensions() {
         return extensionService.getApprovedFeatured(true).stream()
-                .map(this::mapExtensionToRestDto)
+                .map(ExtensionRestDtoMapper::mapExtensionToRestDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/popular")
     public List<ExtensionRestDto> getMostPopularExtensions() {
         return extensionService.getMostPopularApproved().stream()
-                .map(this::mapExtensionToRestDto)
+                .map(ExtensionRestDtoMapper::mapExtensionToRestDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/recent")
     public List<ExtensionRestDto> getRecentExtensions() {
         return extensionService.getRecentlyAdded().stream()
-                .map(this::mapExtensionToRestDto)
+                .map(ExtensionRestDtoMapper::mapExtensionToRestDto)
                 .collect(Collectors.toList());
-    }
-
-    private ExtensionRestDto mapExtensionToRestDto(Extension extension){
-        ExtensionRestDto dto = new ExtensionRestDto();
-        dto.setExtensionId(extension.getId());
-        dto.setName(extension.getName());
-        dto.setOwnerName(extension.getUserProfile().getFirstName(),
-                extension.getUserProfile().getLastName());
-        dto.setDescription(extension.getDescription());
-        dto.setDownloadCount(extension.getDownloadsCount());
-        dto.setVersion(extension.getVersion());
-        dto.setRepoLink(extension.getRepoLink());
-        dto.setOpenIssues(extension.getOpenIssues());
-        dto.setPullRequests(extension.getPullRequests());
-        dto.setLastCommitDate(String.valueOf(extension.getLastCommit()));
-        dto.setFileName(extension.getDownloadLink());
-        Set<String> tags = extension.getTags().stream()
-                .map(Tag::getTagTitle)
-                .collect(Collectors.toSet());
-        dto.setTags(tags);
-        return dto;
     }
 }

@@ -118,8 +118,8 @@ public class ExtensionRestDto {
         return fileName;
     }
 
-    public void setFileName (String fileName) {
-        this.fileName = this.fileName;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public Set<String> getTags() {
