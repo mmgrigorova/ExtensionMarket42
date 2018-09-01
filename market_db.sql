@@ -56,7 +56,7 @@ CREATE TABLE `extensions` (
   `description` varchar(3000) NOT NULL,
   `version` varchar(255) NOT NULL,
   `downloadsCount` int(11) NOT NULL,
-  `downloadLink` varchar(255) NOT NULL DEFAULT '',
+  `fileName` varchar(255) NOT NULL DEFAULT '',
   `repoLink` varchar(255) NOT NULL,
   `openIssues` int(11) NOT NULL,
   `pullRequests` int(11) NOT NULL,

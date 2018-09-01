@@ -13,10 +13,13 @@ public class ExtensionRestDto {
     private int openIssues;
     private int pullRequests;
     private String lastCommitDate;
-    private String downloadLink;
+    private String fileName;
     private Set<String> tags;
 
-    public ExtensionRestDto(Long extensionId, String name, String description, String ownerFirstName, String ownerLastName, String version, int downloadCount, String repoLink, int openIssues, int pullRequests, String lastCommitDate, String downloadLink, Set<String> tags) {
+    public ExtensionRestDto() {
+    }
+
+    public ExtensionRestDto(Long extensionId, String name, String description, String ownerFirstName, String ownerLastName, String version, int downloadCount, String repoLink, int openIssues, int pullRequests, String lastCommitDate, String fileName, Set<String> tags) {
         this.extensionId = extensionId;
         this.name = name;
         this.description = description;
@@ -27,7 +30,7 @@ public class ExtensionRestDto {
         this.openIssues = openIssues;
         this.pullRequests = pullRequests;
         this.lastCommitDate = lastCommitDate;
-        this.downloadLink = downloadLink;
+        this.fileName = fileName;
         this.tags = tags;
     }
 
@@ -111,12 +114,12 @@ public class ExtensionRestDto {
         this.lastCommitDate = lastCommitDate;
     }
 
-    public String getDownloadLink() {
-        return downloadLink;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setDownloadLink(String downloadLink) {
-        this.downloadLink = downloadLink;
+    public void setFileName (String fileName) {
+        this.fileName = this.fileName;
     }
 
     public Set<String> getTags() {
