@@ -2,7 +2,6 @@ package com.antman.extensionmarket42.webcontrollers.extensions;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
-import com.antman.extensionmarket42.services.files.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +15,10 @@ import java.text.SimpleDateFormat;
 public class ExtensionDetailsController {
     private final SimpleDateFormat datePattern = new SimpleDateFormat("dd MMM yyyy");
     private final ExtensionService extensionService;
-    private final FileStorageService fileStorageService;
 
     @Autowired
-    public ExtensionDetailsController(ExtensionService extensionService, FileStorageService fileStorageService) {
+    public ExtensionDetailsController(ExtensionService extensionService) {
         this.extensionService = extensionService;
-        this.fileStorageService = fileStorageService;
     }
 
     @GetMapping("extension-details/{id}")

@@ -2,6 +2,7 @@ package com.antman.extensionmarket42.services.files;
 
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
+import com.antman.extensionmarket42.services.files.base.FileStorageService;
 import com.antman.extensionmarket42.utils.FileStorageProperties;
 import com.antman.extensionmarket42.utils.exceptions.FileStorageException;
 import com.antman.extensionmarket42.utils.exceptions.MyFileNotFoundException;
@@ -20,12 +21,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Service
-public class FileStorageService {
+public class FileStorageServiceImpl implements FileStorageService {
     private final Path fileStorageLocation;
     private ExtensionService extensionService;
 
     @Autowired
-    public FileStorageService(FileStorageProperties fileStorageProperties, ExtensionService extensionService) {
+    public FileStorageServiceImpl(FileStorageProperties fileStorageProperties, ExtensionService extensionService) {
         this.extensionService = extensionService;
         fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
@@ -36,6 +37,7 @@ public class FileStorageService {
         }
     }
 
+    @Override
     public String storeFile(MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -56,6 +58,7 @@ public class FileStorageService {
         }
     }
 
+    @Override
     public Resource loadFileAsResource(String fileName, Long id) {
         try {
             Path filePath = fileStorageLocation.resolve(fileName).normalize();

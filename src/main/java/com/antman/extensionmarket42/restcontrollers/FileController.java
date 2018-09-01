@@ -2,7 +2,7 @@ package com.antman.extensionmarket42.restcontrollers;
 
 import com.antman.extensionmarket42.payload.UploadFileResponse;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
-import com.antman.extensionmarket42.services.files.FileStorageService;
+import com.antman.extensionmarket42.services.files.base.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +27,10 @@ public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     private FileStorageService fileStorageService;
-    private ExtensionService extensionService;
 
     @Autowired
-    public FileController(FileStorageService fileStorageService, ExtensionService extensionService) {
+    public FileController(FileStorageService fileStorageService) {
         this.fileStorageService = fileStorageService;
-        this.extensionService = extensionService;
     }
 
     @PostMapping("uploadFile")

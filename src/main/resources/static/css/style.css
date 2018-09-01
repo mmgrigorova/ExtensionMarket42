@@ -11,6 +11,10 @@ navbar{
     color: #fff;
 }
 
+.container{
+    width: 90%;
+}
+
 article{
     display: inline-block;
     border: 3px solid #f1f1f1;
