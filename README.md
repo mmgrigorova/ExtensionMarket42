@@ -83,6 +83,10 @@ Example Response
             "go"
         ]
     }]
+    
+Download extension file
+
+	http://localhost:8080/downloadFile/<extensionId>/<filename.file>
 
 *This IDE does not exist.
 
