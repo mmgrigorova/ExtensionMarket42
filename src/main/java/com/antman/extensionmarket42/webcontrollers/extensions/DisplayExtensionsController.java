@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.Normalizer;
 import java.util.List;
 
 @Controller
@@ -54,11 +55,13 @@ public class DisplayExtensionsController {
         return modelAndView;
     }
 
-    @PostMapping(value = "adminPanel/approve/{extensionId}")
-    public ModelAndView approvePendingExtension(@PathVariable Long extensionId, Model model) throws NotFoundException {
-        ModelAndView mav = new ModelAndView("adminPanel");
+    @GetMapping(value = "adminPanel/approve/{extensionId}")
+    public ModelAndView approvePendingExtension(@PathVariable Long extensionId,
+                                                @ModelAttribute FormChoice formChoice) throws NotFoundException {
+        ModelAndView mav = new ModelAndView("redirect:/adminPanel");
         Extension extension = extensionService.approvePendingExtension(extensionId);
         mav.addObject(extension);
+        mav.addObject(formChoice);
         mav.addObject("approvedMessage", "Extension approved");
         return mav;
     }

@@ -12,22 +12,26 @@
         <form action="#" data-th-action="@{adminPanel}" data-th-object="${formChoice}" method="post">
             <div class="form-check form-check-inline">
                 <label class="form-check-label">Extensions
-                    <input type="radio" class="form-check form-check-inline" name="search" value="extensions" th:field="*{param}"/>
+                    <input type="radio" class="form-check form-check-inline" name="search" value="extensions"
+                           th:field="*{param}"/>
                 </label>
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label">Featured
-                    <input type="radio" class="form-check form-check-inline" name="search" value="featured" th:field="*{param}"/>
+                    <input type="radio" class="form-check form-check-inline" name="search" value="featured"
+                           th:field="*{param}"/>
                 </label>
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label">Pending
-                    <input type="radio" class="form-check form-check-inline" name="search" value="pending" th:field="*{param}"/>
+                    <input type="radio" class="form-check form-check-inline" name="search" value="pending"
+                           th:field="*{param}"/>
                 </label>
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label">Users
-                    <input type="radio" class="form-check form-check-inline" name="search" value="users" th:field="*{param}"/>
+                    <input type="radio" class="form-check form-check-inline" name="search" value="users"
+                           th:field="*{param}"/>
                 </label>
             </div>
             <div class="form-check">
@@ -53,18 +57,24 @@
                     </tr>
                     <tr th:each="e : ${extensions}">
                         <td th:text="${e.id}"></td>
-                        <td><a href="#" th:href="@{adminPanel/{extensionId} (extensionId=${e.id})}" th:text="${e.name}"></a></td>
-                        <td th:text="${e.userProfile.firstName +' '+e.userProfile.lastName }"></td>
-                        <td th:text="${e.pending}">
-
+                        <td><a href="#" th:href="@{adminPanel/{extensionId} (extensionId=${e.id})}"
+                               th:text="${e.name}"></a></td>
+                        <td th:text="${e.userProfile.firstName +' '+e.userProfile.lastName }">Approved</td>
+                        <td th:if="${e.pending}">
+                            <a th:href="@{'adminPanel/approve/' + ${e.id}}">
+                                <button class="btn btn-success">Approve
+                                </button>
+                            </a>
                         </td>
+                        <td th:unless="${e.pending}">Approved</td>
                         <td th:text="${e.featured}"></td>
                         <td th:text="${e.lastCommit}"></td>
                         <td th:text="${e.addedOn}"></td>
                         <td><span th:each="t:${e.tags} " th:text="${t.tagTitle}+' '"></span></td>
                     </tr>
                 </table>
-            </div><div class="col-sm-7">
+            </div>
+            <div class="col-sm-7">
 
             </div>
         </div>
