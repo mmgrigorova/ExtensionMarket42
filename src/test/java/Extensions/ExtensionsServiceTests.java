@@ -1,5 +1,6 @@
 package Extensions;
 
+import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
@@ -13,15 +14,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-
-import static junit.framework.TestCase.assertEquals;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static junit.framework.TestCase.assertEquals;
+import static org.mockito.Mockito.*;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,39 +35,40 @@ public class ExtensionsServiceTests {
     private TagRepository tagRepository;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         extensionService = new ExtensionServiceImpl(extensionMockRepository, tagRepository, userDetailsService, gitHubService);
     }
 
     @Test
     public void getById_whenExtensionIsPresent_returnExtension() throws NotFoundException {
-        Extension extension = ExtensionTestSetup.createExtension("testName","description","1.0","repoLink",
-                "link",0,0,0);
+        Extension extension = ExtensionTestSetup.createExtension("testName", "description", "1.0", "repoLink",
+                "link", 0, 0, 0);
 
         when(extensionMockRepository.findById(anyLong())).thenReturn(Optional.of(extension));
 
         Extension result = extensionService.getById(anyLong());
 
-        verify(extensionMockRepository,times(1)).findById(anyLong());
+        verify(extensionMockRepository, times(1)).findById(anyLong());
 
         assertEquals(extension, result);
-        
+
     }
 
     @Test
-    public void getByName_whenExtensionsArePresent_returnExtensions(){
+    public void getByName_whenExtensionsArePresent_returnExtensions() {
         List<Extension> extensions = new ArrayList<>();
 
         when(extensionMockRepository.getAllByNameIs("testName")).thenReturn(extensions);
 
         List<Extension> result = extensionService.getByName("testName");
 
-        verify(extensionMockRepository,times(1)).getAllByNameIs("testName");
+        verify(extensionMockRepository, times(1)).getAllByNameIs("testName");
 
-        assertEquals(extensions,result);
+        assertEquals(extensions, result);
     }
+
     @Test
-    public void getAll_whenExtensionsArePresent_returnAllExtension(){
+    public void getAll_whenExtensionsArePresent_returnAllExtension() {
         List<Extension> extensions = new ArrayList<>(3);
         extensions.add(new Extension());
         extensions.add(new Extension());
@@ -77,15 +78,15 @@ public class ExtensionsServiceTests {
 
         List<Extension> result = extensionService.getAll();
 
-        assertEquals(3,result.size());
+        assertEquals(3, result.size());
     }
 
     @Test
-    public void increaseDownloadCount_whenExtensionIsPresent_ReturnIncreasedDownloadCountByOne(){
+    public void increaseDownloadCount_whenExtensionIsPresent_ReturnIncreasedDownloadCountByOne() {
         // Arrange
         int currentDownloadCount = 5;
-        Extension extension = ExtensionTestSetup.createExtension("testName","description","1.0","repoLink",
-                "link",currentDownloadCount,0,0);
+        Extension extension = ExtensionTestSetup.createExtension("testName", "description", "1.0", "repoLink",
+                "link", currentDownloadCount, 0, 0);
         extension.setId(5L);
 
         when(extensionMockRepository.findById(5L))
@@ -134,41 +135,26 @@ public class ExtensionsServiceTests {
     }
 
     @Test
-    public void setUniqueFileName_WhenPassingValidExtension_ReturnExtensionFileNameStartingWithExtensionId() throws NotFoundException {
-        //Arrange
-        String initialDownloadLink = "initialFile.txt";
-        Extension extension = new Extension();
-        extension.setDownloadLink(initialDownloadLink);
-        extension.setId(1L);
-
-        when(extensionMockRepository.findById(extension.getId()))
-                .thenReturn(Optional.ofNullable(extension));
-        when(extensionMockRepository.save(any(Extension.class)))
-                .thenReturn(extension);
-
-        //Act
-        String expectedFileName = "1_initialFile.txt";
-        String result = extensionService.setUniqueFileName(extension, expectedFileName);
-
-        //Assert
-        Assert.assertEquals(result, expectedFileName);
-    }
-
-    @Test
-    public void generateUniqueFileName_WhenPassingValidExtension_ReturnStringInFormatId_Filename(){
+    public void generateUniqueFileName_WhenPassingValidExtension_ReturnStringInFormatId_Filename() {
         //Arrange
         String originalFilename = "initialFile.txt";
+
+        ExtensionDto extensionDto = new ExtensionDto();
+        extensionDto.setName("testextension");
+        extensionDto.setVersion("3.5");
+
         Extension extension = new Extension();
         extension.setId(1L);
+
 
         when(extensionMockRepository.findById(extension.getId()))
                 .thenReturn(Optional.ofNullable(extension));
 
         //Act
-        String result = extensionService.generateUniqueFileName(extension, originalFilename);
+        String result = extensionService.generateUniqueFileName(extensionDto, originalFilename);
 
         //Assert
-        String expectedFileName = "1_initialFile.txt";
+        String expectedFileName = "testextension_3.5_initialFile.txt";
         Assert.assertEquals(result, expectedFileName);
     }
 }
