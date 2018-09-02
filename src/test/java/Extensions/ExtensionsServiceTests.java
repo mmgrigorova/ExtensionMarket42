@@ -146,10 +146,6 @@ public class ExtensionsServiceTests {
         Extension extension = new Extension();
         extension.setId(1L);
 
-
-        when(extensionMockRepository.findById(extension.getId()))
-                .thenReturn(Optional.ofNullable(extension));
-
         //Act
         String result = extensionService.generateUniqueFileName(extensionDto, originalFilename);
 

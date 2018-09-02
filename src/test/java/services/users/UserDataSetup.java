@@ -24,7 +24,7 @@ public class UserDataSetup {
         roles.add(role);
 
         User user = new User(email, password, profile);
-        user.setEnabled(1);
+        user.setEnabled(true);
         user.setUserRoles(roles);
 
         return user;
