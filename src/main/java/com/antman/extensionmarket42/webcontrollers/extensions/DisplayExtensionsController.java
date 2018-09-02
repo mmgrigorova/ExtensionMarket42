@@ -45,6 +45,9 @@ public class DisplayExtensionsController {
                     break;
                 case "users":
                     extensions = extensionService.getByTag("Java");
+                case "active":
+                    //extensions = extensionService.getActive();
+                    break;
                 default:
                     break;
             }
@@ -92,6 +95,13 @@ public class DisplayExtensionsController {
         modelAndView.addObject("choice","all");
         return modelAndView;
     }
+    @GetMapping(value = "adminPanel/active")
+    public ModelAndView getActive(){
+        ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
+        modelAndView.addObject("choice","active");
+        return modelAndView;
+    }
+
 
 
 }

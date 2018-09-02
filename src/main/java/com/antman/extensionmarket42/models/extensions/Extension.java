@@ -71,6 +71,9 @@ public class Extension {
   @Column
   private Date addedOn;
 
+  @Column
+  private boolean active;
+
   public Extension() {
   }
 
@@ -226,5 +229,13 @@ public class Extension {
 
   public void setAddedOn(Date addedOn) {
     this.addedOn = addedOn;
+  }
+
+  public boolean isActive() {
+    return active;
+  }
+
+  public void setActive(boolean active) {
+    this.active = active;
   }
 }

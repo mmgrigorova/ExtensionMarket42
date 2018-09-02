@@ -122,6 +122,11 @@ public class ExtensionServiceImpl implements ExtensionService {
     public List<Extension> getPending(boolean b) {
         return extensionRepository.getAllByPendingIs(b);
     }
+    @Override
+    public List<Extension> getInactive(boolean b)
+    {
+        return extensionRepository.getAllByActiveIs(b);
+    }
 
     @Override
     public List<Extension> getMostPopularApproved() {
