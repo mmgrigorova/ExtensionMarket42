@@ -42,7 +42,7 @@ public class FileWebController {
             return new ModelAndView("extension-upload");
         }
 
-        String fileName = fileStorageService.storeFile(file);
+        String fileName = fileStorageService.storeFile(file, id);
 
         if (fileName == null) {
             ModelAndView mav = new ModelAndView("extension-upload");

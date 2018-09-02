@@ -1,7 +1,6 @@
 package com.antman.extensionmarket42.services.files;
 
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
-import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
 import com.antman.extensionmarket42.services.files.base.FileStorageService;
 import com.antman.extensionmarket42.utils.FileStorageProperties;
 import com.antman.extensionmarket42.utils.exceptions.FileStorageException;
@@ -38,7 +37,7 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public String storeFile(MultipartFile file) {
+    public String storeFile(MultipartFile file, Long extensionId) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -48,10 +47,13 @@ public class FileStorageServiceImpl implements FileStorageService {
             }
 
             // Copy file to the target location (Replacing existing file with the same name)
-            Path targetLocation = fileStorageLocation.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return fileName;
+            Path targetLocation = fileStorageLocation.resolve(fileName);
+            String extensionFileName =  extensionId + "_" + fileName;
+            Path newTargetLocation = fileStorageLocation.resolve(extensionFileName);
+            Files.copy(file.getInputStream(), newTargetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            return extensionFileName;
         } catch (IOException e) {
             e.printStackTrace();
             throw new FileStorageException("Could not store file " + fileName + " . Please try again!", e);

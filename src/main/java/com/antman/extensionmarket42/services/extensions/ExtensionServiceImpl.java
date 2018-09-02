@@ -175,6 +175,13 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extension;
     }
 
+    @Override
+    public String setUniqueFileName(Extension newExtension, String extensionFileName) throws NotFoundException {
+        Extension extension = getById(newExtension.getId());
+        extension.setDownloadLink(extensionFileName);
+        return extensionRepository.save(extension).getDownloadLink();
+    }
+
     private Set<Tag> generateTagListFromDto(String[] tagNames) {
         Set<Tag> tags = new HashSet<>();
 

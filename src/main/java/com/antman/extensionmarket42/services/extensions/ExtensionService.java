@@ -32,4 +32,6 @@ public interface ExtensionService {
 
 
     Extension approvePendingExtension(Long extensionId) throws NotFoundException;
+
+    String setUniqueFileName(Extension newExtension, String extensionFileName) throws NotFoundException;
 }

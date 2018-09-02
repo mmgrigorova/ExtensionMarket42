@@ -72,16 +72,18 @@ public class AddExtensionController {
                 return new ModelAndView("extension-upload");
             }
 
-            String fileName = fileStorageService.storeFile(file);
+            String extensionFileName = fileStorageService.storeFile(file, newExtension.getId());
 
-            if (fileName == null) {
+            if (extensionFileName == null) {
                 ModelAndView mavError = new ModelAndView("extension-upload");
                 mavError.addObject("message", PROBLEM_MESSAGE);
                 return mavError;
             }
 
+            extensionService.setUniqueFileName(newExtension, extensionFileName);
+
             redirectAttributes.addFlashAttribute("messageCreated", "Extension created!");
-            redirectAttributes.addFlashAttribute("messageUploaded", "File " + fileName + " has been uploaded successfully");
+            redirectAttributes.addFlashAttribute("messageUploaded", "File " + file.getOriginalFilename() + " has been uploaded successfully");
             return mav;
 
         } catch (Exception e) {
