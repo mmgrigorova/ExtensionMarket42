@@ -23,7 +23,7 @@ public class User {
     private String password;
 
     @Column
-    private int enabled;
+    private boolean enabled;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
@@ -57,11 +57,11 @@ public class User {
         this.password = password;
     }
 
-    public long getEnabled() {
+    public boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(int enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 

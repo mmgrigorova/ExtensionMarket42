@@ -6,6 +6,8 @@ import com.antman.extensionmarket42.services.users.base.UserDisplayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserDisplayServiceImp implements UserDisplayService {
     private UserRepository userRepository;
@@ -18,5 +20,15 @@ public class UserDisplayServiceImp implements UserDisplayService {
     @Override
     public Iterable<User> getAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<User> getAllActiveUsers() {
+        return userRepository.getAllByEnabled(true);
+    }
+
+    @Override
+    public List<User> getAllInactiveUsers() {
+        return userRepository.getAllByEnabled(false);
     }
 }

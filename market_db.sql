@@ -26,6 +26,8 @@ CREATE TABLE `users` (
   KEY `userId` (`userId`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user_profiles` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `market_db`.`users`
+CHANGE COLUMN `enabled` `enabled` TINYINT(1) NOT NULL DEFAULT 1 ;
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.user_profiles

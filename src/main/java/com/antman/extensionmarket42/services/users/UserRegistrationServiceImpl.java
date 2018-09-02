@@ -43,7 +43,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         User user = new User();
         user.setUsername(userDto.getEmail());
         user.setPassword(encodedPassword);
-        user.setEnabled(1);
+        user.setEnabled(true);
         user.setUserProfile(userProfile);
 
         UserRole userRole = new UserRole();
