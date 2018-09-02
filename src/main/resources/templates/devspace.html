@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head th:replace="fragments :: head">
     <meta charset="UTF-8">
     <title>Developer Space</title>
 </head>
 <body>
 <nav th:replace="fragments::nav"></nav>
-<h1 th:text="${title}" id="developer"> Developer Space </h1>
-<a th:href="@{/extension-add}" class="btn btn-primary">Add New Extension</a>
+<main class="container">
+    <h1 th:text="${title}" id="developer"> Developer Space </h1>
+    <a th:href="@{/extension-add}" class="btn btn-primary">Add New Extension</a>
+</main>
 <th:block th:include="fragments :: assets"></th:block>
 </body>
 </html>

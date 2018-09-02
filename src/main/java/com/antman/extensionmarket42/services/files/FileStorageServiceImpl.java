@@ -1,7 +1,6 @@
 package com.antman.extensionmarket42.services.files;
 
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
-import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
 import com.antman.extensionmarket42.services.files.base.FileStorageService;
 import com.antman.extensionmarket42.utils.FileStorageProperties;
 import com.antman.extensionmarket42.utils.exceptions.FileStorageException;
@@ -38,18 +37,15 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public String storeFile(MultipartFile file) {
-        // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
+    public String storeFile(MultipartFile file, String fileName) {
         try {
             if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
             // Copy file to the target location (Replacing existing file with the same name)
-            Path targetLocation = fileStorageLocation.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            Path newTargetLocation = fileStorageLocation.resolve(fileName);
+            Files.copy(file.getInputStream(), newTargetLocation, StandardCopyOption.REPLACE_EXISTING);
 
             return fileName;
         } catch (IOException e) {

@@ -24,12 +24,12 @@
         </button>
     </div>
 
-    <h2>
+    <h1>
         <span th:if="${extension.icon}">
             <span th:utext="${extension.icon}"></span>
         </span>
         <span th:text="${extension.name}"></span>
-    </h2>
+    </h1>
 
     <a th:href="@{'/api/downloadFile/'+ ${extension.id} + '/' + ${extension.downloadLink}}">
         <button class="btn btn-primary">Download</button>

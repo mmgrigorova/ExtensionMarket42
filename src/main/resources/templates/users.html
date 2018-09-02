@@ -6,7 +6,7 @@
 </head>
 <body>
 <nav th:replace="fragments::nav"></nav>
-<div class="container">
+<main class="container">
     <div class="row" style="margin-bottom: 20px">
         <button type="button" class="btn btn-primary">Users</button>
         <button type="button" class="btn btn-primary">Extensions</button>
@@ -35,10 +35,10 @@
         </div>
         </div>
     </div>
-</div>
-<footer class="container-fluid text-center">
+</main>
+<footer th:replace="fragments :: footer">
     <p>Footer Text</p>
 </footer>
-
+<th:block th:include="fragments :: assets"></th:block>
 </body>
 </html>

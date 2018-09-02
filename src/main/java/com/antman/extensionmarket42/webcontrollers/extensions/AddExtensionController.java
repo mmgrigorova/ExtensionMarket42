@@ -60,9 +60,10 @@ public class AddExtensionController {
             return mav;
         }
 
+        String originalFileName = file.getOriginalFilename();
         try {
             ModelAndView mav = new ModelAndView("redirect:/extension-details/{id}");
-            extensionDto.setFileName(file.getOriginalFilename());
+            extensionDto.setFileName(originalFileName);
             Extension newExtension = extensionService.createNewExtension(extensionDto);
 
             redirectAttributes.addAttribute("id", newExtension.getId());
@@ -72,16 +73,17 @@ public class AddExtensionController {
                 return new ModelAndView("extension-upload");
             }
 
-            String fileName = fileStorageService.storeFile(file);
+            String uniqueFileName = newExtension.getDownloadLink();
+            String extensionFileName = fileStorageService.storeFile(file, uniqueFileName);
 
-            if (fileName == null) {
+            if (extensionFileName == null) {
                 ModelAndView mavError = new ModelAndView("extension-upload");
                 mavError.addObject("message", PROBLEM_MESSAGE);
                 return mavError;
             }
 
             redirectAttributes.addFlashAttribute("messageCreated", "Extension created!");
-            redirectAttributes.addFlashAttribute("messageUploaded", "File " + fileName + " has been uploaded successfully");
+            redirectAttributes.addFlashAttribute("messageUploaded", "File " + file.getOriginalFilename() + " has been uploaded successfully");
             return mav;
 
         } catch (Exception e) {

@@ -74,7 +74,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setPullRequests(repositoryDto.getPullRequests());
         extension.setLastCommit(new java.sql.Date(repositoryDto.getLastCommit().getTime()));
 
-        extension.setDownloadLink(extensionDto.getFileName());
+        extension.setDownloadLink(generateUniqueFileName(extensionDto, extensionDto.getFileName()));
 
         extension.setUserProfile(userDetailsService.getCurrentUser());
 
@@ -173,6 +173,11 @@ public class ExtensionServiceImpl implements ExtensionService {
         }
 
         return extension;
+    }
+
+    @Override
+    public String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName) {
+        return extensionDto.getName() + "_" + extensionDto.getVersion() + "_" +  originalFileName;
     }
 
     private Set<Tag> generateTagListFromDto(String[] tagNames) {
