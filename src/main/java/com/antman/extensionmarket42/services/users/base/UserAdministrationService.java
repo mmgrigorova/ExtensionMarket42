@@ -4,8 +4,10 @@ import com.antman.extensionmarket42.models.User;
 
 import java.util.List;
 
-public interface UserDisplayService {
+public interface UserAdministrationService {
+    User getById(String username);
     Iterable<User> getAll();
     List<User> getAllActiveUsers();
     List<User> getAllInactiveUsers();
+    User deactivateUser(String username);
 }

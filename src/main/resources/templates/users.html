@@ -8,7 +8,12 @@
 <nav th:replace="fragments::nav"></nav>
 <main class="container">
     <h1 id="users">User Management</h1>
-
+    <div th:if="${deactivatedMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${deactivatedMessage}">Extension has been created!</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <div class="btn-group" role="group" aria-label="User type selection">
         <button type="button" class="btn btn-secondary">
             <a th:href="@{/users/active}">
@@ -38,12 +43,18 @@
                         <td th:text="${e.userProfile.firstName }"></td>
                         <td th:text="${e.userProfile.lastName }"></td>
                         <td th:if="${e.enabled}"><i class="fas fa-check"></i></td>
-                        <td  class=".text-danger"><i class="fas fa-user-slash"></i></td>
-                        <td th:unless="${e.enabled}">
-                            <a th:href="@{'users/deactivate/' + ${e.username}}">
+                        <td th:unless="${e.enabled}" class=".text-danger"><i class="fas fa-user-slash"></i></td>
+                        <td th:if="${e.enabled}">
+                            <a th:href="@{'../users/deactivate/' + ${e.username}}">
                                 <button class="btn btn-danger">Deactivate
                                 </button>
                             </a>
+                        </td>
+                        <td th:unless="${e.enabled}">
+                            <span th:href="@{'../users/activate/' + ${e.username}}">
+                                <button class="btn btn-success">Activate
+                                </button>
+                            </span>
                         </td>
                     </tr>
                 </table>
