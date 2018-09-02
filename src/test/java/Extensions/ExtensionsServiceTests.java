@@ -134,7 +134,7 @@ public class ExtensionsServiceTests {
     }
 
     @Test
-    public void setUniqueFileName_WhenPassingValidExtension_ReturnFileNameStartingWithExtensionId() throws NotFoundException {
+    public void setUniqueFileName_WhenPassingValidExtension_ReturnExtensionFileNameStartingWithExtensionId() throws NotFoundException {
         //Arrange
         String initialDownloadLink = "initialFile.txt";
         Extension extension = new Extension();
@@ -151,6 +151,24 @@ public class ExtensionsServiceTests {
         String result = extensionService.setUniqueFileName(extension, expectedFileName);
 
         //Assert
+        Assert.assertEquals(result, expectedFileName);
+    }
+
+    @Test
+    public void generateUniqueFileName_WhenPassingValidExtension_ReturnStringInFormatId_Filename(){
+        //Arrange
+        String originalFilename = "initialFile.txt";
+        Extension extension = new Extension();
+        extension.setId(1L);
+
+        when(extensionMockRepository.findById(extension.getId()))
+                .thenReturn(Optional.ofNullable(extension));
+
+        //Act
+        String result = extensionService.generateUniqueFileName(extension, originalFilename);
+
+        //Assert
+        String expectedFileName = "1_initialFile.txt";
         Assert.assertEquals(result, expectedFileName);
     }
 }
