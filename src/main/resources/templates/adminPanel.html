@@ -10,37 +10,53 @@
 <div class="container">
     <h1 id="admin">Admin Panel</h1>
     <div class="row" style="margin-bottom: 20px">
-        <form action="#" data-th-action="@{adminPanel}" data-th-object="${formChoice}" method="post">
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">Extensions
-                    <input type="radio" checked="checked" class="form-check form-check-inline" name="search" value="extensions"
-                           th:field="*{param}"/>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">Featured
-                    <input type="radio" class="form-check form-check-inline" name="search" value="featured"
-                           th:field="*{param}"/>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">Pending
-                    <input type="radio" class="form-check form-check-inline" name="search" value="pending"
-                           th:field="*{param}"/>
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">Users
-                    <input type="radio" class="form-check form-check-inline" name="search" value="users"
-                           th:field="*{param}"/>
-                </label>
-            </div>
-            <div class="form-check">
-                <div class="form-check form-check-inline">
-                    <input type="submit" name="action" class="btn btn-primary" value="Show">
-                </div>
-            </div>
-        </form>
+        <a th:href="@{'adminPanel'}">
+            <button class="btn btn-success">All
+            </button>
+        </a>
+        <a th:href="@{'adminPanel/pending/'}">
+            <button class="btn btn-success">Pending
+            </button>
+        </a>
+        <a th:href="@{'adminPanel/featured/'}">
+            <button class="btn btn-success">Featured
+            </button>
+        </a>
+        <a th:href="@{'adminPanel/users/'}">
+            <button class="btn btn-success">Users
+            </button>
+        </a>
+        <!--<form action="#" data-th-action="@{adminPanel}"  method="post">-->
+            <!--<div class="form-check form-check-inline">-->
+                <!--<label class="form-check-label">Extensions-->
+                    <!--<input type="radio" checked="checked" class="form-check form-check-inline" name="search" value="extensions"-->
+                           <!--&lt;!&ndash;th:field="*{param}"/>&ndash;&gt;-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<div class="form-check form-check-inline">-->
+                <!--<label class="form-check-label">Featured-->
+                    <!--<input type="radio" class="form-check form-check-inline" name="search" value="featured"-->
+                           <!--&lt;!&ndash;th:field="*{param}"/>&ndash;&gt;-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<div class="form-check form-check-inline">-->
+                <!--<label class="form-check-label">Pending-->
+                    <!--<input type="radio" class="form-check form-check-inline" name="search" value="pending"-->
+                           <!--&lt;!&ndash;th:field="*{param}"/>&ndash;&gt;-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<div class="form-check form-check-inline">-->
+                <!--<label class="form-check-label">Users-->
+                    <!--<input type="radio" class="form-check form-check-inline" name="search" value="users"-->
+                           <!--&lt;!&ndash;th:field="*{param}"/>&ndash;&gt;-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<div class="form-check">-->
+                <!--<div class="form-check form-check-inline">-->
+                    <!--<input type="submit" name="action" class="btn btn-primary" value="Show">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
     </div>
     <div class="row">
         <div class="col-sm-12">
@@ -68,7 +84,7 @@
                                th:text="${e.name}"></a></td>
                         <td th:text="${e.userProfile.firstName +' '+e.userProfile.lastName }"></td>
                         <td th:if="${e.pending}">
-                            <a th:href="@{'adminPanel/approve/' + ${e.id}}">
+                            <a th:href="@{'adminPanel/pending/'}">
                                 <button class="btn btn-success">Approve
                                 </button>
                             </a>

@@ -25,28 +25,28 @@ public class DisplayExtensionsController {
 
     @GetMapping("adminPanel")
     public String getAdminPage(Model model){
-        List<Extension> extensions = extensionService.getRecentlyAdded();
+        List<Extension> extensions = extensionService.getAll();
         model.addAttribute("extensions",extensions);
-        model.addAttribute("formChoice",new FormChoice());
+        //model.addAttribute("formChoice",new FormChoice());
         return "adminPanel";
     }
-    @PostMapping("adminPanel")
-    public String getExtensions(@ModelAttribute FormChoice formChoice, Model model){
-        List<Extension> extensions = null;
-            switch (formChoice.getParam()){
-                case "extensions": extensions = extensionService.getAll();
-                    break;
-                case "featured": extensions = extensionService.getApprovedFeatured(true);
-                    break;
-                case "pending": extensions = extensionService.getPending(true);
-                    break;
-                case "users": extensions = extensionService.getByTag("Java");
-                default:
-                    break;
-            }
-        model.addAttribute("extensions", extensions);
-        return "adminPanel";
-    }
+//    @PostMapping("adminPanel")
+//    public String getExtensions(@ModelAttribute FormChoice formChoice, Model model){
+//        List<Extension> extensions = null;
+//            switch (formChoice.getParam()){
+//                case "extensions": extensions = extensionService.getAll();
+//                    break;
+//                case "featured": extensions = extensionService.getApprovedFeatured(true);
+//                    break;
+//                case "pending": extensions = extensionService.getPending(true);
+//                    break;
+//                case "users": extensions = extensionService.getByTag("Java");
+//                default:
+//                    break;
+//            }
+//        model.addAttribute("extensions", extensions);
+//        return "adminPanel";
+//    }
     @RequestMapping(value = "adminPanel/{extensionId}", method = RequestMethod.GET)
     public ModelAndView editExtension(@PathVariable("extensionId")long extensionId) throws Exception{
         ModelAndView modelAndView = new ModelAndView("editExtension");
@@ -64,6 +64,14 @@ public class DisplayExtensionsController {
         redirectAttributes.addFlashAttribute(extension);
         redirectAttributes.addFlashAttribute("approvedMessage", "Extension " + extension.getName() + " has been approved");
         return mav;
+    }
+
+    @GetMapping(value = "adminPanel/pending")
+    public ModelAndView getPending(){
+        ModelAndView modelAndView = new ModelAndView("adminPanel");
+        List<Extension> extensions = extensionService.getPending(true);
+        modelAndView.addObject("extensions",extensions);
+        return modelAndView;
     }
 }
 
