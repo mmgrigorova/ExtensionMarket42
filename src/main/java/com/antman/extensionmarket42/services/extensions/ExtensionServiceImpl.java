@@ -110,17 +110,17 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getAll() {
-        return extensionRepository.findAll();
+        return extensionRepository.findAllByActiveTrue();
     }
 
     @Override
     public List<Extension> getApprovedFeatured(boolean b) {
-        return extensionRepository.getAllByFeaturedAndPending(true, false);
+        return extensionRepository.getAllByActiveTrueAndFeaturedAndPending(true, false);
     }
 
     @Override
     public List<Extension> getPending(boolean b) {
-        return extensionRepository.getAllByPendingIs(b);
+        return extensionRepository.findAllByActiveTrueAndPendingIs(b);
     }
     @Override
     public List<Extension> getInactive(boolean b)
@@ -130,7 +130,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getMostPopularApproved() {
-        return extensionRepository.findTop5ByPendingOrderByDownloadsCountDesc(false);
+        return extensionRepository.findTop5ByActiveTrueAndPendingOrderByDownloadsCountDesc(false);
     }
 
     @Override

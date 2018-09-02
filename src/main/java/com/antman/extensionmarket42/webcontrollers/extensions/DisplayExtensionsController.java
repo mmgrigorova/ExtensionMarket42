@@ -44,7 +44,7 @@ public class DisplayExtensionsController {
                     extensions = extensionService.getPending(true);
                     break;
                 case "inactive":
-                    extensions = extensionService.getInactive(true);
+                    extensions = extensionService.getInactive(false);
                     break;
                 default:
                     break;
@@ -93,8 +93,9 @@ public class DisplayExtensionsController {
         modelAndView.addObject("choice","all");
         return modelAndView;
     }
+
     @GetMapping(value = "adminPanel/inactive")
-    public ModelAndView getActive(){
+    public ModelAndView getInactive(){
         ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
         modelAndView.addObject("choice","inactive");
         return modelAndView;
