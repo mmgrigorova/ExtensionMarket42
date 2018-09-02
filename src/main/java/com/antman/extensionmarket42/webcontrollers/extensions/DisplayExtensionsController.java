@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.Normalizer;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class DisplayExtensionsController {
@@ -24,29 +25,34 @@ public class DisplayExtensionsController {
     }
 
     @GetMapping("adminPanel")
-    public String getAdminPage(Model model){
-        List<Extension> extensions = extensionService.getRecentlyAdded();
-        model.addAttribute("extensions",extensions);
-        model.addAttribute("formChoice",new FormChoice());
-        return "adminPanel";
-    }
-    @PostMapping("adminPanel")
-    public String getExtensions(@ModelAttribute FormChoice formChoice, Model model){
+    public ModelAndView getAdminPage(@ModelAttribute("choice")  String choice){
         List<Extension> extensions = null;
-            switch (formChoice.getParam()){
-                case "extensions": extensions = extensionService.getAll();
+        ModelAndView modelAndView = new ModelAndView("adminPanel");
+
+        if (choice == null || choice.isEmpty()) {
+            extensions = extensionService.getRecentlyAdded();
+        }
+        else {
+            switch (choice) {
+                case "all":
+                    extensions = extensionService.getAll();
                     break;
-                case "featured": extensions = extensionService.getApprovedFeatured(true);
+                case "featured":
+                    extensions = extensionService.getApprovedFeatured(true);
                     break;
-                case "pending": extensions = extensionService.getPending(true);
+                case "pending":
+                    extensions = extensionService.getPending(true);
                     break;
-                case "users": extensions = extensionService.getByTag("Java");
+                case "users":
+                    extensions = extensionService.getByTag("Java");
                 default:
                     break;
             }
-        model.addAttribute("extensions", extensions);
-        return "adminPanel";
+        }
+        modelAndView.addObject("extensions", extensions);
+        return modelAndView;
     }
+
     @RequestMapping(value = "adminPanel/{extensionId}", method = RequestMethod.GET)
     public ModelAndView editExtension(@PathVariable("extensionId")long extensionId) throws Exception{
         ModelAndView modelAndView = new ModelAndView("editExtension");
@@ -65,5 +71,28 @@ public class DisplayExtensionsController {
         redirectAttributes.addFlashAttribute("approvedMessage", "Extension " + extension.getName() + " has been approved");
         return mav;
     }
+
+    @GetMapping(value = "adminPanel/pending")
+    public ModelAndView getPending(RedirectAttributes redirectAttributes){
+        ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
+        redirectAttributes.addFlashAttribute("choice","pending");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "adminPanel/featured")
+    public ModelAndView getFeatured(){
+        ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
+        modelAndView.addObject("choice","featured");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "adminPanel/all")
+    public ModelAndView getAll(){
+        ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
+        modelAndView.addObject("choice","all");
+        return modelAndView;
+    }
+
+
 }
 
