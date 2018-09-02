@@ -57,6 +57,15 @@ section{
     padding: 15px;
 }
 
+button a{
+    color: white;
+}
+
+button a:hover{
+    color: white;
+    text-decoration: none;
+}
+
 .table-custom{
     width: auto;
 }

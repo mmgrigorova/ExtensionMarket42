@@ -7,21 +7,21 @@
 <body>
 <nav th:replace="fragments::nav"></nav>
 <main class="container">
-    <div class="row" style="margin-bottom: 20px">
-        <button type="button" class="btn btn-primary">Users</button>
-        <button type="button" class="btn btn-primary">Extensions</button>
-        <button type="button" class="btn btn-primary">Featured</button>
-        <button type="button" class="btn btn-primary">Pending</button>
-    </div>
+    <h1 id="users">User Management</h1>
 
     <div class="btn-group" role="group" aria-label="User type selection">
-        <a th:href="@{/users/active}">
-            <button type="button" class="btn btn-secondary">Active Users</button>
-        </a>
-        <a th:href="@{/users/inactive}">
-            <button type="button" class="btn btn-secondary">Inactive Users</button>
-        </a>
+        <button type="button" class="btn btn-secondary">
+            <a th:href="@{/users/active}">
+                Active Users
+            </a>
+        </button>
+        <button type="button" class="btn btn-secondary">
+            <a th:href="@{/users/inactive}">
+                Inactive Users
+            </a>
+        </button>
     </div>
+    <br/>
     <div class="row">
         <div class="col-sm-10">
             <div th:if="${not #lists.isEmpty(users)}">
@@ -38,9 +38,8 @@
                         <td th:text="${e.userProfile.firstName }"></td>
                         <td th:text="${e.userProfile.lastName }"></td>
                         <td th:if="${e.enabled}"><i class="fas fa-check"></i></td>
-                        <td th:unless="${e.enabled}" class=".text-danger"><i class="fas fa-user-slash"></i></td>
-                        <td th:text="${e.enabled}"></td>
-                        <td>
+                        <td  class=".text-danger"><i class="fas fa-user-slash"></i></td>
+                        <td th:unless="${e.enabled}">
                             <a th:href="@{'users/deactivate/' + ${e.username}}">
                                 <button class="btn btn-danger">Deactivate
                                 </button>
