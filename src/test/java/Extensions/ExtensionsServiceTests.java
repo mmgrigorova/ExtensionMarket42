@@ -132,4 +132,25 @@ public class ExtensionsServiceTests {
         //Assert
         Assert.assertEquals(result.isPending(), false);
     }
+
+    @Test
+    public void setUniqueFileName_WhenPassingValidExtension_ReturnFileNameStartingWithExtensionId() throws NotFoundException {
+        //Arrange
+        String initialDownloadLink = "initialFile.txt";
+        Extension extension = new Extension();
+        extension.setDownloadLink(initialDownloadLink);
+        extension.setId(1L);
+
+        when(extensionMockRepository.findById(extension.getId()))
+                .thenReturn(Optional.ofNullable(extension));
+        when(extensionMockRepository.save(any(Extension.class)))
+                .thenReturn(extension);
+
+        //Act
+        String expectedFileName = "1_initialFile.txt";
+        String result = extensionService.setUniqueFileName(extension, expectedFileName);
+
+        //Assert
+        Assert.assertEquals(result, expectedFileName);
+    }
 }
