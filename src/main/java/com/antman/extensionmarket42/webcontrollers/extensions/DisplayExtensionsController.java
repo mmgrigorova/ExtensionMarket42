@@ -29,12 +29,12 @@ public class DisplayExtensionsController {
         List<Extension> extensions = null;
         ModelAndView modelAndView = new ModelAndView("adminPanel");
 
-        if (choice == null) {
+        if (choice == null || choice.isEmpty()) {
             extensions = extensionService.getRecentlyAdded();
         }
         else {
             switch (choice) {
-                case "extensions":
+                case "all":
                     extensions = extensionService.getAll();
                     break;
                 case "featured":
@@ -85,5 +85,14 @@ public class DisplayExtensionsController {
         modelAndView.addObject("choice","featured");
         return modelAndView;
     }
+
+    @GetMapping(value = "adminPanel/all")
+    public ModelAndView getAll(){
+        ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
+        modelAndView.addObject("choice","all");
+        return modelAndView;
+    }
+
+
 }
 

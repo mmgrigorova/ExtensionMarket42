@@ -9,54 +9,25 @@
 
 <div class="container">
     <h1 id="admin">Admin Panel</h1>
-    <div class="row" style="margin-bottom: 20px">
-        <a th:href="@{'adminPanel'}">
-            <button class="btn btn-success">All
+    <div class="row" style="margin-bottom: 20px" id="controls">
+        <div class="btn-group" role="group" aria-label="Basic example">
+        <a th:href="@{'adminPanel/all'}">
+            <button class="btn btn-dark">All
             </button>
         </a>
         <a th:href="@{'adminPanel/pending/'}">
-            <button class="btn btn-success">Pending
+            <button class="btn btn-dark">Pending
             </button>
         </a>
         <a th:href="@{'adminPanel/featured/'}">
-            <button class="btn btn-success">Featured
+            <button class="btn btn-dark">Featured
             </button>
         </a>
         <a th:href="@{'adminPanel/users/'}">
-            <button class="btn btn-success">Users
+            <button class="btn btn-dark">Users
             </button>
         </a>
-        <!--<form action="#" data-th-action="@{adminPanel}"  method="post">-->
-            <!--<div class="form-check form-check-inline">-->
-                <!--<label class="form-check-label">Extensions-->
-                    <!--<input type="radio" checked="checked" class="form-check form-check-inline" name="search" value="extensions"-->
-                           <!--&lt;!&ndash;th:field="*{param}"/>&ndash;&gt;-->
-                <!--</label>-->
-            <!--</div>-->
-            <!--<div class="form-check form-check-inline">-->
-                <!--<label class="form-check-label">Featured-->
-                    <!--<input type="radio" class="form-check form-check-inline" name="search" value="featured"-->
-                           <!--&lt;!&ndash;th:field="*{param}"/>&ndash;&gt;-->
-                <!--</label>-->
-            <!--</div>-->
-            <!--<div class="form-check form-check-inline">-->
-                <!--<label class="form-check-label">Pending-->
-                    <!--<input type="radio" class="form-check form-check-inline" name="search" value="pending"-->
-                           <!--&lt;!&ndash;th:field="*{param}"/>&ndash;&gt;-->
-                <!--</label>-->
-            <!--</div>-->
-            <!--<div class="form-check form-check-inline">-->
-                <!--<label class="form-check-label">Users-->
-                    <!--<input type="radio" class="form-check form-check-inline" name="search" value="users"-->
-                           <!--&lt;!&ndash;th:field="*{param}"/>&ndash;&gt;-->
-                <!--</label>-->
-            <!--</div>-->
-            <!--<div class="form-check">-->
-                <!--<div class="form-check form-check-inline">-->
-                    <!--<input type="submit" name="action" class="btn btn-primary" value="Show">-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</form>-->
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
