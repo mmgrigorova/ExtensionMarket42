@@ -182,6 +182,11 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.save(extension).getDownloadLink();
     }
 
+    @Override
+    public String generateUniqueFileName(Extension newExtension, String originalFileName) {
+        return newExtension.getId() + "_" +  originalFileName;
+    }
+
     private Set<Tag> generateTagListFromDto(String[] tagNames) {
         Set<Tag> tags = new HashSet<>();
 

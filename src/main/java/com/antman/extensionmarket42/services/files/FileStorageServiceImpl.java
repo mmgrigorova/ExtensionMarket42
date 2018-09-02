@@ -37,21 +37,17 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public String storeFile(MultipartFile file, Long extensionId) {
-        // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
+    public String storeFile(MultipartFile file, String fileName) {
         try {
             if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
             // Copy file to the target location (Replacing existing file with the same name)
-            String extensionFileName =  extensionId + "_" + fileName;
-            Path newTargetLocation = fileStorageLocation.resolve(extensionFileName);
+            Path newTargetLocation = fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), newTargetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return extensionFileName;
+            return fileName;
         } catch (IOException e) {
             e.printStackTrace();
             throw new FileStorageException("Could not store file " + fileName + " . Please try again!", e);
