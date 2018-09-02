@@ -10,10 +10,10 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
-  border: 1px solid #9daccc;
+  -webkit-border-radius: .25rem;
+  -moz-border-radius: .25rem;
+  border-radius: .25rem;
+  border: 1px solid #ced4da;
   outline: none;
   resize: none;
   position: absolute;
@@ -25,5 +25,5 @@
   white-space: nowrap;
   font: 11px "lucida grande", tahoma, verdana, arial, sans-serif;
   line-height: 13px;
-  height: auto;
+  height: calc(2.25rem + 2px);
 }
