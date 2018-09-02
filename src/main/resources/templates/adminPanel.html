@@ -79,7 +79,7 @@
                         <td th:text="${e.featured}"></td>
                         <td th:text="${e.lastCommit}"></td>
                         <td th:text="${e.addedOn}"></td>
-                        <td><span th:each="t:${e.tags} " th:text="${t.tagTitle}+' '"></span></td>
+                        <td><span th:each="t:${e.tags} " th:text="${t.tagTitle}+' '" class="badge badge-light"></span></td>
                     </tr>
                 </table>
             </div>
