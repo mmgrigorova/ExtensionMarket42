@@ -9,12 +9,15 @@ import java.util.List;
 
 public interface ExtensionRepository extends CrudRepository<Extension,Long> {
 
-    List<Extension> findAll();
-    List<Extension> getAllByPendingIs(boolean b);
-    List<Extension> getAllByFeaturedIs(boolean b);
-    List<Extension> getAllByFeaturedAndPending(boolean featured, boolean fending);
-    List<Extension> findTop5ByPendingOrderByDownloadsCountDesc(boolean pending);
+    List<Extension> findAllByActiveTrue();
+    List<Extension> findAllByActiveTrueAndPendingIs(boolean b);
+    List<Extension> findAllByActiveTrueAndFeaturedIs(boolean b);
+    List<Extension> getAllByActiveIs(boolean b);
+    List<Extension> getAllByActiveTrueAndFeaturedAndPending(boolean featured, boolean fending);
+
+    List<Extension> findTop5ByActiveTrueAndPendingOrderByDownloadsCountDesc(boolean pending);
     List<Extension> findTop5ByPendingOrderByAddedOnDesc(boolean pending);
+
     List<Extension> getAllByNameIs(String name);
     List<Extension> findByTags_tagTitle(String tag);
     //Sorting - approved and pending
