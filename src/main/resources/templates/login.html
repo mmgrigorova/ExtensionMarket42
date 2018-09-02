@@ -6,24 +6,25 @@
 </head>
 <body>
 <nav th:replace="fragments::nav"></nav>
-<h1>Login Page</h1>
+<main class="container">
+    <h1>Login Page</h1>
 
-<i th:if="${param.error}" class="error">Wrong username or password</i>
+    <i th:if="${param.error}" class="error">Wrong username or password</i>
 
-
-<form th:action="@{/authenticateUser}" method="post">
-    <div class="form-group">
-        <label>User name:
-            <input class="form-control" type="text" id="username" name="username"/>
-        </label>
-    </div>
-    <div class="form-group">
-        <label>Password:
-            <input class="form-control" type="password" id="password" name="password"/>
-        </label>
-    </div>
-    <input class="btn btn-primary" type="submit" value="Login"/>
-     or <a th:href="@{/register}">Register New User</a>
-</form>
+    <form th:action="@{/authenticateUser}" method="post">
+        <div class="form-group">
+            <label>User name:
+                <input class="form-control" type="text" id="username" name="username"/>
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Password:
+                <input class="form-control" type="password" id="password" name="password"/>
+            </label>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Login"/>
+        or <a th:href="@{/register}">Register New User</a>
+    </form>
+</main>
 </body>
 </html>
