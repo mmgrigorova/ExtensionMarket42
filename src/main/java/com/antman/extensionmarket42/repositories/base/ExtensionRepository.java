@@ -12,13 +12,14 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
     List<Extension> findAllByActiveTrue();
     List<Extension> findAllByActiveTrueAndPendingIs(boolean b);
     List<Extension> findAllByActiveTrueAndFeaturedIs(boolean b);
-    List<Extension> getAllByActiveIs(boolean b);
     List<Extension> getAllByActiveTrueAndFeaturedAndPending(boolean featured, boolean fending);
 
-    List<Extension> findTop5ByActiveTrueAndPendingOrderByDownloadsCountDesc(boolean pending);
-    List<Extension> findTop5ByPendingOrderByAddedOnDesc(boolean pending);
+    List<Extension> getAllByActiveIs(boolean b);
 
-    List<Extension> getAllByNameIs(String name);
+    List<Extension> findTop5ByActiveTrueAndPendingOrderByDownloadsCountDesc(boolean pending);
+    List<Extension> findTop5ByActiveTrueAndPendingOrderByAddedOnDesc(boolean pending);
+
+    List<Extension> getAllByActiveTrueAndPendingFalseAndNameIs(String name);
     List<Extension> findByTags_tagTitle(String tag);
     //Sorting - approved and pending
     List<Extension> findAllByOrderByDownloadsCountDesc();

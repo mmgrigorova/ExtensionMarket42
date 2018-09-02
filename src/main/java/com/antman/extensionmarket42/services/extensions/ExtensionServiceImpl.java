@@ -48,7 +48,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getByName(String name) {
-        return extensionRepository.getAllByNameIs(name);
+        return extensionRepository.getAllByActiveTrueAndPendingFalseAndNameIs(name);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getRecentlyAdded() {
-        return extensionRepository.findTop5ByPendingOrderByAddedOnDesc(false);
+        return extensionRepository.findTop5ByActiveTrueAndPendingOrderByAddedOnDesc(false);
     }
 
     @Override

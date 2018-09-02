@@ -1,17 +1,18 @@
 package com.antman.extensionmarket42.webcontrollers.extensions;
 
+import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-@Controller("/editExtension")
+@Controller
 public class EditExtensionController {
     private ExtensionService extensionService;
 
     @Autowired
-    public  EditExtensionController(ExtensionService extensionService){
+    public EditExtensionController(ExtensionService extensionService){
         this.extensionService = extensionService;
     }
 
@@ -20,14 +21,11 @@ public class EditExtensionController {
         extensionService.removeById(extensionId);
         return "redirect:/adminPanel";
     }
-//    @RequestMapping("editExtension" )
-//    public String removeExtension(@ModelAttribute Extension extension){
-//        extensionService.removeById(extension.getId());
-//
-//        return "adminPanel";
-//    }
 
-
-
+    @RequestMapping(value = "adminPanel/save",method = RequestMethod.POST)
+    public String saveChanges(@ModelAttribute("extension") Extension extension){
+        System.out.println(extension.getName());
+        return "redirect:/adminPanel";
+    }
 
 }
