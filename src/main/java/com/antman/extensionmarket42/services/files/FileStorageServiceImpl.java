@@ -47,8 +47,6 @@ public class FileStorageServiceImpl implements FileStorageService {
             }
 
             // Copy file to the target location (Replacing existing file with the same name)
-
-            Path targetLocation = fileStorageLocation.resolve(fileName);
             String extensionFileName =  extensionId + "_" + fileName;
             Path newTargetLocation = fileStorageLocation.resolve(extensionFileName);
             Files.copy(file.getInputStream(), newTargetLocation, StandardCopyOption.REPLACE_EXISTING);
