@@ -113,4 +113,23 @@ public class ExtensionsServiceTests {
         // Assert
         Assert.assertEquals(expectedDownloadCount, newDownloadCount);
     }
+
+    @Test
+    public void approvePendingElections_WhenExtensionIsPending_ThenReturnExtensionWhichIsNotPending() throws NotFoundException {
+        //Arrange
+        Extension extension = new Extension();
+        extension.setPending(true);
+        extension.setId(1L);
+
+        when(extensionMockRepository.findById(extension.getId()))
+                .thenReturn(Optional.ofNullable(extension));
+        when(extensionMockRepository.save(any(Extension.class)))
+                .thenReturn(extension);
+
+        //Act
+        Extension result = extensionService.approvePendingExtension(1L);
+
+        //Assert
+        Assert.assertEquals(result.isPending(), false);
+    }
 }
