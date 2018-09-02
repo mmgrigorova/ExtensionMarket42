@@ -92,6 +92,12 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public Extension updateExtension(Extension extension){
+        extensionRepository.save(extension);
+        return extension;
+    }
+
+    @Override
     public int increaseDownloadCount(Long extensionId) {
         Optional<Extension> optionalExtension = extensionRepository.findById(extensionId);
         Extension extension = null;

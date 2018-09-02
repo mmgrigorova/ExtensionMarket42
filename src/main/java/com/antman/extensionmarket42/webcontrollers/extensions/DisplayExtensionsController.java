@@ -30,7 +30,7 @@ public class DisplayExtensionsController {
         ModelAndView modelAndView = new ModelAndView("adminPanel");
 
         if (choice == null || choice.isEmpty()) {
-            extensions = extensionService.getRecentlyAdded();
+            extensions = extensionService.getAll();
         }
         else {
             switch (choice) {

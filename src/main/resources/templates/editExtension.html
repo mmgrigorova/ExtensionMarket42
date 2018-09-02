@@ -7,7 +7,7 @@
 <body>
     <nav th:replace="fragments::nav"></nav>
     <section>
-        <form  th:method="post" th:object="${extension}" method="post">
+        <form th:object="${extension}">
             <div class="row">
                 <div class="col">
                     <div class="form-group">
@@ -90,17 +90,11 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" th:formmethod="post" th:formaction="@{'delete/{extensionId}'(extensionId=${extension.id})}">
-            <input type="submit" th:formmethod="post" th:formaction="@{'save'}">
+            <input type="submit" value="Deactivate Extension" th:formmethod="post"
+                   th:formaction="@{'delete/{extensionId}'(extensionId=${extension.id})}">
+            <input type="submit" value="Save Changes" th:formmethod="post"
+                   th:formaction="@{'save'}">
         </form>
-        <!--<a th:href="@{'editExtension/save/'}">-->
-            <!--<button class="btn btn-primary">Save Changes-->
-            <!--</button>-->
-        <!--</a>-->
-        <!--<a th:href="@{'delete/{extensionId}' (extensionId=${extension.id})}">-->
-            <!--<button class="btn btn-danger">Deactivate Extension-->
-            <!--</button>-->
-        <!--</a>-->
     </section>
 </body>
 </html>

@@ -25,6 +25,7 @@ public class EditExtensionController {
     @RequestMapping(value = "adminPanel/save",method = RequestMethod.POST)
     public String saveChanges(@ModelAttribute("extension") Extension extension){
         System.out.println(extension.getName());
+        //extensionService.updateExtension(extension); TODo: fix
         return "redirect:/adminPanel";
     }
 

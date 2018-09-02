@@ -12,7 +12,7 @@ public interface ExtensionService {
     Extension getById(Long id) throws NotFoundException;
 
     Extension createNewExtension(ExtensionDto extensionDto) throws ParseException, IOException;
-
+    Extension updateExtension(Extension extension);
     int increaseDownloadCount(Long extensionId);
 
     List<Extension> getAll();
