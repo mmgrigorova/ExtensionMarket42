@@ -58,6 +58,7 @@
                         <td><a href="#" th:href="@{adminPanel/{extensionId} (extensionId=${e.id})}"
                                th:text="${e.name}"></a></td>
                         <td th:text="${e.userProfile.firstName +' '+e.userProfile.lastName }"></td>
+
                         <td th:if="${e.pending}">
                             <a th:href="@{'adminPanel/approve/' + ${e.id}}">
                                 <button class="btn btn-success">Approve</button>
@@ -66,7 +67,14 @@
                         <td th:unless="${e.pending}" class="approved">
                             <i class="fas fa-check"></i> Approved
                         </td>
-                        <td th:text="${e.featured}"></td>
+
+                        <td th:if="${e.featured}">
+                            <button class="btn btn-primary" th:href="@{'adminPanel/approve/' + ${e.id}}">Yes</button>
+                        </td>
+                        <td th:unless="${e.featured}">
+                            <button class="btn btn-primary" th:href="@{'adminPanel/approve/' + ${e.id}}">No</button>
+                        </td>
+
                         <td th:text="${e.lastCommit}"></td>
                         <td th:text="${e.addedOn}"></td>
                         <td><span th:each="t:${e.tags} " th:text="${t.tagTitle}+' '" class="badge badge-light"></span></td>
