@@ -69,10 +69,14 @@
                         </td>
 
                         <td th:if="${e.featured}">
-                            <button class="btn btn-primary" th:href="@{'adminPanel/approve/' + ${e.id}}">Yes</button>
+                            <a th:href="@{'adminPanel/toggle/' + ${e.id}}">
+                                <button class="btn btn-primary">Yes</button>
+                            </a>
                         </td>
                         <td th:unless="${e.featured}">
-                            <button class="btn btn-primary" th:href="@{'adminPanel/approve/' + ${e.id}}">No</button>
+                            <a th:href="@{'adminPanel/toggle/' + ${e.id}}">
+                                <button class="btn btn-primary" th:href="@{'adminPanel/toggle/' + ${e.id}}">No</button>
+                            </a>
                         </td>
 
                         <td th:text="${e.lastCommit}"></td>

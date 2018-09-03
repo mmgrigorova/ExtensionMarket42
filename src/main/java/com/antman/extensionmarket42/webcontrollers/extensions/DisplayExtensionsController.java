@@ -75,7 +75,7 @@ public class DisplayExtensionsController {
 
     @GetMapping(value = "adminPanel/toggle/{extensionId}")
     public ModelAndView toggleFeatured(@PathVariable long extensionId, RedirectAttributes redirectAttributes) throws NotFoundException{
-        ModelAndView modelAndView = new ModelAndView("redirects:/adminPanel");
+        ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
         Extension extension = extensionService.toggleFeaturedExtension(extensionId);
         redirectAttributes.addFlashAttribute(extension);
 

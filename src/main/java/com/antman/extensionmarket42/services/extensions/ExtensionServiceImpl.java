@@ -209,6 +209,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         else {
             extension.setFeatured(true);
         }
+        extension = extensionRepository.save(extension);
         return extension;
     }
 
