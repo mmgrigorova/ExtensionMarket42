@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface ExtensionRepository extends CrudRepository<Extension,Long> {
 
+    Extension       getById(long id);
     List<Extension> findAllByActiveTrue();
     List<Extension> findAllByActiveTrueAndPendingIs(boolean b);
     List<Extension> findAllByActiveTrueAndFeaturedIs(boolean b);

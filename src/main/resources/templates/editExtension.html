@@ -90,10 +90,10 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" value="Deactivate Extension" th:formmethod="post"
+            <input type="submit" class="btn btn-primary" value="Save Changes" th:formmethod="post"
+                   th:formaction="@{'save/{extensionId}'(extensionId=${extension.id})}">
+            <input type="submit" class="btn btn-danger" value="Deactivate Extension" th:formmethod="post"
                    th:formaction="@{'delete/{extensionId}'(extensionId=${extension.id})}">
-            <input type="submit" value="Save Changes" th:formmethod="post"
-                   th:formaction="@{'save'}">
         </form>
     </section>
 </body>

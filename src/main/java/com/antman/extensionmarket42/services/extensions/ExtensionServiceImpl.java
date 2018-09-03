@@ -96,6 +96,18 @@ public class ExtensionServiceImpl implements ExtensionService {
         extensionRepository.save(extension);
         return extension;
     }
+    @Override
+    public Extension updateExtension(long id,Extension extension){
+        Extension current = extensionRepository.getById(id);
+
+        current.setName(extension.getName());
+        current.setDescription(extension.getDescription());
+        current.setVersion(extension.getVersion());
+        current.setDownloadLink(extension.getDownloadLink());
+
+        extensionRepository.save(current);
+        return extension;
+    }
 
     @Override
     public int increaseDownloadCount(Long extensionId) {

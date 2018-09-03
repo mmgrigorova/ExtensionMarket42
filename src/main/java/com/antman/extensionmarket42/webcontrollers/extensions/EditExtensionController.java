@@ -24,10 +24,10 @@ public class EditExtensionController {
         return "redirect:/adminPanel";
     }
 
-    @RequestMapping(value = "adminPanel/save",method = RequestMethod.POST)
-    public String saveChanges(@ModelAttribute("extension") Extension extension){
+    @RequestMapping(value = "adminPanel/save/{extensionId}",method = RequestMethod.POST)
+    public String saveChanges(@ModelAttribute("extension") Extension extension, @PathVariable("extensionId") long extensionId){
         System.out.println(extension.getName());
-        //extensionService.updateExtension(extension); TODo: fix
+        extensionService.updateExtension(extensionId,extension);
         return "redirect:/adminPanel";
     }
 
