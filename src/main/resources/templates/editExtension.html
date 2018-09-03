@@ -5,96 +5,104 @@
 <head th:replace="fragments :: head">
 </head>
 <body>
-    <nav th:replace="fragments::nav"></nav>
-    <section>
-        <form th:object="${extension}">
+<nav th:replace="fragments::nav"></nav>
+<main class="container">
+    <div class="card">
+        <div class="card-body">
             <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="form-check-label" for="name">Name
+                <div class="col-md-12">
+                    <h4>Extension Info</h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                <form th:object="${extension}">
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label" for="name">Name</label>
+                        <div class="col-8">
                             <input type="text" class="form-control" th:value="${extension.name}"
                                    th:field="${extension.name}" id="name">
-                        </label>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label class="form-check-label" for="description">Description
-                            <textarea id="description"  class="form-control" th:text="${extension.description}"
-                                      th:field="${extension.description}"></textarea>
-                        </label>
+                    <div class="form-group row">
+                            <label class="col-4 col-form-label" for="version">Version</label>
+                            <div class="col-8">
+                                <input type="text" class="form-control" id="version" th:value="${extension.version}"
+                                       th:field="${extension.version}">
+                            </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label class="form-check-label" for="version">Version
-                            <input type="text" class="form-control" id="version" th:value="${extension.version}"
-                                   th:field="${extension.version}">
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="form-check-label" for="downloads">Downloads Count
-                            <input type="text" class="form-control" id="downloads" th:value="${extension.downloadsCount}"
-                                   th:field="${extension.downloadsCount}"readonly>
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label class="form-check-label" for="link">Download Link
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label" for="link">Download Link</label>
+                        <div class="col-8">
                             <input type="text" class="form-control" id="link" th:value="${extension.downloadLink}"
                                    th:field="${extension.downloadLink}">
-                        </label>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label class="form-check-label" for="repo">Repository Link
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label" for="description">Description</label>
+                        <div class="col-8">
+                            <textarea id="description"  class="form-control" th:text="${extension.description}"
+                                      th:field="${extension.description}"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label" for="repo">Repository Link</label>
+                        <div class="col-8">
                             <input type="text" class="form-control" id="repo" th:value="${extension.repoLink}" readonly
                                    th:field="${extension.repoLink}">
-                        </label>
+                        </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label" for="downloads">Downloads Count</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" id="downloads" th:value="${extension.downloadsCount}"
+                                   th:field="${extension.downloadsCount}"readonly>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-check-label" for="issues">Open Issues
+                                    <input type="text" class="form-control" id="issues" th:value="${extension.openIssues}"
+                                           readonly th:field="${extension.openIssues}">
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-check-label" for="requests">Pull Requests
+                                    <input type="text" class="form-control" id="requests" th:value="${extension.pullRequests}" readonly
+                                           th:field="${extension.pullRequests}">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-check-label" for="lastCommit">Last Commit
+                                    <input type="text" class="form-control" id="lastCommit" th:value="${extension.lastCommit}" readonly
+                                            th:field="${extension.lastCommit}">
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-check-label" for="addedOn">Added On
+                                    <input type="text" class="form-control" id="addedOn" th:value="${extension.addedOn}" readonly
+                                           th:field="${extension.addedOn}">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Save Changes" th:formmethod="post"
+                           th:formaction="@{'save/{extensionId}'(extensionId=${extension.id})}">
+                    <input type="submit" class="btn btn-danger" value="Deactivate Extension" th:formmethod="post"
+                           th:formaction="@{'delete/{extensionId}'(extensionId=${extension.id})}">
+                </form>
+
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label class="form-check-label" for="issues">Open Issues
-                            <input type="text" class="form-control" id="issues" th:value="${extension.openIssues}"
-                                   readonly th:field="${extension.openIssues}">
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-check-label" for="requests">Pull Requests
-                            <input type="text" class="form-control" id="requests" th:value="${extension.pullRequests}" readonly
-                                   th:field="${extension.pullRequests}">
-                        </label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label class="form-check-label" for="lastCommit">Last Commit
-                            <input type="text" class="form-control" id="lastCommit" th:value="${extension.lastCommit}" readonly
-                                    th:field="${extension.lastCommit}">
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-check-label" for="addedOn">Added On
-                            <input type="text" class="form-control" id="addedOn" th:value="${extension.addedOn}" readonly
-                                   th:field="${extension.addedOn}">
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <input type="submit" class="btn btn-primary" value="Save Changes" th:formmethod="post"
-                   th:formaction="@{'save/{extensionId}'(extensionId=${extension.id})}">
-            <input type="submit" class="btn btn-danger" value="Deactivate Extension" th:formmethod="post"
-                   th:formaction="@{'delete/{extensionId}'(extensionId=${extension.id})}">
-        </form>
-    </section>
+        </div>
+    </div>
+</main>
 </body>
 </html>
