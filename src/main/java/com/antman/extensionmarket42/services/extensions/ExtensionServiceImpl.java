@@ -199,6 +199,20 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public Extension toggleFeaturedExtension(long extensionId) throws  NotFoundException{
+        Extension extension = getById(extensionId);
+
+        if(extension.isFeatured())
+        {
+            extension.setFeatured(false);
+        }
+        else {
+            extension.setFeatured(true);
+        }
+        return extension;
+    }
+
+    @Override
     public String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName) {
         return extensionDto.getName() + "_" + extensionDto.getVersion() + "_" +  originalFileName;
     }

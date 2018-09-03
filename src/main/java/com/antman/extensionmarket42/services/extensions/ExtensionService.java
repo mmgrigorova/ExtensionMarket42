@@ -34,6 +34,7 @@ public interface ExtensionService {
 
 
     Extension approvePendingExtension(Long extensionId) throws NotFoundException;
+    Extension toggleFeaturedExtension(long extensionId) throws NotFoundException;
 
     String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName);
 }

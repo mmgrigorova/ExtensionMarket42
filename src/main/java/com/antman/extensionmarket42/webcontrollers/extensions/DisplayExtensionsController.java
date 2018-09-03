@@ -73,6 +73,7 @@ public class DisplayExtensionsController {
         return mav;
     }
 
+
     @GetMapping(value = "adminPanel/pending")
     public ModelAndView getPending(RedirectAttributes redirectAttributes){
         ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");

@@ -60,8 +60,7 @@
                         <td th:text="${e.userProfile.firstName +' '+e.userProfile.lastName }"></td>
                         <td th:if="${e.pending}">
                             <a th:href="@{'adminPanel/approve/' + ${e.id}}">
-                                <button class="btn btn-success">Approve
-                                </button>
+                                <button class="btn btn-success">Approve</button>
                             </a>
                         </td>
                         <td th:unless="${e.pending}" class="approved">
