@@ -48,7 +48,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getByName(String name) {
-        return extensionRepository.getAllByNameIs(name);
+        return extensionRepository.getAllByActiveTrueAndPendingFalseAndNameIs(name);
     }
 
     @Override
@@ -89,6 +89,24 @@ public class ExtensionServiceImpl implements ExtensionService {
             extension.setIcon(extensionDto.getFontAwesomeIcon());
         }
         return extensionRepository.save(extension);
+    }
+
+    @Override
+    public Extension updateExtension(Extension extension){
+        extensionRepository.save(extension);
+        return extension;
+    }
+    @Override
+    public Extension updateExtension(long id,Extension extension){
+        Extension current = extensionRepository.getById(id);
+
+        current.setName(extension.getName());
+        current.setDescription(extension.getDescription());
+        current.setVersion(extension.getVersion());
+        current.setDownloadLink(extension.getDownloadLink());
+
+        extensionRepository.save(current);
+        return extension;
     }
 
     @Override
@@ -140,7 +158,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getRecentlyAdded() {
-        return extensionRepository.findTop5ByPendingOrderByAddedOnDesc(false);
+        return extensionRepository.findTop5ByActiveTrueAndPendingOrderByAddedOnDesc(false);
     }
 
     @Override
@@ -177,6 +195,21 @@ public class ExtensionServiceImpl implements ExtensionService {
             extension = extensionRepository.save(extension);
         }
 
+        return extension;
+    }
+
+    @Override
+    public Extension toggleFeaturedExtension(long extensionId) throws  NotFoundException{
+        Extension extension = getById(extensionId);
+
+        if(extension.isFeatured())
+        {
+            extension.setFeatured(false);
+        }
+        else {
+            extension.setFeatured(true);
+        }
+        extension = extensionRepository.save(extension);
         return extension;
     }
 

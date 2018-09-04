@@ -30,7 +30,7 @@ public class DisplayExtensionsController {
         ModelAndView modelAndView = new ModelAndView("adminPanel");
 
         if (choice == null || choice.isEmpty()) {
-            extensions = extensionService.getRecentlyAdded();
+            extensions = extensionService.getAll();
         }
         else {
             switch (choice) {
@@ -71,6 +71,15 @@ public class DisplayExtensionsController {
         redirectAttributes.addFlashAttribute(extension);
         redirectAttributes.addFlashAttribute("approvedMessage", "Extension " + extension.getName() + " has been approved");
         return mav;
+    }
+
+    @GetMapping(value = "adminPanel/toggle/{extensionId}")
+    public ModelAndView toggleFeatured(@PathVariable long extensionId, RedirectAttributes redirectAttributes) throws NotFoundException{
+        ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
+        Extension extension = extensionService.toggleFeaturedExtension(extensionId);
+        redirectAttributes.addFlashAttribute(extension);
+
+        return modelAndView;
     }
 
     @GetMapping(value = "adminPanel/pending")

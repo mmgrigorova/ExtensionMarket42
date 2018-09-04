@@ -12,7 +12,8 @@ public interface ExtensionService {
     Extension getById(Long id) throws NotFoundException;
 
     Extension createNewExtension(ExtensionDto extensionDto) throws ParseException, IOException;
-
+    Extension updateExtension(Extension extension);
+    Extension updateExtension(long id, Extension extension);
     int increaseDownloadCount(Long extensionId);
 
     List<Extension> getAll();
@@ -33,6 +34,7 @@ public interface ExtensionService {
 
 
     Extension approvePendingExtension(Long extensionId) throws NotFoundException;
+    Extension toggleFeaturedExtension(long extensionId) throws NotFoundException;
 
     String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName);
 }
