@@ -17,8 +17,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.*;
@@ -69,17 +71,16 @@ public class ExtensionsServiceTests {
 
     @Test
     public void getAll_whenExtensionsArePresent_returnAllActiveExtension() {
-        List<Extension> extensions = new ArrayList<>();
+
         List<Extension> activeExtensions = new ArrayList<>();
 
         Extension activeExtension = new Extension();
         activeExtension.setActive(true);
 
-        extensions.add(new Extension());
-        extensions.add(new Extension());
         activeExtensions.add(activeExtension);
+        activeExtensions.add(new Extension());
 
-        when(extensionMockRepository.findAllByActiveTrue()).thenReturn(activeExtensions);
+        when(extensionMockRepository.findAllByActiveTrue()).thenReturn(activeExtensions.stream().filter(i->i.isActive()).collect(Collectors.toList()));
 
         List<Extension> result = extensionService.getAll();
 
