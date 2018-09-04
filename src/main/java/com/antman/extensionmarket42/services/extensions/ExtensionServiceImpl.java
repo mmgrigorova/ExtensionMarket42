@@ -56,6 +56,11 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public List<Extension> getByUserId(long id){
+        return extensionRepository.getAllByActiveTrueAndUserProfile_UserId(id);
+    }
+
+    @Override
     public Extension createNewExtension(ExtensionDto extensionDto) throws ParseException {
         Extension extension = new Extension();
 

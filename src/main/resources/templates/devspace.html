@@ -38,12 +38,6 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="acc" class="col-4 col-form-label">Github Account</label>
-                        <div class="col-8">
-                            <input id="acc" name="acc" placeholder="acc" class="form-control here" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="newpass" class="col-4 col-form-label">New Password</label>
                         <div class="col-8">
                             <input id="newpass" name="newpass" placeholder="New Password" class="form-control here" type="text">
@@ -62,6 +56,15 @@
             <div class="col-md-12">
                 <h4>Your Extensions</h4>
                 <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form th:object="${extensions}" th:if="${not #lists.isEmpty(extensions)}">
+                    <div th:each="e : ${extensions}" class="form-group-row">
+
+                    </div>
+                </form>
             </div>
         </div>
     </div>
