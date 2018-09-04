@@ -157,7 +157,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getByTag(String tag) {
-        return extensionRepository.findByTags_tagTitle(tag);
+        return extensionRepository.findByActiveTrueAndPendingFalseAndTags_tagTitle(tag);
     }
 
     @Override
