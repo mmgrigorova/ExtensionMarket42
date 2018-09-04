@@ -137,3 +137,7 @@ button a:hover{
 .search-button {
     border-radius: 0px .25rem .25rem 0px;
 }
+
+#controls {
+    margin-bottom: 20px;
+}
