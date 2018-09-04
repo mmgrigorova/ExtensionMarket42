@@ -16,6 +16,18 @@ CREATE DATABASE IF NOT EXISTS `market_db` /*!40100 DEFAULT CHARACTER SET utf8 */
 USE `market_db`;
 
 -- Data exporting was unselected.
+-- Dumping structure for table market_db.user_profiles
+CREATE TABLE `user_profiles` (
+  `userId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(255) NOT NULL,
+  `lastName` varchar(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  PRIMARY KEY (`userId`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+
+-- Data exporting was unselected.
 -- Dumping structure for table market_db.users
 CREATE TABLE `users` (
   `username` varchar(45) NOT NULL,
@@ -28,17 +40,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE `market_db`.`users`
 CHANGE COLUMN `enabled` `enabled` TINYINT(1) NOT NULL DEFAULT 1 ;
-
--- Data exporting was unselected.
--- Dumping structure for table market_db.user_profiles
-CREATE TABLE `user_profiles` (
-  `userId` bigint(20) NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  PRIMARY KEY (`userId`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.user_roles
@@ -72,9 +73,11 @@ CREATE TABLE `extensions` (
   KEY `Extensions_fk0` (`ownerId`),
   CONSTRAINT `Extensions_fk0` FOREIGN KEY (`ownerId`) REFERENCES `user_profiles` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `market_db`.`extensions` 
+ALTER TABLE `market_db`.`extensions`
 CHANGE COLUMN `description` `description` VARCHAR(3000) NOT NULL DEFAULT '' ;
 ALTER TABLE `extensions` ADD COLUMN `active`  tinyint(4) NOT NULL DEFAULT 1 ;
+ALTER TABLE `extensions` ADD COLUMN  `downloadLink` varchar(255) NOT NULL DEFAULT '';
+
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.tags
@@ -83,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tagTitle` varchar(15) NOT NULL,
   PRIMARY KEY (`tagId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `market_db`.`tags` 
+ALTER TABLE `market_db`.`tags`
 ADD UNIQUE INDEX `tagTitle_UNIQUE` (`tagTitle` ASC);
 
 
