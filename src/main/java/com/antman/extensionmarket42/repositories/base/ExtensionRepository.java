@@ -23,6 +23,7 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
     List<Extension> getAllByActiveTrueAndPendingFalseAndNameIs(String name);
     List<Extension> getAllByActiveTrueAndUserProfile_UserId(long id);
 
+    List<Extension> getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase(String name);
     List<Extension> findByTags_tagTitle(String tag);
     //Sorting - approved and pending
     List<Extension> findAllByOrderByDownloadsCountDesc();
