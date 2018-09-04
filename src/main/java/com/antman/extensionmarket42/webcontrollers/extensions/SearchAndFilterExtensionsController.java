@@ -33,16 +33,5 @@ public class SearchAndFilterExtensionsController {
         model.addAttribute("resultCount", matchingByName.size());
         return "search-results";
     }
-
-    @GetMapping
-    public String displaySearchResultsByTag(@RequestParam String tagname,
-                                       Model model){
-        List<Extension> matchingByTag = extensionService.getByTag(tagname);
-        model.addAttribute("tagname", tagname);
-        model.addAttribute("extensions", matchingByTag);
-        model.addAttribute("resultCount", matchingByTag.size());
-        return "search-results";
-    }
-
 }
 
