@@ -44,7 +44,7 @@ public class DisplayExtensionsController {
                     extensions = extensionService.getPending(true);
                     break;
                 case "inactive":
-                    extensions = extensionService.getInactive(false);
+                    extensions = extensionService.getInactive();
                     break;
                 default:
                     break;

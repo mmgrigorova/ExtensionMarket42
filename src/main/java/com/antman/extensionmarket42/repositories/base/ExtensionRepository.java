@@ -15,7 +15,7 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
     List<Extension> findAllByActiveTrueAndFeaturedIs(boolean b);
     List<Extension> getAllByActiveTrueAndFeaturedAndPending(boolean featured, boolean fending);
 
-    List<Extension> getAllByActiveIs(boolean b);
+    List<Extension> getAllByActiveIsFalse();
 
     List<Extension> findTop5ByActiveTrueAndPendingOrderByDownloadsCountDesc(boolean pending);
     List<Extension> findTop5ByActiveTrueAndPendingOrderByAddedOnDesc(boolean pending);
