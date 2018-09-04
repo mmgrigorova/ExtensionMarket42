@@ -74,6 +74,7 @@ CREATE TABLE `extensions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE `market_db`.`extensions` 
 CHANGE COLUMN `description` `description` VARCHAR(3000) NOT NULL DEFAULT '' ;
+ALTER TABLE `extensions` ADD COLUMN `active`  tinyint(4) NOT NULL DEFAULT 1 ;
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.tags

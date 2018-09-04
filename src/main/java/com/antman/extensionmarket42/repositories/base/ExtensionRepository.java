@@ -28,8 +28,8 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
     List<Extension> findAllByOrderByLastCommitDesc();
     List<Extension> findAllByOrderByName();
     //Sorting - approved only
-    List<Extension> findAllByPendingFalseOrderByDownloadsCountDesc();
-    List<Extension> findAllByPendingFalseOrderByAddedOnDesc();
-    List<Extension> findAllByPendingFalseOrderByLastCommitDesc();
-    List<Extension> findAllByPendingFalseOrderByName();
+    List<Extension> findAllByPendingFalseAndActiveTrueOrderByDownloadsCountDesc();
+    List<Extension> findAllByPendingFalseAndActiveTrueOrderByAddedOnDesc();
+    List<Extension> findAllByPendingFalseAndActiveTrueOrderByLastCommitDesc();
+    List<Extension> findAllByPendingFalseAndActiveTrueOrderByName();
 }
