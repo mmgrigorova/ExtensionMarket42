@@ -8,7 +8,10 @@ import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,6 +24,7 @@ import java.util.Set;
 
 @Service
 public class ExtensionServiceImpl implements ExtensionService {
+    private static Logger logger = LoggerFactory.getLogger(ExtensionServiceImpl.class);
     private final ExtensionRepository extensionRepository;
     private final TagRepository tagRepository;
     private final MyUserDetailsService userDetailsService;
@@ -59,14 +63,15 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setDescription(extensionDto.getDescription());
         extension.setVersion(extensionDto.getVersion());
 
-        String gitHubUrl = "www.github.com";
+        String gitHubUrl = "www.github.com"; //da se izvadi kato konstanta
         String repoLink = gitHubUrl + "/" + extensionDto.getRepoUser() + "/" + extensionDto.getRepoName();
-        extension.setRepoLink(repoLink);
+        extension.setRepoLink(repoLink); //remove string repo link
 
         RepositoryDto repositoryDto = null;
         try {
             repositoryDto = gitHubService.getRepositoryInfo(extensionDto.getRepoUser(), extensionDto.getRepoName());
         } catch (IOException e) {
+            logger.info("Saving extension GitHub details with default data as GitHub is unavailable at this moment");
             long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse("01/01/1971 01:00:00").getTime() / 1000;
             repositoryDto = new RepositoryDto(0, 0, new Date(epoch));
         }
@@ -77,7 +82,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setDownloadLink(generateUniqueFileName(extensionDto, extensionDto.getFileName()));
 
         extension.setUserProfile(userDetailsService.getCurrentUser());
-
+        extension.setActive(true);
         extension.setPending(true);
         java.sql.Date currentDate = new Date(System.currentTimeMillis());
         extension.setAddedOn(currentDate);
