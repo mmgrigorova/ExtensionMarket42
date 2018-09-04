@@ -141,9 +141,9 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.findAllByActiveTrueAndPendingIs(b);
     }
     @Override
-    public List<Extension> getInactive(boolean b)
+    public List<Extension> getInactive()
     {
-        return extensionRepository.getAllByActiveIs(b);
+        return extensionRepository.getAllByActiveIsFalse();
     }
 
     @Override

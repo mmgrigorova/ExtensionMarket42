@@ -68,17 +68,22 @@ public class ExtensionsServiceTests {
     }
 
     @Test
-    public void getAll_whenExtensionsArePresent_returnAllExtension() {
-        List<Extension> extensions = new ArrayList<>(3);
-        extensions.add(new Extension());
-        extensions.add(new Extension());
-        extensions.add(new Extension());
+    public void getAll_whenExtensionsArePresent_returnAllActiveExtension() {
+        List<Extension> extensions = new ArrayList<>();
+        List<Extension> activeExtensions = new ArrayList<>();
 
-        when(extensionMockRepository.findAll()).thenReturn(extensions);
+        Extension activeExtension = new Extension();
+        activeExtension.setActive(true);
+
+        extensions.add(new Extension());
+        extensions.add(new Extension());
+        activeExtensions.add(activeExtension);
+
+        when(extensionMockRepository.findAllByActiveTrue()).thenReturn(activeExtensions);
 
         List<Extension> result = extensionService.getAll();
 
-        assertEquals(3, result.size());
+        assertEquals(1, result.size());
     }
 
     @Test

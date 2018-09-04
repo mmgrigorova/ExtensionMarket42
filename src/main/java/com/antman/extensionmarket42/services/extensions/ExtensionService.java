@@ -20,7 +20,7 @@ public interface ExtensionService {
     List<Extension> getByName(String name);
     List<Extension> getApprovedFeatured(boolean b);
     List<Extension> getPending(boolean b);
-    List<Extension> getInactive(boolean b);
+    List<Extension> getInactive();
     List<Extension> getMostPopularApproved();
     List<Extension> getByTag(String tag);
     List<Extension> getRecentlyAdded();
