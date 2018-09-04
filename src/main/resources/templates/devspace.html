@@ -67,6 +67,7 @@
                             <th>Version</th>
                             <th>Downloads</th>
                             <th>Open Issues</th>
+                            <th>Pull Requests</th>
                             <th></th>
                         </tr>
                         <tr th:each="e : ${extensions}">
@@ -74,11 +75,14 @@
                             <td th:text="${e.version}"></td>
                             <td th:text="${e.downloadsCount}"></td>
                             <td th:text="${e.openIssues}"></td>
+                            <td th:text="${e.openIssues}"></td>
                             <td>
-                                <a th:href="@{'devspace/edit/' + ${e.id}}">
-                                    <button class="btn btn-primary">Edit</button>
-                                </a>
-                            </td>
+                                <!--<a th:href="@{'devspace/edit/' + ${e.id}}">-->
+                                    <!--<button class="btn btn-primary">Edit</button>-->
+                                    <input type="submit" class="btn btn-primary" value="Edit" th:formmethod="post"
+                                           th:formaction="@{'developer/edit/{extensionId}'(extensionId=${e.id})}">
+                                <!--</a>-->
+                            <!--</td>-->
                         </tr>
                     </table>
                 </form>
