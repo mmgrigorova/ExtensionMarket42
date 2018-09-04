@@ -38,10 +38,10 @@ Once extension is created it is “pending” state until an administrator appro
 ### Administration Part
 
 System administrators have administrative access to the system and permissions to administer all major information objects in the system.
-- [ ] Approve extension
-- [ ] Feature extension on the Home page
-- [ ] Delete/edit extensions
-- [ ] Disable user accounts
+- [x] Approve extension
+- [x] Feature extension on the Home page
+- [x] Delete/edit extensions
+- [x] Disable user accounts
 
 ## Rest API
 
