@@ -11,7 +11,6 @@ import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -52,7 +51,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getByName(String name) {
-        return extensionRepository.getAllByActiveTrueAndPendingFalseAndNameIs(name);
+        return extensionRepository.getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase(name);
     }
 
     @Override

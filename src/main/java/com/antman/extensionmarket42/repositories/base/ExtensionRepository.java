@@ -20,7 +20,7 @@ public interface ExtensionRepository extends CrudRepository<Extension,Long> {
     List<Extension> findTop5ByActiveTrueAndPendingOrderByDownloadsCountDesc(boolean pending);
     List<Extension> findTop5ByActiveTrueAndPendingOrderByAddedOnDesc(boolean pending);
 
-    List<Extension> getAllByActiveTrueAndPendingFalseAndNameIs(String name);
+    List<Extension> getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase(String name);
     List<Extension> findByTags_tagTitle(String tag);
     //Sorting - approved and pending
     List<Extension> findAllByOrderByDownloadsCountDesc();
