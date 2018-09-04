@@ -25,12 +25,22 @@ public class SearchAndFilterExtensionsController {
 
 
     @GetMapping
-    public String displaySearchResults(@RequestParam String name,
+    public String displaySearchResultsByName(@RequestParam String name,
                                        Model model){
         List<Extension> matchingByName = extensionService.getByName(name);
         model.addAttribute("name", name);
         model.addAttribute("extensions", matchingByName);
         model.addAttribute("resultCount", matchingByName.size());
+        return "search-results";
+    }
+
+    @GetMapping
+    public String displaySearchResultsByTag(@RequestParam String tagname,
+                                       Model model){
+        List<Extension> matchingByTag = extensionService.getByTag(tagname);
+        model.addAttribute("tagname", tagname);
+        model.addAttribute("extensions", matchingByTag);
+        model.addAttribute("resultCount", matchingByTag.size());
         return "search-results";
     }
 
