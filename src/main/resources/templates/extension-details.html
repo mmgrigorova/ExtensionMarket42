@@ -59,7 +59,7 @@
     <p><i class="far fa-calendar-alt"></i> Added on: <span th:text="${addedOnFormatted}"></span></p>
 
     <div>
-        <a th:href="@{#}" class="badge badge-light" th:each="tag : ${tags}" th:text="${tag.tagTitle}">
+        <a th:href="@{/search-results(tagname=${tag.tagTitle})}" class="badge badge-light" th:each="tag : ${tags}" th:text="${tag.tagTitle}">
             JavaTag
         </a>
     </div>
