@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -37,4 +40,14 @@ public class DeveloperSpaceController {
 
         return modelAndView;
     }
+
+    @RequestMapping(value = "/developer/edit/{extensionId}", method=RequestMethod.GET)
+    public ModelAndView editExtension(@PathVariable("extensionId") long extensionId) throws Exception{
+        ModelAndView modelAndView = new ModelAndView("editExtension");
+
+        Extension extension = extensionService.getById(extensionId);
+        modelAndView.addObject("extension",extension);
+        return modelAndView;
+    }
+
 }
