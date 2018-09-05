@@ -38,8 +38,7 @@
                 <div class="card-body">
                     <h5 class="card-title">GitHub Data Refresh</h5>
                     <p>Last sync:
-                    <span class="card-text" th:text="${#dates.format(repoData.lastRefreshDate, 'dd.MM.yyyy HH:mm')}">Last
-                        Date</span>
+                    <span class="card-text" th:text="${#dates.format(repoData.lastRefreshDate, 'yyyy-MM-dd HH:mm')}">Last Date</span>
                     </p>
                     <p>
                        Refreshed: <span class="card-text" th:text="${repoData.successfulCount}">Successful</span> |

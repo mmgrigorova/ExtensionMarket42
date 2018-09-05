@@ -79,13 +79,14 @@
                                 <th></th>
                             </tr>
                             <tr th:each="e : ${extensions}">
-                                <td th:if="${!e.pending}" class="text-success" title="Approved by administrator" alt="Approved by administrator">
+                                <td th:if="${!e.pending}" class="text-success" title="Approved by administrator"
+                                    alt="Approved by administrator">
                                     <i class="fas fa-check"></i>
                                 </td>
                                 <td th:if="${e.pending}" class="text-warning"
                                     title="Pending approval" alt="Pending approval">
                                     <i class="fas fa-exclamation-triangle"></i></td>
-                                <td th:text="${e.name}"></td>
+                                <td><a th:href="@{'/extension-details/{id}' (id=${e.id})}" th:text="${e.name}"></a></td>
                                 <td th:text="${e.version}"></td>
                                 <td th:text="${e.downloadsCount}"></td>
                                 <td th:text="${e.openIssues}"></td>
