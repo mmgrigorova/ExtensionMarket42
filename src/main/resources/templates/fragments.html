@@ -6,8 +6,19 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
           integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
+          <!--integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">  -->
+    <!--Flatly-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/flatly/bootstrap.min.css" crossorigin="anonymous">
+    <!--Journal-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/journal/bootstrap.min.css" crossorigin="anonymous">-->
+    <!--Cosmo-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/cosmo/bootstrap.min.css" crossorigin="anonymous">-->
+    <!--Cerr-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/cerulean/bootstrap.min.css" crossorigin="anonymous">-->
+    <!--Litera-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/litera/bootstrap.min.css" crossorigin="anonymous">-->
+
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -28,7 +39,9 @@
 </head>
 <body>
 
-<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-primary" id="nav">
+<!--<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">-->
+<!--<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-light" id="nav">-->
     <a class="navbar-brand" th:href="@{/}"><i class="fas fa-puzzle-piece"></i> Extension 42</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,14 +49,14 @@
     </button>
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" sec:authorize="hasAuthority('ROLE_DEV')">
-                <a class="nav-link" th:href="@{/developer}" id="developer">Developer Space</a>
+            <li class="nav-item" sec:authorize="hasAuthority('ROLE_DEV')" id="developer">
+                <a class="nav-link" th:href="@{/developer}">Developer Space</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
-                <a class="nav-link" th:href="@{/adminPanel}" id="admin">Admin Portal</a>
+            <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')" id="admin">
+                <a class="nav-link" th:href="@{/adminPanel}">Admin Portal</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
-                <a class="nav-link" th:href="@{/users/active}" id="users">User Management</a>
+            <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')" id="users">
+                <a class="nav-link" th:href="@{/users/active}">User Management</a>
             </li>
         </ul>
         <div sec:authorize="!isAuthenticated()" class="form-inline my-2 my-lg-0">
