@@ -35,20 +35,6 @@ public class AppConfiguration {
         this.environment = environment;
     }
 
-
-//    @Bean
-//    public SessionFactory createSessionFactory() {
-//        return new org.hibernate.cfg.Configuration()
-//                .configure("hibernate.cfg.xml")
-//                .addAnnotatedClass(Extension.class)
-//                .addAnnotatedClass(Screenshot.class)
-//                .addAnnotatedClass(Tag.class)
-//                .addAnnotatedClass(User.class)
-//                .addAnnotatedClass(UserProfile.class)
-//                .addAnnotatedClass(UserRole.class)
-//                .buildSessionFactory();
-//    }
-
     @Bean
     public DataSource securityDataSource(){
         ComboPooledDataSource securityDataSource = new ComboPooledDataSource();
