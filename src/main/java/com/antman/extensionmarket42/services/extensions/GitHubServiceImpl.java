@@ -13,11 +13,25 @@ public class GitHubServiceImpl implements RemoteRepositoryService {
     private final String ACCESS_TOKEN = "9192eb637704bccfcca966001c9f2f502eb81255";
     private final String REPOSITORY_LINK_BASE = "www.github.com/";
 
+    /**
+     * Use to retrieve GitHub information when available parameters are username and repository name.
+     * @param gitUser - username of the owner of the GitHub repository
+     * @param repoName - GutHub repository name
+     * @return RepositoryDTO
+     * @throws IOException
+     */
     @Override
     public RepositoryDto getRepositoryInfoByRepoData(String gitUser, String repoName) throws IOException {
         String repositoryDetails = generateRepositoryDetails(gitUser, repoName);
         return getRepositoryInfo(repositoryDetails);
     }
+
+    /**
+     * Use to retrieve GitHub information when available parameter is the full github repo link in the form of www.github.com/user/repository.
+     * @param repositoryLink - URI of the repository in the format username/repositoryname.
+     * @return RepositoryDTO
+     * @throws IOException
+     */
     @Override
     public RepositoryDto getRepositoryInfoByRepoLink(String repositoryLink) throws IOException {
         String repositoryDetails = extractRepositoryDetailsFromLink(repositoryLink);

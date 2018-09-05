@@ -80,7 +80,7 @@ public class ExtensionServiceTestsCreateNewExtension {
         Mockito.when(extensionRepository.save(any(Extension.class)))
                 .thenReturn(expectedExtension);
 
-        RepositoryDto repositoryDto = new RepositoryDto(5, 325, lastCommit);
+        RepositoryDto repositoryDto = new RepositoryDto(5, 325, lastCommit, "www.github.com/testuser,testrepo");
         Mockito.when(remoteRepositoryService.getRepositoryInfoByRepoData("testuser", "testrepo"))
                 .thenReturn(repositoryDto);
 

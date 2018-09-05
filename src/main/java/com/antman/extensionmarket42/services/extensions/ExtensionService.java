@@ -39,4 +39,6 @@ public interface ExtensionService {
     Extension toggleFeaturedExtension(long extensionId) throws NotFoundException;
 
     String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName);
+
+    Extension refreshRepositoryInformationPerExtension(Long id) throws NotFoundException, IOException;
 }

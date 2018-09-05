@@ -55,7 +55,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public List<Extension> getByUserId(long id){
+    public List<Extension> getByUserId(long id) {
         return extensionRepository.getAllByActiveTrueAndUserProfile_UserId(id);
     }
 
@@ -98,12 +98,13 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension updateExtension(Extension extension){
+    public Extension updateExtension(Extension extension) {
         extensionRepository.save(extension);
         return extension;
     }
+
     @Override
-    public Extension updateExtension(long id,Extension extension){
+    public Extension updateExtension(long id, Extension extension) {
         Extension current = extensionRepository.getById(id);
 
         current.setName(extension.getName());
@@ -146,9 +147,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     public List<Extension> getPending(boolean b) {
         return extensionRepository.findAllByActiveTrueAndPendingIs(b);
     }
+
     @Override
-    public List<Extension> getInactive()
-    {
+    public List<Extension> getInactive() {
         return extensionRepository.getAllByActiveIsFalse();
     }
 
@@ -205,14 +206,12 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension toggleFeaturedExtension(long extensionId) throws  NotFoundException{
+    public Extension toggleFeaturedExtension(long extensionId) throws NotFoundException {
         Extension extension = getById(extensionId);
 
-        if(extension.isFeatured())
-        {
+        if (extension.isFeatured()) {
             extension.setFeatured(false);
-        }
-        else {
+        } else {
             extension.setFeatured(true);
         }
         extension = extensionRepository.save(extension);
@@ -221,7 +220,22 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName) {
-        return extensionDto.getName() + "_" + extensionDto.getVersion() + "_" +  originalFileName;
+        return extensionDto.getName() + "_" + extensionDto.getVersion() + "_" + originalFileName;
+    }
+
+    @Override
+    public Extension refreshRepositoryInformationPerExtension(Long id) throws NotFoundException, IOException {
+        Extension extension = getExtensionRepositoryInformation(id);
+        return extensionRepository.save(extension);
+    }
+
+    private Extension getExtensionRepositoryInformation(Long extensionId) throws NotFoundException, IOException {
+        Extension extension = getById(extensionId);
+        RepositoryDto repositoryDto = remoteRepositoryService.getRepositoryInfoByRepoLink(extension.getRepoLink());
+        extension.setLastCommit(new java.sql.Date(repositoryDto.getLastCommit().getTime()));
+        extension.setPullRequests(repositoryDto.getPullRequests());
+        extension.setOpenIssues(repositoryDto.getOpenIssues());
+        return extension;
     }
 
     private Set<Tag> generateTagListFromDto(String[] tagNames) {
