@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments :: head">
     <meta charset="UTF-8">
     <title>Register</title>
@@ -9,6 +9,9 @@
 
 <div class="container">
     <h1 id="admin">Admin Panel</h1>
+    <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/refreshRepository/all}">
+        <button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh GitHub Data</button>
+    </a>
     <div class="row" id="controls">
         <div class="btn-group" role="group" aria-label="Basic example">
             <a th:href="@{'adminPanel/all'}">

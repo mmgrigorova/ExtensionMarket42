@@ -111,6 +111,12 @@ CREATE TABLE IF NOT EXISTS `screenshots` (
   CONSTRAINT `Screenshots_fk0` FOREIGN KEY (`extensionId`) REFERENCES `extensions` (`extensionId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `market_db`.`data_refresh` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `lastRefreshDate` DATETIME NOT NULL,
+  `successfulCount` INT NULL,
+  `failedCount` INT NULL,
+  PRIMARY KEY (`id`));
 
 -- Data exporting was unselected.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

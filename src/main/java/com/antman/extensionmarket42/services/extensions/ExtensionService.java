@@ -2,6 +2,7 @@ package com.antman.extensionmarket42.services.extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
 import javassist.NotFoundException;
 
 import java.io.IOException;
@@ -39,6 +40,4 @@ public interface ExtensionService {
     Extension toggleFeaturedExtension(long extensionId) throws NotFoundException;
 
     String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName);
-
-    Extension refreshRepositoryInformationPerExtension(Long id) throws NotFoundException, IOException;
 }

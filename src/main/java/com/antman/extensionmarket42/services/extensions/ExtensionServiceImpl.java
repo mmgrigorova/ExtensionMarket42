@@ -5,6 +5,7 @@ import com.antman.extensionmarket42.dtos.RepositoryDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
+import com.antman.extensionmarket42.repositories.base.GitHubDataRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
@@ -33,7 +34,8 @@ public class ExtensionServiceImpl implements ExtensionService {
     public ExtensionServiceImpl(ExtensionRepository extensionRepository,
                                 TagRepository tagRepository,
                                 MyUserDetailsService userDetailsService,
-                                RemoteRepositoryService remoteRepositoryService) {
+                                RemoteRepositoryService remoteRepositoryService,
+                                GitHubDataRepository gitHubDataRepository) {
         this.extensionRepository = extensionRepository;
         this.tagRepository = tagRepository;
         this.userDetailsService = userDetailsService;
@@ -221,21 +223,6 @@ public class ExtensionServiceImpl implements ExtensionService {
     @Override
     public String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName) {
         return extensionDto.getName() + "_" + extensionDto.getVersion() + "_" + originalFileName;
-    }
-
-    @Override
-    public Extension refreshRepositoryInformationPerExtension(Long id) throws NotFoundException, IOException {
-        Extension extension = getExtensionRepositoryInformation(id);
-        return extensionRepository.save(extension);
-    }
-
-    private Extension getExtensionRepositoryInformation(Long extensionId) throws NotFoundException, IOException {
-        Extension extension = getById(extensionId);
-        RepositoryDto repositoryDto = remoteRepositoryService.getRepositoryInfoByRepoLink(extension.getRepoLink());
-        extension.setLastCommit(new java.sql.Date(repositoryDto.getLastCommit().getTime()));
-        extension.setPullRequests(repositoryDto.getPullRequests());
-        extension.setOpenIssues(repositoryDto.getOpenIssues());
-        return extension;
     }
 
     private Set<Tag> generateTagListFromDto(String[] tagNames) {
