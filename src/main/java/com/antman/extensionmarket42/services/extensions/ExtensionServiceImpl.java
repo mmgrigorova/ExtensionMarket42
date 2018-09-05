@@ -34,8 +34,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     public ExtensionServiceImpl(ExtensionRepository extensionRepository,
                                 TagRepository tagRepository,
                                 MyUserDetailsService userDetailsService,
-                                RemoteRepositoryService remoteRepositoryService,
-                                GitHubDataRepository gitHubDataRepository) {
+                                RemoteRepositoryService remoteRepositoryService) {
         this.extensionRepository = extensionRepository;
         this.tagRepository = tagRepository;
         this.userDetailsService = userDetailsService;

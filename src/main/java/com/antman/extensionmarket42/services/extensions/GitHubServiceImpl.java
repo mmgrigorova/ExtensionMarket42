@@ -59,7 +59,7 @@ public class GitHubServiceImpl implements RemoteRepositoryService {
 
         String fullRepositoryLink = generateFullRepositoryLinkFromRepoDetails(repositoryDetails);
         int openIssuesCount = repo.getOpenIssueCount();
-        int pullRequestsCount = repo.getPullRequests(GHIssueState.ALL).size();
+        int pullRequestsCount = repo.getPullRequests(GHIssueState.OPEN).size();
         List<GHCommit> commits =  repo.listCommits().asList();
         Date lastCommitDate = commits.get(0).getCommitDate();
 

@@ -84,7 +84,7 @@ public class ExtensionServiceTestsCreateNewExtension {
         Mockito.when(remoteRepositoryService.getRepositoryInfoByRepoData("testuser", "testrepo"))
                 .thenReturn(repositoryDto);
 
-        extensionService = new ExtensionServiceImpl(extensionRepository, tagRepository, userDetailsService, remoteRepositoryService, gitHubDataRepository);
+        extensionService = new ExtensionServiceImpl(extensionRepository, tagRepository, userDetailsService, remoteRepositoryService);
 
         byte[] content = new byte[0];
         MultipartFile mockFile = new MockMultipartFile("testFile.txt", content);

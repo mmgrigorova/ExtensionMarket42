@@ -2,37 +2,48 @@ package com.antman.extensionmarket42.payload;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class RepositorySyncStatistics {
-    List<Extension> successfullExtensions;
-    List<Extension> unnsuccessfulExtensions;
-    Date lastSyncDate;
+    private List<Extension> successfulExtensions;
+    private List<Extension> failedExtensions;
+    private Date lastSyncDate;
 
     public RepositorySyncStatistics() {
+        successfulExtensions = new ArrayList<>();
+        failedExtensions = new ArrayList<>();
     }
 
-    public RepositorySyncStatistics(List<Extension> successfullExtensions, List<Extension> unnsuccessfulExtensions, Date lastSyncDate) {
-        this.successfullExtensions = successfullExtensions;
-        this.unnsuccessfulExtensions = unnsuccessfulExtensions;
+    public RepositorySyncStatistics(List<Extension> successfulExtensions, List<Extension> failedExtensions, Date lastSyncDate) {
+        this.successfulExtensions = successfulExtensions;
+        this.failedExtensions = failedExtensions;
         this.lastSyncDate = lastSyncDate;
     }
 
-    public List<Extension> getSuccessfullExtensions() {
-        return successfullExtensions;
+    public List<Extension> getSuccessfulExtensions() {
+        return successfulExtensions;
     }
 
-    public void setSuccessfullExtensions(List<Extension> successfullExtensions) {
-        this.successfullExtensions = successfullExtensions;
+    public void setSuccessfulExtensions(List<Extension> successfulExtensions) {
+        this.successfulExtensions = successfulExtensions;
     }
 
-    public List<Extension> getUnnsuccessfulExtensions() {
-        return unnsuccessfulExtensions;
+    public List<Extension> getFailedExtensions() {
+        return failedExtensions;
     }
 
-    public void setUnnsuccessfulExtensions(List<Extension> unnsuccessfulExtensions) {
-        this.unnsuccessfulExtensions = unnsuccessfulExtensions;
+    public void addSuccessfull(Extension extension){
+        successfulExtensions.add(extension);
+    }
+
+    public void setFailedExtensions(List<Extension> failedExtensions) {
+        this.failedExtensions = failedExtensions;
+    }
+
+    public void addFailed(Extension extension){
+        failedExtensions.add(extension);
     }
 
     public Date getLastSyncDate() {

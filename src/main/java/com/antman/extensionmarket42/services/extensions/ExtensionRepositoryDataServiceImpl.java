@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -38,19 +37,29 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
     @Override
     public RepositorySyncStatistics refreshRepositoryInfoAllActiveExtensions() {
         RepositorySyncStatistics refreshStats = new RepositorySyncStatistics();
-        List<Extension> extensions = extensionRepository.findAllByActiveTrue().stream()
-                .filter(extension -> !extension.getDownloadLink().equals("n/a"))
-                .map(extension -> getExtensionRepositoryInformationWrapper(extension.getId()))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        StreamSupport
-                .stream(extensionRepository.saveAll(extensions).spliterator(), false)
-                .collect(Collectors.toList());
+
+        List<Extension> extensions = extensionRepository.findAllByActiveTrueAndPendingIs(false);
+
+        for (Extension extension : extensions) {
+            try {
+                refreshRepositoryInfoPerExtension(extension.getId());
+                refreshStats.addSuccessfull(extension);
+            } catch (NotFoundException e) {
+                logger.warn(e.getMessage(),e);
+                e.printStackTrace();
+            } catch (IOException e) {
+                refreshStats.addFailed(extension);
+                e.printStackTrace();
+            }
+        }
+
+        extensionRepository.saveAll(refreshStats.getSuccessfulExtensions());
 
         DataRefresh dataRefresh = new DataRefresh();
         dataRefresh.setLastRefreshDate(System.currentTimeMillis());
-        dataRefresh.setSuccessfulCount(refreshStats.getSuccessfullExtensions().size());
-        dataRefresh.setFailedCount(refreshStats.getUnnsuccessfulExtensions().size());
+        dataRefresh.setSuccessfulCount(refreshStats.getSuccessfulExtensions().size());
+        dataRefresh.setFailedCount(refreshStats.getFailedExtensions().size());
+
         gitHubDataRepository.save(dataRefresh);
         return refreshStats;
     }

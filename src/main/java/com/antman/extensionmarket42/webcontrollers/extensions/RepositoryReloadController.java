@@ -44,7 +44,7 @@ public class RepositoryReloadController {
     public String refreshAllExtensionRepositoryData(RedirectAttributes redirectAttributes){
         RepositorySyncStatistics stats = extensionRepoService.refreshRepositoryInfoAllActiveExtensions();
         redirectAttributes.addFlashAttribute("successmessage",
-                "GitHub repository data has been successfully refreshed for " + stats.getSuccessfullExtensions() + " active extensions.");
+                "GitHub repository data has been successfully refreshed for " + stats.getSuccessfulExtensions().size() + " active extensions.");
         return "redirect:/adminPanel";
     }
 }
