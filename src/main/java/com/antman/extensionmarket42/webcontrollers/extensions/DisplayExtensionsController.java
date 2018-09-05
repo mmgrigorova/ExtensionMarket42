@@ -1,34 +1,36 @@
 package com.antman.extensionmarket42.webcontrollers.extensions;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
+import com.antman.extensionmarket42.services.extensions.ExtensionRepositoryDataService;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
-import com.antman.extensionmarket42.utils.FormChoice;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.text.Normalizer;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class DisplayExtensionsController {
     private ExtensionService extensionService;
+    private ExtensionRepositoryDataService gitHubService;
+
 
     @Autowired
-    public DisplayExtensionsController(ExtensionService extensionService){
+    public DisplayExtensionsController(ExtensionService extensionService,
+                                       ExtensionRepositoryDataService gitHubService){
         this.extensionService = extensionService;
+        this.gitHubService = gitHubService;
     }
 
     @GetMapping("adminPanel")
     public ModelAndView getAdminPage(@ModelAttribute("choice")  String choice){
         List<Extension> extensions = null;
         ModelAndView modelAndView = new ModelAndView("adminPanel");
-
+        modelAndView.addObject("repoData", gitHubService.getLastSyncData());
         if (choice == null || choice.isEmpty()) {
             extensions = extensionService.getAll();
         }

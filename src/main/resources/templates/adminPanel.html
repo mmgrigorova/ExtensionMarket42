@@ -14,32 +14,40 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <h1 id="admin">Admin Panel</h1>
-    <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/refreshRepository/all}">
-        <button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh GitHub Data</button>
-    </a>
+
     <div class="row" id="controls">
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <a th:href="@{'adminPanel/all'}">
-                <button class="btn btn-dark">All
-                </button>
-            </a>
-            <a th:href="@{'adminPanel/pending/'}">
-                <button class="btn btn-dark">Pending
-                </button>
-            </a>
-            <a th:href="@{'adminPanel/featured/'}">
-                <button class="btn btn-dark">Featured
-                </button>
-            </a>
-            <a th:href="@{'adminPanel/inactive/'}">
-                <button class="btn btn-dark">Inactive
-                </button>
-            </a>
-            <a th:href="@{'users/active'}">
-                <button class="btn btn-dark">Users
-                </button>
-            </a>
+        <div class="col-8">
+            <h1 id="admin">Admin Panel</h1>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a th:href="@{'adminPanel/all'}" class="btn btn-secondary">All
+                </a>
+                <a th:href="@{'adminPanel/pending/'}" class="btn btn-secondary">Pending
+                </a>
+                <a th:href="@{'adminPanel/featured/'}" class="btn btn-secondary">Featured
+                </a>
+                <a th:href="@{'adminPanel/inactive/'}" class="btn btn-secondary">Inactive
+                </a>
+            </div>
+            <div class="btn-group margin-left" role="group" aria-label="Basic example">
+                <a th:href="@{'users/active'}" class="btn btn-secondary">Users
+                </a>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="card" style="width: 18rem;" th:object="${repoData}">
+                <div class="card-body">
+                    <h5 class="card-title">GitHub Data Refresh</h5>
+                    <p class="card-text" th:text="${#dates.format(repoData.lastRefreshDate, 'dd.MM.yyyy HH:mm')}">Last
+                        Date</p>
+                    <p>
+                       Refreshed: <span class="card-text" th:text="${repoData.successfulCount}">Successful</span> |
+                        Failed: <span class="card-text" th:text="${repoData.failedCount}">Unsuccessful</span>
+                    </p>
+                    <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/refreshRepository/all}">
+                        <button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh GitHub Data</button>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -84,7 +92,9 @@
                         </td>
                         <td th:unless="${e.featured}">
                             <a th:href="@{'adminPanel/toggle/' + ${e.id}}">
-                                <button class="btn btn-light" th:href="@{'adminPanel/toggle/' + ${e.id}}"><i class="far fa-star"></i> No </button>
+                                <button class="btn btn-light" th:href="@{'adminPanel/toggle/' + ${e.id}}"><i
+                                        class="far fa-star"></i> No
+                                </button>
                             </a>
                         </td>
 

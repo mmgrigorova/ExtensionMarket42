@@ -14,12 +14,16 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDataService {
     private static Logger logger = LoggerFactory.getLogger(ExtensionRepositoryDataServiceImpl.class);
+
+    private ExtensionRepository extensionRepository;
+    private GitHubDataRepository gitHubDataRepository;
+    private ExtensionService extensionService;
+    private RemoteRepositoryService remoteRepositoryService;
+
 
     @Autowired
     public ExtensionRepositoryDataServiceImpl(ExtensionRepository extensionRepository, GitHubDataRepository gitHubDataRepository, ExtensionService extensionService, RemoteRepositoryService remoteRepositoryService) {
@@ -28,11 +32,6 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
         this.extensionService = extensionService;
         this.remoteRepositoryService = remoteRepositoryService;
     }
-
-    private ExtensionRepository extensionRepository;
-    private GitHubDataRepository gitHubDataRepository;
-    private ExtensionService extensionService;
-    private RemoteRepositoryService remoteRepositoryService;
 
     @Override
     public RepositorySyncStatistics refreshRepositoryInfoAllActiveExtensions() {
@@ -68,6 +67,11 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
     public Extension refreshRepositoryInfoPerExtension(Long id) throws NotFoundException, IOException {
         Extension extension = getExtensionRepositoryInformation(id);
         return extensionRepository.save(extension);
+    }
+
+    @Override
+    public DataRefresh getLastSyncData(){
+        return gitHubDataRepository.findFirstByOrderByLastRefreshDateDesc();
     }
 
     /**
