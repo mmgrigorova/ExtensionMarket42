@@ -16,6 +16,7 @@ public interface ExtensionService {
     Extension updateExtension(long id, Extension extension);
     int increaseDownloadCount(Long extensionId);
 
+
     List<Extension> getAll();
     List<Extension> getByName(String name);
     List<Extension> getByUserId(long id);

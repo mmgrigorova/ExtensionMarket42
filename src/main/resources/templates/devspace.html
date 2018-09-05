@@ -46,7 +46,6 @@
                     <div class="form-group row">
                         <div class="offset-4 col-8">
                             <button name="submit" type="submit" class="btn btn-primary">Update Profile</button>
-                            <a th:href="@{/extension-add}" class="btn btn-primary">Add New Extension</a>
                         </div>
                     </div>
                 </form>
@@ -68,6 +67,7 @@
                             <th>Downloads</th>
                             <th>Open Issues</th>
                             <th>Pull Requests</th>
+                            <th>Last Commit</th>
                             <th></th>
                         </tr>
                         <tr th:each="e : ${extensions}">
@@ -76,15 +76,17 @@
                             <td th:text="${e.downloadsCount}"></td>
                             <td th:text="${e.openIssues}"></td>
                             <td th:text="${e.openIssues}"></td>
+                            <td th:text="${e.lastCommit}"></td>
                             <td>
-                                <!--<a th:href="@{'devspace/edit/' + ${e.id}}">-->
-                                    <!--<button class="btn btn-primary">Edit</button>-->
-                                    <input type="submit" class="btn btn-primary" value="Edit" th:formmethod="post"
+                                <input type="submit" class="btn btn-primary" value="Edit" th:formmethod="get"
                                            th:formaction="@{'developer/edit/{extensionId}'(extensionId=${e.id})}">
                                 <!--</a>-->
-                            <!--</td>-->
+                            </td>
                         </tr>
                     </table>
+                    <div class="offset-6 col-8">
+                        <a th:href="@{/extension-add}" class="btn btn-primary">Add New Extension</a>
+                    </div>
                 </form>
             </div>
         </div>

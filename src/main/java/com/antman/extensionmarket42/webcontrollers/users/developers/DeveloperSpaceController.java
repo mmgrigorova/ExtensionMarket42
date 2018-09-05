@@ -43,10 +43,19 @@ public class DeveloperSpaceController {
 
     @RequestMapping(value = "/developer/edit/{extensionId}", method=RequestMethod.GET)
     public ModelAndView editExtension(@PathVariable("extensionId") long extensionId) throws Exception{
-        ModelAndView modelAndView = new ModelAndView("editExtension");
-
         Extension extension = extensionService.getById(extensionId);
-        modelAndView.addObject("extension",extension);
+        UserProfile userProfile =  userDetailsService.getCurrentUser();
+        ModelAndView modelAndView;
+
+        if(userProfile.getUserId() == extension.getUserProfile().getUserId()){
+             modelAndView = new ModelAndView("editExtension");
+            modelAndView.addObject("extension",extension);
+        }
+        else {
+             modelAndView = new ModelAndView("access-denied");
+
+        }
+
         return modelAndView;
     }
 
