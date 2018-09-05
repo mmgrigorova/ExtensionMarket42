@@ -34,7 +34,7 @@ public class MyErrorController implements ErrorController {
         } else {
             mav.addObject("error", "Oops, something strange happened and we could not proceed with this request");
         }
-        logger.error("Exception during execution of ExtensionMarket42 application: " + statusCode);
+        logger.error("Exception during execution of ExtensionMarket42 application: {}", statusCode);
         return mav;
     }
 
