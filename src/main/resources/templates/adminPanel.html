@@ -9,28 +9,28 @@
 
 <div class="container">
     <h1 id="admin">Admin Panel</h1>
-    <div class="row" style="margin-bottom: 20px" id="controls">
+    <div class="row" id="controls">
         <div class="btn-group" role="group" aria-label="Basic example">
-        <a th:href="@{'adminPanel/all'}">
-            <button class="btn btn-dark">All
-            </button>
-        </a>
-        <a th:href="@{'adminPanel/pending/'}">
-            <button class="btn btn-dark">Pending
-            </button>
-        </a>
-        <a th:href="@{'adminPanel/featured/'}">
-            <button class="btn btn-dark">Featured
-            </button>
-        </a>
-        <a th:href="@{'adminPanel/inactive/'}">
-            <button class="btn btn-dark">Inactive
-            </button>
-        </a>
-        <a th:href="@{'users/active'}">
-            <button class="btn btn-dark">Users
-            </button>
-        </a>
+            <a th:href="@{'adminPanel/all'}">
+                <button class="btn btn-dark">All
+                </button>
+            </a>
+            <a th:href="@{'adminPanel/pending/'}">
+                <button class="btn btn-dark">Pending
+                </button>
+            </a>
+            <a th:href="@{'adminPanel/featured/'}">
+                <button class="btn btn-dark">Featured
+                </button>
+            </a>
+            <a th:href="@{'adminPanel/inactive/'}">
+                <button class="btn btn-dark">Inactive
+                </button>
+            </a>
+            <a th:href="@{'users/active'}">
+                <button class="btn btn-dark">Users
+                </button>
+            </a>
         </div>
     </div>
     <div class="row">
@@ -70,18 +70,21 @@
 
                         <td th:if="${e.featured}">
                             <a th:href="@{'adminPanel/toggle/' + ${e.id}}">
-                                <button class="btn btn-primary">Yes</button>
+                                <button class="btn btn-info"><i class="fas fa-star"></i> Yes</button>
                             </a>
                         </td>
                         <td th:unless="${e.featured}">
                             <a th:href="@{'adminPanel/toggle/' + ${e.id}}">
-                                <button class="btn btn-primary" th:href="@{'adminPanel/toggle/' + ${e.id}}">No</button>
+                                <button class="btn btn-light" th:href="@{'adminPanel/toggle/' + ${e.id}}"><i class="far fa-star"></i> No </button>
                             </a>
                         </td>
 
                         <td th:text="${e.lastCommit}"></td>
                         <td th:text="${e.addedOn}"></td>
-                        <td><span th:each="t:${e.tags} " th:text="${t.tagTitle}+' '" class="badge badge-light"></span></td>
+                        <td><a th:href="@{/search-results(tagName=${tag.tagTitle})}" class="badge badge-info"
+                               th:each="tag : ${e.tags}" th:text="${tag.tagTitle}">
+                            JavaTag
+                        </a></td>
                     </tr>
                 </table>
             </div>

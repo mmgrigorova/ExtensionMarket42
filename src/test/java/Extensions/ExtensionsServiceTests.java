@@ -60,11 +60,11 @@ public class ExtensionsServiceTests {
     public void getByName_whenExtensionsArePresent_returnExtensions() {
         List<Extension> extensions = new ArrayList<>();
 
-        when(extensionMockRepository.getAllByActiveTrueAndPendingFalseAndNameIs("testName")).thenReturn(extensions);
+        when(extensionMockRepository.getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase("testName")).thenReturn(extensions);
 
         List<Extension> result = extensionService.getByName("testName");
 
-        verify(extensionMockRepository, times(1)).getAllByActiveTrueAndPendingFalseAndNameIs("testName");
+        verify(extensionMockRepository, times(1)).getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase("testName");
 
         assertEquals(extensions, result);
     }

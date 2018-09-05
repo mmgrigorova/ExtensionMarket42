@@ -6,13 +6,24 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
           integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
+          <!--integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">  -->
+    <!--Flatly-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/flatly/bootstrap.min.css" crossorigin="anonymous">
+    <!--Journal-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/journal/bootstrap.min.css" crossorigin="anonymous">-->
+    <!--Cosmo-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/cosmo/bootstrap.min.css" crossorigin="anonymous">-->
+    <!--Cerr-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/cerulean/bootstrap.min.css" crossorigin="anonymous">-->
+    <!--Litera-->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/litera/bootstrap.min.css" crossorigin="anonymous">-->
+
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/tags-css/textext.core.css">
@@ -28,7 +39,9 @@
 </head>
 <body>
 
-<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-primary" id="nav">
+<!--<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">-->
+<!--<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-light" id="nav">-->
     <a class="navbar-brand" th:href="@{/}"><i class="fas fa-puzzle-piece"></i> Extension 42</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,14 +49,14 @@
     </button>
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" sec:authorize="hasAuthority('ROLE_DEV')">
-                <a class="nav-link" th:href="@{/developer}" id="developer">Developer Space</a>
+            <li class="nav-item" sec:authorize="hasAuthority('ROLE_DEV')" id="developer">
+                <a class="nav-link" th:href="@{/developer}">Developer Space</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
-                <a class="nav-link" th:href="@{/adminPanel}" id="admin">Admin Portal</a>
+            <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')" id="admin">
+                <a class="nav-link" th:href="@{/adminPanel}">Admin Portal</a>
             </li>
-            <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
-                <a class="nav-link" th:href="@{/users/active}" id="users">User Management</a>
+            <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')" id="users">
+                <a class="nav-link" th:href="@{/users/active}">User Management</a>
             </li>
         </ul>
         <div sec:authorize="!isAuthenticated()" class="form-inline my-2 my-lg-0">
@@ -64,6 +77,18 @@
         </div>
     </div>
 </nav>
+
+<section th:fragment="search">
+    <form th:action="@{/search-results}" method="get" class="input-group md-form form-sm form-2 pl-0 mx-auto" style="width: 400px">
+        <input name="name" class="form-control my-0 py-1" type="text" placeholder="Search extension..."
+               aria-label="Search">
+        <button type="submit" class="input-group-append input-group-text lighten-3 search-button" id="basic-text1">
+            <i class="fa fa-search text-grey"
+               aria-hidden="true"></i>
+        </button>
+    </form>
+</section>
+
 <section th:fragment="footer" class="text-center footer">
     <p>
         <small>Team Ant-Man - Telerik Academy 2018</small>

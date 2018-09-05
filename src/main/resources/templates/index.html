@@ -10,9 +10,7 @@
 <nav th:replace="fragments::nav"></nav>
 
 <span th:if="${param.logout}">See you soon!</span>
-<section class="text-center">
-    <h3>All the extensions you need for Image Studio 42!</h3>
-</section>
+<section th:replace="fragments::search"></section>
 <section>
     <h4>Featured Extensions</h4>
     <article th:each="extension : ${featuredExtensions}" class="col-sm-2">
@@ -25,9 +23,11 @@
             </div>
             <h6 th:text="${extension.name}">Name</h6>
             <div class="article-footer block">
-                <span class="article-author"><i class="fas fa-user"></i> <span th:text="${extension.userProfile.firstName}">Firstname</span>
+                <span class="article-author"><i class="fas fa-user"></i> <span
+                        th:text="${extension.userProfile.firstName}">Firstname</span>
                 <span th:text="${extension.userProfile.lastName}">Lastname</span>
-                <div class="downloads"><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></div>
+                <div class="downloads"><i class="fas fa-download"></i> <span
+                        th:text="${extension.downloadsCount}"></span></div>
             </span>
             </div>
         </a>
@@ -45,9 +45,11 @@
             </div>
             <h6 th:text="${extension.name}">Name</h6>
             <div class="article-footer block">
-                <span class="article-author"><i class="fas fa-user"></i> <span th:text="${extension.userProfile.firstName}">Firstname</span>
+                <span class="article-author"><i class="fas fa-user"></i> <span
+                        th:text="${extension.userProfile.firstName}">Firstname</span>
                 <span th:text="${extension.userProfile.lastName}">Lastname</span>
-                <div class="downloads"><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></div>
+                <div class="downloads"><i class="fas fa-download"></i> <span
+                        th:text="${extension.downloadsCount}"></span></div>
             </span>
             </div>
         </a>
@@ -65,9 +67,11 @@
             </div>
             <h6 th:text="${extension.name}">Name</h6>
             <div class="article-footer block">
-                <span class="article-author"><i class="fas fa-user"></i> <span th:text="${extension.userProfile.firstName}">Firstname</span>
+                <span class="article-author"><i class="fas fa-user"></i> <span
+                        th:text="${extension.userProfile.firstName}">Firstname</span>
                 <span th:text="${extension.userProfile.lastName}">Lastname</span>
-                <div class="downloads"><i class="fas fa-download"></i> <span th:text="${extension.downloadsCount}"></span></div>
+                <div class="downloads"><i class="fas fa-download"></i> <span
+                        th:text="${extension.downloadsCount}"></span></div>
             </span>
             </div>
         </a>
