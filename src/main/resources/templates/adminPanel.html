@@ -34,11 +34,13 @@
             </div>
         </div>
         <div class="col-2">
-            <div class="card" style="width: 18rem;" th:object="${repoData}">
+            <div class="card github" style="width: 18rem;" th:object="${repoData}">
                 <div class="card-body">
                     <h5 class="card-title">GitHub Data Refresh</h5>
-                    <p class="card-text" th:text="${#dates.format(repoData.lastRefreshDate, 'dd.MM.yyyy HH:mm')}">Last
-                        Date</p>
+                    <p>Last sync:
+                    <span class="card-text" th:text="${#dates.format(repoData.lastRefreshDate, 'dd.MM.yyyy HH:mm')}">Last
+                        Date</span>
+                    </p>
                     <p>
                        Refreshed: <span class="card-text" th:text="${repoData.successfulCount}">Successful</span> |
                         Failed: <span class="card-text" th:text="${repoData.failedCount}">Unsuccessful</span>
