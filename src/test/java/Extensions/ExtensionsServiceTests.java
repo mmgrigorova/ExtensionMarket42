@@ -6,7 +6,7 @@ import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
-import com.antman.extensionmarket42.services.extensions.GitHubService;
+import com.antman.extensionmarket42.services.extensions.RemoteRepositoryService;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
 import org.junit.Assert;
@@ -31,12 +31,12 @@ public class ExtensionsServiceTests {
 
     private ExtensionService extensionService;
     private MyUserDetailsService userDetailsService;
-    private GitHubService gitHubService;
+    private RemoteRepositoryService remoteRepositoryService;
     private TagRepository tagRepository;
 
     @Before
     public void setUp() {
-        extensionService = new ExtensionServiceImpl(extensionMockRepository, tagRepository, userDetailsService, gitHubService);
+        extensionService = new ExtensionServiceImpl(extensionMockRepository, tagRepository, userDetailsService, remoteRepositoryService);
     }
 
     @Test

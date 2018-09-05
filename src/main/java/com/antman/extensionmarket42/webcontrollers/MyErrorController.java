@@ -20,10 +20,10 @@ public class MyErrorController implements ErrorController {
     public ModelAndView handleError(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("oops");
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        Object request1 = request.getServletPath();
+        Integer statusCode = null;
 
         if (status != null) {
-            Integer statusCode = Integer.valueOf(status.toString());
+            statusCode = Integer.valueOf(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 mav.addObject("error404", "Oops, we could not find this page ");
@@ -34,12 +34,12 @@ public class MyErrorController implements ErrorController {
         } else {
             mav.addObject("error", "Oops, something strange happened and we could not proceed with this request");
         }
-        logger.error("Exception during execution of SpringSecurity application: ");
+        logger.error("Exception during execution of ExtensionMarket42 application: " + statusCode);
         return mav;
     }
 
     @Override
     public String getErrorPath() {
-        return "opps";
+        return "oops";
     }
 }

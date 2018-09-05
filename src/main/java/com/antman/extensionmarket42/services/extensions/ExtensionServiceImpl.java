@@ -27,17 +27,17 @@ public class ExtensionServiceImpl implements ExtensionService {
     private final ExtensionRepository extensionRepository;
     private final TagRepository tagRepository;
     private final MyUserDetailsService userDetailsService;
-    private final GitHubService gitHubService;
+    private final RemoteRepositoryService remoteRepositoryService;
 
     @Autowired
     public ExtensionServiceImpl(ExtensionRepository extensionRepository,
                                 TagRepository tagRepository,
                                 MyUserDetailsService userDetailsService,
-                                GitHubService gitHubService) {
+                                RemoteRepositoryService remoteRepositoryService) {
         this.extensionRepository = extensionRepository;
         this.tagRepository = tagRepository;
         this.userDetailsService = userDetailsService;
-        this.gitHubService = gitHubService;
+        this.remoteRepositoryService = remoteRepositoryService;
     }
 
     @Override
@@ -67,18 +67,15 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setDescription(extensionDto.getDescription());
         extension.setVersion(extensionDto.getVersion());
 
-        String gitHubUrl = "www.github.com"; //da se izvadi kato konstanta
-        String repoLink = gitHubUrl + "/" + extensionDto.getRepoUser() + "/" + extensionDto.getRepoName();
-        extension.setRepoLink(repoLink); //remove string repo link
-
         RepositoryDto repositoryDto = null;
         try {
-            repositoryDto = gitHubService.getRepositoryInfo(extensionDto.getRepoUser(), extensionDto.getRepoName());
+            repositoryDto = remoteRepositoryService.getRepositoryInfoByRepoData(extensionDto.getRepoUser(), extensionDto.getRepoName());
         } catch (IOException e) {
             logger.info("Saving extension GitHub details with default data as GitHub is unavailable at this moment");
             long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse("01/01/1971 01:00:00").getTime() / 1000;
-            repositoryDto = new RepositoryDto(0, 0, new Date(epoch));
+            repositoryDto = new RepositoryDto(0, 0, new Date(epoch), "n/a");
         }
+        extension.setRepoLink(repositoryDto.getRepoLink()); //remove string repo link
         extension.setOpenIssues(repositoryDto.getOpenIssues());
         extension.setPullRequests(repositoryDto.getPullRequests());
         extension.setLastCommit(new java.sql.Date(repositoryDto.getLastCommit().getTime()));
