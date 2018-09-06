@@ -71,7 +71,7 @@ public class DisplayExtensionsController {
         ModelAndView mav = new ModelAndView("redirect:/adminPanel");
         Extension extension = extensionService.approvePendingExtension(extensionId);
         redirectAttributes.addFlashAttribute(extension);
-        redirectAttributes.addFlashAttribute("approvedMessage", "Extension " + extension.getName() + " has been approved");
+        redirectAttributes.addFlashAttribute("confirmMessage", "Extension " + extension.getName() + " has been approved");
         return mav;
     }
 
