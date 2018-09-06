@@ -24,49 +24,63 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <h1>
-        <span th:if="${extension.icon}">
-            <span th:utext="${extension.icon}"></span>
-        </span>
-        <span th:text="${extension.name}"></span>
-    </h1>
 
-    <a th:href="@{'/api/downloadFile/'+ ${extension.id} + '/' + ${extension.downloadLink}}">
-        <button class="btn btn-primary"><i class="fas fa-download"></i> Download</button>
-    </a>
-
-    <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{'/refreshRepository/'+ ${extension.id}}">
-        <button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh GitHub Data</button>
-    </a>
-
-
-    <div th:text="${extension.name}">Extension Name</div>
-    <small>Version: <span th:text="${extension.version}">Extension Version</span></small>
-
-
-    <p th:text="${extension.description}">Extension Description</p>
-    <p>
-        <i class="fab fa-github"></i> <span th:text="${extension.repoLink}">GitHub Repository</span>
-    </p>
-    <p>
-        <i class="fas fa-bug"></i> Open Issues: <span th:text="${extension.openIssues}">Open Issues</span>
-        <i class="fas fa-code-branch"></i> Pull Requests: <span th:text="${extension.pullRequests}">Pull Requests</span>
-    </p>
-    <p>
-        Last Commit Date: <span th:text="${lastCommitFormatted}">Last Commit Date</span>
-    </p>
-    <p th:text="${fileDownloadUri}">File download</p>
-
-    <p th:unless="${extension.downloadLink}" th:text="This extension has no available download files.">This extension
-        has no
-        available download files.</p>
-
-    <p><i class="far fa-calendar-alt"></i> Added on: <span th:text="${addedOnFormatted}"></span></p>
-
-    <div>
-        <a th:href="@{/search-results(tagName=${tag.tagTitle})}" class="badge badge-info" th:each="tag : ${tags}" th:text="${tag.tagTitle}">
-            JavaTag
-        </a>
+    <div class="row">
+        <div class="col-8">
+            <h1>
+                <span th:if="${extension.icon}"><span th:utext="${extension.icon}"></span>
+                </span>
+                <span th:text="${extension.name}"></span>
+            </h1>
+            <h6 class="card-subtitle mb-2 text-muted">
+                <span>Version: <span th:text="${extension.version}">Extension Version</span></span>
+                <span class="margin-left"> <i class="fas fa-download"></i> Downloads: <span
+                        th:text="${extension.downloadsCount}"></span></span>
+                <span class="margin-left"><i class="far fa-calendar-alt"></i> Added on: <span
+                        th:text="${addedOnFormatted}"></span></span>
+            </h6>
+            <a th:href="@{'/api/downloadFile/'+ ${extension.id} + '/' + ${extension.downloadLink}}">
+                <button class="btn btn-primary"><i class="fas fa-download"></i> Download</button>
+            </a>
+        </div>
+        <div class="col-2">
+        </div>
+    </div>
+    <div class="card margin-top">
+        <div class="row card-body">
+            <div class="col-8">
+                <h2 class="card-title">Description</h2>
+                <p class="card-text" th:text="${extension.description}">Extension Description</p>
+                <a th:href="@{/search-results(tagName=${tag.tagTitle})}" class="badge badge-info"
+                   th:each="tag : ${tags}"
+                   th:text="${tag.tagTitle}">
+                    JavaTag
+                </a>
+            </div>
+            <div class="col-4">
+                <div class="card github" style="width: 18rem;">
+                    <div class="card-body" th:object="${repoData}">
+                        <p>
+                            <i class="fab fa-github"></i> <a th:href="${extension.repoLink}">GitHub Repository</a>
+                        </p>
+                        <p>
+                            <i class="fas fa-bug"></i> Open Issues: <span
+                                th:text="${extension.openIssues}">Open Issues</span></p>
+                        <p>
+                            <i class="fas fa-code-branch"></i> Pull Requests: <span
+                                th:text="${extension.pullRequests}">Pull Requests</span>
+                        </p>
+                        <p>
+                            Last Commit Date: <span th:text="${lastCommitFormatted}">Last Commit Date</span>
+                        </p>
+                        <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/refreshRepository/all}">
+                            <button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh GitHub Data
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 
