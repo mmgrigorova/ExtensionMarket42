@@ -76,4 +76,15 @@ public class DeveloperSpaceController {
         redirectAttributes.addFlashAttribute("confirmMessage", "Extension " + extension.getName() + " has been deleted");
         return modelAndView;
     }
+
+    @RequestMapping(value = "/developer/updateProfile/",method = RequestMethod.POST)
+    public ModelAndView saveChanges(@ModelAttribute("UserProfile") UserProfile userProfile,
+                                    RedirectAttributes redirectAttributes){
+        System.out.println("score");
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/developer");
+        redirectAttributes.addFlashAttribute("confirmMessage","Changes to profile have been saved");
+        return modelAndView;
+    }
+
 }

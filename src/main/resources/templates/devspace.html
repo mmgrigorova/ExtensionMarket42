@@ -22,34 +22,28 @@
                         <div class="form-group row">
                             <label for="name" class="col-4 col-form-label">First Name</label>
                             <div class="col-8">
-                                <input id="name" name="name" th:placeholder="${userProfile.firstName}"
+                                <input id="name" name="name" th:placeholder="${userProfile.firstName}" th:field="${userProfile.firstName}"
                                        class="form-control here" type="text">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="lastname" class="col-4 col-form-label">Last Name</label>
                             <div class="col-8">
-                                <input id="lastname" name="lastname" th:placeholder="${userProfile.lastName}"
+                                <input id="lastname" name="lastname" th:placeholder="${userProfile.lastName}" th:field="${userProfile.lastName}"
                                        class="form-control here" type="text">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="email" class="col-4 col-form-label">Email</label>
                             <div class="col-8">
-                                <input id="email" name="email" th:placeholder="${userProfile.email}"
+                                <input id="email" name="email" th:placeholder="${userProfile.email}" th:field="${userProfile.email}"
                                        class="form-control here" required="required" type="text">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="newpass" class="col-4 col-form-label">New Password</label>
-                            <div class="col-8">
-                                <input id="newpass" name="newpass" placeholder="New Password" class="form-control here"
-                                       type="text">
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <div class="offset-4 col-8">
-                                <button name="submit" type="submit" class="btn btn-primary">Update Profile</button>
+                                <input type="submit" class="btn btn-primary" value="Update" th:formmethod="post"
+                                       th:formaction="@{'developer/updateProfile/'}">
                             </div>
                         </div>
                     </form>
