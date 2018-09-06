@@ -6,11 +6,16 @@ public class RepositoryDto {
     private int openIssues;
     private int pullRequests;
     private Date lastCommit;
+    private String repoLink;
 
-    public RepositoryDto(int openIssues, int pullRequests, Date lastCommit) {
+    public RepositoryDto() {
+    }
+
+    public RepositoryDto(int openIssues, int pullRequests, Date lastCommit, String repoLink) {
         this.openIssues = openIssues;
         this.pullRequests = pullRequests;
         this.lastCommit = lastCommit;
+        this.repoLink = repoLink;
     }
 
     public int getOpenIssues() {
@@ -35,5 +40,13 @@ public class RepositoryDto {
 
     public void setLastCommit(Date lastCommit) {
         this.lastCommit = lastCommit;
+    }
+
+    public String getRepoLink() {
+        return repoLink;
+    }
+
+    public void setRepoLink(String repoLink) {
+        this.repoLink = repoLink;
     }
 }

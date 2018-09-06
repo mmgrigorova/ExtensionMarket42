@@ -2,6 +2,7 @@ package com.antman.extensionmarket42.services.extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
 import javassist.NotFoundException;
 
 import java.io.IOException;
@@ -16,8 +17,10 @@ public interface ExtensionService {
     Extension updateExtension(long id, Extension extension);
     int increaseDownloadCount(Long extensionId);
 
+
     List<Extension> getAll();
     List<Extension> getByName(String name);
+    List<Extension> getByUserId(long id);
     List<Extension> getApprovedFeatured(boolean b);
     List<Extension> getPending(boolean b);
     List<Extension> getInactive();

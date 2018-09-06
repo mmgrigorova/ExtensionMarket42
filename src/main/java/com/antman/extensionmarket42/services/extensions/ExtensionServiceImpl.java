@@ -5,6 +5,7 @@ import com.antman.extensionmarket42.dtos.RepositoryDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
+import com.antman.extensionmarket42.repositories.base.GitHubDataRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import javassist.NotFoundException;
@@ -27,17 +28,17 @@ public class ExtensionServiceImpl implements ExtensionService {
     private final ExtensionRepository extensionRepository;
     private final TagRepository tagRepository;
     private final MyUserDetailsService userDetailsService;
-    private final GitHubService gitHubService;
+    private final RemoteRepositoryService remoteRepositoryService;
 
     @Autowired
     public ExtensionServiceImpl(ExtensionRepository extensionRepository,
                                 TagRepository tagRepository,
                                 MyUserDetailsService userDetailsService,
-                                GitHubService gitHubService) {
+                                RemoteRepositoryService remoteRepositoryService) {
         this.extensionRepository = extensionRepository;
         this.tagRepository = tagRepository;
         this.userDetailsService = userDetailsService;
-        this.gitHubService = gitHubService;
+        this.remoteRepositoryService = remoteRepositoryService;
     }
 
     @Override
@@ -55,6 +56,11 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public List<Extension> getByUserId(long id) {
+        return extensionRepository.getAllByActiveTrueAndUserProfile_UserId(id);
+    }
+
+    @Override
     public Extension createNewExtension(ExtensionDto extensionDto) throws ParseException {
         Extension extension = new Extension();
 
@@ -62,18 +68,15 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setDescription(extensionDto.getDescription());
         extension.setVersion(extensionDto.getVersion());
 
-        String gitHubUrl = "www.github.com"; //da se izvadi kato konstanta
-        String repoLink = gitHubUrl + "/" + extensionDto.getRepoUser() + "/" + extensionDto.getRepoName();
-        extension.setRepoLink(repoLink); //remove string repo link
-
         RepositoryDto repositoryDto = null;
         try {
-            repositoryDto = gitHubService.getRepositoryInfo(extensionDto.getRepoUser(), extensionDto.getRepoName());
+            repositoryDto = remoteRepositoryService.getRepositoryInfoByRepoData(extensionDto.getRepoUser(), extensionDto.getRepoName());
         } catch (IOException e) {
             logger.info("Saving extension GitHub details with default data as GitHub is unavailable at this moment");
             long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse("01/01/1971 01:00:00").getTime() / 1000;
-            repositoryDto = new RepositoryDto(0, 0, new Date(epoch));
+            repositoryDto = new RepositoryDto(0, 0, new Date(epoch), "n/a");
         }
+        extension.setRepoLink(repositoryDto.getRepoLink()); //remove string repo link
         extension.setOpenIssues(repositoryDto.getOpenIssues());
         extension.setPullRequests(repositoryDto.getPullRequests());
         extension.setLastCommit(new java.sql.Date(repositoryDto.getLastCommit().getTime()));
@@ -96,12 +99,13 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension updateExtension(Extension extension){
+    public Extension updateExtension(Extension extension) {
         extensionRepository.save(extension);
         return extension;
     }
+
     @Override
-    public Extension updateExtension(long id,Extension extension){
+    public Extension updateExtension(long id, Extension extension) {
         Extension current = extensionRepository.getById(id);
 
         current.setName(extension.getName());
@@ -144,9 +148,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     public List<Extension> getPending(boolean b) {
         return extensionRepository.findAllByActiveTrueAndPendingIs(b);
     }
+
     @Override
-    public List<Extension> getInactive()
-    {
+    public List<Extension> getInactive() {
         return extensionRepository.getAllByActiveIsFalse();
     }
 
@@ -203,14 +207,12 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension toggleFeaturedExtension(long extensionId) throws  NotFoundException{
+    public Extension toggleFeaturedExtension(long extensionId) throws NotFoundException {
         Extension extension = getById(extensionId);
 
-        if(extension.isFeatured())
-        {
+        if (extension.isFeatured()) {
             extension.setFeatured(false);
-        }
-        else {
+        } else {
             extension.setFeatured(true);
         }
         extension = extensionRepository.save(extension);
@@ -219,7 +221,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName) {
-        return extensionDto.getName() + "_" + extensionDto.getVersion() + "_" +  originalFileName;
+        return extensionDto.getName() + "_" + extensionDto.getVersion() + "_" + originalFileName;
     }
 
     private Set<Tag> generateTagListFromDto(String[] tagNames) {

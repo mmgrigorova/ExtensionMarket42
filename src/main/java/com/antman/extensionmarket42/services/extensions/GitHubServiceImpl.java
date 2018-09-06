@@ -5,16 +5,47 @@ import org.kohsuke.github.*;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class GitHubServiceImpl implements GitHubService {
+public class GitHubServiceImpl implements RemoteRepositoryService {
     private final String ACCESS_TOKEN = "9192eb637704bccfcca966001c9f2f502eb81255";
+    private final String REPOSITORY_LINK_BASE = "www.github.com/";
 
+    /**
+     * Use to retrieve GitHub information when available parameters are username and repository name.
+     * @param gitUser - username of the owner of the GitHub repository
+     * @param repoName - GutHub repository name
+     * @return RepositoryDTO
+     * @throws IOException
+     */
     @Override
-    public RepositoryDto getRepositoryInfo(String gitUser, String repoName) throws IOException {
+    public RepositoryDto getRepositoryInfoByRepoData(String gitUser, String repoName) throws IOException {
+        String repositoryDetails = generateRepositoryDetails(gitUser, repoName);
+        return getRepositoryInfo(repositoryDetails);
+    }
+
+    /**
+     * Use to retrieve GitHub information when available parameter is the full github repo link in the form of www.github.com/user/repository.
+     * @param repositoryLink - URI of the repository in the format username/repositoryname.
+     * @return RepositoryDTO
+     * @throws IOException
+     */
+    @Override
+    public RepositoryDto getRepositoryInfoByRepoLink(String repositoryLink) throws IOException {
+        String repositoryDetails = extractRepositoryDetailsFromLink(repositoryLink);
+        return getRepositoryInfo(repositoryDetails);
+    }
+
+    /**
+     * In order to collect GitHub information, we use a wrapper API that gives us easy access to the requested data.
+     * It requires the username and repository name to connect to GitHub.
+     * @param repositoryDetails
+     * @return RepositoryDto
+     * @throws IOException
+     */
+    private RepositoryDto getRepositoryInfo(String repositoryDetails) throws IOException {
 
         GitHub gitHub = null;
         try {
@@ -24,14 +55,26 @@ public class GitHubServiceImpl implements GitHubService {
             throw new IOException("A connection to the repository cannot be established at this time. Reason: " + e.getMessage());
         }
 
-        String repoUrl = gitUser + "/" + repoName;
-        GHRepository repo = gitHub.getRepository(repoUrl);
+        GHRepository repo = gitHub.getRepository(repositoryDetails);
 
+        String fullRepositoryLink = generateFullRepositoryLinkFromRepoDetails(repositoryDetails);
         int openIssuesCount = repo.getOpenIssueCount();
-        int pullRequestsCount = repo.getPullRequests(GHIssueState.ALL).size();
+        int pullRequestsCount = repo.getPullRequests(GHIssueState.OPEN).size();
         List<GHCommit> commits =  repo.listCommits().asList();
         Date lastCommitDate = commits.get(0).getCommitDate();
 
-        return new RepositoryDto(openIssuesCount,pullRequestsCount,lastCommitDate);
+        return new RepositoryDto(openIssuesCount,pullRequestsCount,lastCommitDate, fullRepositoryLink);
+    }
+
+    private String generateRepositoryDetails(String username, String repoName){
+        return username + "/" + repoName;
+    }
+
+    private String generateFullRepositoryLinkFromRepoDetails(String repoDetails){
+        return REPOSITORY_LINK_BASE + repoDetails;
+    }
+
+    private String extractRepositoryDetailsFromLink(String fullRepositoryLink){
+        return fullRepositoryLink.replace(REPOSITORY_LINK_BASE,"");
     }
 }

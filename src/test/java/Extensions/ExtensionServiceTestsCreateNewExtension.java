@@ -9,7 +9,7 @@ import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
-import com.antman.extensionmarket42.services.extensions.GitHubService;
+import com.antman.extensionmarket42.services.extensions.RemoteRepositoryService;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,7 +34,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 public class ExtensionServiceTestsCreateNewExtension {
     @Mock
-    private GitHubService gitHubService;
+    private RemoteRepositoryService remoteRepositoryService;
     @Mock
     private MyUserDetailsService userDetailsService;
     @Mock
@@ -80,11 +80,11 @@ public class ExtensionServiceTestsCreateNewExtension {
         Mockito.when(extensionRepository.save(any(Extension.class)))
                 .thenReturn(expectedExtension);
 
-        RepositoryDto repositoryDto = new RepositoryDto(5, 325, lastCommit);
-        Mockito.when(gitHubService.getRepositoryInfo("testuser", "testrepo"))
+        RepositoryDto repositoryDto = new RepositoryDto(5, 325, lastCommit, "www.github.com/testuser,testrepo");
+        Mockito.when(remoteRepositoryService.getRepositoryInfoByRepoData("testuser", "testrepo"))
                 .thenReturn(repositoryDto);
 
-        extensionService = new ExtensionServiceImpl(extensionRepository, tagRepository, userDetailsService, gitHubService);
+        extensionService = new ExtensionServiceImpl(extensionRepository, tagRepository, userDetailsService, remoteRepositoryService);
 
         byte[] content = new byte[0];
         MultipartFile mockFile = new MockMultipartFile("testFile.txt", content);

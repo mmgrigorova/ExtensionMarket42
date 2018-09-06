@@ -9,62 +9,100 @@
 <main class="container">
     <h1 th:text="${title}" id="developer"> Account Info </h1>
     <div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-12">
-                <h4>Your Profile</h4>
-                <hr>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Your Profile</h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form th:object="${userProfile}">
+                        <div class="form-group row">
+                            <label for="name" class="col-4 col-form-label">First Name</label>
+                            <div class="col-8">
+                                <input id="name" name="name" th:placeholder="${userProfile.firstName}"
+                                       class="form-control here" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="lastname" class="col-4 col-form-label">Last Name</label>
+                            <div class="col-8">
+                                <input id="lastname" name="lastname" th:placeholder="${userProfile.lastName}"
+                                       class="form-control here" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-4 col-form-label">Email</label>
+                            <div class="col-8">
+                                <input id="email" name="email" th:placeholder="${userProfile.email}"
+                                       class="form-control here" required="required" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="newpass" class="col-4 col-form-label">New Password</label>
+                            <div class="col-8">
+                                <input id="newpass" name="newpass" placeholder="New Password" class="form-control here"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-4 col-8">
+                                <button name="submit" type="submit" class="btn btn-primary">Update Profile</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Your Extensions</h4>
+                    <hr>
+                    <p class="col-8">
+                        <a th:href="@{/extension-add}" class="btn btn-primary">Add New Extension</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form th:object="${extensions}" th:if="${not #lists.isEmpty(extensions)}">
+                        <table class="table table-striped table-custom">
+                            <tr>
+                                <th>Approval<br/>Status</th>
+                                <th>Name</th>
+                                <th>Version</th>
+                                <th>Downloads</th>
+                                <th>Open Issues</th>
+                                <th>Pull Requests</th>
+                                <th>Last Commit</th>
+                                <th></th>
+                            </tr>
+                            <tr th:each="e : ${extensions}">
+                                <td th:if="${!e.pending}" class="text-success" title="Approved by administrator"
+                                    alt="Approved by administrator">
+                                    <i class="fas fa-check"></i>
+                                </td>
+                                <td th:if="${e.pending}" class="text-warning"
+                                    title="Pending approval" alt="Pending approval">
+                                    <i class="fas fa-exclamation-triangle"></i></td>
+                                <td><a th:href="@{'/extension-details/{id}' (id=${e.id})}" th:text="${e.name}"></a></td>
+                                <td th:text="${e.version}"></td>
+                                <td th:text="${e.downloadsCount}"></td>
+                                <td th:text="${e.openIssues}"></td>
+                                <td th:text="${e.openIssues}"></td>
+                                <td th:text="${e.lastCommit}"></td>
+                                <td>
+                                    <input type="submit" class="btn btn-primary" value="Edit" th:formmethod="get"
+                                           th:formaction="@{'developer/edit/{extensionId}'(extensionId=${e.id})}">
+                                    <!--</a>-->
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <form th:object="${userProfile}">
-                    <div class="form-group row">
-                        <label for="name" class="col-4 col-form-label">First Name</label>
-                        <div class="col-8">
-                            <input id="name" name="name" th:placeholder="${userProfile.firstName}" class="form-control here" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="lastname" class="col-4 col-form-label">Last Name</label>
-                        <div class="col-8">
-                            <input id="lastname" name="lastname" th:placeholder="${userProfile.lastName}" class="form-control here" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="email" class="col-4 col-form-label">Email</label>
-                        <div class="col-8">
-                            <input id="email" name="email" th:placeholder="${userProfile.email}" class="form-control here" required="required" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="acc" class="col-4 col-form-label">Github Account</label>
-                        <div class="col-8">
-                            <input id="acc" name="acc" placeholder="acc" class="form-control here" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="newpass" class="col-4 col-form-label">New Password</label>
-                        <div class="col-8">
-                            <input id="newpass" name="newpass" placeholder="New Password" class="form-control here" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="offset-4 col-8">
-                            <button name="submit" type="submit" class="btn btn-primary">Update Profile</button>
-                            <a th:href="@{/extension-add}" class="btn btn-primary">Add New Extension</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h4>Your Extensions</h4>
-                <hr>
-            </div>
-        </div>
-    </div>
     </div>
 </main>
 <th:block th:include="fragments :: assets"></th:block>

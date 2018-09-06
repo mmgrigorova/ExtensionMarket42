@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments :: head">
     <title>Extension Details</title>
 </head>
 <body>
 <nav th:replace="fragments::nav"></nav>
 <main class="container">
-
-    <p th:if="${errormessage}" th:text="${errormessage}" class="alert alert-danger"></p>
-
-    <div th:if="${messageCreated}" class="alert alert-success alert-dismissible fade show" role="alert">
-        <span th:text="${messageCreated}">Extension has been created!</span>
+    <div th:if="${successmessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${successmessage}">Extension has been created!</span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -23,7 +18,12 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-
+    <div th:if="${errormessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <span th:text="${errormessage}"></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <h1>
         <span th:if="${extension.icon}">
             <span th:utext="${extension.icon}"></span>
@@ -32,8 +32,13 @@
     </h1>
 
     <a th:href="@{'/api/downloadFile/'+ ${extension.id} + '/' + ${extension.downloadLink}}">
-        <button class="btn btn-primary">Download</button>
+        <button class="btn btn-primary"><i class="fas fa-download"></i> Download</button>
     </a>
+
+    <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{'/refreshRepository/'+ ${extension.id}}">
+        <button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh GitHub Data</button>
+    </a>
+
 
     <div th:text="${extension.name}">Extension Name</div>
     <small>Version: <span th:text="${extension.version}">Extension Version</span></small>
