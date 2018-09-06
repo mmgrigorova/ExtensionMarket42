@@ -20,7 +20,7 @@ It is the final project for Telerik Academy Alpha in Java - 2018.
 - [x] Extension detail page
 - [x] User Registration
 - [x] Logon Capability
-- [ ] Filter extensions by name
+- [x] Filter extensions by name
 - [ ] Sort by:
 	- [ ] name
 	- [ ] number of downloada
@@ -30,7 +30,7 @@ It is the final project for Telerik Academy Alpha in Java - 2018.
 ### Private Part (Logged users only)
 
 Registered users have private area in the web application.
-- [ ] They could see all extensions that are owned by the currently logged user. Additionally the registered user must be able to:
+- [x] They could see all extensions that are owned by the currently logged user. Additionally the registered user must be able to:
 - [ ] Delete/update/create extension. 
 
 Once extension is created it is “pending” state until an administrator approves it. 
@@ -42,6 +42,18 @@ System administrators have administrative access to the system and permissions t
 - [x] Feature extension on the Home page
 - [x] Delete/edit extensions
 - [x] Disable user accounts
+
+- [x] Trigger Source data synchronization
+
+#### Source Data Synchronization
+
+Source data (GitHub information) is automatically refreshed by a scheduled job. 
+Administrators can also trigger source data refresh manually per extension or trigger it for all extensions.
+The schedule interval can be configured from application.properties file.
+
+The information about extension synchronization is available in the Admin panel and includes:
+- Last successful synchronization
+- Successful and failed extension count
 
 ## Rest API
 
