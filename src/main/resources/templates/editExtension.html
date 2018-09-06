@@ -33,11 +33,10 @@
                                        th:field="${extension.version}">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-4 col-form-label" for="link">Download Link</label>
+                    <div class="form-group row" th:if="${#authorization.expression('hasRole(''DEV'')')}">
+                        <label class="col-4 col-form-label" for="update">Update Extension</label>
                         <div class="col-8">
-                            <input type="text" class="form-control" id="link" th:value="${extension.downloadLink}"
-                                   th:field="${extension.downloadLink}">
+                            <input type="file" class="form-control-file" id="update"/>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -96,7 +95,6 @@
 
                     </div>
                     <div>
-                    <!--<div> th:if="${#authorization.expression('hasRole(''ADMIN'')')}">-->
                         <input type="submit" class="btn btn-primary" value="Save Changes" th:formmethod="post"
                            th:formaction="@{'save/{extensionId}'(extensionId=${extension.id})}">
                         <input type="submit" class="btn btn-danger" value="Deactivate Extension" th:formmethod="post"
