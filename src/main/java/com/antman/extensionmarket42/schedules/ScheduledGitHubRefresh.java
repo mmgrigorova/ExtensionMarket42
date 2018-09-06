@@ -24,8 +24,6 @@ public class ScheduledGitHubRefresh {
         this.extensionRepositoryDataService = extensionRepositoryDataService;
     }
 
-
-//    @Scheduled(fixedRateString = "${schedule.fixedRateTime}", initialDelayString = "${schedule.initialDelayTime}")
     @Scheduled(cron = "${schedule.cron}")
     public void refreshGitHubData() {
         logger.info("Running GitHub Refresh start at {}", dateFormat.format(new Date(System.currentTimeMillis())));
