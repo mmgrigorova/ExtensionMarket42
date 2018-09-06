@@ -30,10 +30,14 @@ public class EditExtensionController {
     }
 
     @RequestMapping(value = "adminPanel/save/{extensionId}",method = RequestMethod.POST)
-    public String saveChanges(@ModelAttribute("extension") Extension extension, @PathVariable("extensionId") long extensionId){
-        System.out.println(extension.getName());
+    public ModelAndView saveChanges(@ModelAttribute("extension") Extension extension,
+                                    @PathVariable("extensionId") long extensionId,
+                                    RedirectAttributes redirectAttributes){
+
         extensionService.updateExtension(extensionId,extension);
-        return "redirect:/adminPanel";
+        ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
+        redirectAttributes.addFlashAttribute("confirmMessage","Changes to extension " + extension.getName() + "has been saved");
+        return modelAndView;
     }
 
 }
