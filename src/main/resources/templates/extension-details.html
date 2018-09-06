@@ -34,6 +34,9 @@
             </h1>
             <h6 class="card-subtitle mb-2 text-muted">
                 <span>Version: <span th:text="${extension.version}">Extension Version</span></span>
+                <span class="margin-left"><i class="fas fa-user"></i> Author: <span
+                        th:text="${extension.userProfile.firstName}">Firstname</span>
+                <span th:text="${extension.userProfile.lastName}">Lastname</span>
                 <span class="margin-left"> <i class="fas fa-download"></i> Downloads: <span
                         th:text="${extension.downloadsCount}"></span></span>
                 <span class="margin-left"><i class="far fa-calendar-alt"></i> Added on: <span
