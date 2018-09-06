@@ -1,19 +1,14 @@
 package com.antman.extensionmarket42.webcontrollers.users.developers;
 
-
 import com.antman.extensionmarket42.models.UserProfile;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -42,21 +37,32 @@ public class DeveloperSpaceController {
     }
 
     @RequestMapping(value = "/developer/edit/{extensionId}", method=RequestMethod.GET)
-    public ModelAndView editExtension(@PathVariable("extensionId") long extensionId) throws Exception{
+    public ModelAndView editExtension(@PathVariable("extensionId") long extensionId, RedirectAttributes redirectAttributes) throws Exception{
         Extension extension = extensionService.getById(extensionId);
         UserProfile userProfile =  userDetailsService.getCurrentUser();
         ModelAndView modelAndView;
 
         if(userProfile.getUserId() == extension.getUserProfile().getUserId()){
-             modelAndView = new ModelAndView("editExtension");
+            modelAndView = new ModelAndView("editExtension");
             modelAndView.addObject("extension",extension);
+            extensionService.updateExtension(extensionId,extension);
+            redirectAttributes.addFlashAttribute("confirm","Changes to extension " + extension.getName() + "have been saved");
         }
         else {
              modelAndView = new ModelAndView("access-denied");
 
         }
-
         return modelAndView;
     }
 
+    @RequestMapping(value = "/developer/edit/save/{extensionId}",method = RequestMethod.POST)
+    public ModelAndView saveChanges(@ModelAttribute("extension") Extension extension,
+                                    @PathVariable("extensionId") long extensionId,
+                                    RedirectAttributes redirectAttributes){
+
+        extensionService.updateExtension(extensionId,extension);
+        ModelAndView modelAndView = new ModelAndView("redirect:/developer");
+        redirectAttributes.addFlashAttribute("confirmMessage","Changes to extension " + extension.getName() + "have been saved");
+        return modelAndView;
+    }
 }

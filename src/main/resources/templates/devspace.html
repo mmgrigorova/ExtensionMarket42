@@ -59,6 +59,12 @@
                 <div class="col-md-12">
                     <h4>Your com.antman.extensionmarket42.Extensions</h4>
                     <hr>
+                    <div th:if="${confirmMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                        <span th:text="${confirmMessage}">Extension has been approved!</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                     <p class="col-8">
                         <a th:href="@{/extension-add}" class="btn btn-primary">Add New Extension</a>
                     </p>

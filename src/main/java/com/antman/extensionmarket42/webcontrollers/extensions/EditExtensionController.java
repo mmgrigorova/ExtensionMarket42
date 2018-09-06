@@ -36,7 +36,7 @@ public class EditExtensionController {
 
         extensionService.updateExtension(extensionId,extension);
         ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
-        redirectAttributes.addFlashAttribute("confirmMessage","Changes to extension " + extension.getName() + "has been saved");
+        redirectAttributes.addFlashAttribute("confirmMessage","Changes to extension " + extension.getName() + "have been saved");
         return modelAndView;
     }
 
