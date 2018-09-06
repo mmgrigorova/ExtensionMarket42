@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
 
 group = 'com.antman'
-version = '0.0.4-SNAPSHOT'
+version = '0.0.9-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
@@ -32,6 +32,9 @@ dependencies {
     runtime('mysql:mysql-connector-java')
     runtime('org.springframework.boot:spring-boot-devtools')
     compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.security:spring-security-test')
@@ -44,31 +47,29 @@ dependencies {
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-gradle-plugin
     compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.3.5.Final'
 
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.20'
+
     // https://mvnrepository.com/artifact/com.googlecode.log4jdbc/log4jdbc
     compile group: 'com.googlecode.log4jdbc', name: 'log4jdbc', version: '1.2'
 
-    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.8.RELEASE'
-
     // Hibernate Validator allows to express and validate application constraints.
     compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.0.12.Final'
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.0.1.RELEASE'
 
     // https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
 
     // https://mvnrepository.com/artifact/org.kohsuke/github-api
     compile group: 'org.kohsuke', name: 'github-api', version: '1.93'
-
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
 jar {
     baseName = 'extensionmarket42'
-    version =  '0.0.4'
+    version = '0.0.9'
 }
 
 
 war {
     baseName = 'extensionmarket42'
-    version =  '0.0.4'
+    version = '0.0.9'
 }
