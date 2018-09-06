@@ -14,7 +14,13 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
-    public void updateUserProfile(UserProfile userProfile) {
-        userProfileRepository.save(userProfile);
+    public void updateUserProfile(long id,UserProfile userProfile) {
+
+        UserProfile tempUser = userProfileRepository.getByUserId(id);
+        tempUser.setFirstName(userProfile.getFirstName());
+        tempUser.setLastName(userProfile.getLastName());
+        tempUser.setEmail(userProfile.getEmail());
+
+        userProfileRepository.save(tempUser);
     }
 }

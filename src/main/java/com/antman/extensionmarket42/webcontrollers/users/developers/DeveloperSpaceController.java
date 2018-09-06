@@ -4,6 +4,7 @@ import com.antman.extensionmarket42.models.UserProfile;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
+import com.antman.extensionmarket42.services.users.base.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,13 @@ import java.util.List;
 public class DeveloperSpaceController {
     private MyUserDetailsService userDetailsService;
     private ExtensionService extensionService;
+    private UserProfileService userProfileService;
 
     @Autowired
-    public DeveloperSpaceController(MyUserDetailsService userDetailsService, ExtensionService extensionService){
+    public DeveloperSpaceController(MyUserDetailsService userDetailsService, ExtensionService extensionService, UserProfileService userProfileService){
         this.userDetailsService = userDetailsService;
         this.extensionService = extensionService;
+        this.userProfileService = userProfileService;
     }
 
     @GetMapping("/developer")
@@ -80,7 +83,8 @@ public class DeveloperSpaceController {
     @RequestMapping(value = "/developer/updateProfile/",method = RequestMethod.POST)
     public ModelAndView saveChanges(@ModelAttribute("UserProfile") UserProfile userProfile,
                                     RedirectAttributes redirectAttributes){
-        System.out.println("score");
+        long userId = userDetailsService.getCurrentUser().getUserId();
+        userProfileService.updateUserProfile(userId,userProfile);
 
         ModelAndView modelAndView = new ModelAndView("redirect:/developer");
         redirectAttributes.addFlashAttribute("confirmMessage","Changes to profile have been saved");
