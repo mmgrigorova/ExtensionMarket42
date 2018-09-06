@@ -65,4 +65,15 @@ public class DeveloperSpaceController {
         redirectAttributes.addFlashAttribute("confirmMessage","Changes to extension " + extension.getName() + "have been saved");
         return modelAndView;
     }
+
+    @RequestMapping(value ="/developer/edit/delete/{extensionId}",method = RequestMethod.POST)
+    public ModelAndView removeExtension(@PathVariable("extensionId")long extensionId, RedirectAttributes redirectAttributes)throws Exception{
+        Extension extension = extensionService.getById(extensionId);
+        extension.setActive(false);
+        extensionService.updateExtension(extension);
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/developer");
+        redirectAttributes.addFlashAttribute("confirmMessage", "Extension " + extension.getName() + " has been deleted");
+        return modelAndView;
+    }
 }
