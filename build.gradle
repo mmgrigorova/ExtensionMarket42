@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
+
 }
 
 apply plugin: 'java'
@@ -19,11 +20,11 @@ apply plugin: 'war'
 group = 'com.antman'
 version = '0.0.3-SNAPSHOT'
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
-
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-security')
@@ -67,6 +68,14 @@ jar {
     version =  '0.0.3'
 }
 
+bootJar {
+    classifier = 'boot'
+    mainClassName = 'com.antman.extensionmarket42.Extensionmarket42Application'
+    baseName = 'extensionmarket42'
+    version =  '0.0.3'
+    launchScript()
+
+}
 
 war {
     baseName = 'extensionmarket42'

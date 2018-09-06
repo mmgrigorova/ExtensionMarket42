@@ -1,9 +1,6 @@
-package services.users;
+package com.antman.extensionmarket42.users;
 
-import com.antman.extensionmarket42.Role;
 import com.antman.extensionmarket42.models.User;
-import com.antman.extensionmarket42.models.UserProfile;
-import com.antman.extensionmarket42.models.UserRole;
 import com.antman.extensionmarket42.repositories.base.UserRepository;
 import com.antman.extensionmarket42.services.users.UserDetailsServiceImpl;
 import org.junit.Assert;

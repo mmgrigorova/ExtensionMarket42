@@ -12,7 +12,7 @@
 <span th:if="${param.logout}">See you soon!</span>
 <section th:replace="fragments::search"></section>
 <section>
-    <h4>Featured Extensions</h4>
+    <h4>Featured com.antman.extensionmarket42.Extensions</h4>
     <article th:each="extension : ${featuredExtensions}" class="col-sm-2">
         <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
             <div class="icon-holder" th:if="${extension.icon}">
@@ -34,7 +34,7 @@
     </article>
 </section>
 <section>
-    <h4>Most Downloaded Extensions</h4>
+    <h4>Most Downloaded com.antman.extensionmarket42.Extensions</h4>
     <article th:each="extension : ${mostPopular}" class="col-sm-2">
         <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
             <div class="icon-holder" th:if="${extension.icon}">
@@ -56,7 +56,7 @@
     </article>
 </section>
 <section>
-    <h4>Recently Added Extensions</h4>
+    <h4>Recently Added com.antman.extensionmarket42.Extensions</h4>
     <article th:each="extension : ${recentlyAdded}" class="col-sm-2">
         <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
             <div class="icon-holder" th:if="${extension.icon}">

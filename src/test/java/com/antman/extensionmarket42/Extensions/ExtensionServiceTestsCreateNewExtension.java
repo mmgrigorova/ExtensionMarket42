@@ -1,4 +1,4 @@
-package Extensions;
+package com.antman.extensionmarket42.Extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.dtos.RepositoryDto;

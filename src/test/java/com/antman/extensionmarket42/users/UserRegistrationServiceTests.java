@@ -1,4 +1,4 @@
-package services.users;
+package com.antman.extensionmarket42.users;
 
 import com.antman.extensionmarket42.models.User;
 import com.antman.extensionmarket42.dtos.UserDto;
