@@ -47,24 +47,29 @@ public class RepositoryReloadController {
         StringBuilder successReport = new StringBuilder();
         successReport.append("GitHub repository data has been successfully refreshed for ")
                 .append(stats.getSuccessfulExtensions().size())
-                .append(" active extensions.<br/>");
+                .append(" active extensions.");
 
-        successReport.append("\nUpdate has been successful for Extensions:\n");
-        for (Extension extension : stats.getSuccessfulExtensions()) {
-            successReport.append(extension.getName())
-                    .append(" - ")
-                    .append(extension.getRepoLink())
-                    .append("\n");
-        }
-
-        successReport.append("\nUpdate failed for extensions:\n");
-        for (Extension extension : stats.getSuccessfulExtensions()) {
-            successReport.append(extension.getName())
-                    .append(" - ")
-                    .append(extension.getRepoLink())
-                    .append("\n");
-        }
         redirectAttributes.addFlashAttribute("successmessage", successReport);
+
+
+        StringBuilder infoReport = new StringBuilder();
+        for (Extension extension : stats.getSuccessfulExtensions()) {
+            infoReport.append(extension.getName())
+                    .append(" - ")
+                    .append(extension.getRepoLink())
+                    .append("<br />");
+        }
+
+        redirectAttributes.addFlashAttribute("successextensions", infoReport);
+
+        StringBuilder failureReport = new StringBuilder();
+        for (Extension extension : stats.getFailedExtensions()) {
+            failureReport.append(extension.getName())
+                    .append(" - ")
+                    .append(extension.getRepoLink())
+                    .append("<br />");
+        }
+        redirectAttributes.addFlashAttribute("failextensions", failureReport);
         return "redirect:/adminPanel";
     }
 }
