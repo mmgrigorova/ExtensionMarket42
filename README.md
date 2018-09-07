@@ -65,15 +65,15 @@ The commands below return a list of five extensions.
 
 Get featured extensions:
 
-    http://localhost:8080/api/extensions/featured
+    http://extension42.eu-west-3.elasticbeanstalk.com/api/extensions/featured
 
 Get most popular extensions:
 
-    http://localhost:8080/api/extensions/popular
+    http://extension42.eu-west-3.elasticbeanstalk.com/api/extensions/popular
 
 Get recently added extensions:
 
-    http://localhost:8080/api/extensions/recent
+    http://extension42.eu-west-3.elasticbeanstalk.com/api/extensions/recent
 
 Example Response
 
@@ -98,7 +98,7 @@ Example Response
     
 Download extension file
 
-	http://localhost:8080/downloadFile/<extensionId>/<filename.file>
+	http://extension42.eu-west-3.elasticbeanstalk.com/downloadFile/<extensionId>/<filename.file>
 	
 ## Installation Guide
 TODO
