@@ -1,6 +1,7 @@
 package com.antman.extensionmarket42.schedules;
 
 import com.antman.extensionmarket42.services.extensions.ExtensionRepositoryDataService;
+import com.antman.extensionmarket42.utils.SystemTimeWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,8 @@ public class ScheduledGitHubRefresh {
 
     @Scheduled(fixedRateString = "${schedule.fixedRateTime}", initialDelayString = "${schedule.initialDelayTime}")
     public void refreshGitHubData() {
-        logger.info("Running GitHub Refresh start at {}", dateFormat.format(new Date(System.currentTimeMillis())));
+        logger.info("Running GitHub Refresh start at {}", dateFormat.format(new Date(new SystemTimeWrapper().currentTimeMillisSystem())));
         extensionRepositoryDataService.refreshRepositoryInfoAllActiveExtensions();
-        logger.info("Running GitHub Refresh ending at {}", dateFormat.format(new Date(System.currentTimeMillis())));
+        logger.info("Running GitHub Refresh ending at {}", dateFormat.format(new Date(new SystemTimeWrapper().currentTimeMillisSystem())));
     }
 }

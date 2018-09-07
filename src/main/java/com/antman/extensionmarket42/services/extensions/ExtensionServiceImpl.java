@@ -8,6 +8,7 @@ import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.GitHubDataRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
+import com.antman.extensionmarket42.utils.SystemTimeWrapper;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,7 +89,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setUserProfile(userDetailsService.getCurrentUser());
         extension.setActive(true);
         extension.setPending(true);
-        java.sql.Date currentDate = new Date(System.currentTimeMillis());
+        java.sql.Date currentDate = new Date(new SystemTimeWrapper().currentTimeMillisSystem());
         extension.setAddedOn(currentDate);
 
         Set<Tag> tags = generateTagListFromDto(extensionDto.getTags());

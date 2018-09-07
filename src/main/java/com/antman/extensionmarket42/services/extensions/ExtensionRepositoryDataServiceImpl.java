@@ -5,6 +5,7 @@ import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.models.repository.DataRefresh;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.GitHubDataRepository;
+import com.antman.extensionmarket42.utils.SystemTimeWrapper;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
     private GitHubDataRepository gitHubDataRepository;
     private ExtensionService extensionService;
     private RemoteRepositoryService remoteRepositoryService;
-
+    private SystemTimeWrapper systemTimeWrapper;
 
     @Autowired
     public ExtensionRepositoryDataServiceImpl(ExtensionRepository extensionRepository, GitHubDataRepository gitHubDataRepository, ExtensionService extensionService, RemoteRepositoryService remoteRepositoryService) {
@@ -30,6 +31,16 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
         this.gitHubDataRepository = gitHubDataRepository;
         this.extensionService = extensionService;
         this.remoteRepositoryService = remoteRepositoryService;
+        systemTimeWrapper = new SystemTimeWrapper();
+    }
+
+
+    public ExtensionRepositoryDataServiceImpl(ExtensionRepository extensionRepository, GitHubDataRepository gitHubDataRepository, ExtensionService extensionService, RemoteRepositoryService remoteRepositoryService, SystemTimeWrapper systemTimeWrapper) {
+        this.extensionRepository = extensionRepository;
+        this.gitHubDataRepository = gitHubDataRepository;
+        this.extensionService = extensionService;
+        this.remoteRepositoryService = remoteRepositoryService;
+        this.systemTimeWrapper = systemTimeWrapper;
     }
 
     @Override
@@ -53,7 +64,7 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
 
         extensionRepository.saveAll(refreshStats.getSuccessfulExtensions());
 
-        refreshStats.setLastRefreshDate(System.currentTimeMillis());
+        refreshStats.setLastRefreshDate(systemTimeWrapper.currentTimeMillisSystem());
         refreshStats.setSuccessfulCount(refreshStats.getSuccessfulExtensions().size());
         refreshStats.setFailedCount(refreshStats.getFailedExtensions().size());
         gitHubDataRepository.save(refreshStats);
