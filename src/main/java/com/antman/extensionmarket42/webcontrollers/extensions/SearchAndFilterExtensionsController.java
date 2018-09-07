@@ -50,18 +50,22 @@ public class SearchAndFilterExtensionsController {
     }
 
     @GetMapping("/uploadDate")
-    public String displayResultsByDownloadCount(Model model){
-        List<Extension> sortedExtensions = extensionService.orderByDownloadsCount();
-        model.addAttribute("extensions",sortedExtensions);
+    public ModelAndView displayResultsByAddedOn(@RequestParam(defaultValue = "0") int page){
+        Page<Extension> sortedExtensions = extensionService.findAllByAddedOn(PageRequest.of(page,5));
+        ModelAndView modelAndView = new ModelAndView("/search-results");
 
-        return "/search-results";
+        modelAndView.addObject("extensions",sortedExtensions);
+
+        return modelAndView;
     }
     @GetMapping("/lastCommit")
-    public String displayResultsByLastCommit(Model model){
-        List<Extension> sortedExtensions = extensionService.orderByLastCommit();
-        model.addAttribute("extensions",sortedExtensions);
+    public ModelAndView displayResultsByLastCommit(@RequestParam(defaultValue = "0") int page){
+        Page<Extension> sortedExtensions = extensionService.findAllByCommit(PageRequest.of(page,5));
+        ModelAndView modelAndView = new ModelAndView("/search-results");
 
-        return "/search-results";
+        modelAndView.addObject("extensions",sortedExtensions);
+
+        return modelAndView;
     }
 
     @GetMapping("/downloadCount")

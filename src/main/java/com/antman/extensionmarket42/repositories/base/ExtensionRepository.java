@@ -2,6 +2,7 @@ package com.antman.extensionmarket42.repositories.base;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -39,4 +40,6 @@ public interface ExtensionRepository extends PagingAndSortingRepository<Extensio
     Page<Extension> getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase(String name, Pageable pageable);
     Page<Extension> findByActiveTrueAndPendingFalseAndTags_tagTitle(String tag,Pageable pageable);
     Page<Extension> findAllByPendingFalseAndActiveTrueOrderByDownloadsCountDesc(Pageable pageable);
+    Page<Extension> findAllByPendingFalseAndActiveTrueOrderByLastCommitDesc(Pageable pageable);
+    Page<Extension> findAllByPendingFalseAndActiveTrueOrderByAddedOnDesc(Pageable pageable);
 }

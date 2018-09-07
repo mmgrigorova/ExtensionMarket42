@@ -47,5 +47,7 @@ public interface ExtensionService {
     Page<Extension> findAllByName(String name,Pageable pageable);
     Page<Extension> findAllByTag(String name,Pageable pageable);
     Page<Extension> findAllByDownloads(Pageable pageable);
+    Page<Extension> findAllByCommit(Pageable pageable);
+    Page<Extension> findAllByAddedOn(Pageable pageable);
 
 }
