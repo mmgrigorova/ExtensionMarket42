@@ -39,13 +39,13 @@ public class ExtensionRepositoryDataServiceImplTests {
 
     @Before
     public void setupData() {
-        successfulExtensions = Arrays.asList(
-                createExtension("extension1", "extensiondesc1", 5, 10, "www.github.com/ext1/ext1"),
-                createExtension("extension2", "extensiondesc2", 5, 10, "www.github.com/ext2/ext2"),
-                createExtension("extension3", "extensiondesc3", 5, 10, "www.github.com/ext3/ext3")
-        );
-        when(extensionRepository.findAllByActiveTrueAndPendingIs(false))
-                .thenReturn(successfulExtensions);
+//        successfulExtensions = Arrays.asList(
+//                createExtension("extension1", "extensiondesc1", 5, 10, "www.github.com/ext1/ext1"),
+//                createExtension("extension2", "extensiondesc2", 5, 10, "www.github.com/ext2/ext2"),
+//                createExtension("extension3", "extensiondesc3", 5, 10, "www.github.com/ext3/ext3")
+//        );
+//        when(extensionRepository.findAllByActiveTrueAndPendingIs(false))
+//                .thenReturn(successfulExtensions);
         faildedExtensions = new ArrayList<>();
         extensionRepositoryDataService = new ExtensionRepositoryDataServiceImpl(extensionRepository, gitHubDataRepository, extensionService, remoteRepositoryService);
 

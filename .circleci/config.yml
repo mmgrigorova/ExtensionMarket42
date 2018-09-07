@@ -54,8 +54,7 @@ jobs:
           - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
           - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
           - bash <(curl -s https://codecov.io/bash)
-          after_success:
-          - bash <(curl -s https://codecov.io/bash)
+
     - store_test_results:
         path: ~/junit
     - store_artifacts:
@@ -67,3 +66,5 @@ jobs:
     - store_artifacts:
         path: /code/test-results
         destination: prefix
+  after_success:
+    - bash <(curl -s https://codecov.io/bash)
