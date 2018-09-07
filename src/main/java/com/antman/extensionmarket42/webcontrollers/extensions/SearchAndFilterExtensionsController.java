@@ -30,19 +30,22 @@ public class SearchAndFilterExtensionsController {
     public String displaySearchResultsByName(@RequestParam(required = false) Optional<String> name,
                                              @RequestParam(required = false) Optional<String> tagName,
                                              Model model) {
-        List<Extension> matchingByCriteria = null;
+        Page<Extension> matchingByCriteria = null;
         if (name.isPresent()) {
-            matchingByCriteria = extensionService.getByName(name.get());
+            matchingByCriteria = extensionService.findAllByName(name.get(),PageRequest.of(0,5));
             model.addAttribute("criteria", name.get());
 
         }
 
         if (tagName.isPresent()){
-            matchingByCriteria = extensionService.getByTag(tagName.get());
+            matchingByCriteria = extensionService.findAllByTag(tagName.get(), PageRequest.of(0,5));
             model.addAttribute("criteria", tagName.get());
         }
         model.addAttribute("extensions", matchingByCriteria);
-        model.addAttribute("resultCount", matchingByCriteria.size());
+
+        System.out.println(matchingByCriteria.getTotalPages());
+        model.addAttribute("resultCount", matchingByCriteria.getTotalPages());
+
         return "search-results";
     }
 
@@ -70,7 +73,7 @@ public class SearchAndFilterExtensionsController {
     }
     @GetMapping("/name")
     public ModelAndView displayResultsByName(@RequestParam(defaultValue = "0") int page){
-        Page<Extension> sortedExtensions = extensionService.findAll(new PageRequest(page,5));
+        Page<Extension> sortedExtensions = extensionService.findAll(PageRequest.of(page,5));
         ModelAndView modelAndView = new ModelAndView("/search-results");
         modelAndView.addObject("extensions",sortedExtensions);
 

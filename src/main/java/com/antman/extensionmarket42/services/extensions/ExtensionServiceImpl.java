@@ -249,4 +249,14 @@ public class ExtensionServiceImpl implements ExtensionService {
 
         return extensionPage;
     }
+
+    @Override
+    public Page<Extension> findAllByName(String name,Pageable pageable){
+        return extensionRepository.getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase(name,pageable);
+    }
+
+    @Override
+    public Page<Extension> findAllByTag(String name, Pageable pageable){
+        return extensionRepository.findByActiveTrueAndPendingFalseAndTags_tagTitle(name,pageable);
+    }
 }

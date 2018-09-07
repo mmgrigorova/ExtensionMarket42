@@ -39,8 +39,8 @@
                 </td>
             </tr>
         </table>
-        <ul class="nav nav-pills">
-            <li class="nav-item" th:each="i:${#numbers.sequence(0,2)}">
+        <ul class="nav nav-pills" th:if="${extensions.totalPages>0}">
+            <li class="nav-item" th:each="i:${#numbers.sequence(1,extensions.totalPages)}">
                 <a th:href="@{/search-results/name/(page=${i})}" th:text="${i}" class="nav-link"></a>
             </li>
         </ul>

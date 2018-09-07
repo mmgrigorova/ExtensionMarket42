@@ -44,4 +44,7 @@ public interface ExtensionService {
     String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName);
 
     Page<Extension> findAll(Pageable pageable);
+    Page<Extension> findAllByName(String name,Pageable pageable);
+    Page<Extension> findAllByTag(String name,Pageable pageable);
+
 }
