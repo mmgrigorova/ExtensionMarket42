@@ -42,5 +42,28 @@ public class SearchAndFilterExtensionsController {
         model.addAttribute("resultCount", matchingByCriteria.size());
         return "search-results";
     }
+
+    @GetMapping("/downloadCount")
+    public String displayResultsByDownloadCount(Model model){
+        List<Extension> sortedExtensions = extensionService.orderByDownloadsCount();
+        model.addAttribute("extensions",sortedExtensions);
+
+        return "search-results";
+    }
+    @GetMapping("/lastCommit")
+    public String displayResultsByLastCommit(Model model){
+        List<Extension> sortedExtensions = extensionService.orderByLastCommit();
+        model.addAttribute("extensions",sortedExtensions);
+
+        return "search-results";
+    }
+
+    @GetMapping("/uploadDate")
+    public String displayResultsByUploadDate(Model model){
+        List<Extension> sortedExtensions = extensionService.orderByUploadDate();
+        model.addAttribute("extensions",sortedExtensions);
+
+        return "search-results";
+    }
 }
 

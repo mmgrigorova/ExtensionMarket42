@@ -19,9 +19,9 @@
             <tr>
                 <th>Name</th>
                 <th>Owner</th>
-                <th>Download Count</th>
-                <th>Last Commit</th>
-                <th>Uploaded On</th>
+                <th><a href="#" th:href="@{search-results/downloadCount}">Download Count</a></th>
+                <th><a href="#" th:href="@{search-results/lastCommit}">Last Commit</a></th>
+                <th><a href="#" th:href="@{search-results/uploadDate}">Uploaded On</a></th>
                 <th>Tags</th>
             </tr>
             <tr th:each="e : ${extensions}">

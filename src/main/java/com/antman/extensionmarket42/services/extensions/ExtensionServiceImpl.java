@@ -111,7 +111,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         current.setName(extension.getName());
         current.setDescription(extension.getDescription());
         current.setVersion(extension.getVersion());
-        current.setDownloadLink(extension.getDownloadLink());
+        //current.setDownloadLink(extension.getDownloadLink());
 
         extensionRepository.save(current);
         return extension;
@@ -176,17 +176,17 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> orderByDownloadsCount() {
-        return extensionRepository.findAllByOrderByDownloadsCountDesc();
+        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByDownloadsCountDesc();
     }
 
     @Override
     public List<Extension> orderByLastCommit() {
-        return extensionRepository.findAllByOrderByLastCommitDesc();
+        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByLastCommitDesc();
     }
 
     @Override
     public List<Extension> orderByUploadDate() {
-        return extensionRepository.findAllByOrderByAddedOnDesc();
+        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByAddedOnDesc();
     }
 
     @Override
