@@ -47,22 +47,22 @@ public class RepositoryReloadController {
         StringBuilder successReport = new StringBuilder();
         successReport.append("GitHub repository data has been successfully refreshed for ")
                 .append(stats.getSuccessfulExtensions().size())
-                .append(" active extensions.");
+                .append(" active extensions.<br/>");
 
-        successReport.append("\rUpdate has been successful for Extensions:\r");
+        successReport.append("\nUpdate has been successful for Extensions:\n");
         for (Extension extension : stats.getSuccessfulExtensions()) {
             successReport.append(extension.getName())
                     .append(" - ")
                     .append(extension.getRepoLink())
-                    .append("\r");
+                    .append("\n");
         }
 
-        successReport.append("\rUpdate failed for extensions:\r");
+        successReport.append("\nUpdate failed for extensions:\n");
         for (Extension extension : stats.getSuccessfulExtensions()) {
             successReport.append(extension.getName())
                     .append(" - ")
                     .append(extension.getRepoLink())
-                    .append("\r");
+                    .append("\n");
         }
         redirectAttributes.addFlashAttribute("successmessage", successReport);
         return "redirect:/adminPanel";

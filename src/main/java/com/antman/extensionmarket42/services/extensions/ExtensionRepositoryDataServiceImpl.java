@@ -53,12 +53,12 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
 
         extensionRepository.saveAll(refreshStats.getSuccessfulExtensions());
 
-        DataRefresh dataRefresh = new DataRefresh();
-        dataRefresh.setLastRefreshDate(System.currentTimeMillis());
-        dataRefresh.setSuccessfulCount(refreshStats.getSuccessfulExtensions().size());
-        dataRefresh.setFailedCount(refreshStats.getFailedExtensions().size());
+        refreshStats.setLastRefreshDate(System.currentTimeMillis());
+        refreshStats.setSuccessfulCount(refreshStats.getSuccessfulExtensions().size());
+        refreshStats.setFailedCount(refreshStats.getFailedExtensions().size());
+        gitHubDataRepository.save(refreshStats);
 
-        return gitHubDataRepository.save(dataRefresh);
+        return refreshStats;
     }
 
     @Override
