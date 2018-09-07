@@ -273,4 +273,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     public Page<Extension> findAllByAddedOn(Pageable pageable){
         return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByAddedOnDesc(pageable);
     }
+
+    @Override
+    public Page<Extension> findAllByName(Pageable pageable){
+        return  extensionRepository.findAllByPendingFalseAndActiveTrueOrderByName(pageable);
+    }
 }

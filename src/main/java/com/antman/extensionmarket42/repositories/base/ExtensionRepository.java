@@ -42,4 +42,5 @@ public interface ExtensionRepository extends PagingAndSortingRepository<Extensio
     Page<Extension> findAllByPendingFalseAndActiveTrueOrderByDownloadsCountDesc(Pageable pageable);
     Page<Extension> findAllByPendingFalseAndActiveTrueOrderByLastCommitDesc(Pageable pageable);
     Page<Extension> findAllByPendingFalseAndActiveTrueOrderByAddedOnDesc(Pageable pageable);
+    Page<Extension> findAllByPendingFalseAndActiveTrueOrderByName(Pageable pageable);
 }

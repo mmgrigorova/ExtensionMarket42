@@ -77,9 +77,10 @@ public class SearchAndFilterExtensionsController {
 
         return modelAndView;
     }
+
     @GetMapping("/name")
     public ModelAndView displayResultsByName(@RequestParam(defaultValue = "0") int page){
-        Page<Extension> sortedExtensions = extensionService.findAll(PageRequest.of(page,5));
+        Page<Extension> sortedExtensions = extensionService.findAllByName(PageRequest.of(page,5));
         ModelAndView modelAndView = new ModelAndView("/search-results");
         modelAndView.addObject("extensions",sortedExtensions);
 
