@@ -1,15 +1,14 @@
 package com.antman.extensionmarket42.Extensions;
 
+import com.antman.extensionmarket42.models.UserProfile;
 import com.antman.extensionmarket42.models.extensions.Extension;
-import com.antman.extensionmarket42.models.repository.DataRefresh;
-import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
+import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.GitHubDataRepository;
 import com.antman.extensionmarket42.services.extensions.ExtensionRepositoryDataService;
 import com.antman.extensionmarket42.services.extensions.ExtensionRepositoryDataServiceImpl;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.extensions.RemoteRepositoryService;
-import javassist.NotFoundException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +16,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.io.IOException;
+import java.sql.Date;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.mockito.Mockito.when;
 
@@ -37,20 +37,22 @@ public class ExtensionRepositoryDataServiceImplTests {
     private ExtensionRepositoryDataService extensionRepositoryDataService;
 
     @Before
-    public void setupData(){
+    public void setupData() {
 //        when(extensionRepository.findAllByActiveTrueAndPendingIs(false))
-////                .thenReturn(Arrays.asList(
-////                        new Extension()
-////                ));
-        extensionRepositoryDataService = new ExtensionRepositoryDataServiceImpl(extensionRepository,gitHubDataRepository,extensionService,remoteRepositoryService);
+//                .thenReturn(Arrays.asList(
+//                        createExtension("extension1", "extensiondesc1", 5, 10),
+//                        createExtension("extension2", "extensiondesc2", 5, 10),
+//                        createExtension("extension3", "extensiondesc3", 5, 10)
+//                ));
+        extensionRepositoryDataService = new ExtensionRepositoryDataServiceImpl(extensionRepository, gitHubDataRepository, extensionService, remoteRepositoryService);
     }
 
     @Test
-    public void test(){
-        Assert.assertEquals(1,1);
+    public void test() {
+        Assert.assertEquals(1, 1);
     }
 
-//
+    //
 //    @Override
 //    public RepositorySyncStatistics refreshRepositoryInfoAllActiveExtensions() {
 //        RepositorySyncStatistics refreshStats = new RepositorySyncStatistics();
@@ -80,4 +82,28 @@ public class ExtensionRepositoryDataServiceImplTests {
 //        gitHubDataRepository.save(dataRefresh);
 //        return refreshStats;
 //    }
+    private Extension createExtension(String extensionName, String extensionDesc, int openIssues, int pullRequests) {
+        UserProfile userProfile = new UserProfile();
+        userProfile.setFirstName("TestUserFirstName");
+        userProfile.setLastName("TestUserLastName");
+        userProfile.setEmail("testuser@email.com");
+
+        // Arrange
+        //        Epoch timestamp: 1501585200
+        //        Human time (GMT): Tuesday, August 1, 2017 11:00:00 AM
+        Date addedOn = new Date(1501585200);
+
+        //        Epoch timestamp: 1533121200
+        //        Human time (GMT): Wednesday, August 1, 2018 11:00:00 AM
+        Date lastCommit = new Date(1533121200);
+
+
+        Extension extension = new Extension(extensionName, extensionDesc, "1.0", 4, "testFile.txt",
+                "www.github.com/testuser/testrepo", openIssues, pullRequests, lastCommit, userProfile, null, true, false, null, addedOn);
+        Set<Tag> expectedTags = new HashSet<>();
+        expectedTags.add(new Tag("testTag1"));
+        expectedTags.add(new Tag("testTag2"));
+
+        return extension;
+    }
 }
