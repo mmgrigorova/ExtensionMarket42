@@ -1,14 +1,13 @@
 
 # ExtensionMarket42  [![CircleCI](https://camo.githubusercontent.com/351d5280b6269709d06e106baf1132415214823d/68747470733a2f2f636972636c6563692e636f6d2f67682f6d6d677269676f726f76612f457874656e73696f6e4d61726b657434322e7376673f7374796c653d736869656c64)](https://circleci.com/gh/mmgrigorova/ExtensionMarket42)
 ----------
-:eyes:[Website](http://extension42.eu-west-3.elasticbeanstalk.com)
-----------
 ### About
 
 Extension Market 42 is an online application which allows developers to browse, upload and download extesnions for ImageStudioCode*. 
 
 It is the final project for Telerik Academy Alpha in Java - 2018.
 
+:eyes: [Visit Website](http://extension42.eu-west-3.elasticbeanstalk.com)
 ----------
 
 ## Features
