@@ -18,15 +18,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -51,11 +54,12 @@ public class ExtensionRepositoryDataServiceImplTests {
     public void setupData() {
         when(systemTimeWrapperMock.currentTimeMillisSystem())
                 .thenReturn(1536330057650L);
-        //        Epoch timestamp: 1536309425
-        //        Human time (GMT): Friday, September 7, 2018 8:37:05 AM
+
+        // Human time (GMT): Friday, September 7, 2018 8:37:05 AM
         lastSyncDate = new Timestamp(1536330057650L);
 
     }
+
 
     @Test
     public void refreshRepositoryInfoAllActiveExtensions_WhenRefreshIsSuccessful_ReturnRepositorySyncStatisticsWith3SuccessfulExtensions() throws NotFoundException, IOException {
@@ -102,6 +106,72 @@ public class ExtensionRepositoryDataServiceImplTests {
 
         // Assert
         Assert.assertThat(resultStatistics, samePropertyValuesAs(extectedStatistics));
+    }
+
+    @Test
+    public void refreshRepositoryInfoPerExtension_whenExtensionIsPresentAndGitHubIsAvailable_ReturnUpdatedInformation() throws NotFoundException, IOException {
+        // Arrange
+        Extension expectedExtension = createExtension("extension1", "extensiondesc1", 5, 10, "www.github.com/ext1/ext1");
+        expectedExtension.setId(1L);
+
+        successfulExtensions = Collections.singletonList(expectedExtension);
+
+        when(extensionRepository.save(any(Extension.class)))
+                .thenReturn(expectedExtension);
+
+        when(extensionService.getById(1L))
+                .thenReturn(expectedExtension);
+
+        RepositoryDto repositoryDto1 = new RepositoryDto(6, 15, lastSyncDate, expectedExtension.getRepoLink());
+        repositoryDto1.setLastCommit(lastSyncDate);
+
+        when(remoteRepositoryService.getRepositoryInfoByRepoLink(expectedExtension.getRepoLink()))
+                .thenReturn(repositoryDto1);
+
+        faildedExtensions = new ArrayList<>();
+        extensionRepositoryDataService = new ExtensionRepositoryDataServiceImpl(extensionRepository, gitHubDataRepository, extensionService, remoteRepositoryService, systemTimeWrapperMock);
+
+        // Act
+        Extension resultExtension = extensionRepositoryDataService.refreshRepositoryInfoPerExtension(1L);
+
+        // Assert
+        Assert.assertThat(expectedExtension, samePropertyValuesAs(resultExtension));
+    }
+
+    @Test
+    public void getLastSyncData_whenDataRefreshIsAvailable_ReturnMostRecentDataRefreshInformation() {
+        //Arrange
+        DataRefresh mostRecentRefresh = new DataRefresh();
+        mostRecentRefresh.setId(1L);
+        mostRecentRefresh.setSuccessfulCount(2);
+        mostRecentRefresh.setFailedCount(1);
+        mostRecentRefresh.setLastRefreshDate(lastSyncDate);
+
+        when(gitHubDataRepository.findFirstByOrderByLastRefreshDateDesc())
+                .thenReturn(mostRecentRefresh);
+
+        //Act
+        DataRefresh resultDataRefresh = getLastSyncData();
+
+        //Assert
+        Assert.assertThat(mostRecentRefresh, samePropertyValuesAs(resultDataRefresh));
+    }
+
+    @Test
+    public void getLastSyncData_whenDataRefreshIsNotAvailable_ReturnNull() {
+        //Arrange
+        when(gitHubDataRepository.findFirstByOrderByLastRefreshDateDesc())
+                .thenReturn(null);
+
+        //Act
+        DataRefresh resultDataRefresh = getLastSyncData();
+
+        //Assert
+        Assert.assertNull(resultDataRefresh);
+    }
+
+    public DataRefresh getLastSyncData() {
+        return gitHubDataRepository.findFirstByOrderByLastRefreshDateDesc();
     }
 
     private Extension createExtension(String extensionName, String extensionDesc, int openIssues, int pullRequests, String repoLink) {
