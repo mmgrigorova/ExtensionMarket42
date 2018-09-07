@@ -1,7 +1,6 @@
 package com.antman.extensionmarket42.webcontrollers.extensions;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
-import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
 import com.antman.extensionmarket42.services.extensions.ExtensionRepositoryDataService;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import javassist.NotFoundException;
@@ -117,7 +116,7 @@ public class DisplayExtensionsController {
     @GetMapping("adminPanel/sortByName")
     public ModelAndView sortByName(@RequestParam(defaultValue = "0") int page){
         Page<Extension> sortedExtensions = extensionService.findAllByName(PageRequest.of(page,5));
-        ModelAndView modelAndView = new ModelAndView("/redirect:/adminPanel");
+        ModelAndView modelAndView = new ModelAndView("/adminPanel");
         modelAndView.addObject("extensions",sortedExtensions);
 
         return modelAndView;
