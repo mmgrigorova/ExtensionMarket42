@@ -38,12 +38,12 @@ public class ExtensionRepositoryDataServiceImplTests {
 
     @Before
     public void setupData() {
-        when(extensionRepository.findAllByActiveTrueAndPendingIs(false))
-                .thenReturn(Arrays.asList(
-                        createExtension("extension1", "extensiondesc1", 5, 10),
-                        createExtension("extension2", "extensiondesc2", 5, 10),
-                        createExtension("extension3", "extensiondesc3", 5, 10)
-                ));
+//        when(extensionRepository.findAllByActiveTrueAndPendingIs(false))
+//                .thenReturn(Arrays.asList(
+//                        createExtension("extension1", "extensiondesc1", 5, 10),
+//                        createExtension("extension2", "extensiondesc2", 5, 10),
+//                        createExtension("extension3", "extensiondesc3", 5, 10)
+//                ));
         extensionRepositoryDataService = new ExtensionRepositoryDataServiceImpl(extensionRepository, gitHubDataRepository, extensionService, remoteRepositoryService);
     }
 
