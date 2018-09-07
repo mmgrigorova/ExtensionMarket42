@@ -259,4 +259,8 @@ public class ExtensionServiceImpl implements ExtensionService {
     public Page<Extension> findAllByTag(String name, Pageable pageable){
         return extensionRepository.findByActiveTrueAndPendingFalseAndTags_tagTitle(name,pageable);
     }
+
+    public Page<Extension> findAllByDownloads(Pageable pageable){
+        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByDownloadsCountDesc(pageable);
+    }
 }

@@ -49,7 +49,7 @@ public class SearchAndFilterExtensionsController {
         return "search-results";
     }
 
-    @GetMapping("/downloadCount")
+    @GetMapping("/uploadDate")
     public String displayResultsByDownloadCount(Model model){
         List<Extension> sortedExtensions = extensionService.orderByDownloadsCount();
         model.addAttribute("extensions",sortedExtensions);
@@ -64,12 +64,14 @@ public class SearchAndFilterExtensionsController {
         return "/search-results";
     }
 
-    @GetMapping("/uploadDate")
-    public String displayResultsByUploadDate(Model model){
-        List<Extension> sortedExtensions = extensionService.orderByUploadDate();
-        model.addAttribute("extensions",sortedExtensions);
+    @GetMapping("/downloadCount")
+    public ModelAndView displayResultsByUploadDate(@RequestParam(defaultValue = "0") int page){
+        Page<Extension> sortedExtensions = extensionService.findAllByDownloads(PageRequest.of(page,5));
+        ModelAndView modelAndView = new ModelAndView("/search-results");
 
-        return "/search-results";
+        modelAndView.addObject("extensions",sortedExtensions);
+
+        return modelAndView;
     }
     @GetMapping("/name")
     public ModelAndView displayResultsByName(@RequestParam(defaultValue = "0") int page){

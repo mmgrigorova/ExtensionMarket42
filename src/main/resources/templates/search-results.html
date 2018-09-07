@@ -25,7 +25,7 @@
                 <th>Tags</th>
             </tr>
             <tr th:each="e : ${extensions}">
-                <td><a href="#" th:href="@{./extension-details/{extensionId} (extensionId=${e.id})}"
+                <td><a href="#" th:href="@{/extension-details/{extensionId} (extensionId=${e.id})}"
                        th:text="${e.name}"></a></td>
                 <td th:text="${e.userProfile.firstName +' '+e.userProfile.lastName }"></td>
                 <td th:text="${e.downloadsCount}"></td>
