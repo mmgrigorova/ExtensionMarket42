@@ -113,7 +113,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         current.setName(extension.getName());
         current.setDescription(extension.getDescription());
         current.setVersion(extension.getVersion());
-        //current.setDownloadLink(extension.getDownloadLink());
+        current.setDownloadLink(extension.getDownloadLink());
 
         extensionRepository.save(current);
         return extension;

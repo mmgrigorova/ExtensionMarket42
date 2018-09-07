@@ -1,7 +1,6 @@
 package com.antman.extensionmarket42.webcontrollers.extensions;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
-import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
 import com.antman.extensionmarket42.services.extensions.ExtensionRepositoryDataService;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import javassist.NotFoundException;

@@ -2,13 +2,12 @@ package com.antman.extensionmarket42.services.extensions;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.models.repository.DataRefresh;
-import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
 import javassist.NotFoundException;
 
 import java.io.IOException;
 
 public interface ExtensionRepositoryDataService {
-    RepositorySyncStatistics refreshRepositoryInfoAllActiveExtensions();
+    DataRefresh refreshRepositoryInfoAllActiveExtensions();
     Extension refreshRepositoryInfoPerExtension(Long id) throws NotFoundException, IOException;
 
     DataRefresh getLastSyncData();

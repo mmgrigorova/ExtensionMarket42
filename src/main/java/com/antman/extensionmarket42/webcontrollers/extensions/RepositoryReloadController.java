@@ -1,6 +1,6 @@
 package com.antman.extensionmarket42.webcontrollers.extensions;
 
-import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
+import com.antman.extensionmarket42.models.repository.DataRefresh;
 import com.antman.extensionmarket42.services.extensions.ExtensionRepositoryDataService;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
@@ -42,7 +42,7 @@ public class RepositoryReloadController {
 
     @GetMapping("/all")
     public String refreshAllExtensionRepositoryData(RedirectAttributes redirectAttributes){
-        RepositorySyncStatistics stats = extensionRepoService.refreshRepositoryInfoAllActiveExtensions();
+        DataRefresh stats = extensionRepoService.refreshRepositoryInfoAllActiveExtensions();
         redirectAttributes.addFlashAttribute("successmessage",
                 "GitHub repository data has been successfully refreshed for " + stats.getSuccessfulExtensions().size() + " active extensions.");
         return "redirect:/adminPanel";
