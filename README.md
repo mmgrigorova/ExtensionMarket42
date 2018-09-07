@@ -8,7 +8,6 @@ Extension Market 42 is an online application which allows developers to browse, 
 It is the final project for Telerik Academy Alpha in Java - 2018.
 
 :eyes: [Visit Website](http://extension42.eu-west-3.elasticbeanstalk.com)
-----------
 
 ## Features
 
