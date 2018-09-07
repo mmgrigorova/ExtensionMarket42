@@ -66,5 +66,3 @@ jobs:
     - store_artifacts:
         path: /code/test-results
         destination: prefix
-  after_success:
-    - bash <(curl -s https://codecov.io/bash)
