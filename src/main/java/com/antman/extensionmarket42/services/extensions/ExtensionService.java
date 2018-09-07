@@ -4,6 +4,8 @@ import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
 import javassist.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -40,4 +42,6 @@ public interface ExtensionService {
     Extension toggleFeaturedExtension(long extensionId) throws NotFoundException;
 
     String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName);
+
+    Page<Extension> findAll(Pageable pageable);
 }
