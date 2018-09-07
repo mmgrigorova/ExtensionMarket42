@@ -1,5 +1,6 @@
 package com.antman.extensionmarket42.webcontrollers.extensions;
 
+import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.models.repository.DataRefresh;
 import com.antman.extensionmarket42.services.extensions.ExtensionRepositoryDataService;
 import javassist.NotFoundException;
@@ -43,8 +44,27 @@ public class RepositoryReloadController {
     @GetMapping("/all")
     public String refreshAllExtensionRepositoryData(RedirectAttributes redirectAttributes){
         DataRefresh stats = extensionRepoService.refreshRepositoryInfoAllActiveExtensions();
-        redirectAttributes.addFlashAttribute("successmessage",
-                "GitHub repository data has been successfully refreshed for " + stats.getSuccessfulExtensions().size() + " active extensions.");
+        StringBuilder successReport = new StringBuilder();
+        successReport.append("GitHub repository data has been successfully refreshed for ")
+                .append(stats.getSuccessfulExtensions().size())
+                .append(" active extensions.");
+
+        successReport.append("\rUpdate has been successful for Extensions:\r");
+        for (Extension extension : stats.getSuccessfulExtensions()) {
+            successReport.append(extension.getName())
+                    .append(" - ")
+                    .append(extension.getRepoLink())
+                    .append("\r");
+        }
+
+        successReport.append("\rUpdate failed for extensions:\r");
+        for (Extension extension : stats.getSuccessfulExtensions()) {
+            successReport.append(extension.getName())
+                    .append(" - ")
+                    .append(extension.getRepoLink())
+                    .append("\r");
+        }
+        redirectAttributes.addFlashAttribute("successmessage", successReport);
         return "redirect:/adminPanel";
     }
 }
