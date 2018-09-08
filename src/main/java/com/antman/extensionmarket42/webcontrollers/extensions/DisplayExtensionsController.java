@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class DisplayExtensionsController {
@@ -28,7 +29,7 @@ public class DisplayExtensionsController {
     }
 
     @GetMapping("adminPanel")
-    public ModelAndView getAdminPage(@ModelAttribute("choice")  String choice){
+    public ModelAndView getAdminPage(@ModelAttribute("choice") String choice){
         List<Extension> extensions = null;
         ModelAndView modelAndView = new ModelAndView("adminPanel");
         modelAndView.addObject("repoData", gitHubService.getLastSyncData());
@@ -114,10 +115,13 @@ public class DisplayExtensionsController {
     }
 
     @GetMapping("adminPanel/sortByName")
-    public ModelAndView sortByName(@RequestParam(defaultValue = "0") int page){
-        Page<Extension> sortedExtensions = extensionService.findAllByName(PageRequest.of(page,5));
-        ModelAndView modelAndView = new ModelAndView("/adminPanel");
-        modelAndView.addObject("extensions",sortedExtensions);
+    public ModelAndView sortByName(@RequestParam(defaultValue = "0") int page,RedirectAttributes redirectAttributes){
+        //Page<Extension> sortedExtensions = extensionService.findAllByName(PageRequest.of(page,5));
+        ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
+        //modelAndView.addObject("extensions",sortedExtensions);
+        modelAndView.addObject("choice","sortByName");
+        modelAndView.addObject("page",page);
+        //redirectAttributes.addFlashAttribute("extensions",sortedExtensions);
 
         return modelAndView;
     }
