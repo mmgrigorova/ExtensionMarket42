@@ -87,7 +87,22 @@ public class ExtensionsServiceTests {
         assertEquals(1, result.size());
     }
 
+    @Test
+    public void deactivateExtension() throws NotFoundException{
+        Extension extension = new Extension();
+        extension.setActive(true);
+        Extension newData = new Extension();
+        newData.setActive(false);
 
+        when(extensionMockRepository.findById(1L))
+                .thenReturn(Optional.of(extension));
+        when(extensionMockRepository.save(any(Extension.class)))
+                .thenReturn(newData);
+
+        Extension result = extensionService.deactivateExtension(1L,false);
+
+        Assert.assertEquals(result.isActive(), false);
+    }
 
     @Test
     public void increaseDownloadCount_whenExtensionIsPresent_ReturnIncreasedDownloadCountByOne() {

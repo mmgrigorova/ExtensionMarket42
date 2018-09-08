@@ -90,8 +90,7 @@ public class DeveloperSpaceController {
     @RequestMapping(value ="/developer/edit/delete/{extensionId}",method = RequestMethod.POST)
     public ModelAndView removeExtension(@PathVariable("extensionId")long extensionId, RedirectAttributes redirectAttributes)throws Exception{
         Extension extension = extensionService.getById(extensionId);
-        extension.setActive(false);
-        extensionService.deactivateExtension(extension);
+        extensionService.deactivateExtension(extensionId,false);
 
         ModelAndView modelAndView = new ModelAndView("redirect:/developer");
         redirectAttributes.addFlashAttribute("confirmMessage", "Extension " + extension.getName() + " has been deleted");

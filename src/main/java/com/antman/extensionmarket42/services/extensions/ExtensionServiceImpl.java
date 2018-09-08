@@ -103,7 +103,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension deactivateExtension(Extension extension) {
+    public Extension deactivateExtension(long id, boolean b) throws NotFoundException{
+        Extension extension = getById(id);
+        extension.setActive(b);
         extensionRepository.save(extension);
         return extension;
     }

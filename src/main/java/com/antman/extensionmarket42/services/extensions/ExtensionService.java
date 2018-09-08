@@ -14,7 +14,7 @@ public interface ExtensionService {
     Extension getById(Long id) throws NotFoundException;
 
     Extension createNewExtension(ExtensionDto extensionDto) throws ParseException, IOException;
-    Extension deactivateExtension(Extension extension);
+    Extension deactivateExtension(long id,boolean b) throws NotFoundException;
     Extension updateExtension(long id, Extension extension) throws NotFoundException;
     Extension updateExtension(long id, Extension extension, String path) throws NotFoundException;
     int increaseDownloadCount(Long extensionId);
