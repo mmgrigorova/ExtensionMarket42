@@ -34,6 +34,7 @@ public class SearchAndFilterExtensionsController {
         if (name.isPresent()) {
             matchingByCriteria = extensionService.findAllByName(name.get(),PageRequest.of(0,5));
             model.addAttribute("criteria", name.get());
+            model.addAttribute("searchParam",name.get());
 
         }
 
@@ -42,7 +43,6 @@ public class SearchAndFilterExtensionsController {
             model.addAttribute("criteria", tagName.get());
         }
         model.addAttribute("extensions", matchingByCriteria);
-        model.addAttribute("searchParam",name.get());
         model.addAttribute("resultCount", matchingByCriteria.getTotalPages());
 
         return "search-results";
