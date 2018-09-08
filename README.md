@@ -140,6 +140,12 @@ Download extension file
 
 	http://extension42.eu-west-3.elasticbeanstalk.com/downloadFile/<extensionId>/<filename.file>
 
+## Screenshots
+
+#### Homepage
+![homepage](https://i.imgur.com/ykePjfp.png)
+![extensiondetails](https://i.imgur.com/mVPPuXJ.png)
+
 ---- 
 
 *This IDE does not exist.
