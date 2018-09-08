@@ -112,7 +112,7 @@ Download extension file
 
 		https://github.com/mmgrigorova/ExtensionMarket42
 
-2. Go to your Terminal and navigate to the root project folder
+2. Open your Terminal and navigate to the root project folder
 
 		ExtensionMarket42
 	
@@ -140,9 +140,6 @@ Download extension file
 5. Register as new user
 6. Enjoy!
 		
-
 ---- 
 
 *This IDE does not exist.
-
-> Written with [StackEdit](https://stackedit.io/).
