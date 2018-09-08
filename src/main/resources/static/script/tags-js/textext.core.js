@@ -18,9 +18,9 @@
 	 * @date 2011/08/19
 	 * @id TextExt
 	 */
-	function TextExt() {};
-
-	/**
+    function TextExt() {
+    }
+    /**
 	 * ItemManager is used to seamlessly convert between string that come from the user input to whatever 
 	 * the format the item data is being passed around in. It's used by all plugins that in one way or 
 	 * another operate with items, such as Tags, Filter, Autocomplete and Suggestions. Default implementation 
@@ -44,9 +44,9 @@
 	 * @date 2011/08/19
 	 * @id ItemManager
 	 */
-	function ItemManager() {};
-
-	/**
+    function ItemManager() {
+    }
+    /**
 	 * TextExtPlugin is a base class for all plugins. It provides common methods which are reused
 	 * by majority of plugins.
 	 *
@@ -67,9 +67,9 @@
 	 * @date 2011/08/19
 	 * @id TextExtPlugin
 	 */
-	function TextExtPlugin() {};
-
-	var stringify = (JSON || {}).stringify,
+    function TextExtPlugin() {
+    }
+    var stringify = (JSON || {}).stringify,
 		slice     = Array.prototype.slice,
 		p,
 		UNDEFINED = 'undefined',
@@ -498,9 +498,8 @@
 
 		// name.length here should be zero
 		return result;
-	};
-
-	/**
+    }
+    /**
 	 * Hooks up specified events in the scope of the current object.
 	 * @author agorbatchev
 	 * @date 2011/08/09
@@ -526,14 +525,12 @@
 
 		for(event in args)
 			bind(event, args[event]);
-	};
-
-	function formDataObject(input, form)
+    }
+    function formDataObject(input, form)
 	{
 		return { 'input' : input, 'form' : form };
-	};
-
-	//--------------------------------------------------------------------------------
+    }
+    //--------------------------------------------------------------------------------
 	// ItemManager core component
 	
 	p = ItemManager.prototype;
@@ -1583,9 +1580,9 @@
 
 (function($)
 {
-	function TextExtIE9Patches() {};
-
-	$.fn.textext.TextExtIE9Patches = TextExtIE9Patches;
+    function TextExtIE9Patches() {
+    }
+    $.fn.textext.TextExtIE9Patches = TextExtIE9Patches;
 	$.fn.textext.addPatch('ie9',TextExtIE9Patches);
 
 	var p = TextExtIE9Patches.prototype;

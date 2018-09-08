@@ -18,7 +18,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.io.IOException;
 import java.sql.Date;

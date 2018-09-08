@@ -17,9 +17,9 @@
 	 * @date 2011/08/18
 	 * @id TextExtPrompt
 	 */
-	function TextExtPrompt() {};
-
-	$.fn.textext.TextExtPrompt = TextExtPrompt;
+    function TextExtPrompt() {
+    }
+    $.fn.textext.TextExtPrompt = TextExtPrompt;
 	$.fn.textext.addPlugin('prompt', TextExtPrompt);
 
 	var p = TextExtPrompt.prototype,

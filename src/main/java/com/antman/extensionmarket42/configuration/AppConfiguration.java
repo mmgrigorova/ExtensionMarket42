@@ -1,16 +1,8 @@
 package com.antman.extensionmarket42.configuration;
 
-import com.antman.extensionmarket42.models.extensions.Extension;
-import com.antman.extensionmarket42.models.extensions.Screenshot;
-import com.antman.extensionmarket42.models.extensions.Tag;
-import com.antman.extensionmarket42.models.*;
-import com.antman.extensionmarket42.utils.FileStorageProperties;
-import com.antman.extensionmarket42.utils.ImageStorageProperties;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.hibernate.SessionFactory;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

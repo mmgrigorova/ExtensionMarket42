@@ -11,16 +11,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 
 @Service
 public class UserDetailsServiceImpl implements MyUserDetailsService {
@@ -49,7 +45,7 @@ public class UserDetailsServiceImpl implements MyUserDetailsService {
 
         List<GrantedAuthority> authorities = getAuthorities(user.getUserRoles());
 
-        org.springframework.security.core.userdetails.User registered = new org.springframework.security.core.userdetails.User(
+        return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
                 enabled,
@@ -57,8 +53,6 @@ public class UserDetailsServiceImpl implements MyUserDetailsService {
                 credentialsNonExpired,
                 accountNonLocked,
                 authorities);
-
-        return registered;
     }
 
     public UserProfile getCurrentUser() {

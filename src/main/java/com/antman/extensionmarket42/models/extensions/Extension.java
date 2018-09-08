@@ -1,7 +1,6 @@
 package com.antman.extensionmarket42.models.extensions;
 
 import com.antman.extensionmarket42.models.UserProfile;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.sql.Date;

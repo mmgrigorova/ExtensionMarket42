@@ -5,7 +5,6 @@ import com.antman.extensionmarket42.dtos.RepositoryDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
-import com.antman.extensionmarket42.repositories.base.GitHubDataRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import com.antman.extensionmarket42.utils.SystemTimeWrapper;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Date;

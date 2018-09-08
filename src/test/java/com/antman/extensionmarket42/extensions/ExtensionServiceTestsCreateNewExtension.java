@@ -29,6 +29,8 @@ import java.util.Set;
 
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 
@@ -44,10 +46,10 @@ public class ExtensionServiceTestsCreateNewExtension {
 
     private ExtensionService extensionService = null;
     private Extension expectedExtension = null;
-    UserProfile userProfile;
+    private UserProfile userProfile;
 
     @Before
-    public void setupTests() throws IOException, ParseException {
+    public void setupTests() {
         userProfile = new UserProfile();
         userProfile.setFirstName("TestUserFirstName");
         userProfile.setLastName("TestUserLastName");
@@ -80,7 +82,7 @@ public class ExtensionServiceTestsCreateNewExtension {
         Mockito.when(extensionRepository.save(any(Extension.class)))
                 .thenReturn(expectedExtension);
 
-        RepositoryDto repositoryDto = new RepositoryDto(5, 325, lastCommit, "www.github.com/testuser,testrepo");
+        RepositoryDto repositoryDto = new RepositoryDto(5, 325, lastCommit, "www.github.com/testuser/testrepo");
         Mockito.when(remoteRepositoryService.getRepositoryInfoByRepoData("testuser", "testrepo"))
                 .thenReturn(repositoryDto);
 
@@ -95,6 +97,7 @@ public class ExtensionServiceTestsCreateNewExtension {
         Extension newExtension = extensionService.createNewExtension(extensionDto);
 
         // Assert
+        verify(remoteRepositoryService,times(1)).getRepositoryInfoByRepoData("testuser", "testrepo");
         Assert.assertThat(expectedExtension, samePropertyValuesAs(newExtension));
     }
 }

@@ -16,9 +16,9 @@
 	 * @date 2011/08/18
 	 * @id TextExtSuggestions
 	 */
-	function TextExtSuggestions() {};
-
-	$.fn.textext.TextExtSuggestions = TextExtSuggestions;
+    function TextExtSuggestions() {
+    }
+    $.fn.textext.TextExtSuggestions = TextExtSuggestions;
 	$.fn.textext.addPlugin('suggestions', TextExtSuggestions);
 
 	var p = TextExtSuggestions.prototype,

@@ -17,9 +17,9 @@
 	 * @date 2011/08/17
 	 * @id TextExtAutocomplete
 	 */
-	function TextExtAutocomplete() {};
-
-	$.fn.textext.TextExtAutocomplete = TextExtAutocomplete;
+    function TextExtAutocomplete() {
+    }
+    $.fn.textext.TextExtAutocomplete = TextExtAutocomplete;
 	$.fn.textext.addPlugin('autocomplete', TextExtAutocomplete);
 
 	var p = TextExtAutocomplete.prototype,

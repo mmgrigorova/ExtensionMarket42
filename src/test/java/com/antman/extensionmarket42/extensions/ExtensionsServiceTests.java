@@ -144,6 +144,7 @@ public class ExtensionsServiceTests {
         Extension result = extensionService.approvePendingExtension(1L);
 
         //Assert
+        verify(extensionMockRepository,times(1)).save(extension);
         Assert.assertFalse(result.isPending());
     }
 

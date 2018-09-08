@@ -7,6 +7,6 @@ $(document).ready(function () {
     $('#close-report').on('click', function () {
         $('.accordion').hide();
         $('#close-report').hide();
-    })
+    });
     console.log("doing something");
 });

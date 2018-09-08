@@ -60,11 +60,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
     private boolean emailExist(String email) {
         Optional<User> userOptional = userRepository.findById(email);
-        if (userOptional.isPresent()) {
-            return true;
-        } else {
-            return false;
-        }
+        return userOptional.isPresent();
     }
 
 
