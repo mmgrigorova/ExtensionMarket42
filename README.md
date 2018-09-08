@@ -101,6 +101,45 @@ Download extension file
 	
 ## Installation Guide
 
+#### Prerequisites
+
+1. [MariaDB](https://mariadb.com)
+2. [Java 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+
+#### Run Instructions
+
+1. Download/clone the project from GitHub
+
+		https://github.com/mmgrigorova/ExtensionMarket42
+
+2. Go to your Terminal and navigate to the root project folder
+
+		ExtensionMarket42
+	
+3. Execute the following commands in Terminal:
+- Create the database and user to be used by the application
+	(if you prefer to use an SQL client you can execute the market_db.sql file's content in it)
+	
+		$ mysql -u root -p < market_db.sql
+	
+- Build and run the application
+	- Run this command if you only have Java 1.8 on your computer and no recent Java versions
+		
+		$./gradlew bootRun
+		
+	- Run this command if you have more than one Java version
+		
+		$./gradlew bootRun -Dorg.gradle.java.home=/JDK_PATH
+		
+	example:
+		
+		./gradlew bootRun -Dorg.gradle.java.home=/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home
+
+4. In your browser, go to localhost:8080 to open the application
+
+5. Register as new user
+6. Enjoy!
+		
 
 ---- 
 
