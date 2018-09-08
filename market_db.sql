@@ -118,6 +118,9 @@ CREATE TABLE `market_db`.`data_refresh` (
   `failedCount` INT NULL,
   PRIMARY KEY (`id`));
 
+CREATE USER 'extensionapp'@'localhost' IDENTIFIED BY 'extensionLocal123';
+GRANT ALL PRIVILEGES ON market_db.* TO 'extensionapp'@'localhost';
+
 -- Data exporting was unselected.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
