@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -106,15 +107,19 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extension;
     }
 
-
-    public Extension updateExtension(long id, Extension extension, String filePath) {
+    @Override
+    public Extension updateExtension(long id, Extension extension, String filepath) {
         Extension current = extensionRepository.getById(id);
 
         current.setName(extension.getName());
         current.setDescription(extension.getDescription());
         current.setVersion(extension.getVersion());
-        current.setDownloadLink(extension.getDownloadLink());
-        current.setDownloadLink(filePath);
+        System.out.println(filepath);
+        if(filepath != null && !filepath.isEmpty())
+        {
+            current.setDownloadLink(filepath);
+        }
+        System.out.println(current.getDownloadLink());
         extensionRepository.save(current);
         return extension;
     }

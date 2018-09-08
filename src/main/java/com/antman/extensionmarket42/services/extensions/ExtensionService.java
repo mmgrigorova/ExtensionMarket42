@@ -16,6 +16,7 @@ public interface ExtensionService {
     Extension createNewExtension(ExtensionDto extensionDto) throws ParseException, IOException;
     Extension deactivateExtension(Extension extension);
     Extension updateExtension(long id, Extension extension);
+    Extension updateExtension(long id, Extension extension, String path);
     int increaseDownloadCount(Long extensionId);
 
 
