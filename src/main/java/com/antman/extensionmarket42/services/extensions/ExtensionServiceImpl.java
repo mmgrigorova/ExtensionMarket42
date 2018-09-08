@@ -115,12 +115,12 @@ public class ExtensionServiceImpl implements ExtensionService {
         current.setName(extension.getName());
         current.setDescription(extension.getDescription());
         current.setVersion(extension.getVersion());
-        System.out.println(filepath);
+
         if(filepath != null && !filepath.isEmpty())
         {
             current.setDownloadLink(filepath);
         }
-        System.out.println(current.getDownloadLink());
+
         extensionRepository.save(current);
         return extension;
     }

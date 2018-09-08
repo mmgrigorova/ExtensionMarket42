@@ -8,17 +8,16 @@
 </head>
 <body>
 <nav th:replace="fragments::nav"></nav>
+<section th:replace="fragments::search"></section>
 <main class="container">
     <h1>Search Results</h1>
-    <section th:replace="fragments::search"></section>
-
     <!--<p>Showing <span th:text="${resultCount}"></span> result(s) for "<span th:text="${criteria}"></span>"</p>-->
     <p>Showing <span th:text="${resultCount}"></span> result(s) for "<span th:text="${criteria}"></span>"</p>
     <section>
         <!--<p th:if="${extensions.isEmpty()}">There are no extensions matching your criteria</p>-->
         <table  class="table table-striped table-custom">
-        <p th:if="${extensions.isEmpty()}">There are no extensions matching your criteria</p>
-        <table th:if="${!extensions.isEmpty()}" class="table table-striped table-light table-custom">
+        <!--<p th:if="${extensions.isEmpty()}">There are no extensions matching your criteria</p>-->
+        <table th:if="${extensions.totalPages>0}" class="table table-striped table-light table-custom">
             <tr>
                 <th><a href="#" th:href="@{/search-results/name}">name</a></th>
                 <th>Owner</th>
@@ -43,7 +42,7 @@
         </table>
         <ul class="nav nav-pills" th:if="${extensions.totalPages>0}">
             <li class="nav-item" th:each="i:${#numbers.sequence(0,extensions.totalPages-1)}">
-                    <a th:href="@{/search-results/name/(page=${i})}" th:text="${i}" class="nav-link"></a>
+                    <a th:href="@{/search-results/name/(page=${i})}" th:text="${i+1}" class="nav-link"></a>
             </li>
         </ul>
     </section>

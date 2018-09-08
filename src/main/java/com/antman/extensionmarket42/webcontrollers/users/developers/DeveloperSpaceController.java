@@ -78,7 +78,7 @@ public class DeveloperSpaceController {
             //download link for the file
             filename = fileStorageService.storeFile(file, uniqueFileName);
         }
-        System.out.println(filename);
+
         extensionService.updateExtension(extensionId,extension,filename);
 
         ModelAndView modelAndView = new ModelAndView("redirect:/developer");
