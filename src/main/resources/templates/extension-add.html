@@ -8,70 +8,75 @@
 <nav th:replace="fragments::nav"></nav>
 <main class="container">
     <h1>Add New Extension</h1>
-    <form th:object="${extensionDto}" enctype="multipart/form-data" method="post">
-        <div class="form-group">
-            <label>Extension Name
-                <input class="form-control" size="60" type="text" th:field="*{name}"/>
-            </label>
-            <small class="error" th:each="error : ${#fields.errors('name')}"
-                   th:text="${error}">Validation error
-            </small>
-        </div>
-        <div class="form-group">
-            <label>Description
-                <textarea class="form-control" type="text" th:field="*{description}" rows="5" cols="60"></textarea>
-            </label>
-            <small class="error" th:each="error : ${#fields.errors('description')}"
-                   th:text="${error}">Validation error
-            </small>
-        </div>
-        <div class="form-group">
-            <label>Version
-                <input class="form-control" type="text" th:field="*{version}"/>
-            </label>
-            <small class="error"
-                   th:if="${#fields.hasGlobalErrors()}"
-                   th:each="error : ${#fields.errors('global')}"
-                   th:text="${error}">Validation error
-            </small>
-        </div>
-        <div class="form-group">
-            <label>GitHub User
-                <input class="form-control" type="text" th:field="*{repoUser}"/>
-                <small class="error" th:each="error : ${#fields.errors('repoUser')}"
-                       th:text="${error}">Validation error
-                </small>
-            </label>
+    <div class="card">
+        <div class="card-body">
+            <form th:object="${extensionDto}" enctype="multipart/form-data" method="post">
+                <div class="form-group">
+                    <label>Extension Name
+                        <input class="form-control" size="60" type="text" th:field="*{name}"/>
+                    </label>
+                    <small class="error" th:each="error : ${#fields.errors('name')}"
+                           th:text="${error}">Validation error
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label>Description
+                        <textarea class="form-control" type="text" th:field="*{description}" rows="5"
+                                  cols="60"></textarea>
+                    </label>
+                    <small class="error" th:each="error : ${#fields.errors('description')}"
+                           th:text="${error}">Validation error
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label>Version
+                        <input class="form-control" type="text" th:field="*{version}"/>
+                    </label>
+                    <small class="error"
+                           th:if="${#fields.hasGlobalErrors()}"
+                           th:each="error : ${#fields.errors('global')}"
+                           th:text="${error}">Validation error
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label>GitHub User
+                        <input class="form-control" type="text" th:field="*{repoUser}"/>
+                        <small class="error" th:each="error : ${#fields.errors('repoUser')}"
+                               th:text="${error}">Validation error
+                        </small>
+                    </label>
 
-            <label>GitHub Repository Name
-                <input class="form-control" type="text" th:field="*{repoName}"/>
-                <small class="error" th:each="error : ${#fields.errors('repoName')}"
-                       th:text="${error}">Validation error
-                </small>
-            </label>
-        </div>
+                    <label>GitHub Repository Name
+                        <input class="form-control" type="text" th:field="*{repoName}"/>
+                        <small class="error" th:each="error : ${#fields.errors('repoName')}"
+                               th:text="${error}">Validation error
+                        </small>
+                    </label>
+                </div>
 
-        <div class="form-group">
-            <label>Upload file extension
-                <input class="form-control-file" id="singleFileUploadInput" type="file" name="file" required/>
-            </label>
+                <div class="form-group">
+                    <label>Upload file extension
+                        <input class="form-control-file" id="singleFileUploadInput" type="file" name="file" required/>
+                    </label>
+                </div>
+                <div>
+                    <label>Tags</label>
+                    <textarea id="textarea" rows="1" th:field="*{tags}" style="width: 350px"></textarea>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label>Font Awesome Icon
+                        <input class="form-control" type="text" th:field="*{fontAwesomeIcon}"/>
+                    </label>
+                    <br/>
+                    <small> If you want to make your extension special, attach a
+                        <a href="https://fontawesome.com/icons?d=gallery&m=free">Font Awesome icon</a> to it
+                    </small>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Create Extension"/>
+            </form>
         </div>
-        <div>
-            <label>Tags</label>
-            <textarea id="textarea" rows="1" th:field="*{tags}" style="width: 350px"></textarea>
-        </div>
-        <br/>
-        <div class="form-group">
-            <label>Font Awesome Icon
-                <input class="form-control" type="text" th:field="*{fontAwesomeIcon}"/>
-            </label>
-            <br/>
-            <small> If you want to make your extension special, attach a
-                <a href="https://fontawesome.com/icons?d=gallery&m=free">Font Awesome icon</a> to it
-            </small>
-        </div>
-        <input class="btn btn-primary" type="submit" value="Create Extension"/>
-    </form>
+    </div>
 </main>
 <th:block th:include="fragments :: tags-assets"></th:block>
 <th:block th:include="fragments :: assets"></th:block>
