@@ -280,9 +280,16 @@ public class ExtensionServiceImpl implements ExtensionService {
         return extensionRepository.findByActiveTrueAndPendingFalseAndTags_tagTitle(name,pageable);
     }
 
+    @Override
     public Page<Extension> findAllByDownloads(Pageable pageable){
         return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByDownloadsCountDesc(pageable);
     }
+
+    @Override
+    public Page<Extension> findAllByDownloadsAndName(String name,Pageable pageable){
+        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByDownloadsCountDesc(name,pageable);
+    }
+
 
     @Override
     public Page<Extension> findAllByCommit(Pageable pageable){
@@ -297,5 +304,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     @Override
     public Page<Extension> findAllByName(Pageable pageable){
         return  extensionRepository.findAllByPendingFalseAndActiveTrueOrderByName(pageable);
+    }
+
+    public Page<Extension> findAllByCommitAndName(String name,Pageable pageable){
+        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainsIgnoreCaseOrderByLastCommitDesc(name,pageable);
     }
 }
