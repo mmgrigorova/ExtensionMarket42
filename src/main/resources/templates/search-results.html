@@ -8,10 +8,9 @@
 </head>
 <body>
 <nav th:replace="fragments::nav"></nav>
+<section th:replace="fragments::search"></section>
 <main class="container">
     <h1>Search Results</h1>
-    <section th:replace="fragments::search"></section>
-
     <p>Showing <span th:text="${resultCount}"></span> result(s) for "<span th:text="${criteria}"></span>"</p>
     <section>
         <p th:if="${extensions.isEmpty()}">There are no extensions matching your criteria</p>

@@ -10,10 +10,10 @@
 <nav th:replace="fragments::nav"></nav>
 
 <span th:if="${param.logout}">See you soon!</span>
-<section th:replace="fragments::search"></section>
-<section>
-    <h4>Featured Extensions</h4>
-    <article th:each="extension : ${featuredExtensions}" class="col-xs-12 col-sm-5 col-md-5 col-lg-2">
+<section class="section-search" th:replace="fragments::search"></section>
+<section class="section-featured">
+    <h3>Featured Extensions</h3>
+    <article th:each="extension : ${featuredExtensions}" class="extension-card col-xs-12 col-sm-5 col-md-5 col-lg-2">
         <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
             <div class="icon-holder" th:if="${extension.icon}">
                 <span class="icon" th:utext="${extension.icon}"></span>
@@ -21,7 +21,7 @@
             <div class="icon-holder" th:unless="${extension.icon}">
                 <span class="icon"><i class="fas fa-rocket"></i></span>
             </div>
-            <h6 th:text="${extension.name}">Name</h6>
+            <h5 class="article-title" th:text="${extension.name}">Name</h5>
             <div class="article-footer block">
                 <span class="article-author">
                     <i class="fas fa-user"></i>
@@ -36,9 +36,9 @@
         </a>
     </article>
 </section>
-<section>
-    <h4>Most Downloaded Extensions</h4>
-    <article th:each="extension : ${mostPopular}" class="col-xs-12 col-sm-5 col-md-5 col-lg-2">
+<section class="section-popular">
+    <h3>Most Downloaded Extensions</h3>
+    <article th:each="extension : ${mostPopular}" class="extension-card col-xs-12 col-sm-5 col-md-5 col-lg-2">
         <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
             <div class="icon-holder" th:if="${extension.icon}">
                 <span class="icon" th:utext="${extension.icon}"></span>
@@ -46,7 +46,7 @@
             <div class="icon-holder" th:unless="${extension.icon}">
                 <span class="icon"><i class="fas fa-rocket"></i></span>
             </div>
-            <h6 th:text="${extension.name}">Name</h6>
+            <h5 class="article-title" th:text="${extension.name}">Name</h5>
             <div class="article-footer block">
                 <span class="article-author">
                     <i class="fas fa-user"></i>
@@ -61,9 +61,9 @@
         </a>
     </article>
 </section>
-<section>
-    <h4>Recently Added Extensions</h4>
-    <article th:each="extension : ${recentlyAdded}" class="col-xs-12 col-sm-5 col-md-5 col-lg-2">
+<section class="section-recent">
+    <h3>Recently Added Extensions</h3>
+    <article th:each="extension : ${recentlyAdded}" class="extension-card col-xs-12 col-sm-5 col-md-5 col-lg-2">
         <a th:href="@{'/extension-details/{id}' (id=${extension.id})}">
             <div class="icon-holder" th:if="${extension.icon}">
                 <span class="icon" th:utext="${extension.icon}"></span>
@@ -71,7 +71,7 @@
             <div class="icon-holder" th:unless="${extension.icon}">
                 <span class="icon"><i class="fas fa-rocket"></i></span>
             </div>
-            <h6 th:text="${extension.name}">Name</h6>
+            <h5 class="article-title" th:text="${extension.name}">Name</h5>
             <div class="article-footer block">
                 <span class="article-author">
                     <i class="fas fa-user"></i>

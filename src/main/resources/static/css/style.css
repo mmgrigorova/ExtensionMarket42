@@ -7,6 +7,10 @@ h1{
     margin: 15px 0px;
 }
 
+h3{
+    margin-bottom: 20px;
+}
+
 .error{
     color: red;
     display: block;
@@ -17,12 +21,14 @@ navbar{
 }
 
 
-article{
+article.extension-card {
     display: inline-block;
-    border: 3px solid #f1f1f1;
+    border: 2px solid #6F6456;
     margin: 5px;
-    padding: 10px;
+    padding: 0px;
     text-align: center;
+    min-width: 19%;
+    background-color: #fff;
 }
 
 article a{
@@ -35,26 +41,48 @@ article a:hover{
 }
 
 article:hover{
-    border: 3px solid silver;
+    border: 2px solid #E74C3C;
 }
 
 
 .icon-holder{
-    color: #FC471E;
+    color: #E74C3C;
+    padding-top: 15px;
 }
 
-h6{
-  padding: 10px 0px;
+.article-title{
+  padding: 10px 15px;
 }
 
 .article-footer{
-    color: #6c757d;
+    color: gra;
     text-align: left;
-    font-size: 0.8em;
+    font-size: 1em;
+    padding: 15px;
 }
 
 section{
     padding: 15px;
+}
+
+.section-search{
+    background-color: #e9e9e5;
+}
+
+.section-featured .article-footer{
+    background-color: #52524e;
+    color: white;
+
+}
+
+.section-popular .article-footer{
+    background-color: #9a9b94;
+    color: white;
+}
+
+.section-recent .article-footer{
+    background-color: #d4d6c8;
+    color: #52524e;
 }
 
 button a{
