@@ -17,7 +17,7 @@ USE `market_db`;
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.users
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(45) NOT NULL,
   `password` varchar(60) NOT NULL,
   `enabled` int(1) NOT NULL DEFAULT 1,
@@ -31,7 +31,7 @@ CHANGE COLUMN `enabled` `enabled` TINYINT(1) NOT NULL DEFAULT 1 ;
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.user_profiles
-CREATE TABLE `user_profiles` (
+CREATE TABLE IF NOT EXISTS `user_profiles` (
   `userId` bigint(20) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `user_profiles` (
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.user_roles
-CREATE TABLE `user_roles` (
+CREATE TABLE IF NOT EXISTS `user_roles` (
   `userRoleId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL DEFAULT '',
   `role` varchar(45) NOT NULL DEFAULT '',
@@ -52,7 +52,7 @@ CREATE TABLE `user_roles` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Dumping structure for table market_db.extensions
-CREATE TABLE `extensions` (
+CREATE TABLE IF NOT EXISTS `extensions` (
   `extensionId` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(3000) NOT NULL,
@@ -72,9 +72,9 @@ CREATE TABLE `extensions` (
   KEY `Extensions_fk0` (`ownerId`),
   CONSTRAINT `Extensions_fk0` FOREIGN KEY (`ownerId`) REFERENCES `user_profiles` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `market_db`.`extensions` 
+ALTER TABLE `market_db`.`extensions`
 CHANGE COLUMN `description` `description` VARCHAR(3000) NOT NULL DEFAULT '' ;
-ALTER TABLE `extensions` ADD COLUMN `active`  tinyint(4) NOT NULL DEFAULT 1 ;
+ALTER TABLE `extensions` ADD COLUMN IF NOT EXISTS `active`  tinyint(4) NOT NULL DEFAULT 1 ;
 
 -- Data exporting was unselected.
 -- Dumping structure for table market_db.tags
@@ -83,8 +83,8 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tagTitle` varchar(15) NOT NULL,
   PRIMARY KEY (`tagId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `market_db`.`tags` 
-ADD UNIQUE INDEX `tagTitle_UNIQUE` (`tagTitle` ASC);
+ALTER TABLE `market_db`.`tags`
+ADD UNIQUE INDEX IF NOT EXISTS `tagTitle_UNIQUE` (`tagTitle` ASC);
 
 
 -- Data exporting was unselected.
@@ -111,14 +111,15 @@ CREATE TABLE IF NOT EXISTS `screenshots` (
   CONSTRAINT `Screenshots_fk0` FOREIGN KEY (`extensionId`) REFERENCES `extensions` (`extensionId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `market_db`.`data_refresh` (
+CREATE TABLE IF NOT EXISTS `market_db`.`data_refresh` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `lastRefreshDate` DATETIME NOT NULL,
   `successfulCount` INT NULL,
   `failedCount` INT NULL,
   PRIMARY KEY (`id`));
 
-CREATE USER 'extensionapp'@'localhost' IDENTIFIED BY 'extensionLocal123';
+flush privileges;
+CREATE USER IF NOT EXISTS 'extensionapp'@'localhost' IDENTIFIED BY 'extensionLocal123';
 GRANT ALL PRIVILEGES ON market_db.* TO 'extensionapp'@'localhost';
 
 -- Data exporting was unselected.
