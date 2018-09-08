@@ -1,6 +1,8 @@
 package com.antman.extensionmarket42.Extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
+import com.antman.extensionmarket42.models.User;
+import com.antman.extensionmarket42.models.UserProfile;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
@@ -69,6 +71,25 @@ public class ExtensionsServiceTests {
     }
 
     @Test
+    public void getByUserId_whenUserProfileIdMatchesOwnerId_returnExtension(){
+        List<Extension> extensions = new ArrayList<>();
+
+        Extension extensionOne = ExtensionTestSetup.createExtension(1l);
+        extensionOne.setUserProfile(new UserProfile());
+        extensionOne.getUserProfile().setUserId(1L);
+        extensions.add(extensionOne);
+
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserId(1L);
+
+        when(extensionMockRepository.getAllByActiveTrueAndUserProfile_UserId(1L)).thenReturn(extensions);
+
+        List<Extension> result = extensionService.getByUserId(1L);
+
+        assertEquals(extensions,result);
+    }
+
+    @Test
     public void getAll_whenExtensionsArePresent_returnAllActiveExtension() {
         List<Extension> extensions = new ArrayList<>();
         List<Extension> activeExtensions = new ArrayList<>();
@@ -88,7 +109,7 @@ public class ExtensionsServiceTests {
     }
 
     @Test
-    public void deactivateExtension() throws NotFoundException{
+    public void deactivateExtension_whenBooleanIsFalse_ThenReturnExtensionWhichIsNotActive() throws NotFoundException{
         Extension extension = new Extension();
         extension.setActive(true);
         Extension newData = new Extension();
@@ -193,6 +214,7 @@ public class ExtensionsServiceTests {
         Assert.assertThat(result, samePropertyValuesAs(newData));
     }
 
+    @Test
     public void updateExtension_WhenPassingIdAndExtensionAndFilePath_ReturnsUpdatedExtension() throws NotFoundException {
 
         Extension extension = ExtensionTestSetup.createExtension(1L,"Name","Description","Version","path");
@@ -204,7 +226,8 @@ public class ExtensionsServiceTests {
                 .thenReturn(newData);
 
         Extension result = extensionService.updateExtension(1L,newData,"uPath");
-        Assert.assertThat(result.getDownloadLink(),isNotNull());
+
+        Assert.assertNotNull(result.getDownloadLink());
         Assert.assertThat(result, samePropertyValuesAs(newData));
     }
 }

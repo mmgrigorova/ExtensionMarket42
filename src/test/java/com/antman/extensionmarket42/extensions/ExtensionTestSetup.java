@@ -45,4 +45,9 @@ public class ExtensionTestSetup {
         extension.setDownloadLink(filePath);
         return extension;
     }
+    public static Extension createExtension(long id){
+        Extension extension = new Extension();
+        extension.setId(id);
+        return extension;
+    }
 }
