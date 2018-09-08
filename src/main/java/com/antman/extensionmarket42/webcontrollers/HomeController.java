@@ -29,7 +29,7 @@ public class HomeController {
         List<Extension> extensionFeaturedList = extensionService.getApprovedFeatured(true);
         mav.addObject("featuredExtensions", extensionFeaturedList);
 
-        List<Extension> extensionsMostPopular = extensionService.getMostPopularApproved();
+        List<Extension> extensionsMostPopular = extensionService.getTopFiveMostPopularApproved();
         mav.addObject("mostPopular", extensionsMostPopular);
 
         List<Extension> recentlyAdded = extensionService.getRecentlyAdded();

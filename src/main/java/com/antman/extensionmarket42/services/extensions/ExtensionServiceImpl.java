@@ -175,7 +175,7 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public List<Extension> getMostPopularApproved() {
+    public List<Extension> getTopFiveMostPopularApproved() {
         return extensionRepository.findTop5ByActiveTrueAndPendingOrderByDownloadsCountDesc(false);
     }
 

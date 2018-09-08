@@ -26,7 +26,7 @@ public interface ExtensionService {
     List<Extension> getApprovedFeatured(boolean b);
     List<Extension> getPending(boolean b);
     List<Extension> getInactive();
-    List<Extension> getMostPopularApproved();
+    List<Extension> getTopFiveMostPopularApproved();
     List<Extension> getByTag(String tag);
     List<Extension> getRecentlyAdded();
     void removeById(long id);

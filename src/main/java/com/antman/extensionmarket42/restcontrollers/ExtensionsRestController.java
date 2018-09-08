@@ -1,7 +1,5 @@
 package com.antman.extensionmarket42.restcontrollers;
 
-import com.antman.extensionmarket42.models.extensions.Extension;
-import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.payload.ExtensionRestDto;
 import com.antman.extensionmarket42.payload.ExtensionRestDtoMapper;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -34,7 +31,7 @@ public class ExtensionsRestController {
 
     @GetMapping("/popular")
     public List<ExtensionRestDto> getMostPopularExtensions() {
-        return extensionService.getMostPopularApproved().stream()
+        return extensionService.getTopFiveMostPopularApproved().stream()
                 .map(ExtensionRestDtoMapper::mapExtensionToRestDto)
                 .collect(Collectors.toList());
     }

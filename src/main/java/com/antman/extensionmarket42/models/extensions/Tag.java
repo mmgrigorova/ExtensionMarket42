@@ -48,4 +48,9 @@ public class Tag {
     public void setExtensionTags(List<Extension> extensions) {
         this.extensions = extensions;
     }
+
+    @Override
+    public String toString() {
+        return tagTitle;
+    }
 }

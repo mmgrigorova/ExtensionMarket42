@@ -2,6 +2,7 @@ package com.antman.extensionmarket42.extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
@@ -16,9 +17,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.*;
@@ -32,6 +34,7 @@ public class ExtensionsServiceTests {
     private ExtensionService extensionService;
     private MyUserDetailsService userDetailsService;
     private RemoteRepositoryService remoteRepositoryService;
+    @Mock
     private TagRepository tagRepository;
 
     @Before
@@ -52,6 +55,11 @@ public class ExtensionsServiceTests {
 
         assertEquals(extension, result);
 
+    }
+
+    @Test(expected = javassist.NotFoundException.class)
+    public void getById_whenExtensionIsNotPresent_ThrowNotFoundException() throws NotFoundException {
+       extensionService.getById(-1L);
     }
 
     @Test
@@ -136,7 +144,7 @@ public class ExtensionsServiceTests {
         Extension result = extensionService.approvePendingExtension(1L);
 
         //Assert
-        Assert.assertEquals(result.isPending(), false);
+        Assert.assertFalse(result.isPending());
     }
 
     @Test
@@ -157,5 +165,50 @@ public class ExtensionsServiceTests {
         //Assert
         String expectedFileName = "testextension_3.5_initialFile.txt";
         Assert.assertEquals(result, expectedFileName);
+    }
+
+    @Test
+    public void generateTagListFromDto_whenTagsAreProvided_ReturnSetOfTagsWithLowerCaseNonNumericCharactersRemoved() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        // Reflection for testing private method
+        String METHOD_NAME = "generateTagListFromDto";
+        Class[] parameterTypes;
+        Object[] parameters;
+        parameterTypes = new Class[1];
+        parameterTypes[0] = java.lang.String[].class;
+        Method method = extensionService.getClass().getDeclaredMethod(METHOD_NAME, parameterTypes);
+        method.setAccessible(true);
+        parameters = new Object[1];
+
+        String[] tagsInput = {"testTag1","testTagWithChars2"};
+
+        Set<Tag> extectedTags = new HashSet<>();
+        extectedTags.add(new Tag("testtag1"));
+        extectedTags.add(new Tag("testtagwithchars2"));
+
+
+        parameters[0] = tagsInput;
+        Set<Tag> result = (Set<Tag>) method.invoke(extensionService, parameters);
+
+        Assert.assertTrue( equalsTags(result,extectedTags));
+    }
+
+    private boolean equalsTags(Set<?> set1, Set<?> set2) {
+        if (set1 == null || set2 == null) {
+            return false;
+        }
+
+        if (set1.size() != set2.size()) {
+            return false;
+        }
+
+        Set<String> set1Titles = set1.stream()
+                .map(Object::toString)
+                .collect(Collectors.toSet());
+
+        Set<String> set2Titles = set2.stream()
+                .map(Object::toString)
+                .collect(Collectors.toSet());
+
+        return set1Titles.containsAll(set2Titles);
     }
 }
