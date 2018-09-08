@@ -144,7 +144,12 @@ Download extension file
 
 #### Homepage
 ![homepage](https://i.imgur.com/ykePjfp.png)
+#### Extension Details
 ![extensiondetails](https://i.imgur.com/mVPPuXJ.png)
+#### Developer's Space
+![devspace](https://i.imgur.com/Kt2WHWq.png)
+#### Admin Portal
+![adminportal](https://i.imgur.com/GSFUmQT.png)
 
 ---- 
 
