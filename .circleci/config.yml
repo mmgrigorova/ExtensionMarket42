@@ -41,17 +41,17 @@ jobs:
     # run tests!
     - run: gradle test
 
+      test:
+        post:
+        - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
+        - bash <(curl -s https://codecov.io/bash)
+
     - run:
         name: Save test results
         command: |
           mkdir -p ~/junit/
           find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
         when: always
-
-        test:
-          post:
-          - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
-          - bash <(curl -s https://codecov.io/bash)
 
     - store_test_results:
         path: ~/junit
