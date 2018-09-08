@@ -64,7 +64,7 @@
                 <div class="card github" style="width: 18rem;">
                     <div class="card-body" th:object="${repoData}">
                         <p>
-                            <i class="fab fa-github"></i> <a th:href="${extension.repoLink}">GitHub Repository</a>
+                            <i class="fab fa-github"></i> <a th:href="@{'https://' + ${extension.repoLink}}">GitHub Repository</a>
                         </p>
                         <p>
                             <i class="fas fa-bug"></i> Open Issues: <span

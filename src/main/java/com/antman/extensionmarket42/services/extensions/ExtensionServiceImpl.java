@@ -107,8 +107,8 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension updateExtension(long id, Extension extension, String filepath) {
-        Extension current = extensionRepository.getById(id);
+    public Extension updateExtension(long id, Extension extension, String filepath) throws NotFoundException {
+        Extension current = getById(id);
 
         current.setName(extension.getName());
         current.setDescription(extension.getDescription());
@@ -120,19 +120,19 @@ public class ExtensionServiceImpl implements ExtensionService {
         }
         System.out.println(current.getDownloadLink());
         extensionRepository.save(current);
-        return extension;
+        return current;
     }
 
     @Override
-    public Extension updateExtension(long id, Extension extension) {
-        Extension current = extensionRepository.getById(id);
+    public Extension updateExtension(long id, Extension extension) throws NotFoundException {
+        Extension current = getById(id);
 
         current.setName(extension.getName());
         current.setDescription(extension.getDescription());
         current.setVersion(extension.getVersion());
 
         extensionRepository.save(current);
-        return extension;
+        return current;
     }
 
     @Override
