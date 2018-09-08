@@ -45,4 +45,5 @@ public interface ExtensionRepository extends PagingAndSortingRepository<Extensio
 
     Page<Extension> findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByDownloadsCountDesc(String name, Pageable pageable);
     Page<Extension> findAllByPendingFalseAndActiveTrueAndNameContainsIgnoreCaseOrderByLastCommitDesc(String name,Pageable pageable);
+    Page<Extension> findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByAddedOnDesc(String name,Pageable pageable);
 }

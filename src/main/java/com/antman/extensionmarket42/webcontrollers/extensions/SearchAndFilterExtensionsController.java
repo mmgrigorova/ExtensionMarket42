@@ -49,11 +49,15 @@ public class SearchAndFilterExtensionsController {
     }
 
     @GetMapping("/uploadDate")
-    public ModelAndView displayResultsByAddedOn(@RequestParam(defaultValue = "0") int page){
-        Page<Extension> sortedExtensions = extensionService.findAllByAddedOn(PageRequest.of(page,5));
+    public ModelAndView displayResultsByAddedOn(@RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(required = false)String name){
+
+        Page<Extension> sortedExtensions = extensionService.findAllByAddedOnAndName(name,PageRequest.of(page,5));
+        //Page<Extension> sortedExtensions = extensionService.findAllByAddedOn(PageRequest.of(page,5));
         ModelAndView modelAndView = new ModelAndView("/search-results");
 
         modelAndView.addObject("extensions",sortedExtensions);
+        modelAndView.addObject("searchParam",name);
 
         return modelAndView;
     }
@@ -77,8 +81,6 @@ public class SearchAndFilterExtensionsController {
                                                    @RequestParam(required = false) String name){
 
         //Page<Extension> sortedExtensions = extensionService.findAllByDownloads(PageRequest.of(page,5));
-        System.out.println("name "+name);
-        System.out.println(page);
         Page<Extension> sortedExtensions = extensionService.findAllByDownloadsAndName(name,PageRequest.of(page,5));
 
         ModelAndView modelAndView = new ModelAndView("/search-results");
@@ -90,10 +92,14 @@ public class SearchAndFilterExtensionsController {
 
 
     @GetMapping("/name")
-    public ModelAndView displayResultsByName(@RequestParam(defaultValue = "0") int page){
-        Page<Extension> sortedExtensions = extensionService.findAllByName(PageRequest.of(page,5));
+    public ModelAndView displayResultsByName(@RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(required = false) String name){
+
+        Page<Extension> sortedExtensions = extensionService.findAllByName(name,PageRequest.of(page,5));
+
         ModelAndView modelAndView = new ModelAndView("/search-results");
         modelAndView.addObject("extensions",sortedExtensions);
+        modelAndView.addObject("searchParam",name);
 
         return modelAndView;
     }

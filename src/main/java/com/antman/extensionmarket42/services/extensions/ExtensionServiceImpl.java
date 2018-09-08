@@ -306,7 +306,13 @@ public class ExtensionServiceImpl implements ExtensionService {
         return  extensionRepository.findAllByPendingFalseAndActiveTrueOrderByName(pageable);
     }
 
+    @Override
     public Page<Extension> findAllByCommitAndName(String name,Pageable pageable){
         return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainsIgnoreCaseOrderByLastCommitDesc(name,pageable);
     }
+
+    public Page<Extension> findAllByAddedOnAndName(String name,Pageable pageable){
+        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByAddedOnDesc(name,pageable);
+    }
+
 }
