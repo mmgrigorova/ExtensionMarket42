@@ -68,7 +68,8 @@ article:hover {
     font-size: 1em;
     padding: 15px;
     /*color: #52524e;*/
-    color: #3498DB;
+    /*color: #3498DB;*/
+    color: #0c6251 ;
     border-top: 1px solid #c3c3c3;
 }
 
