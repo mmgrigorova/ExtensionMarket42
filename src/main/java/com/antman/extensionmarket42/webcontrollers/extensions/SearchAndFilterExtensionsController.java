@@ -19,6 +19,7 @@ import java.util.Optional;
 @RequestMapping("search-results")
 public class SearchAndFilterExtensionsController {
     private final ExtensionService extensionService;
+    private final int PAGE_SIZE = 6;
 
     @Autowired
     public SearchAndFilterExtensionsController(ExtensionService extensionService) {
@@ -32,14 +33,14 @@ public class SearchAndFilterExtensionsController {
                                              Model model) {
         Page<Extension> matchingByCriteria = null;
         if (name.isPresent()) {
-            matchingByCriteria = extensionService.findAllByName(name.get(),PageRequest.of(0,5));
+            matchingByCriteria = extensionService.findAllByName(name.get(),PageRequest.of(0,PAGE_SIZE));
             model.addAttribute("criteria", name.get());
             model.addAttribute("searchParam",name.get());
 
         }
 
         if (tagName.isPresent()){
-            matchingByCriteria = extensionService.findAllByTag(tagName.get(), PageRequest.of(0,5));
+            matchingByCriteria = extensionService.findAllByTag(tagName.get(), PageRequest.of(0,PAGE_SIZE));
             model.addAttribute("criteria", tagName.get());
         }
         model.addAttribute("extensions", matchingByCriteria);
@@ -52,7 +53,7 @@ public class SearchAndFilterExtensionsController {
     public ModelAndView displayResultsByAddedOn(@RequestParam(defaultValue = "0") int page,
                                                 @RequestParam(required = false)String name){
 
-        Page<Extension> sortedExtensions = extensionService.findAllByAddedOnAndName(name,PageRequest.of(page,5));
+        Page<Extension> sortedExtensions = extensionService.findAllByAddedOnAndName(name,PageRequest.of(page,PAGE_SIZE));
         //Page<Extension> sortedExtensions = extensionService.findAllByAddedOn(PageRequest.of(page,5));
         ModelAndView modelAndView = new ModelAndView("/search-results");
 
@@ -66,7 +67,7 @@ public class SearchAndFilterExtensionsController {
     public ModelAndView displayResultsByLastCommit(@RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(required = false)String name){
 
-        Page<Extension> sortedExtensions = extensionService.findAllByCommitAndName(name,PageRequest.of(0,5));
+        Page<Extension> sortedExtensions = extensionService.findAllByCommitAndName(name,PageRequest.of(page,PAGE_SIZE));
         //Page<Extension> sortedExtensions = extensionService.findAllByCommit(PageRequest.of(page,5));
         ModelAndView modelAndView = new ModelAndView("/search-results");
 
@@ -81,7 +82,7 @@ public class SearchAndFilterExtensionsController {
                                                    @RequestParam(required = false) String name){
 
         //Page<Extension> sortedExtensions = extensionService.findAllByDownloads(PageRequest.of(page,5));
-        Page<Extension> sortedExtensions = extensionService.findAllByDownloadsAndName(name,PageRequest.of(page,5));
+        Page<Extension> sortedExtensions = extensionService.findAllByDownloadsAndName(name,PageRequest.of(page,PAGE_SIZE));
 
         ModelAndView modelAndView = new ModelAndView("/search-results");
         modelAndView.addObject("extensions",sortedExtensions);
@@ -95,7 +96,7 @@ public class SearchAndFilterExtensionsController {
     public ModelAndView displayResultsByName(@RequestParam(defaultValue = "0") int page,
                                              @RequestParam(required = false) String name){
 
-        Page<Extension> sortedExtensions = extensionService.findAllByName(name,PageRequest.of(page,5));
+        Page<Extension> sortedExtensions = extensionService.findAllByName(name,PageRequest.of(page,PAGE_SIZE));
 
         ModelAndView modelAndView = new ModelAndView("/search-results");
         modelAndView.addObject("extensions",sortedExtensions);
