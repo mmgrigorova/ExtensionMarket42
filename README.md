@@ -87,9 +87,9 @@ System administrators have administrative access to the system and permissions t
 
 #### Source Data Synchronization
 
-Source data (GitHub information) is automatically refreshed by a scheduled job. 
+Source data (GitHub information) is automatically refreshed by a scheduled job which runs every day at 6AM. 
 Administrators can also trigger source data refresh manually per extension or trigger it for all extensions.
-The schedule interval can be configured from application.properties file.
+Once the manual run is complete, administrators can review the successfully and failed updates in a report.
 
 The information about extension synchronization is available in the Admin panel and includes:
 - Last successful synchronization
@@ -99,7 +99,7 @@ The information about extension synchronization is available in the Admin panel 
 
 We provide Rest API to the public features of the application.
 
-**Commands**
+### Commands
 
 The commands below return a list of five extensions.
 
@@ -140,7 +140,6 @@ Download extension file
 
 	http://extension42.eu-west-3.elasticbeanstalk.com/downloadFile/<extensionId>/<filename.file>
 
-		
 ---- 
 
 *This IDE does not exist.
