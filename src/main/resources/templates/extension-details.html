@@ -32,15 +32,15 @@
                 </span>
                 <span th:text="${extension.name}"></span>
             </h1>
-            <h6 class="card-subtitle mb-2 text-muted">
+            <h6 class="card-subtitle">
                 <span>Version: <span th:text="${extension.version}">Extension Version</span></span>
-                <span class="margin-left"><i class="fas fa-user"></i> Author: <span
-                        th:text="${extension.userProfile.firstName}">Firstname</span>
+                <span class="margin-left"><i class="fas fa-user"></i>
+                    Author: <span th:text="${extension.userProfile.firstName}">Firstname</span>
                 <span th:text="${extension.userProfile.lastName}">Lastname</span>
-                <span class="margin-left"> <i class="fas fa-download"></i> Downloads: <span
-                        th:text="${extension.downloadsCount}"></span></span>
-                <span class="margin-left"><i class="far fa-calendar-alt"></i> Added on: <span
-                        th:text="${addedOnFormatted}"></span></span>
+                <span class="margin-left"> <i class="fas fa-download"></i>
+                    Downloads: <span th:text="${extension.downloadsCount}"></span></span>
+                <span class="margin-left"><i class="far fa-calendar-alt"></i>
+                    Added on: <span th:text="${addedOnFormatted}"></span></span></span>
             </h6>
             <a th:href="@{'/api/downloadFile/'+ ${extension.id} + '/' + ${extension.downloadLink}}">
                 <button class="btn btn-primary"><i class="fas fa-download"></i> Download</button>
@@ -53,7 +53,7 @@
         <div class="row card-body">
             <div class="col-8">
                 <h2 class="card-title">Description</h2>
-                <p class="card-text" th:text="${extension.description}">Extension Description</p>
+                <p class="card-text" th:utext="${extension.description}">Extension Description</p>
                 <a th:href="@{/search-results(tagName=${tag.tagTitle})}" class="badge badge-info"
                    th:each="tag : ${tags}"
                    th:text="${tag.tagTitle}">
@@ -76,9 +76,9 @@
                         <p>
                             Last Commit Date: <span th:text="${lastCommitFormatted}">Last Commit Date</span>
                         </p>
-                        <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/refreshRepository/all}">
-                            <button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh GitHub Data
-                            </button>
+                        <a sec:authorize="hasAuthority('ROLE_ADMIN')"
+                           th:href="@{'/refreshRepository/'+ ${extension.id}}">
+                            <button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh GitHub Data</button>
                         </a>
                     </div>
                 </div>

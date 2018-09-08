@@ -8,6 +8,7 @@ import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.GitHubDataRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
+import com.antman.extensionmarket42.utils.SystemTimeWrapper;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -88,7 +90,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         extension.setUserProfile(userDetailsService.getCurrentUser());
         extension.setActive(true);
         extension.setPending(true);
-        java.sql.Date currentDate = new Date(System.currentTimeMillis());
+        java.sql.Date currentDate = new Date(new SystemTimeWrapper().currentTimeMillisSystem());
         extension.setAddedOn(currentDate);
 
         Set<Tag> tags = generateTagListFromDto(extensionDto.getTags());
@@ -101,8 +103,25 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension updateExtension(Extension extension) {
+    public Extension deactivateExtension(Extension extension) {
         extensionRepository.save(extension);
+        return extension;
+    }
+
+    @Override
+    public Extension updateExtension(long id, Extension extension, String filepath) {
+        Extension current = extensionRepository.getById(id);
+
+        current.setName(extension.getName());
+        current.setDescription(extension.getDescription());
+        current.setVersion(extension.getVersion());
+        System.out.println(filepath);
+        if(filepath != null && !filepath.isEmpty())
+        {
+            current.setDownloadLink(filepath);
+        }
+        System.out.println(current.getDownloadLink());
+        extensionRepository.save(current);
         return extension;
     }
 
@@ -113,7 +132,6 @@ public class ExtensionServiceImpl implements ExtensionService {
         current.setName(extension.getName());
         current.setDescription(extension.getDescription());
         current.setVersion(extension.getVersion());
-        //current.setDownloadLink(extension.getDownloadLink());
 
         extensionRepository.save(current);
         return extension;

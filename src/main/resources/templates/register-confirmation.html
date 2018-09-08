@@ -9,11 +9,14 @@
 <main class="container">
     <h1>Register Confirmation Page</h1>
 
-    <p>User registered successfully!</p>
-
-    <p>
-        <a th:href="@{/login}">Login</a>
-    </p>
+    <div class="card">
+        <div class="card-body">
+            <p>User registered successfully!</p>
+            <a th:href="@{/login}">
+                <button class="btn btn-primary">Login</button>
+            </a>
+        </div>
+    </div>
 </main>
 </body>
 </html>

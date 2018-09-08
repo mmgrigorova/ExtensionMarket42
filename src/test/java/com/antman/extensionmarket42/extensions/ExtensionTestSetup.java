@@ -1,4 +1,4 @@
-package com.antman.extensionmarket42.Extensions;
+package com.antman.extensionmarket42.extensions;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
 import java.sql.Date;

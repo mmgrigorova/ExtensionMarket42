@@ -2,7 +2,6 @@ package com.antman.extensionmarket42.services.extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
-import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
 import javassist.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +14,9 @@ public interface ExtensionService {
     Extension getById(Long id) throws NotFoundException;
 
     Extension createNewExtension(ExtensionDto extensionDto) throws ParseException, IOException;
-    Extension updateExtension(Extension extension);
+    Extension deactivateExtension(Extension extension);
     Extension updateExtension(long id, Extension extension);
+    Extension updateExtension(long id, Extension extension, String path);
     int increaseDownloadCount(Long extensionId);
 
 

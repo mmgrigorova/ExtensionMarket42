@@ -1,6 +1,7 @@
 package com.antman.extensionmarket42.webcontrollers.extensions;
 
-import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
+import com.antman.extensionmarket42.models.extensions.Extension;
+import com.antman.extensionmarket42.models.repository.DataRefresh;
 import com.antman.extensionmarket42.services.extensions.ExtensionRepositoryDataService;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
@@ -42,9 +43,33 @@ public class RepositoryReloadController {
 
     @GetMapping("/all")
     public String refreshAllExtensionRepositoryData(RedirectAttributes redirectAttributes){
-        RepositorySyncStatistics stats = extensionRepoService.refreshRepositoryInfoAllActiveExtensions();
-        redirectAttributes.addFlashAttribute("successmessage",
-                "GitHub repository data has been successfully refreshed for " + stats.getSuccessfulExtensions().size() + " active extensions.");
+        DataRefresh stats = extensionRepoService.refreshRepositoryInfoAllActiveExtensions();
+        StringBuilder successReport = new StringBuilder();
+        successReport.append("GitHub repository data has been successfully refreshed for ")
+                .append(stats.getSuccessfulExtensions().size())
+                .append(" active extensions.");
+
+        redirectAttributes.addFlashAttribute("successmessage", successReport);
+
+
+        StringBuilder infoReport = new StringBuilder();
+        for (Extension extension : stats.getSuccessfulExtensions()) {
+            infoReport.append(extension.getName())
+                    .append(" - ")
+                    .append(extension.getRepoLink())
+                    .append("<br />");
+        }
+
+        redirectAttributes.addFlashAttribute("successextensions", infoReport);
+
+        StringBuilder failureReport = new StringBuilder();
+        for (Extension extension : stats.getFailedExtensions()) {
+            failureReport.append(extension.getName())
+                    .append(" - ")
+                    .append(extension.getRepoLink())
+                    .append("<br />");
+        }
+        redirectAttributes.addFlashAttribute("failextensions", failureReport);
         return "redirect:/adminPanel";
     }
 }

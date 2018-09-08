@@ -1,6 +1,5 @@
 
 # ExtensionMarket42  [![CircleCI](https://camo.githubusercontent.com/351d5280b6269709d06e106baf1132415214823d/68747470733a2f2f636972636c6563692e636f6d2f67682f6d6d677269676f726f76612f457874656e73696f6e4d61726b657434322e7376673f7374796c653d736869656c64)](https://circleci.com/gh/mmgrigorova/ExtensionMarket42)
-
 ----------
 ### About
 
@@ -8,7 +7,7 @@ Extension Market 42 is an online application which allows developers to browse, 
 
 It is the final project for Telerik Academy Alpha in Java - 2018.
 
-----------
+:eyes: [Visit Life Demo](http://extension42.eu-west-3.elasticbeanstalk.com)
 
 ## Features
 
@@ -65,15 +64,15 @@ The commands below return a list of five extensions.
 
 Get featured extensions:
 
-    http://localhost:8080/api/extensions/featured
+    http://extension42.eu-west-3.elasticbeanstalk.com/api/extensions/featured
 
 Get most popular extensions:
 
-    http://localhost:8080/api/extensions/popular
+    http://extension42.eu-west-3.elasticbeanstalk.com/api/extensions/popular
 
 Get recently added extensions:
 
-    http://localhost:8080/api/extensions/recent
+    http://extension42.eu-west-3.elasticbeanstalk.com/api/extensions/recent
 
 Example Response
 
@@ -98,10 +97,11 @@ Example Response
     
 Download extension file
 
-	http://localhost:8080/downloadFile/<extensionId>/<filename.file>
+	http://extension42.eu-west-3.elasticbeanstalk.com/downloadFile/<extensionId>/<filename.file>
 	
 ## Installation Guide
-TODO
+
+
 ---- 
 
 *This IDE does not exist.

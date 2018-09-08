@@ -3,9 +3,9 @@ package com.antman.extensionmarket42.services.extensions;
 import com.antman.extensionmarket42.dtos.RepositoryDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.models.repository.DataRefresh;
-import com.antman.extensionmarket42.payload.RepositorySyncStatistics;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.GitHubDataRepository;
+import com.antman.extensionmarket42.utils.SystemTimeWrapper;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
     private GitHubDataRepository gitHubDataRepository;
     private ExtensionService extensionService;
     private RemoteRepositoryService remoteRepositoryService;
-
+    private SystemTimeWrapper systemTimeWrapper;
 
     @Autowired
     public ExtensionRepositoryDataServiceImpl(ExtensionRepository extensionRepository, GitHubDataRepository gitHubDataRepository, ExtensionService extensionService, RemoteRepositoryService remoteRepositoryService) {
@@ -31,11 +31,21 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
         this.gitHubDataRepository = gitHubDataRepository;
         this.extensionService = extensionService;
         this.remoteRepositoryService = remoteRepositoryService;
+        systemTimeWrapper = new SystemTimeWrapper();
+    }
+
+
+    public ExtensionRepositoryDataServiceImpl(ExtensionRepository extensionRepository, GitHubDataRepository gitHubDataRepository, ExtensionService extensionService, RemoteRepositoryService remoteRepositoryService, SystemTimeWrapper systemTimeWrapper) {
+        this.extensionRepository = extensionRepository;
+        this.gitHubDataRepository = gitHubDataRepository;
+        this.extensionService = extensionService;
+        this.remoteRepositoryService = remoteRepositoryService;
+        this.systemTimeWrapper = systemTimeWrapper;
     }
 
     @Override
-    public RepositorySyncStatistics refreshRepositoryInfoAllActiveExtensions() {
-        RepositorySyncStatistics refreshStats = new RepositorySyncStatistics();
+    public DataRefresh refreshRepositoryInfoAllActiveExtensions() {
+        DataRefresh refreshStats = new DataRefresh();
 
         List<Extension> extensions = extensionRepository.findAllByActiveTrueAndPendingIs(false);
 
@@ -54,12 +64,11 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
 
         extensionRepository.saveAll(refreshStats.getSuccessfulExtensions());
 
-        DataRefresh dataRefresh = new DataRefresh();
-        dataRefresh.setLastRefreshDate(System.currentTimeMillis());
-        dataRefresh.setSuccessfulCount(refreshStats.getSuccessfulExtensions().size());
-        dataRefresh.setFailedCount(refreshStats.getFailedExtensions().size());
+        refreshStats.setLastRefreshDate(systemTimeWrapper.currentTimeMillisSystem());
+        refreshStats.setSuccessfulCount(refreshStats.getSuccessfulExtensions().size());
+        refreshStats.setFailedCount(refreshStats.getFailedExtensions().size());
+        gitHubDataRepository.save(refreshStats);
 
-        gitHubDataRepository.save(dataRefresh);
         return refreshStats;
     }
 
@@ -72,24 +81,6 @@ public class ExtensionRepositoryDataServiceImpl implements ExtensionRepositoryDa
     @Override
     public DataRefresh getLastSyncData(){
         return gitHubDataRepository.findFirstByOrderByLastRefreshDateDesc();
-    }
-
-    /**
-     * Wrapper method which catches checked exceptions to serve streams.
-     * @param extensionId
-     * @return Extension with reloaded repository data
-     */
-    private Extension getExtensionRepositoryInformationWrapper(Long extensionId){
-        try {
-            logger.info("Updating GitHub data");
-            return getExtensionRepositoryInformation(extensionId);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            logger.error(e.getMessage(),e);
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private Extension getExtensionRepositoryInformation(Long extensionId) throws NotFoundException, IOException {

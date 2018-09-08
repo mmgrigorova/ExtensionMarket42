@@ -1,10 +1,11 @@
 package com.antman.extensionmarket42.models.repository;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.antman.extensionmarket42.models.extensions.Extension;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "data_refresh")
@@ -19,7 +20,15 @@ public class DataRefresh {
   private long successfulCount;
   @Column
   private long failedCount;
+  @Transient
+  private List<Extension> successfulExtensions;
+  @Transient
+  private List<Extension> failedExtensions;
 
+  public DataRefresh() {
+    successfulExtensions = new ArrayList<>();
+    failedExtensions = new ArrayList<>();
+  }
 
   public long getId() {
     return id;
@@ -35,10 +44,8 @@ public class DataRefresh {
   }
 
   public void setLastRefreshDate(long lastRefreshDate) {
-    java.sql.Timestamp timestamp = new Timestamp(lastRefreshDate);
-    this.lastRefreshDate = timestamp;
+    this.lastRefreshDate = new Timestamp(lastRefreshDate);
   }
-
 
   public long getSuccessfulCount() {
     return successfulCount;
@@ -57,4 +64,31 @@ public class DataRefresh {
     this.failedCount = failedCount;
   }
 
+  public void setLastRefreshDate(Timestamp lastRefreshDate) {
+    this.lastRefreshDate = lastRefreshDate;
+  }
+
+  public List<Extension> getSuccessfulExtensions() {
+    return successfulExtensions;
+  }
+
+  public void setSuccessfulExtensions(List<Extension> successfulExtensions) {
+    this.successfulExtensions = successfulExtensions;
+  }
+
+  public List<Extension> getFailedExtensions() {
+    return failedExtensions;
+  }
+
+  public void setFailedExtensions(List<Extension> failedExtensions) {
+    this.failedExtensions = failedExtensions;
+  }
+
+  public void addSuccessfull(Extension extension) {
+    successfulExtensions.add(extension);
+  }
+
+  public void addFailed(Extension extension) {
+    failedExtensions.add(extension);
+  }
 }

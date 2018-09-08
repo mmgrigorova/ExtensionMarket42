@@ -3,5 +3,10 @@ $(document).ready(function () {
     $('.nav li').removeClass('active');
     var menuId = $('h1').attr('id');
     $('#' + menuId).addClass("active");
+
+    $('#close-report').on('click', function () {
+        $('.accordion').hide();
+        $('#close-report').hide();
+    })
     console.log("doing something");
 });
