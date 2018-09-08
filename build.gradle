@@ -75,19 +75,9 @@ bootJar {
     baseName = 'extensionmarket42'
     version =  '0.0.3'
     launchScript()
-
 }
 
 war {
     baseName = 'extensionmarket42'
     version =  '0.0.3'
 }
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled false
-    }
-}
-
-check.dependsOn jacocoTestReport
