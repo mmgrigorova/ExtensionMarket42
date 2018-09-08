@@ -2,6 +2,7 @@ package com.antman.extensionmarket42.webcontrollers.extensions;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class EditExtensionController {
     @RequestMapping(value = "adminPanel/save/{extensionId}",method = RequestMethod.POST)
     public ModelAndView saveChanges(@ModelAttribute("extension") Extension extension,
                                     @PathVariable("extensionId") long extensionId,
-                                    RedirectAttributes redirectAttributes){
+                                    RedirectAttributes redirectAttributes) throws NotFoundException {
 
         extensionService.updateExtension(extensionId,extension);
         ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");

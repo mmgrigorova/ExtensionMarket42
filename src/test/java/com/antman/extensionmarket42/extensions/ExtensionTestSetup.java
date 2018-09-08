@@ -1,4 +1,4 @@
-package com.antman.extensionmarket42.extensions;
+package com.antman.extensionmarket42.Extensions;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
 import java.sql.Date;
@@ -19,7 +19,30 @@ public class ExtensionTestSetup {
         extension.setPullRequests(pullRequests);
         extension.setOpenIssues(openIssues);
         extension.setLastCommit(date);
+        return extension;
+    }
 
+    public static Extension createExtension(long id,String name,String desc, String version){
+        Date date = new Date(Calendar.getInstance().getTimeInMillis());
+        Extension extension = new Extension();
+        extension.setId(id);
+        extension.setName(name);
+        extension.setDescription(desc);
+        extension.setVersion(version);
+        extension.setDownloadLink("");
+        extension.setLastCommit(date);
+        return extension;
+    }
+    public static Extension createExtension(long id,String name,String desc, String version,String filePath){
+        Date date = new Date(Calendar.getInstance().getTimeInMillis());
+        Extension extension = new Extension();
+        extension.setId(id);
+        extension.setName(name);
+        extension.setDescription(desc);
+        extension.setVersion(version);
+        extension.setDownloadLink("");
+        extension.setLastCommit(date);
+        extension.setDownloadLink(filePath);
         return extension;
     }
 }

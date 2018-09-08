@@ -2,7 +2,6 @@ package com.antman.extensionmarket42.repositories.base;
 
 import com.antman.extensionmarket42.models.extensions.Extension;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

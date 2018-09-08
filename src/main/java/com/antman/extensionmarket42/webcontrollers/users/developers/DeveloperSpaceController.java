@@ -6,6 +6,7 @@ import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.files.base.FileStorageService;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import com.antman.extensionmarket42.services.users.base.UserProfileService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -68,7 +69,7 @@ public class DeveloperSpaceController {
     public ModelAndView saveChanges(@ModelAttribute("extension") Extension extension,
                                     @PathVariable("extensionId") long extensionId,
                                     @RequestParam(value = "file",required = false) MultipartFile file,
-                                    RedirectAttributes redirectAttributes){
+                                    RedirectAttributes redirectAttributes)throws NotFoundException {
         String filename = "";
         if(!file.isEmpty()){
             //name of uploaded file
@@ -79,7 +80,7 @@ public class DeveloperSpaceController {
             filename = fileStorageService.storeFile(file, uniqueFileName);
         }
 
-        extensionService.updateExtension(extensionId,extension,filename);
+        extensionService.updateExtension(extensionId,extension,filename) ;
 
         ModelAndView modelAndView = new ModelAndView("redirect:/developer");
         redirectAttributes.addFlashAttribute("confirmMessage","Changes to extension " + extension.getName() + "have been saved");

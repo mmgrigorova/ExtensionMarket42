@@ -1,4 +1,4 @@
-package com.antman.extensionmarket42.extensions;
+package com.antman.extensionmarket42.Extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.mockito.Mockito.*;
 
 
@@ -85,6 +86,8 @@ public class ExtensionsServiceTests {
 
         assertEquals(1, result.size());
     }
+
+
 
     @Test
     public void increaseDownloadCount_whenExtensionIsPresent_ReturnIncreasedDownloadCountByOne() {
@@ -157,5 +160,36 @@ public class ExtensionsServiceTests {
         //Assert
         String expectedFileName = "testextension_3.5_initialFile.txt";
         Assert.assertEquals(result, expectedFileName);
+    }
+
+    @Test
+    public void updateExtension_WhenPassingIdAndExtension_ReturnsUpdatedExtension() throws NotFoundException {
+
+        Extension extension = ExtensionTestSetup.createExtension(1L,"Name","Description","Version");
+        Extension newData = ExtensionTestSetup.createExtension(1L,"uName","uDescription","uVersion");
+
+        when(extensionMockRepository.findById(1L))
+                .thenReturn(Optional.of(extension));
+        when(extensionMockRepository.save(any(Extension.class)))
+                .thenReturn(newData);
+
+        Extension result = extensionService.updateExtension(1L,newData);
+
+        Assert.assertThat(result, samePropertyValuesAs(newData));
+    }
+
+    public void updateExtension_WhenPassingIdAndExtensionAndFilePath_ReturnsUpdatedExtension() throws NotFoundException {
+
+        Extension extension = ExtensionTestSetup.createExtension(1L,"Name","Description","Version","path");
+        Extension newData = ExtensionTestSetup.createExtension(1L,"uName","uDescription","uVersion","uPath");
+
+        when(extensionMockRepository.findById(1L))
+                .thenReturn(Optional.of(extension));
+        when(extensionMockRepository.save(any(Extension.class)))
+                .thenReturn(newData);
+
+        Extension result = extensionService.updateExtension(1L,newData,"uPath");
+        Assert.assertThat(result.getDownloadLink(),isNotNull());
+        Assert.assertThat(result, samePropertyValuesAs(newData));
     }
 }
