@@ -86,6 +86,16 @@
         </a>
     </article>
 </section>
+<section class="alltags">
+    <hr/>
+    <h5>Browse by Tag</h5>
+    <a th:href="@{/search-results(searchby='tagname',value=${tag.tagTitle},sortby='name')}" class="badge badge-info"
+       th:each="tag : ${tags}"
+       th:text="${tag.tagTitle}">
+        JavaTag
+    </a>
+    <hr/>
+</section>
 <footer th:replace="fragments :: footer"></footer>
 <th:block th:include="fragments :: assets"></th:block>
 </body>
