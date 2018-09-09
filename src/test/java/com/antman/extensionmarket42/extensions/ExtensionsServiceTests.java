@@ -101,7 +101,7 @@ public class ExtensionsServiceTests {
         extensions.add(new Extension());
         activeExtensions.add(activeExtension);
 
-        when(extensionMockRepository.findAllByActiveTrue()).thenReturn(activeExtensions);
+        when(extensionMockRepository.findAllByActiveTrueOrderByName()).thenReturn(activeExtensions);
 
         List<Extension> result = extensionService.getAll();
 
