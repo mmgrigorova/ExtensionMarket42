@@ -180,11 +180,6 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public List<Extension> getByTag(String tag) {
-        return extensionRepository.findByActiveTrueAndPendingFalseAndTags_tagTitle(tag);
-    }
-
-    @Override
     public List<Extension> getRecentlyAdded() {
         return extensionRepository.findTop5ByActiveTrueAndPendingOrderByAddedOnDesc(false);
     }
@@ -237,13 +232,6 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Page<Extension> findAll(Pageable pageable){
-        Page<Extension> extensionPage = extensionRepository.findAll(pageable);
-
-        return extensionPage;
-    }
-
-    @Override
     public Page<Extension> findAllByName(String name,Pageable pageable){
         return extensionRepository.getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase(name,pageable);
     }
@@ -254,22 +242,8 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Page<Extension> findAllByDownloadsAndName(String name,Pageable pageable){
-        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByDownloadsCountDesc(name,pageable);
-    }
-
-    @Override
     public Page<Extension> findAllByName(Pageable pageable){
         return  extensionRepository.findAllByPendingFalseAndActiveTrueOrderByName(pageable);
-    }
-
-    @Override
-    public Page<Extension> findAllByCommitAndName(String name,Pageable pageable){
-        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainsIgnoreCaseOrderByLastCommitDesc(name,pageable);
-    }
-
-    public Page<Extension> findAllByAddedOnAndName(String name,Pageable pageable){
-        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByAddedOnDesc(name,pageable);
     }
 
 }

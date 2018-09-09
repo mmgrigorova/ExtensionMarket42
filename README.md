@@ -61,17 +61,17 @@ It is the final project for Telerik Academy Alpha in Java - 2018.
 - [x] User Registration
 - [x] Logon Capability
 - [x] Filter extensions by name
-- [ ] Sort by:
-	- [ ] name
-	- [ ] number of downloada
-	- [ ] upload date
-	- [ ] last commit date
+- [x] Sort search results by:
+	- [x] name
+	- [x] number of downloada
+	- [x] upload date
+	- [x] last commit date
   
 ### Private Part (Logged users only)
 
 Registered users have private area in the web application.
 - [x] They could see all extensions that are owned by the currently logged user. Additionally the registered user must be able to:
-- [ ] Delete/update/create extension. 
+- [x] Delete/update/create extension. 
 
 Once extension is created it is “pending” state until an administrator approves it. 
 
