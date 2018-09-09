@@ -110,7 +110,7 @@
                 <table class="table table-striped table-light table-custom">
                     <tr>
                         <th>Id</th>
-                        <th>Name</th>
+                        <th><a href="#" th:href="@{/adminPanel/sortByName}">name</a></th>
                         <th>Owner</th>
                         <th>Pending</th>
                         <th>Featured</th>
@@ -148,12 +148,18 @@
 
                         <td th:text="${e.lastCommit}"></td>
                         <td th:text="${e.addedOn}"></td>
-                        <td><a th:href="@{/search-results(tagName=${tag.tagTitle})}" class="badge badge-info"
+                        <td>
+                            <a th:href="@{/search-results(tagName=${tag.tagTitle})}" class="badge badge-info"
                                th:each="tag : ${e.tags}" th:text="${tag.tagTitle}">
-                            JavaTag
-                        </a></td>
+                            </a>
+                        </td>
                     </tr>
                 </table>
+                <!--<ul class="nav nav-pills" th:if="${extensions.totalPages>0}">-->
+                    <!--<li class="nav-item" th:each="i:${#numbers.sequence(1,extensions.totalPages)}">-->
+                        <!--<a th:href="@{/search-results/name/(page=${i})}" th:text="${i}" class="nav-link"></a>-->
+                    <!--</li>-->
+                <!--</ul>-->
             </div>
             <div class="col-sm-7">
 

@@ -5,6 +5,7 @@ import com.antman.extensionmarket42.dtos.RepositoryDto;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.models.extensions.Tag;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
+import com.antman.extensionmarket42.repositories.base.GitHubDataRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
 import com.antman.extensionmarket42.utils.SystemTimeWrapper;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -101,7 +103,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension deactivateExtension(Extension extension) {
+    public Extension deactivateExtension(long id, boolean b) throws NotFoundException{
+        Extension extension = getById(id);
+        extension.setActive(b);
         extensionRepository.save(extension);
         return extension;
     }
@@ -113,18 +117,18 @@ public class ExtensionServiceImpl implements ExtensionService {
         current.setName(extension.getName());
         current.setDescription(extension.getDescription());
         current.setVersion(extension.getVersion());
-        System.out.println(filepath);
+
         if(filepath != null && !filepath.isEmpty())
         {
             current.setDownloadLink(filepath);
         }
-        System.out.println(current.getDownloadLink());
+
         extensionRepository.save(current);
         return current;
     }
 
     @Override
-    public Extension updateExtension(long id, Extension extension) throws NotFoundException {
+    public Extension updateExtension(long id, Extension extension) throws NotFoundException{
         Extension current = getById(id);
 
         current.setName(extension.getName());
@@ -154,7 +158,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getAll() {
-        return extensionRepository.findAllByActiveTrue();
+        return extensionRepository.findAllByActiveTrueOrderByName();
     }
 
     @Override
@@ -185,31 +189,6 @@ public class ExtensionServiceImpl implements ExtensionService {
     @Override
     public List<Extension> getRecentlyAdded() {
         return extensionRepository.findTop5ByActiveTrueAndPendingOrderByAddedOnDesc(false);
-    }
-
-    @Override
-    public void removeById(long id) {
-        extensionRepository.deleteById(id);
-    }
-
-    @Override
-    public List<Extension> orderByDownloadsCount() {
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByDownloadsCountDesc();
-    }
-
-    @Override
-    public List<Extension> orderByLastCommit() {
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByLastCommitDesc();
-    }
-
-    @Override
-    public List<Extension> orderByUploadDate() {
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByAddedOnDesc();
-    }
-
-    @Override
-    public List<Extension> orderByName() {
-        return extensionRepository.findAllByOrderByName();
     }
 
     @Override
@@ -265,4 +244,34 @@ public class ExtensionServiceImpl implements ExtensionService {
 
         return extensionPage;
     }
+
+    @Override
+    public Page<Extension> findAllByName(String name,Pageable pageable){
+        return extensionRepository.getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCaseOrderByName(name,pageable);
+    }
+
+    @Override
+    public Page<Extension> findAllByTag(String name, Pageable pageable){
+        return extensionRepository.findByActiveTrueAndPendingFalseAndTags_tagTitle(name,pageable);
+    }
+
+    @Override
+    public Page<Extension> findAllByDownloadsAndName(String name,Pageable pageable){
+        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByDownloadsCountDesc(name,pageable);
+    }
+
+    @Override
+    public Page<Extension> findAllByName(Pageable pageable){
+        return  extensionRepository.findAllByPendingFalseAndActiveTrueOrderByName(pageable);
+    }
+
+    @Override
+    public Page<Extension> findAllByCommitAndName(String name,Pageable pageable){
+        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainsIgnoreCaseOrderByLastCommitDesc(name,pageable);
+    }
+
+    public Page<Extension> findAllByAddedOnAndName(String name,Pageable pageable){
+        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByAddedOnDesc(name,pageable);
+    }
+
 }

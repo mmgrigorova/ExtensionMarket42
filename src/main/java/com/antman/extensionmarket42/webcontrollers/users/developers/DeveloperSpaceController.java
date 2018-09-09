@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class DeveloperSpaceController {
@@ -68,7 +69,7 @@ public class DeveloperSpaceController {
     public ModelAndView saveChanges(@ModelAttribute("extension") Extension extension,
                                     @PathVariable("extensionId") long extensionId,
                                     @RequestParam(value = "file",required = false) MultipartFile file,
-                                    RedirectAttributes redirectAttributes) throws NotFoundException {
+                                    RedirectAttributes redirectAttributes)throws NotFoundException {
         String filename = "";
         if(!file.isEmpty()){
             //name of uploaded file
@@ -78,8 +79,8 @@ public class DeveloperSpaceController {
             //download link for the file
             filename = fileStorageService.storeFile(file, uniqueFileName);
         }
-        System.out.println(filename);
-        extensionService.updateExtension(extensionId,extension,filename);
+
+        extensionService.updateExtension(extensionId,extension,filename) ;
 
         ModelAndView modelAndView = new ModelAndView("redirect:/developer");
         redirectAttributes.addFlashAttribute("confirmMessage","Changes to extension " + extension.getName() + "have been saved");
@@ -89,8 +90,7 @@ public class DeveloperSpaceController {
     @RequestMapping(value ="/developer/edit/delete/{extensionId}",method = RequestMethod.POST)
     public ModelAndView removeExtension(@PathVariable("extensionId")long extensionId, RedirectAttributes redirectAttributes)throws Exception{
         Extension extension = extensionService.getById(extensionId);
-        extension.setActive(false);
-        extensionService.deactivateExtension(extension);
+        extensionService.deactivateExtension(extensionId,false);
 
         ModelAndView modelAndView = new ModelAndView("redirect:/developer");
         redirectAttributes.addFlashAttribute("confirmMessage", "Extension " + extension.getName() + " has been deleted");

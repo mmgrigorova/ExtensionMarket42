@@ -22,8 +22,7 @@ public class EditExtensionController {
     @RequestMapping(value ="adminPanel/delete/{extensionId}",method = RequestMethod.POST)
     public ModelAndView removeExtension(@PathVariable("extensionId")long extensionId, RedirectAttributes redirectAttributes)throws Exception{
         Extension extension = extensionService.getById(extensionId);
-        extension.setActive(false);
-        extensionService.deactivateExtension(extension);
+        extensionService.deactivateExtension(extensionId,false);
 
         ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
         redirectAttributes.addFlashAttribute("confirmMessage", "Extension " + extension.getName() + " has been deactivated");

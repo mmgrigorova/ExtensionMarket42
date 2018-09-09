@@ -9,6 +9,47 @@ It is the final project for Telerik Academy Alpha in Java - 2018.
 
 :eyes: [Visit Life Demo](http://extension42.eu-west-3.elasticbeanstalk.com)
 
+## Installation Guide
+
+#### Prerequisites
+
+1. [MariaDB](https://mariadb.com)
+2. [Java 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+
+#### Run Instructions
+
+1. Download/clone the project from GitHub
+
+		https://github.com/mmgrigorova/ExtensionMarket42
+
+2. Open your Terminal and navigate to the root project folder
+
+		ExtensionMarket42
+	
+3. Execute the following commands in Terminal:
+- Create the database and user to be used by the application
+	(if you prefer to use an SQL client you can execute the market_db.sql file's content in it)
+	
+		$ mysql -u root -p < market_db.sql
+	
+- Build and run the application
+	- Run this command if you only have Java 1.8 on your computer and no recent Java versions
+		
+		$./gradlew bootRun
+		
+	- Run this command if you have more than one Java version
+		
+		$./gradlew bootRun -Dorg.gradle.java.home=/JDK_PATH
+		
+	example:
+		
+		./gradlew bootRun -Dorg.gradle.java.home=/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home
+
+4. In your browser, go to localhost:8080 to open the application
+
+5. Register as new user
+6. Enjoy!
+
 ## Features
 
 ### Public Part
@@ -46,9 +87,9 @@ System administrators have administrative access to the system and permissions t
 
 #### Source Data Synchronization
 
-Source data (GitHub information) is automatically refreshed by a scheduled job. 
+Source data (GitHub information) is automatically refreshed by a scheduled job which runs every day at 6AM. 
 Administrators can also trigger source data refresh manually per extension or trigger it for all extensions.
-The schedule interval can be configured from application.properties file.
+Once the manual run is complete, administrators can review the successfully and failed updates in a report.
 
 The information about extension synchronization is available in the Admin panel and includes:
 - Last successful synchronization
@@ -58,7 +99,7 @@ The information about extension synchronization is available in the Admin panel 
 
 We provide Rest API to the public features of the application.
 
-**Commands**
+### Commands
 
 The commands below return a list of five extensions.
 
@@ -98,12 +139,18 @@ Example Response
 Download extension file
 
 	http://extension42.eu-west-3.elasticbeanstalk.com/downloadFile/<extensionId>/<filename.file>
-	
-## Installation Guide
 
+## Screenshots
+
+#### Homepage
+![homepage](https://i.imgur.com/ykePjfp.png)
+#### Extension Details
+![extensiondetails](https://i.imgur.com/mVPPuXJ.png)
+#### Developer's Space
+![devspace](https://i.imgur.com/Kt2WHWq.png)
+#### Admin Portal
+![adminportal](https://i.imgur.com/GSFUmQT.png)
 
 ---- 
 
 *This IDE does not exist.
-
-> Written with [StackEdit](https://stackedit.io/).
