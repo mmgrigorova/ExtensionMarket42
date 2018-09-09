@@ -23,6 +23,7 @@ public interface ExtensionService {
     List<Extension> getByName(String name);
     List<Extension> getByUserId(long id);
     List<Extension> getApprovedFeatured(boolean b);
+
     List<Extension> getPending(boolean b);
     List<Extension> getInactive();
     List<Extension> getTopFiveMostPopularApproved();

@@ -6,8 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ExtensionRepository extends PagingAndSortingRepository<Extension,Long> {
+
+    Optional<Extension> findById(Long id);
 
     Extension       getById(long id);
     List<Extension> findAllByActiveTrueOrderByName();

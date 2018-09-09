@@ -10,6 +10,7 @@ import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import com.antman.extensionmarket42.services.extensions.ExtensionServiceImpl;
 import com.antman.extensionmarket42.services.extensions.RemoteRepositoryService;
 import com.antman.extensionmarket42.services.users.base.MyUserDetailsService;
+import javafx.beans.binding.When;
 import javassist.NotFoundException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,13 +18,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
+import java.awt.print.Pageable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.mockito.Mockito.*;
 
@@ -284,7 +292,6 @@ public class ExtensionsServiceTests {
         Assert.assertThat(result, samePropertyValuesAs(newData));
     }
 
-
     @Test
     public void getApprovedFeatured_WhenListOfAllExtensions_ReturnOnlyFeaturedAndApprovedExtensionsAsList() {
         Extension extension1 = ExtensionTestSetup.createExtension(1L, "extension1", "unnapporved extension1", "1.0");
@@ -304,4 +311,81 @@ public class ExtensionsServiceTests {
         //Assert
         Assert.assertTrue(resultExtension.containsAll(expectedExtensions));
     }
+
+    @Test
+    public void getPending_WhenListOfExtensions_ReturnOnlyActiveAndPending(){
+        List<Extension> pendingExtensions = new ArrayList<>();
+
+        Extension pendingExtension = new Extension();
+        pendingExtension.setPending(true);
+        pendingExtensions.add(pendingExtension);
+
+        when(extensionMockRepository.findAllByActiveTrueAndPendingIs(true)).thenReturn(pendingExtensions);
+
+        List<Extension> result = extensionService.getPending(true);
+
+        Assert.assertTrue(result.containsAll(pendingExtensions));
+        assertEquals(1,result.size());
+    }
+
+    @Test
+    public void getInactive_WhenListOfExtension_ReturnOnlyInactive(){
+        List<Extension> inactiveExtensions = new ArrayList<>();
+        Extension inactiveExtension = new Extension();
+        inactiveExtension.setActive(false);
+        inactiveExtensions.add(inactiveExtension);
+
+        when(extensionMockRepository.getAllByActiveIsFalse()).thenReturn(inactiveExtensions);
+
+        List<Extension> result = extensionService.getInactive();
+
+        Assert.assertTrue(result.containsAll(inactiveExtensions));
+        assertEquals(1,result.size());
+    }
+
+    @Test
+    public void getTopFiveMostPopularApproved_WhenMostPopularRequested_ReturnFiveMostDownloadedExtensions(){
+        List<Extension> extensions = Stream.generate(Extension::new).limit(5).collect(Collectors.toList());
+
+        //TODO: how to test
+    }
+
+    @Test
+    public void toggleFeaturedExtension_WhenFeaturedIsTrue_SetFeaturedFalse() throws NotFoundException{
+        Extension extension = ExtensionTestSetup.createExtension(1L);
+        extension.setFeatured(true);
+
+        Extension expectedResult = ExtensionTestSetup.createExtension(1L);
+        extension.setFeatured(false);
+
+        when(extensionMockRepository.findById(1L)).thenReturn(Optional.of(extension));
+        when(extensionMockRepository.save(any(Extension.class))).thenReturn(expectedResult);
+
+        Extension result = extensionService.toggleFeaturedExtension(1L);
+
+        assertFalse(result.isFeatured());
+        assertEquals(result.isFeatured(), expectedResult.isFeatured());
+    }
+
+    @Test
+    public void findAllByName_WhenExtensionsArePresent_ReturnAllMatchingName(){
+        List<Extension> extensions = new ArrayList<>();
+        Extension extension = ExtensionTestSetup.createExtension(1L,"testName","","1");
+        extensions.add(extension);
+
+        Page<Extension> pages = new PageImpl<>(new ArrayList<>());
+        PageRequest pageable = PageRequest.of(0,5);
+
+        when(extensionMockRepository.getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase("testName",pageable)).thenReturn(pages);
+
+        Page<Extension> result = extensionService.findAllByName("testName",pageable);
+
+        verify(extensionMockRepository, times(1)).getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase("testName",pageable);
+
+        assertEquals(pages, result);
+    }
+
+
+
+
 }

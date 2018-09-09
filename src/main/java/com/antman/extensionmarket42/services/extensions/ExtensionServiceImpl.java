@@ -165,8 +165,8 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public List<Extension> getPending(boolean b) {
-        return extensionRepository.findAllByActiveTrueAndPendingIs(b);
+    public List<Extension> getPending(boolean isPending) {
+        return extensionRepository.findAllByActiveTrueAndPendingIs(isPending);
     }
 
     @Override
