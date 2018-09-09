@@ -30,6 +30,10 @@ navbar {
     color: #fff;
 }
 
+main{
+    min-height: 84vh;
+}
+
 article.extension-card {
     display: inline-block;
     border: 1px solid #c3c3c3;
