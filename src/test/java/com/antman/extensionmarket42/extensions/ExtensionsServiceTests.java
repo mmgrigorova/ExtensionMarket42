@@ -19,9 +19,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
