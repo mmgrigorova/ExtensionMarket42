@@ -13,7 +13,7 @@ public interface ExtensionRepository extends PagingAndSortingRepository<Extensio
     Extension       getById(long id);
     List<Extension> findAllByActiveTrueOrderByName();
     List<Extension> findAllByActiveTrueAndPendingIs(boolean b);
-    List<Extension> getAllByActiveTrueAndFeaturedAndPending(boolean featured, boolean fending);
+    List<Extension> getAllByActiveTrueAndFeaturedAndPending(boolean featured, boolean pending);
 
     List<Extension> getAllByActiveIsFalse();
 

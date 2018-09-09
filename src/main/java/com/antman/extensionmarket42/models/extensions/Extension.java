@@ -5,6 +5,7 @@ import com.antman.extensionmarket42.models.UserProfile;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -236,5 +237,35 @@ public class Extension {
 
   public void setActive(boolean active) {
     this.active = active;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Extension extension = (Extension) o;
+    return downloadsCount == extension.downloadsCount &&
+            openIssues == extension.openIssues &&
+            pullRequests == extension.pullRequests &&
+            pending == extension.pending &&
+            featured == extension.featured &&
+            active == extension.active &&
+            Objects.equals(id, extension.id) &&
+            Objects.equals(name, extension.name) &&
+            Objects.equals(description, extension.description) &&
+            Objects.equals(version, extension.version) &&
+            Objects.equals(downloadLink, extension.downloadLink) &&
+            Objects.equals(repoLink, extension.repoLink) &&
+            Objects.equals(lastCommit, extension.lastCommit) &&
+            Objects.equals(tags, extension.tags) &&
+            Objects.equals(userProfile, extension.userProfile) &&
+            Objects.equals(screenshots, extension.screenshots) &&
+            Objects.equals(icon, extension.icon) &&
+            Objects.equals(addedOn, extension.addedOn);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, description, version, downloadsCount, downloadLink, repoLink, openIssues, pullRequests, lastCommit, tags, userProfile, screenshots, pending, featured, icon, addedOn, active);
   }
 }

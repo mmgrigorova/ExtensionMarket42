@@ -288,16 +288,20 @@ public class ExtensionsServiceTests {
     @Test
     public void getApprovedFeatured_WhenListOfAllExtensions_ReturnOnlyFeaturedAndApprovedExtensionsAsList() {
         Extension extension1 = ExtensionTestSetup.createExtension(1L, "extension1", "unnapporved extension1", "1.0");
-        Extension extension2 = ExtensionTestSetup.createExtension(2L, "extension2", "approved extension2", "1.0");
-        Extension extension3 = ExtensionTestSetup.createExtension(3L, "extension3", "approved featured extension3", "1.0");
-        Extension extension4 = ExtensionTestSetup.createExtension(4L, "extension1", "unnapporved featured extension4", "1.0");
+        extension1.setPending(false);
+        extension1.setFeatured(true);
 
-        List<Extension> allExtensions = Arrays.asList(extension1,extension2
+        List<Extension> allExtensions = Arrays.asList(extension1);
 
-        );
+        when(extensionMockRepository.getAllByActiveTrueAndFeaturedAndPending(true, false))
+                .thenReturn(allExtensions);
+
+        List<Extension> expectedExtensions = Arrays.asList(extension1);
+
+        // Act
+        List<Extension> resultExtension = extensionService.getApprovedFeatured(true);
+
+        //Assert
+        Assert.assertTrue(resultExtension.containsAll(expectedExtensions));
     }
-//
-//    public List<Extension> getApprovedFeatured(boolean b) {
-//        return extensionRepository.getAllByActiveTrueAndFeaturedAndPending(true, false);
-//    }
 }

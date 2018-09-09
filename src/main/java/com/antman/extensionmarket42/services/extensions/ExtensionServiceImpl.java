@@ -160,8 +160,8 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public List<Extension> getApprovedFeatured(boolean b) {
-        return extensionRepository.getAllByActiveTrueAndFeaturedAndPending(true, false);
+    public List<Extension> getApprovedFeatured(boolean isFeatured) {
+        return extensionRepository.getAllByActiveTrueAndFeaturedAndPending(isFeatured, false);
     }
 
     @Override
