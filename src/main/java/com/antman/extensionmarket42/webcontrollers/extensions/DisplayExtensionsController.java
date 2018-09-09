@@ -19,7 +19,7 @@ import java.util.Optional;
 public class DisplayExtensionsController {
     private ExtensionService extensionService;
     private ExtensionRepositoryDataService gitHubService;
-
+    private final int PAGE_SIZE =10;
 
     @Autowired
     public DisplayExtensionsController(ExtensionService extensionService,
@@ -115,13 +115,14 @@ public class DisplayExtensionsController {
     }
 
     @GetMapping("adminPanel/sortByName")
-    public ModelAndView sortByName(@RequestParam(defaultValue = "0") int page,RedirectAttributes redirectAttributes){
-        //Page<Extension> sortedExtensions = extensionService.findAllByName(PageRequest.of(page,5));
+    public ModelAndView sortByName(@RequestParam(defaultValue = "0") int page){
+
+        Page<Extension> sortedExtensions = extensionService.findAllByName(PageRequest.of(page,PAGE_SIZE));
         ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
-        //modelAndView.addObject("extensions",sortedExtensions);
+
+        modelAndView.addObject("extensions",sortedExtensions);
         modelAndView.addObject("choice","sortByName");
         modelAndView.addObject("page",page);
-        //redirectAttributes.addFlashAttribute("extensions",sortedExtensions);
 
         return modelAndView;
     }

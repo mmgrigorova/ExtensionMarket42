@@ -158,7 +158,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getAll() {
-        return extensionRepository.findAllByActiveTrue();
+        return extensionRepository.findAllByActiveTrueOrderByName();
     }
 
     @Override
@@ -182,38 +182,8 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public List<Extension> getByTag(String tag) {
-        return extensionRepository.findByActiveTrueAndPendingFalseAndTags_tagTitle(tag);
-    }
-
-    @Override
     public List<Extension> getRecentlyAdded() {
         return extensionRepository.findTop5ByActiveTrueAndPendingOrderByAddedOnDesc(false);
-    }
-
-    @Override
-    public void removeById(long id) {
-        extensionRepository.deleteById(id);
-    }
-
-    @Override
-    public List<Extension> orderByDownloadsCount() {
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByDownloadsCountDesc();
-    }
-
-    @Override
-    public List<Extension> orderByLastCommit() {
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByLastCommitDesc();
-    }
-
-    @Override
-    public List<Extension> orderByUploadDate() {
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByAddedOnDesc();
-    }
-
-    @Override
-    public List<Extension> orderByName() {
-        return extensionRepository.findAllByOrderByName();
     }
 
     @Override
@@ -281,24 +251,8 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Page<Extension> findAllByDownloads(Pageable pageable){
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByDownloadsCountDesc(pageable);
-    }
-
-    @Override
     public Page<Extension> findAllByDownloadsAndName(String name,Pageable pageable){
         return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByDownloadsCountDesc(name,pageable);
-    }
-
-
-    @Override
-    public Page<Extension> findAllByCommit(Pageable pageable){
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByLastCommitDesc(pageable);
-    }
-
-    @Override
-    public Page<Extension> findAllByAddedOn(Pageable pageable){
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByAddedOnDesc(pageable);
     }
 
     @Override
