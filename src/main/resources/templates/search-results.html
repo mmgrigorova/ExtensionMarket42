@@ -16,11 +16,11 @@
         <p th:if="${extensions.totalPages==0}">There are no extensions matching your criteria</p>
         <table th:if="${extensions.totalPages>0}" class="table table-striped table-light table-custom">
             <tr>
-                <th><a href="#" th:href="@{/search-results/name/(name=${searchParam})}">name</a></th>
+                <th><a href="#" th:href="@{/search-results/(name=${searchParam}, sortby='name')}">name</a></th>
                 <th>Owner</th>
-                <th><a href="#" th:href="@{/search-results/downloadCount/(name=${searchParam})}">Download Count</a></th>
-                <th><a href="#" th:href="@{/search-results/lastCommit/(name=${searchParam})}">Last Commit</a></th>
-                <th><a href="#" th:href="@{/search-results/uploadDate/(name=${searchParam})}">Uploaded On</a></th>
+                <th><a href="#" th:href="@{/search-results/(name=${searchParam}, sortby='downloadsCount')}">Download Count</a></th>
+                <th><a href="#" th:href="@{/search-results/(name=${searchParam}, sortby='lastCommit')}">Last Commit</a></th>
+                <th><a href="#" th:href="@{/search-results/(name=${searchParam}, sortby='addedOn')}">Uploaded On</a></th>
                 <th>Tags</th>
             </tr>
             <tr th:each="e : ${extensions}">
@@ -31,7 +31,7 @@
                 <td th:text="${e.lastCommit}"></td>
                 <td th:text="${e.addedOn}"></td>
                 <td>
-                    <a th:href="@{/search-results(tagName=${tag.tagTitle})}" class="badge badge-info"
+                    <a th:href="@{/search-results(tagName=${tag.tagTitle},sortby='name')}" class="badge badge-info"
                        th:each="tag : ${e.tags}" th:text="${tag.tagTitle}">
                     </a>
                 </td>
@@ -39,7 +39,7 @@
         </table>
         <ul class="nav nav-pills" th:if="${extensions.totalPages>0}">
             <li class="nav-item" th:each="i:${#numbers.sequence(0,extensions.totalPages-1)}">
-                    <a th:href="@{/search-results/name/(page=${i},name=${searchParam})}" th:text="${i+1}" class="nav-link"></a>
+                    <a th:href="@{/search-results/(page=${i},name=${searchParam}, sortby=${sortby})}" th:text="${i+1}" class="nav-link"></a>
             </li>
         </ul>
     </section>

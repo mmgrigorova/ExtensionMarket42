@@ -1,7 +1,6 @@
 package com.antman.extensionmarket42.extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
-import com.antman.extensionmarket42.models.User;
 import com.antman.extensionmarket42.models.UserProfile;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.models.extensions.Tag;
@@ -62,7 +61,7 @@ public class ExtensionsServiceTests {
 
     @Test(expected = javassist.NotFoundException.class)
     public void getById_whenExtensionIsNotPresent_ThrowNotFoundException() throws NotFoundException {
-       extensionService.getById(-1L);
+        extensionService.getById(-1L);
     }
 
     @Test
@@ -79,7 +78,7 @@ public class ExtensionsServiceTests {
     }
 
     @Test
-    public void getByUserId_whenUserProfileIdMatchesOwnerId_returnExtension(){
+    public void getByUserId_whenUserProfileIdMatchesOwnerId_returnExtension() {
         List<Extension> extensions = new ArrayList<>();
 
         Extension extensionOne = ExtensionTestSetup.createExtension(1l);
@@ -94,7 +93,7 @@ public class ExtensionsServiceTests {
 
         List<Extension> result = extensionService.getByUserId(1L);
 
-        assertEquals(extensions,result);
+        assertEquals(extensions, result);
     }
 
     @Test
@@ -117,7 +116,7 @@ public class ExtensionsServiceTests {
     }
 
     @Test
-    public void deactivateExtension_whenBooleanIsFalse_ThenReturnExtensionWhichIsNotActive() throws NotFoundException{
+    public void deactivateExtension_whenBooleanIsFalse_ThenReturnExtensionWhichIsNotActive() throws NotFoundException {
         Extension extension = new Extension();
         extension.setActive(true);
         Extension newData = new Extension();
@@ -128,7 +127,7 @@ public class ExtensionsServiceTests {
         when(extensionMockRepository.save(any(Extension.class)))
                 .thenReturn(newData);
 
-        Extension result = extensionService.deactivateExtension(1L,false);
+        Extension result = extensionService.deactivateExtension(1L, false);
 
         Assert.assertEquals(result.isActive(), false);
     }
@@ -183,7 +182,7 @@ public class ExtensionsServiceTests {
         Extension result = extensionService.approvePendingExtension(1L);
 
         //Assert
-        verify(extensionMockRepository,times(1)).save(extension);
+        verify(extensionMockRepository, times(1)).save(extension);
         Assert.assertFalse(result.isPending());
     }
 
@@ -219,7 +218,7 @@ public class ExtensionsServiceTests {
         method.setAccessible(true);
         parameters = new Object[1];
 
-        String[] tagsInput = {"testTag1","testTagWithChars2"};
+        String[] tagsInput = {"testTag1", "testTagWithChars2"};
 
         Set<Tag> extectedTags = new HashSet<>();
         extectedTags.add(new Tag("testtag1"));
@@ -229,7 +228,7 @@ public class ExtensionsServiceTests {
         parameters[0] = tagsInput;
         Set<Tag> result = (Set<Tag>) method.invoke(extensionService, parameters);
 
-        Assert.assertTrue( equalsTags(result,extectedTags));
+        Assert.assertTrue(equalsTags(result, extectedTags));
     }
 
     private boolean equalsTags(Set<?> set1, Set<?> set2) {
@@ -255,15 +254,15 @@ public class ExtensionsServiceTests {
     @Test
     public void updateExtension_WhenPassingIdAndExtension_ReturnsUpdatedExtension() throws NotFoundException {
 
-        Extension extension = ExtensionTestSetup.createExtension(1L,"Name","Description","Version");
-        Extension newData = ExtensionTestSetup.createExtension(1L,"uName","uDescription","uVersion");
+        Extension extension = ExtensionTestSetup.createExtension(1L, "Name", "Description", "Version");
+        Extension newData = ExtensionTestSetup.createExtension(1L, "uName", "uDescription", "uVersion");
 
         when(extensionMockRepository.findById(1L))
                 .thenReturn(Optional.of(extension));
         when(extensionMockRepository.save(any(Extension.class)))
                 .thenReturn(newData);
 
-        Extension result = extensionService.updateExtension(1L,newData);
+        Extension result = extensionService.updateExtension(1L, newData);
 
         Assert.assertThat(result, samePropertyValuesAs(newData));
     }
@@ -271,17 +270,34 @@ public class ExtensionsServiceTests {
     @Test
     public void updateExtension_WhenPassingIdAndExtensionAndFilePath_ReturnsUpdatedExtension() throws NotFoundException {
 
-        Extension extension = ExtensionTestSetup.createExtension(1L,"Name","Description","Version","path");
-        Extension newData = ExtensionTestSetup.createExtension(1L,"uName","uDescription","uVersion","uPath");
+        Extension extension = ExtensionTestSetup.createExtension(1L, "Name", "Description", "Version", "path");
+        Extension newData = ExtensionTestSetup.createExtension(1L, "uName", "uDescription", "uVersion", "uPath");
 
         when(extensionMockRepository.findById(1L))
                 .thenReturn(Optional.of(extension));
         when(extensionMockRepository.save(any(Extension.class)))
                 .thenReturn(newData);
 
-        Extension result = extensionService.updateExtension(1L,newData,"uPath");
+        Extension result = extensionService.updateExtension(1L, newData, "uPath");
 
         Assert.assertNotNull(result.getDownloadLink());
         Assert.assertThat(result, samePropertyValuesAs(newData));
     }
+
+
+    @Test
+    public void getApprovedFeatured_WhenListOfAllExtensions_ReturnOnlyFeaturedAndApprovedExtensionsAsList() {
+        Extension extension1 = ExtensionTestSetup.createExtension(1L, "extension1", "unnapporved extension1", "1.0");
+        Extension extension2 = ExtensionTestSetup.createExtension(2L, "extension2", "approved extension2", "1.0");
+        Extension extension3 = ExtensionTestSetup.createExtension(3L, "extension3", "approved featured extension3", "1.0");
+        Extension extension4 = ExtensionTestSetup.createExtension(4L, "extension1", "unnapporved featured extension4", "1.0");
+
+        List<Extension> allExtensions = Arrays.asList(extension1,extension2
+
+        );
+    }
+//
+//    public List<Extension> getApprovedFeatured(boolean b) {
+//        return extensionRepository.getAllByActiveTrueAndFeaturedAndPending(true, false);
+//    }
 }

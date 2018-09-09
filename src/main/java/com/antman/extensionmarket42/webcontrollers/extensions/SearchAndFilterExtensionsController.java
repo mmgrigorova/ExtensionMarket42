@@ -5,6 +5,8 @@ import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +21,7 @@ import java.util.Optional;
 @RequestMapping("search-results")
 public class SearchAndFilterExtensionsController {
     private final ExtensionService extensionService;
-    private final int PAGE_SIZE = 6;
+    private final int PAGE_SIZE = 4;
 
     @Autowired
     public SearchAndFilterExtensionsController(ExtensionService extensionService) {
@@ -30,79 +32,27 @@ public class SearchAndFilterExtensionsController {
     @GetMapping
     public String displaySearchResultsByName(@RequestParam(required = false) Optional<String> name,
                                              @RequestParam(required = false) Optional<String> tagName,
+                                             @RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(name = "sortby") String sortBy,
                                              Model model) {
         Page<Extension> matchingByCriteria = null;
         if (name.isPresent()) {
-            matchingByCriteria = extensionService.findAllByName(name.get(),PageRequest.of(0,PAGE_SIZE));
+            matchingByCriteria = extensionService.findAllByName(name.get(),PageRequest.of(page,PAGE_SIZE, Direction.ASC, sortBy));
             model.addAttribute("criteria", name.get());
             model.addAttribute("searchParam",name.get());
-
+            model.addAttribute("sortby", sortBy);
         }
 
         if (tagName.isPresent()){
-            matchingByCriteria = extensionService.findAllByTag(tagName.get(), PageRequest.of(0,PAGE_SIZE));
+            matchingByCriteria = extensionService.findAllByTag(tagName.get(), PageRequest.of(page,PAGE_SIZE,  Sort.by(sortBy)));
             model.addAttribute("criteria", tagName.get());
+            model.addAttribute("searchParam", tagName.get());
+            model.addAttribute("sortby", sortBy);
         }
         model.addAttribute("extensions", matchingByCriteria);
         model.addAttribute("resultCount", matchingByCriteria.getTotalPages());
 
         return "search-results";
-    }
-
-    @GetMapping("/uploadDate")
-    public ModelAndView displayResultsByAddedOn(@RequestParam(defaultValue = "0") int page,
-                                                @RequestParam(required = false)String name){
-
-        Page<Extension> sortedExtensions = extensionService.findAllByAddedOnAndName(name,PageRequest.of(page,PAGE_SIZE));
-        //Page<Extension> sortedExtensions = extensionService.findAllByAddedOn(PageRequest.of(page,5));
-        ModelAndView modelAndView = new ModelAndView("/search-results");
-
-        modelAndView.addObject("extensions",sortedExtensions);
-        modelAndView.addObject("searchParam",name);
-
-        return modelAndView;
-    }
-
-    @GetMapping("/lastCommit")
-    public ModelAndView displayResultsByLastCommit(@RequestParam(defaultValue = "0") int page,
-                                                   @RequestParam(required = false)String name){
-
-        Page<Extension> sortedExtensions = extensionService.findAllByCommitAndName(name,PageRequest.of(page,PAGE_SIZE));
-        //Page<Extension> sortedExtensions = extensionService.findAllByCommit(PageRequest.of(page,5));
-        ModelAndView modelAndView = new ModelAndView("/search-results");
-
-        modelAndView.addObject("extensions",sortedExtensions);
-        modelAndView.addObject("searchParam",name);
-
-        return modelAndView;
-    }
-
-    @GetMapping("/downloadCount")
-    public ModelAndView displayResultsByDownloadCount(@RequestParam(defaultValue = "0") int page,
-                                                   @RequestParam(required = false) String name){
-
-        //Page<Extension> sortedExtensions = extensionService.findAllByDownloads(PageRequest.of(page,5));
-        Page<Extension> sortedExtensions = extensionService.findAllByDownloadsAndName(name,PageRequest.of(page,PAGE_SIZE));
-
-        ModelAndView modelAndView = new ModelAndView("/search-results");
-        modelAndView.addObject("extensions",sortedExtensions);
-        modelAndView.addObject("searchParam",name);
-
-        return modelAndView;
-    }
-
-
-    @GetMapping("/name")
-    public ModelAndView displayResultsByName(@RequestParam(defaultValue = "0") int page,
-                                             @RequestParam(required = false) String name){
-
-        Page<Extension> sortedExtensions = extensionService.findAllByName(name,PageRequest.of(page,PAGE_SIZE));
-
-        ModelAndView modelAndView = new ModelAndView("/search-results");
-        modelAndView.addObject("extensions",sortedExtensions);
-        modelAndView.addObject("searchParam",name);
-
-        return modelAndView;
     }
 }
 

@@ -149,7 +149,7 @@
                         <td th:text="${e.lastCommit}"></td>
                         <td th:text="${e.addedOn}"></td>
                         <td>
-                            <a th:href="@{/search-results(tagName=${tag.tagTitle})}" class="badge badge-info"
+                            <a th:href="@{/search-results(tagName=${tag.tagTitle},sortby='name')}" class="badge badge-info"
                                th:each="tag : ${e.tags}" th:text="${tag.tagTitle}">
                             </a>
                         </td>

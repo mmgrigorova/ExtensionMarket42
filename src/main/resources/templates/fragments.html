@@ -73,10 +73,11 @@
 </nav>
 
 <section class="section-search" th:fragment="search">
-    <form th:action="@{/search-results}" method="get" class="input-group md-form form-sm form-2 pl-0 mx-auto"
+    <form th:action="@{/search-results(name=${name},sortby='name')}" method="get" class="input-group md-form form-sm form-2 pl-0 mx-auto"
           style="width: 400px">
         <input name="name" class="form-control my-0 py-1" type="text" placeholder="Search extension..."
                aria-label="Search">
+        <input type="hidden" name="sortby" value="name">
         <button type="submit" class="input-group-append input-group-text lighten-3 search-button" id="basic-text1">
             <i class="fa fa-search text-grey"
                aria-hidden="true"></i>
