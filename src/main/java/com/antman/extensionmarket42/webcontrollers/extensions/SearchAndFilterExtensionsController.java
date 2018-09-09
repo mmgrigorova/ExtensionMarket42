@@ -12,10 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("search-results")
@@ -36,12 +32,13 @@ public class SearchAndFilterExtensionsController {
                                              @RequestParam(name = "sortby") String sortBy,
                                              Model model) {
         Page<Extension> matchingByCriteria = null;
+
         if (searchBy.equals("name")) {
             matchingByCriteria = extensionService.findAllByName(value,PageRequest.of(page,PAGE_SIZE, Direction.ASC, sortBy));
         }
 
         if (searchBy.equals("tagname")){
-            matchingByCriteria = extensionService.findAllByTag(value, PageRequest.of(page,PAGE_SIZE,  Sort.by(sortBy)));
+            matchingByCriteria = extensionService.findAllByTag(value, PageRequest.of(page,PAGE_SIZE, Direction.ASC, sortBy));
         }
         model.addAttribute("searchValue", value);
         model.addAttribute("searchParam",searchBy);
