@@ -14,9 +14,9 @@ public interface ExtensionService {
     Extension getById(Long id) throws NotFoundException;
 
     Extension createNewExtension(ExtensionDto extensionDto) throws ParseException, IOException;
-    Extension deactivateExtension(Extension extension);
-    Extension updateExtension(long id, Extension extension);
-    Extension updateExtension(long id, Extension extension, String path);
+    Extension deactivateExtension(long id,boolean b) throws NotFoundException;
+    Extension updateExtension(long id, Extension extension) throws NotFoundException;
+    Extension updateExtension(long id, Extension extension, String path) throws NotFoundException;
     int increaseDownloadCount(Long extensionId);
 
 
@@ -27,16 +27,7 @@ public interface ExtensionService {
     List<Extension> getPending(boolean b);
     List<Extension> getInactive();
     List<Extension> getMostPopularApproved();
-    List<Extension> getByTag(String tag);
     List<Extension> getRecentlyAdded();
-    void removeById(long id);
-
-    //Sorting
-    List<Extension> orderByDownloadsCount();
-    List<Extension> orderByLastCommit();
-    List<Extension> orderByUploadDate();
-    List<Extension> orderByName();
-
 
     Extension approvePendingExtension(Long extensionId) throws NotFoundException;
     Extension toggleFeaturedExtension(long extensionId) throws NotFoundException;
@@ -44,4 +35,12 @@ public interface ExtensionService {
     String generateUniqueFileName(ExtensionDto extensionDto, String originalFileName);
 
     Page<Extension> findAll(Pageable pageable);
+    Page<Extension> findAllByName(String name,Pageable pageable);
+    Page<Extension> findAllByName(Pageable pageable);
+    Page<Extension> findAllByTag(String name,Pageable pageable);
+
+    Page<Extension> findAllByDownloadsAndName(String name, Pageable pageable);
+    Page<Extension> findAllByCommitAndName(String name, Pageable pageable);
+    Page<Extension> findAllByAddedOnAndName(String name, Pageable pageable);
+
 }

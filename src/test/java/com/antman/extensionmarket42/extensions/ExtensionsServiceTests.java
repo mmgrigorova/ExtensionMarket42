@@ -1,6 +1,8 @@
-package com.antman.extensionmarket42.extensions;
+package com.antman.extensionmarket42.Extensions;
 
 import com.antman.extensionmarket42.dtos.ExtensionDto;
+import com.antman.extensionmarket42.models.User;
+import com.antman.extensionmarket42.models.UserProfile;
 import com.antman.extensionmarket42.models.extensions.Extension;
 import com.antman.extensionmarket42.repositories.base.ExtensionRepository;
 import com.antman.extensionmarket42.repositories.base.TagRepository;
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.mockito.Mockito.*;
 
 
@@ -68,6 +71,25 @@ public class ExtensionsServiceTests {
     }
 
     @Test
+    public void getByUserId_whenUserProfileIdMatchesOwnerId_returnExtension(){
+        List<Extension> extensions = new ArrayList<>();
+
+        Extension extensionOne = ExtensionTestSetup.createExtension(1l);
+        extensionOne.setUserProfile(new UserProfile());
+        extensionOne.getUserProfile().setUserId(1L);
+        extensions.add(extensionOne);
+
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserId(1L);
+
+        when(extensionMockRepository.getAllByActiveTrueAndUserProfile_UserId(1L)).thenReturn(extensions);
+
+        List<Extension> result = extensionService.getByUserId(1L);
+
+        assertEquals(extensions,result);
+    }
+
+    @Test
     public void getAll_whenExtensionsArePresent_returnAllActiveExtension() {
         List<Extension> extensions = new ArrayList<>();
         List<Extension> activeExtensions = new ArrayList<>();
@@ -79,11 +101,28 @@ public class ExtensionsServiceTests {
         extensions.add(new Extension());
         activeExtensions.add(activeExtension);
 
-        when(extensionMockRepository.findAllByActiveTrue()).thenReturn(activeExtensions);
+        when(extensionMockRepository.findAllByActiveTrueOrderByName()).thenReturn(activeExtensions);
 
         List<Extension> result = extensionService.getAll();
 
         assertEquals(1, result.size());
+    }
+
+    @Test
+    public void deactivateExtension_whenBooleanIsFalse_ThenReturnExtensionWhichIsNotActive() throws NotFoundException{
+        Extension extension = new Extension();
+        extension.setActive(true);
+        Extension newData = new Extension();
+        newData.setActive(false);
+
+        when(extensionMockRepository.findById(1L))
+                .thenReturn(Optional.of(extension));
+        when(extensionMockRepository.save(any(Extension.class)))
+                .thenReturn(newData);
+
+        Extension result = extensionService.deactivateExtension(1L,false);
+
+        Assert.assertEquals(result.isActive(), false);
     }
 
     @Test
@@ -157,5 +196,38 @@ public class ExtensionsServiceTests {
         //Assert
         String expectedFileName = "testextension_3.5_initialFile.txt";
         Assert.assertEquals(result, expectedFileName);
+    }
+
+    @Test
+    public void updateExtension_WhenPassingIdAndExtension_ReturnsUpdatedExtension() throws NotFoundException {
+
+        Extension extension = ExtensionTestSetup.createExtension(1L,"Name","Description","Version");
+        Extension newData = ExtensionTestSetup.createExtension(1L,"uName","uDescription","uVersion");
+
+        when(extensionMockRepository.findById(1L))
+                .thenReturn(Optional.of(extension));
+        when(extensionMockRepository.save(any(Extension.class)))
+                .thenReturn(newData);
+
+        Extension result = extensionService.updateExtension(1L,newData);
+
+        Assert.assertThat(result, samePropertyValuesAs(newData));
+    }
+
+    @Test
+    public void updateExtension_WhenPassingIdAndExtensionAndFilePath_ReturnsUpdatedExtension() throws NotFoundException {
+
+        Extension extension = ExtensionTestSetup.createExtension(1L,"Name","Description","Version","path");
+        Extension newData = ExtensionTestSetup.createExtension(1L,"uName","uDescription","uVersion","uPath");
+
+        when(extensionMockRepository.findById(1L))
+                .thenReturn(Optional.of(extension));
+        when(extensionMockRepository.save(any(Extension.class)))
+                .thenReturn(newData);
+
+        Extension result = extensionService.updateExtension(1L,newData,"uPath");
+
+        Assert.assertNotNull(result.getDownloadLink());
+        Assert.assertThat(result, samePropertyValuesAs(newData));
     }
 }

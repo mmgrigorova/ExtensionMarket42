@@ -5,18 +5,21 @@ import com.antman.extensionmarket42.services.extensions.ExtensionRepositoryDataS
 import com.antman.extensionmarket42.services.extensions.ExtensionService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class DisplayExtensionsController {
     private ExtensionService extensionService;
     private ExtensionRepositoryDataService gitHubService;
-
+    private final int PAGE_SIZE =10;
 
     @Autowired
     public DisplayExtensionsController(ExtensionService extensionService,
@@ -26,7 +29,7 @@ public class DisplayExtensionsController {
     }
 
     @GetMapping("adminPanel")
-    public ModelAndView getAdminPage(@ModelAttribute("choice")  String choice){
+    public ModelAndView getAdminPage(@ModelAttribute("choice") String choice){
         List<Extension> extensions = null;
         ModelAndView modelAndView = new ModelAndView("adminPanel");
         modelAndView.addObject("repoData", gitHubService.getLastSyncData());
@@ -111,7 +114,18 @@ public class DisplayExtensionsController {
         return modelAndView;
     }
 
+    @GetMapping("adminPanel/sortByName")
+    public ModelAndView sortByName(@RequestParam(defaultValue = "0") int page){
 
+        Page<Extension> sortedExtensions = extensionService.findAllByName(PageRequest.of(page,PAGE_SIZE));
+        ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
+
+        modelAndView.addObject("extensions",sortedExtensions);
+        modelAndView.addObject("choice","sortByName");
+        modelAndView.addObject("page",page);
+
+        return modelAndView;
+    }
 
 }
 

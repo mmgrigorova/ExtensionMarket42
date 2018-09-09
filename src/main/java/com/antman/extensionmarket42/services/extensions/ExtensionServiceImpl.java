@@ -103,38 +103,40 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public Extension deactivateExtension(Extension extension) {
+    public Extension deactivateExtension(long id, boolean b) throws NotFoundException{
+        Extension extension = getById(id);
+        extension.setActive(b);
         extensionRepository.save(extension);
         return extension;
     }
 
     @Override
-    public Extension updateExtension(long id, Extension extension, String filepath) {
-        Extension current = extensionRepository.getById(id);
+    public Extension updateExtension(long id, Extension extension, String filepath) throws NotFoundException{
+        Extension current = getById(id);
 
         current.setName(extension.getName());
         current.setDescription(extension.getDescription());
         current.setVersion(extension.getVersion());
-        System.out.println(filepath);
+
         if(filepath != null && !filepath.isEmpty())
         {
             current.setDownloadLink(filepath);
         }
-        System.out.println(current.getDownloadLink());
+
         extensionRepository.save(current);
-        return extension;
+        return current;
     }
 
     @Override
-    public Extension updateExtension(long id, Extension extension) {
-        Extension current = extensionRepository.getById(id);
+    public Extension updateExtension(long id, Extension extension) throws NotFoundException{
+        Extension current = getById(id);
 
         current.setName(extension.getName());
         current.setDescription(extension.getDescription());
         current.setVersion(extension.getVersion());
 
         extensionRepository.save(current);
-        return extension;
+        return current;
     }
 
     @Override
@@ -156,7 +158,7 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getAll() {
-        return extensionRepository.findAllByActiveTrue();
+        return extensionRepository.findAllByActiveTrueOrderByName();
     }
 
     @Override
@@ -180,38 +182,8 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public List<Extension> getByTag(String tag) {
-        return extensionRepository.findByActiveTrueAndPendingFalseAndTags_tagTitle(tag);
-    }
-
-    @Override
     public List<Extension> getRecentlyAdded() {
         return extensionRepository.findTop5ByActiveTrueAndPendingOrderByAddedOnDesc(false);
-    }
-
-    @Override
-    public void removeById(long id) {
-        extensionRepository.deleteById(id);
-    }
-
-    @Override
-    public List<Extension> orderByDownloadsCount() {
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByDownloadsCountDesc();
-    }
-
-    @Override
-    public List<Extension> orderByLastCommit() {
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByLastCommitDesc();
-    }
-
-    @Override
-    public List<Extension> orderByUploadDate() {
-        return extensionRepository.findAllByPendingFalseAndActiveTrueOrderByAddedOnDesc();
-    }
-
-    @Override
-    public List<Extension> orderByName() {
-        return extensionRepository.findAllByOrderByName();
     }
 
     @Override
@@ -267,4 +239,34 @@ public class ExtensionServiceImpl implements ExtensionService {
 
         return extensionPage;
     }
+
+    @Override
+    public Page<Extension> findAllByName(String name,Pageable pageable){
+        return extensionRepository.getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCaseOrderByName(name,pageable);
+    }
+
+    @Override
+    public Page<Extension> findAllByTag(String name, Pageable pageable){
+        return extensionRepository.findByActiveTrueAndPendingFalseAndTags_tagTitle(name,pageable);
+    }
+
+    @Override
+    public Page<Extension> findAllByDownloadsAndName(String name,Pageable pageable){
+        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByDownloadsCountDesc(name,pageable);
+    }
+
+    @Override
+    public Page<Extension> findAllByName(Pageable pageable){
+        return  extensionRepository.findAllByPendingFalseAndActiveTrueOrderByName(pageable);
+    }
+
+    @Override
+    public Page<Extension> findAllByCommitAndName(String name,Pageable pageable){
+        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainsIgnoreCaseOrderByLastCommitDesc(name,pageable);
+    }
+
+    public Page<Extension> findAllByAddedOnAndName(String name,Pageable pageable){
+        return extensionRepository.findAllByPendingFalseAndActiveTrueAndNameContainingIgnoreCaseOrderByAddedOnDesc(name,pageable);
+    }
+
 }
