@@ -120,7 +120,7 @@ public class DisplayExtensionsController {
     @GetMapping("adminPanel/sortByName")
     public ModelAndView sortByName(@RequestParam(defaultValue = "0") int page){
 
-        Page<Extension> sortedExtensions = extensionService.findAllByName(PageRequest.of(page,PAGE_SIZE));
+        Page<Extension> sortedExtensions = extensionService.findAll(PageRequest.of(page,PAGE_SIZE));
         ModelAndView modelAndView = new ModelAndView("redirect:/adminPanel");
 
         modelAndView.addObject("extensions",sortedExtensions);

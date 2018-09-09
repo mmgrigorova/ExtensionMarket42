@@ -373,16 +373,33 @@ public class ExtensionsServiceTests {
         Extension extension = ExtensionTestSetup.createExtension(1L,"testName","","1");
         extensions.add(extension);
 
-        Page<Extension> pages = new PageImpl<>(new ArrayList<>());
+        Page<Extension> page = new PageImpl<>(new ArrayList<>());
         PageRequest pageable = PageRequest.of(0,5);
 
-        when(extensionMockRepository.getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase("testName",pageable)).thenReturn(pages);
+        when(extensionMockRepository.getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase("testName",pageable)).thenReturn(page);
 
         Page<Extension> result = extensionService.findAllByName("testName",pageable);
 
         verify(extensionMockRepository, times(1)).getAllByActiveTrueAndPendingFalseAndNameContainingIgnoreCase("testName",pageable);
 
-        assertEquals(pages, result);
+        assertEquals(page, result);
+    }
+
+    @Test
+    public void findAll_WhenExtensionsArePresent_ReturnAll(){
+        List<Extension> extensions = new ArrayList<>();
+        Extension extension = ExtensionTestSetup.createExtension(1L,"testName","","1");
+        extensions.add(extension);
+
+        Page<Extension> pages = new PageImpl<>(extensions);
+        PageRequest pageable = PageRequest.of(0,5);
+
+        when(extensionMockRepository.findAllByPendingFalseAndActiveTrueOrderByName(pageable)).thenReturn(pages);
+
+        Page<Extension> page = extensionService.findAll(pageable);
+
+        assertEquals(1,page.getTotalElements());
+
     }
 
 
