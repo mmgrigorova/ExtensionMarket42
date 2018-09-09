@@ -54,7 +54,7 @@
             <div class="col-8">
                 <h2 class="card-title">Description</h2>
                 <p class="card-text" th:utext="${extension.description}">Extension Description</p>
-                <a th:href="@{/search-results(tagName=${tag.tagTitle})}" class="badge badge-info"
+                <a th:href="@{/search-results(searchby='tagname',value=${tag.tagTitle},sortby='name')}" class="badge badge-info"
                    th:each="tag : ${tags}"
                    th:text="${tag.tagTitle}">
                     JavaTag

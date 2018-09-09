@@ -110,7 +110,7 @@
                 <table class="table table-striped table-light table-custom">
                     <tr>
                         <th>Id</th>
-                        <th><a href="#" th:href="@{/adminPanel/sortByName}">name</a></th>
+                        <th>Name</th>
                         <th>Owner</th>
                         <th>Pending</th>
                         <th>Featured</th>
@@ -149,7 +149,7 @@
                         <td th:text="${e.lastCommit}"></td>
                         <td th:text="${e.addedOn}"></td>
                         <td>
-                            <a th:href="@{/search-results(tagName=${tag.tagTitle},sortby='name')}" class="badge badge-info"
+                            <a th:href="@{/search-results(searchby='tagname',value=${tag.tagTitle},sortby='name')}" class="badge badge-info"
                                th:each="tag : ${e.tags}" th:text="${tag.tagTitle}">
                             </a>
                         </td>

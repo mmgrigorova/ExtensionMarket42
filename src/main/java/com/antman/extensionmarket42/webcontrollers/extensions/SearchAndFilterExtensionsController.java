@@ -21,7 +21,7 @@ import java.util.Optional;
 @RequestMapping("search-results")
 public class SearchAndFilterExtensionsController {
     private final ExtensionService extensionService;
-    private final int PAGE_SIZE = 4;
+    private final int PAGE_SIZE = 10;
 
     @Autowired
     public SearchAndFilterExtensionsController(ExtensionService extensionService) {
@@ -30,27 +30,25 @@ public class SearchAndFilterExtensionsController {
 
 
     @GetMapping
-    public String displaySearchResultsByName(@RequestParam(required = false) Optional<String> name,
-                                             @RequestParam(required = false) Optional<String> tagName,
+    public String displaySearchResultsByName(@RequestParam(name = "searchby") String searchBy,
+                                             @RequestParam String value,
                                              @RequestParam(defaultValue = "0") int page,
                                              @RequestParam(name = "sortby") String sortBy,
                                              Model model) {
         Page<Extension> matchingByCriteria = null;
-        if (name.isPresent()) {
-            matchingByCriteria = extensionService.findAllByName(name.get(),PageRequest.of(page,PAGE_SIZE, Direction.ASC, sortBy));
-            model.addAttribute("criteria", name.get());
-            model.addAttribute("searchParam",name.get());
-            model.addAttribute("sortby", sortBy);
+        if (searchBy.equals("name")) {
+            matchingByCriteria = extensionService.findAllByName(value,PageRequest.of(page,PAGE_SIZE, Direction.ASC, sortBy));
         }
 
-        if (tagName.isPresent()){
-            matchingByCriteria = extensionService.findAllByTag(tagName.get(), PageRequest.of(page,PAGE_SIZE,  Sort.by(sortBy)));
-            model.addAttribute("criteria", tagName.get());
-            model.addAttribute("searchParam", tagName.get());
-            model.addAttribute("sortby", sortBy);
+        if (searchBy.equals("tagname")){
+            matchingByCriteria = extensionService.findAllByTag(value, PageRequest.of(page,PAGE_SIZE,  Sort.by(sortBy)));
         }
+        model.addAttribute("searchValue", value);
+        model.addAttribute("searchParam",searchBy);
+        model.addAttribute("sortby", sortBy);
         model.addAttribute("extensions", matchingByCriteria);
         model.addAttribute("resultCount", matchingByCriteria.getTotalPages());
+        model.addAttribute("totalResultCount", matchingByCriteria.getTotalElements());
 
         return "search-results";
     }
