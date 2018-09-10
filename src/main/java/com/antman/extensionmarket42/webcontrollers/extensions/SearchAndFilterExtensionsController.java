@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SearchAndFilterExtensionsController {
     private final ExtensionService extensionService;
     private final int PAGE_SIZE = 10;
+    private Direction direction = Direction.ASC;
 
     @Autowired
     public SearchAndFilterExtensionsController(ExtensionService extensionService) {
@@ -33,12 +34,18 @@ public class SearchAndFilterExtensionsController {
                                              Model model) {
         Page<Extension> matchingByCriteria = null;
 
-        if (searchBy.equals("name")) {
-            matchingByCriteria = extensionService.findAllByName(value,PageRequest.of(page,PAGE_SIZE, Direction.ASC, sortBy));
+        if (searchBy.equals("name") ) {
+            if(direction == Direction.ASC){
+                direction = Direction.DESC;
+            }
+            else {
+                direction = Direction.ASC;
+            }
+            matchingByCriteria = extensionService.findAllByName(value,PageRequest.of(page,PAGE_SIZE, direction, sortBy));
         }
 
         if (searchBy.equals("tagname")){
-            matchingByCriteria = extensionService.findAllByTag(value, PageRequest.of(page,PAGE_SIZE, Direction.ASC, sortBy));
+            matchingByCriteria = extensionService.findAllByTag(value, PageRequest.of(page,PAGE_SIZE, direction, sortBy));
         }
         model.addAttribute("searchValue", value);
         model.addAttribute("searchParam",searchBy);

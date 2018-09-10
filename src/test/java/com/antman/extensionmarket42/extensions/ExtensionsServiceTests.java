@@ -402,6 +402,27 @@ public class ExtensionsServiceTests {
 
     }
 
+    @Test
+    public void findByTag_WhenExtensionsHaveGivenTag_ReturnExtensions(){
+        List<Extension> extensions = new ArrayList<>();
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag("java"));
+
+        Extension extension = ExtensionTestSetup.createExtension(1L,"testName","","1");
+        extension.setTags(tags);
+        extensions.add(extension);
+
+        Page<Extension> pages = new PageImpl<>(extensions);
+        PageRequest pageable = PageRequest.of(0,5);
+
+        when(extensionMockRepository.findByActiveTrueAndPendingFalseAndTags_tagTitle("java",pageable))
+                .thenReturn(pages);
+
+        Page<Extension> page = extensionService.findAllByTag("java",pageable);
+
+        assertEquals(1,page.getTotalElements());
+    }
+
 
 
 
