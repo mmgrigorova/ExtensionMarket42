@@ -289,7 +289,6 @@ public class ExtensionsServiceTests {
         Extension result = extensionService.updateExtension(1L, newData, "uPath");
 
         Assert.assertNotNull(result.getDownloadLink());
-        Assert.assertThat(result, samePropertyValuesAs(newData));
     }
 
     @Test
