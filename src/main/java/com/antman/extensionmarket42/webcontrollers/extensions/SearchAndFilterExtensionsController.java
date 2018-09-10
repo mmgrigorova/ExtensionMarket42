@@ -34,15 +34,14 @@ public class SearchAndFilterExtensionsController {
                                              Model model) {
         Page<Extension> matchingByCriteria = null;
 
-        if (searchBy.equals("name") ) {
-            if(direction == Direction.ASC){
+        if (searchBy.equals("name")&& page == 0  ) {
+            if (direction == Direction.ASC) {
                 direction = Direction.DESC;
-            }
-            else {
+            } else {
                 direction = Direction.ASC;
             }
-            matchingByCriteria = extensionService.findAllByName(value,PageRequest.of(page,PAGE_SIZE, direction, sortBy));
         }
+            matchingByCriteria = extensionService.findAllByName(value,PageRequest.of(page,PAGE_SIZE, direction, sortBy));
 
         if (searchBy.equals("tagname")){
             matchingByCriteria = extensionService.findAllByTag(value, PageRequest.of(page,PAGE_SIZE, direction, sortBy));
