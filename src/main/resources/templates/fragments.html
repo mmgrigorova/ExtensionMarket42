@@ -86,10 +86,23 @@
     </form>
 </section>
 
-<section th:fragment="footer" class="text-center footer">
-    <p>
-        <small>Team Ant-Man - Telerik Academy 2018</small>
-    </p>
+<section th:fragment="footer" class="footer text-light bg-primary">
+    <div class="row">
+        <div class="col-6 text-right">
+            <ul class="text-right">
+                <li><a href="https://github.com/mmgrigorova/ExtensionMarket42"><i class="fab fa-github"></i> Team Ant-Man</a></li>
+                <li><a href="https://www.telerikacademy.com">Telerik Academy 2018</a></li>
+            </ul>
+        </div>
+        <div class="col-6">
+            <ul class="text-left">
+                <li><a href="https://www.linkedin.com/in/maria-grigorova-913b4b22/">
+                    <i class="fab fa-linkedin"></i> Maria Grigorova</a></li>
+                <li><a href="https://www.linkedin.com/in/george-georgiev-846735149/">
+                    <i class="fab fa-linkedin"></i> George Georgiev</a></li>
+            </ul>
+        </div>
+    </div>
 </section>
 <th:block th:fragment="assets">
     <script src="../script/script.js"></script>

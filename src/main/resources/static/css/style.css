@@ -1,7 +1,7 @@
 body {
     padding: 0px;
     margin: 0px;
-    background: url("/images/Triangle-White-Seamless-Patterns.jpg") repeat;
+    background: url("/images/Triangle-White-Seamless-Patterns.png") repeat;
 }
 
 h1 {
@@ -28,6 +28,10 @@ table a{
 
 navbar {
     color: #fff;
+}
+
+main{
+    min-height: 84vh;
 }
 
 article.extension-card {
@@ -150,12 +154,30 @@ h6.card-subtitle{
     color: black;
 }
 
+.alltags{
+    padding: 20px;
+}
+
 /*noinspection ALL*/
 .footer {
     bottom: 0;
     width: 100%;
-    height: 50px;
     margin: 0px 0px;
+    padding: 20px 20px;
+}
+.footer ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.text-right{
+    text-align: right;
+}
+
+.text-left{
+    text-align: left;
 }
 
 .input-group.md-form.form-sm.form-2 input {
