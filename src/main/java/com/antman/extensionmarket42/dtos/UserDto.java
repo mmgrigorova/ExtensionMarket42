@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 public class UserDto {
     private static final String REQUIRED_MESSAGE = "This field is required";
     private static final String NAME_SIZE_MESSAGE = "Name should be at least two characters long";
+    private static final String PASSWORD_SIZE_MESSAGE = "Password should be at least 5 characters long";
 
     @NotNull
     @NotEmpty(message = REQUIRED_MESSAGE)
@@ -24,6 +25,7 @@ public class UserDto {
 
     @NotNull
     @NotEmpty(message = REQUIRED_MESSAGE)
+    @Size(min = 5, message = PASSWORD_SIZE_MESSAGE)
     private String password;
     private String matchingPassword;
 
