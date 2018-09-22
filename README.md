@@ -148,6 +148,8 @@ Download extension file
 ![devspace](https://i.imgur.com/Kt2WHWq.png)
 #### Admin Portal
 ![adminportal](https://i.imgur.com/GSFUmQT.png)
+#### Search Page
+![search](https://imgur.com/AoOvJgy)
 
 ---- 
 
