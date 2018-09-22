@@ -149,7 +149,7 @@ Download extension file
 #### Admin Portal
 ![adminportal](https://i.imgur.com/GSFUmQT.png)
 #### Search Page
-![search](https://imgur.com/AoOvJgy)
+![search](https://i.imgur.com/AoOvJgy.jpg)
 
 ---- 
 
